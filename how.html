@@ -72,11 +72,14 @@
         .diagram {
             background: var(--surface); border: 1px solid rgba(212,168,83,0.06);
             border-radius: 12px; padding: 32px; margin: 32px 0;
-            font-family: var(--mono); font-size: 13px; line-height: 2; color: var(--text-dim);
-            white-space: pre; overflow-x: auto;
+            font-family: var(--mono); font-size: 13px; color: var(--text-dim);
+            overflow-x: auto;
         }
         .diagram .label { color: var(--accent); font-weight: 500; }
         .diagram .faint { color: var(--text-faint); }
+        .diagram-table { width: 100%; border-collapse: collapse; text-align: center; }
+        .diagram-table td { padding: 4px 8px; white-space: nowrap; }
+        .diagram-table .arrow { color: var(--text-faint); font-size: 12px; }
 
         .callout {
             background: var(--surface); border-left: 3px solid var(--accent);
@@ -299,11 +302,30 @@
 <h2>What the relay sees</h2>
 
 <div class="diagram" role="img" aria-label="Diagram showing data flow: your laptop encrypts notes into ciphertext, the relay forwards the ciphertext without reading it, your phone decrypts back to notes">
-<span class="label">Your laptop</span>                        <span class="label">Relay</span>                         <span class="label">Your phone</span>
-    notes ──encrypt──► <span class="faint">████████████</span> ──forward──► <span class="faint">████████████</span> ──decrypt──► notes
-                       <span class="faint">ciphertext</span>                <span class="faint">ciphertext</span>
-
-<span class="faint">The relay sees ████████████. Your devices see your notes.</span>
+    <table class="diagram-table" aria-hidden="true">
+        <tr>
+            <td class="label">Your laptop</td>
+            <td></td>
+            <td class="label">Relay</td>
+            <td></td>
+            <td class="label">Your phone</td>
+        </tr>
+        <tr>
+            <td>notes</td>
+            <td class="arrow">──encrypt──►</td>
+            <td class="faint">████████████</td>
+            <td class="arrow">──forward──►</td>
+            <td class="faint">████████████</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td class="faint" style="font-size:11px">ciphertext</td>
+            <td class="arrow">──decrypt──►</td>
+            <td>notes</td>
+        </tr>
+    </table>
+    <div class="faint" style="margin-top:16px;text-align:center">The relay sees ████████████. Your devices see your notes.</div>
 </div>
 
 <h2>What happens on second visit</h2>
