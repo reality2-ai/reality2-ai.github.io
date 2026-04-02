@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Reality2 — Your Digital Life, Under Your Control</title>
+    <meta name="description" content="Why Reality2 exists, how trust groups work, and what digital sovereignty means in practice.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0e0e12; --surface: #16161d; --surface2: #1e1e28;
+            --accent: #d4a853; --accent-glow: #d4a85318;
+            --text: #d8d4cf; --text-dim: #8a8580; --text-faint: #5a5550;
+            --sans: 'DM Sans', -apple-system, sans-serif;
+            --mono: 'JetBrains Mono', 'SF Mono', monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.8; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+            padding: 16px 32px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(14,14,18,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(212,168,83,0.06);
+        }
+        nav .logo { font-weight: 700; font-size: 17px; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+        nav .links { display: flex; gap: 24px; font-size: 14px; }
+        nav .links a { color: var(--text-dim); }
+        nav .links a:hover { color: var(--accent); text-decoration: none; }
+
+        article {
+            max-width: 680px; margin: 0 auto; padding: 120px 24px 80px;
+        }
+        article h1 {
+            font-size: 40px; font-weight: 700; letter-spacing: -1px; margin-bottom: 12px; line-height: 1.2;
+        }
+        article h1 span { color: var(--accent); }
+        article .subtitle { font-size: 18px; color: var(--text-dim); margin-bottom: 48px; line-height: 1.6; }
+        article h2 {
+            font-size: 26px; font-weight: 700; letter-spacing: -0.3px;
+            margin: 56px 0 16px; padding-top: 32px; border-top: 1px solid rgba(212,168,83,0.06);
+        }
+        article h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+        article h2 span { color: var(--accent); }
+        article h3 { font-size: 19px; font-weight: 600; margin: 32px 0 12px; }
+        article p { color: var(--text-dim); font-size: 16px; margin-bottom: 16px; }
+        article p em { color: var(--text); font-style: italic; }
+
+        .scenario {
+            background: var(--surface); border: 1px solid rgba(212,168,83,0.06);
+            border-radius: 12px; padding: 24px 28px; margin: 20px 0;
+        }
+        .scenario p { font-size: 15px; margin-bottom: 0; }
+
+        .pullquote {
+            border-left: 3px solid var(--accent); padding: 16px 24px; margin: 32px 0;
+            font-size: 17px; color: var(--text); font-style: italic; line-height: 1.7;
+        }
+
+        .back-link { display: inline-block; margin-bottom: 32px; font-size: 14px; color: var(--text-dim); }
+        .back-link:hover { color: var(--accent); }
+
+        footer { padding: 48px 24px; text-align: center; border-top: 1px solid rgba(212,168,83,0.06); font-size: 13px; color: var(--text-faint); max-width: 680px; margin: 0 auto; }
+        footer a { color: var(--text-dim); }
+
+        @media (max-width: 640px) {
+            nav { padding: 12px 16px; } nav .links { gap: 16px; font-size: 13px; }
+            article { padding: 100px 20px 60px; }
+            article h1 { font-size: 28px; }
+            article h2 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo" style="text-decoration:none">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="#d4a853" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2
+    </a>
+    <div class="links">
+        <a href="index.html#apps">Apps</a>
+        <a href="index.html#developers">Developers</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+    </div>
+</nav>
+
+<article>
+
+<a href="index.html" class="back-link">&larr; Back to Reality2</a>
+
+<h1>Your Digital Life, <span>Under Your Control</span></h1>
+<p class="subtitle">Why Reality2 exists, how it works, and what digital sovereignty means in practice.</p>
+
+<h2>Why Should You <span>Care</span>?</h2>
+
+<p>Right now, you don't own your digital life. You think you do, but look closer.</p>
+
+<p>Your photos live on someone else's server. Your messages pass through someone else's system. Your medical data sits in a database you can't see, managed by a company you didn't choose. Your smart thermostat only works if the manufacturer's cloud is online. Your watch talks to your phone &mdash; but only through an app that reports back to a corporation. Every password you create is one more secret stored on someone else's computer, waiting to appear in the next data breach.</p>
+
+<p>You've probably felt the friction: the password you can't remember, the two-factor code you're waiting for, the device that won't pair, the app that won't work offline, the service that shut down and took your data with it. These aren't minor inconveniences. They're symptoms of a digital world that was never designed to put you in control.</p>
+
+<p>Reality2 is designed to change that. It puts digital sovereignty &mdash; real ownership of your identity, your data, and your relationships &mdash; back where it belongs: with you.</p>
+
+<h2>What Does That <span>Actually Mean</span>?</h2>
+
+<p>Digital sovereignty sounds abstract until you see what it looks like in practice.</p>
+
+<div class="scenario">
+    <p>You walk into a friend's house. Your phone and their speaker recognise each other from last visit. Music picks up where it left off. No app to open, no pairing screen, no login. No company in the middle deciding whether these two devices are allowed to talk. They've met before, they trust each other, and they just work.</p>
+</div>
+
+<div class="scenario">
+    <p>You're hiking and lose mobile signal. Your watch and your partner's phone keep sharing location and heart rate directly &mdash; because they trust each other and don't need a cell tower or a cloud server to prove it. When you get signal again, everything syncs quietly. Your hike wasn't interrupted by your infrastructure.</p>
+</div>
+
+<div class="scenario">
+    <p>Your elderly mother's home sensors notice an unusual pattern. Her devices alert yours &mdash; not through a cloud service that stores her daily habits on a corporate server, but directly between your two trusted circles, sharing only what's relevant. No company is watching. No data warehouse is growing. Just family looking after family.</p>
+</div>
+
+<p>In each case, two things are true. The people and devices involved are in control &mdash; not a platform, not a provider, not an algorithm deciding what you're allowed to do with your own things. And the technology is quiet.</p>
+
+<p>Notice what's absent from those scenarios. No login screen. No pairing dialog. No notification asking for permission. No spinning wheel while a distant server decides what's allowed. The technology does its job and stays out of the way.</p>
+
+<p>There's a term for this: <em>calm technology</em>. Technology that works quietly in the background, only stepping forward when it genuinely needs your attention. It's the opposite of what most people live with now &mdash; buzzing notifications, login prompts, cookie banners, update nags, and screens demanding your focus for things that should be invisible.</p>
+
+<p>Reality2 is designed to be calm. When your devices trust each other, they cooperate without asking you to supervise. When the network changes, the system adapts without telling you about it. When trust is strong, authentication is invisible. You only get asked to intervene when something genuinely unusual happens.</p>
+
+<h2>Trust That Works Like <span>Trust</span></h2>
+
+<p>In real life, trust isn't a password. You don't show a passport every time you speak to a friend. Trust builds through experience &mdash; you meet someone, interact over time, and gradually trust them more. If they disappear for years and reappear unexpectedly, you're more cautious. If a stranger claims to know your friend, you don't hand over your house keys.</p>
+
+<p>Today's digital systems ignore all of this. Trust is binary: logged in or locked out. Right password or wrong password. The system remembers nothing about your history, has no sense of context, and treats every interaction like the first time.</p>
+
+<p>Reality2 introduces <em>trust groups</em> &mdash; small circles of people and devices that trust each other directly, secured by strong cryptography. Within a trust group, everyone shares the same cryptographic identity. Your phone, your laptop, your watch, and the people you've chosen to include can communicate freely. No internal logins. No per-request checks. Membership is the proof.</p>
+
+<p>But here's what makes it different from just another password system: trust has texture.</p>
+
+<p>A device that's been in your group for months, behaving normally, is trusted smoothly &mdash; almost invisibly. A brand new device gets asked for stronger verification. A device that hasn't been seen in weeks is treated with more caution. Trust grows through consistent, ongoing interaction. It fades when contact lapses. This is how human judgment works &mdash; not a gate you pass through once, but a confidence level that updates with evidence.</p>
+
+<p>And because there's no central password database, there's no treasure chest for hackers to steal. Your trust lives with your group, not on someone else's server.</p>
+
+<h3>When groups need to work together</h3>
+
+<p>Your trust group is yours &mdash; but life doesn't happen in isolation. A doctor needs to see specific health data. A building's sensors need to share energy readings with a utility. Your family's devices might cooperate briefly with a friend's when you're together.</p>
+
+<p>Reality2 handles this through <em>entanglement</em>. When two trust groups become entangled, they open a secure channel between them &mdash; but they stay separate. Neither group sees inside the other. Instead, they agree on exactly what to share: which information, in which direction, under what conditions. Either side can end the arrangement at any time.</p>
+
+<p>Like any real relationship, entanglement needs to be maintained. The two groups exchange small, regular heartbeat messages &mdash; a quiet back-and-forth that says "I'm still here, this link is still alive." As long as those messages keep flowing, the entanglement stays strong. If they stop, the entanglement fades. Use it or lose it. Use it more and it gets stronger.</p>
+
+<p>And entanglement doesn't spread. If your group is entangled with a hospital, and the hospital is entangled with a research lab, the lab has no relationship with you. Trust doesn't leak sideways. Every link is its own agreement.</p>
+
+<h2>A Network That <span>Learns</span></h2>
+
+<p>Most networks are built like fixed roads &mdash; always there, always the same. When the road disappears, everything stops. That's why your phone shows "No Connection" and becomes a brick.</p>
+
+<p>Reality2 treats connectivity as something that comes and goes &mdash; because in the real world, it does. Phones drift in and out of signal. Laptops hop between WiFi networks. Sensors on a farm might only reach each other for minutes at a time. Reality2 calls these <em>transient networks</em>: temporary connections that form, do useful work, and dissolve &mdash; without pretending to be permanent.</p>
+
+<p>Two trusted devices near each other can talk directly, over Bluetooth, WiFi, or whatever's available. A gateway that appears briefly can be used while it's there. If nothing is reachable, devices keep working on their own and catch up later. The system is designed to survive imperfect connectivity, not fail without perfect connectivity.</p>
+
+<p>What makes this powerful is that the network learns from itself.</p>
+
+<p>Every message that gets delivered successfully strengthens the route it took. Paths that carry frequent traffic become high-confidence paths &mdash; not because someone configured them, but because they keep proving they work. Equally, paths that go quiet gradually fade. If they start working again, confidence rebuilds through use.</p>
+
+<div class="pullquote">
+    The network breathes: strengthening where there's activity, relaxing where there isn't. Everything in Reality2 follows this rhythm: what you use grows stronger, what you neglect fades. The system mirrors the way real relationships work &mdash; not as permanent switches, but as living connections that need ongoing attention to thrive.
+</div>
+
+<h2>Privacy That's <span>Structural</span></h2>
+
+<p>If devices are forming groups and sharing data, a natural question is: who sees what?</p>
+
+<p>The short answer: only the people and devices you've chosen to trust, and only the data you've chosen to share.</p>
+
+<p>Within a trust group, members can see each other's events &mdash; that's the point of belonging. But nothing leaves the group unless you create an entanglement, and every entanglement has a defined scope. Your health sensors can share heart rate with a doctor without sharing your location. A building's sensors can share energy data with a utility without revealing occupancy patterns.</p>
+
+<p>There is no central server collecting everything. No company watching the data flow by. No advertising algorithm studying your behaviour. Trust groups are self-contained. Entanglements are scoped. Data stays with the people and devices involved.</p>
+
+<p>This is fundamentally different from today's model, where privacy is a policy document &mdash; a promise made by a company that holds all your data and may change its mind, get hacked, or be compelled by a government. In Reality2, privacy is structural. The data simply isn't anywhere it shouldn't be, because the architecture doesn't put it there.</p>
+
+<h2>How Is This <span>Different</span>?</h2>
+
+<p>You might be thinking: "My Apple devices already work together. I have Bluetooth. I have AirDrop." Fair. Here's what's different.</p>
+
+<p><strong>It's not locked to one brand.</strong> Apple's ecosystem works &mdash; if everything you own is Apple. Reality2 trust groups can include any device from any maker. A Samsung watch, an Arduino sensor, an iPhone, and a Linux laptop can all be members of the same group. Your sovereignty shouldn't depend on brand loyalty.</p>
+
+<p><strong>It's not just a mesh network.</strong> Mesh networks move data, but they don't carry trust. Reality2 combines networking with cryptographic identity, so the system knows not just <em>can I reach this device</em> but <em>should I trust what it says</em>.</p>
+
+<p><strong>It's not one-shot sharing.</strong> AirDrop and similar tools are single transactions: accept, transfer, done. Reality2 relationships are ongoing. Devices remember each other, build confidence over time, and cooperate continuously.</p>
+
+<p><strong>Nobody owns it.</strong> There is no Reality2 account. No Reality2 cloud. No company in the middle deciding who can talk to whom, or what features you get to use this month. Trust groups are sovereign &mdash; the group's members control the group, period.</p>
+
+<h2>Active Participants, Not <span>Passive Records</span></h2>
+
+<p>One more idea makes all of this come together.</p>
+
+<p>Why does your computer have a desktop, folders, and files? Because forty years ago, someone decided that the best way to make computers understandable was to make them look like an office desk. That metaphor shaped everything that followed. Your phone uses the same model: a grid of icons you tap to "open" an "app" that shows you a "page."</p>
+
+<p>It was a useful idea for its time. But it's a strange fit for a world of wearable sensors, autonomous devices, and systems that need to act on their own without anyone clicking anything.</p>
+
+<p>Reality2 uses a different model. Instead of passive documents waiting to be opened, it's built from active participants &mdash; software entities called <em>Sentants</em> that receive events, interpret them, remember context, and decide what to do next. A Sentant can represent a person, a device, a workflow, a set of rules, or a role in a process. It doesn't wait to be clicked. It listens, responds, and acts.</p>
+
+<p>Think of the difference between a document on a desk and a colleague in a room. The document sits there until you pick it up. The colleague pays attention, remembers what happened yesterday, responds to what's happening now, and takes initiative when something needs doing. Reality2 is built from colleagues, not documents.</p>
+
+<h2>What This Means <span>For You</span></h2>
+
+<p><strong>Your health, on your terms.</strong> A watch, ring, and phone form a trust group, keeping your health data local and private. If you choose to share with a doctor, you entangle &mdash; scoped, revocable, and without a company in the middle.</p>
+
+<p><strong>Devices that work together, for you.</strong> Devices from different makers cooperating as a personal ecosystem &mdash; not because a corporation brokered the deal, but because they're all members of your trust group.</p>
+
+<p><strong>The physical world, connected properly.</strong> Farms, buildings, workshops, vehicles &mdash; full of sensors that need to work with limited power and intermittent connectivity. Reality2 lets them cooperate locally, sync when paths appear, and share scoped data through entanglement.</p>
+
+<p><strong>Resilience when it counts.</strong> In emergencies, outages, remote areas, or places where infrastructure is unreliable &mdash; Reality2 keeps working. Trust doesn't depend on a server. The network adapts. There is no single point of failure.</p>
+
+<div class="pullquote">
+    Reality2 is built for the world you already live in &mdash; a world of mobile people, diverse devices, patchy connectivity, and relationships that don't fit neatly into one company's platform.
+</div>
+
+<p style="margin-top:48px;text-align:center"><a href="index.html" class="back-link">&larr; Back to Reality2</a></p>
+
+</article>
+
+<footer>
+    <p><a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:8px">Reality2 &mdash; Source code available soon.</p>
+</footer>
+
+</body>
+</html>

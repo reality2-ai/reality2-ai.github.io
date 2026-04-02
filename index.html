@@ -110,6 +110,7 @@
         <a href="#apps" class="btn btn-primary">Try an App</a>
         <a href="about.html" class="btn btn-secondary">Learn More</a>
     </div>
+    <p style="margin-top:32px;font-size:12px;color:var(--text-faint);font-family:var(--mono)">Early development &mdash; everything here is experimental</p>
 </div>
 
 <section>
@@ -150,25 +151,20 @@
             <h3>Notekeeper</h3>
             <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">Private notes on the R2 mesh. Markdown editing, auto-save, encrypted sync across devices via relay. QR code to add devices.</p>
             <div style="display:flex;gap:6px;margin-bottom:16px">
-                <span class="badge badge-green">Live</span>
+                <span class="badge badge-amber">Beta</span>
                 <span class="badge badge-amber">WASM</span>
                 <span class="badge badge-blue">Encrypted</span>
             </div>
-            <div style="display:flex;gap:8px">
-                <a href="https://reality2-ai.github.io/r2-notekeeper/" class="btn btn-primary btn-sm">Open App</a>
-                <a href="https://github.com/reality2-ai/r2-notekeeper" class="btn btn-secondary btn-sm">Source</a>
-            </div>
+            <p style="font-size:12px;color:var(--text-faint);margin-top:8px">Deployment in progress</p>
         </div>
         <div class="card app-card">
             <h3>R2 Relay</h3>
             <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">Transport relay for trust groups. Routes encrypted frames via WebSocket. Untrusted, stateless, cheap to run.</p>
             <div style="display:flex;gap:6px;margin-bottom:16px">
-                <span class="badge badge-green">Live</span>
+                <span class="badge badge-amber">Beta</span>
                 <span class="badge badge-amber">Rust</span>
             </div>
-            <div style="display:flex;gap:8px">
-                <a href="https://github.com/reality2-ai/r2-core/tree/main/tools/r2-relay" class="btn btn-secondary btn-sm">Source</a>
-            </div>
+            <p style="font-size:12px;color:var(--text-faint);margin-top:8px">Source available soon</p>
         </div>
         <div class="card app-card" style="opacity:0.4">
             <h3>Mesh Chat</h3>
@@ -187,33 +183,28 @@
 
 <section id="developers">
     <h2>For <span>Developers</span></h2>
-    <p class="lead">Open source. Formally specified. Rust reference implementation.</p>
+    <p class="lead">Formally specified. Rust reference implementation. Source code will be published when ready.</p>
     <div class="cards">
         <div class="card">
             <h3>Specifications</h3>
-            <p>50+ documents. Wire format, trust model, transport bindings, sentant lifecycle, hardware tiers.</p>
-            <p style="margin-top:8px"><a href="https://github.com/reality2-ai/r2-specifications">r2-specifications</a></p>
+            <p>50+ documents covering every protocol layer. Wire format, trust model, transport bindings, sentant lifecycle, hardware tiers.</p>
         </div>
         <div class="card">
             <h3>Rust Core</h3>
-            <p><code>no_std</code> crates: r2-wire, r2-cbor, r2-fnv, r2-trust, r2-route, r2-transport, r2-engine.</p>
-            <p style="margin-top:8px"><a href="https://github.com/reality2-ai/r2-core">r2-core</a></p>
+            <p><code>no_std</code> protocol crates: r2-wire, r2-cbor, r2-fnv, r2-trust, r2-route, r2-transport, r2-engine. One codebase, every target.</p>
         </div>
         <div class="card">
             <h3>WASM Bindings</h3>
-            <p>r2-wasm wraps the stack for browsers. Trust groups, encryption, HMAC &mdash; 70KB.</p>
-            <p style="margin-top:8px"><a href="https://github.com/reality2-ai/r2-core/tree/main/crates/r2-wasm">r2-wasm</a></p>
+            <p>r2-wasm wraps the protocol stack for browsers via wasm-bindgen. Trust groups, frame encode/decode, encryption &mdash; 70KB gzipped.</p>
         </div>
     </div>
 </section>
 
 <footer>
     <p>
-        <a href="https://github.com/reality2-ai">GitHub</a> &middot;
-        <a href="https://github.com/reality2-ai/r2-specifications">Specs</a> &middot;
-        <a href="https://github.com/reality2-ai/r2-core">Core</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
     </p>
-    <p style="margin-top:8px">Reality2 &mdash; Open source. MIT / Apache-2.0.</p>
+    <p style="margin-top:8px">Reality2 is in early development. Source code available soon.</p>
 </footer>
 
 </body>
