@@ -82,6 +82,54 @@
         footer { padding: 48px 24px; text-align: center; border-top: 1px solid rgba(212,168,83,0.06); font-size: 13px; color: var(--text-faint); max-width: 680px; margin: 0 auto; }
         footer a { color: var(--text-dim); }
 
+        /* Light theme */
+        [data-theme="light"] {
+            --bg: #f5f2ec; --surface: #ffffff; --surface2: #ece9e3;
+            --accent: #7a5c18; --accent-glow: #7a5c1818;
+            --green: #2d7a45; --blue: #3570a5;
+            --text: #2a2520; --text-dim: #5a554e; --text-faint: #9a958e;
+        }
+        [data-theme="light"] nav { background: rgba(245,242,236,0.92); border-bottom-color: rgba(122,92,24,0.1); }
+        [data-theme="light"] .scenario { border-color: rgba(122,92,24,0.08); }
+        [data-theme="light"] .toc { border-color: rgba(122,92,24,0.08); }
+        [data-theme="light"] .pullquote { border-left-color: var(--accent); }
+        [data-theme="light"] .cta-box { border-color: rgba(122,92,24,0.12); }
+
+        /* High contrast theme */
+        [data-theme="high-contrast"] {
+            --bg: #000000; --surface: #0a0a0a; --surface2: #1a1a1a;
+            --accent: #ffd700; --accent-glow: #ffd70020;
+            --green: #00ff6a; --blue: #6ab4ff;
+            --text: #ffffff; --text-dim: #e0e0e0; --text-faint: #b0b0b0;
+        }
+        [data-theme="high-contrast"] nav { background: rgba(0,0,0,0.95); border-bottom-color: rgba(255,215,0,0.3); }
+        [data-theme="high-contrast"] .btn-primary { background: #ffd700; color: #000; font-weight: 700; }
+        [data-theme="high-contrast"] .btn-secondary { border-color: rgba(255,215,0,0.4); color: #fff; }
+        [data-theme="high-contrast"] a { color: #ffd700; text-decoration: underline; }
+        [data-theme="high-contrast"] .scenario { border-color: rgba(255,215,0,0.25); }
+        [data-theme="high-contrast"] .pullquote { border-left-color: #ffd700; }
+
+        /* Theme toggle */
+        .theme-toggle {
+            background: none; border: 1px solid rgba(212,168,83,0.15); border-radius: 8px;
+            padding: 6px 8px; cursor: pointer; color: var(--text-dim); display: flex; align-items: center;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .theme-toggle:hover { color: var(--accent); border-color: rgba(212,168,83,0.3); }
+        .icon-moon, .icon-hc { display: none; }
+        [data-theme="light"] .icon-sun { display: none; }
+        [data-theme="light"] .icon-moon { display: block; }
+        [data-theme="high-contrast"] .icon-sun { display: none; }
+        [data-theme="high-contrast"] .icon-hc { display: block; }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute; top: -40px; left: 0; background: var(--accent); color: #000;
+            padding: 8px 16px; z-index: 100; font-size: 14px; font-weight: 600;
+            transition: top 0.2s;
+        }
+        .skip-link:focus { top: 0; }
+
         @media (max-width: 640px) {
             nav { padding: 12px 16px; } nav .links { gap: 16px; font-size: 13px; }
             article { padding: 100px 20px 60px; }
@@ -89,24 +137,37 @@
             article h2 { font-size: 22px; }
         }
     </style>
+    <script>
+        (function() {
+            var t = localStorage.getItem('r2-theme');
+            if (t === 'light' || t === 'high-contrast') document.documentElement.setAttribute('data-theme', t);
+        })();
+    </script>
 </head>
 <body>
 
-<nav>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav aria-label="Main navigation">
     <a href="index.html" class="logo" style="text-decoration:none">
-        <svg width="20" height="20" viewBox="0 0 512 512" fill="none"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="#d4a853" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="#d4a853" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
         Reality2
     </a>
     <div class="links">
         <a href="index.html#built">Built with R2</a>
         <a href="index.html#developers">Developers</a>
         <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
     </div>
 </nav>
 
-<article>
+<article id="main">
 
-<a href="index.html" class="back-link">&larr; Back to Reality2</a>
+<a href="index.html" class="back-link" aria-label="Back to Reality2 home">Back to Reality2</a>
 
 <h1>Your Digital Life, <span>Under Your Control</span></h1>
 <p class="subtitle">Why Reality2 exists, how it works, and what digital sovereignty actually looks like.</p>
@@ -224,5 +285,14 @@
     <p style="margin-top:8px">Reality2 is in early development. Source specifications and code available soon.</p>
 </footer>
 
+<script>
+function toggleTheme() {
+    var current = document.documentElement.getAttribute('data-theme') || 'dark';
+    var next = current === 'dark' ? 'light' : current === 'light' ? 'high-contrast' : 'dark';
+    if (next === 'dark') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('r2-theme', next);
+}
+</script>
 </body>
 </html>
