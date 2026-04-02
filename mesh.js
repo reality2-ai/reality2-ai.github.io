@@ -939,5 +939,3 @@ function loop(now) {
 requestAnimationFrame(loop);
 
 })();
-</script>
-</body>
