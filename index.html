@@ -115,24 +115,24 @@
 
 <section>
     <h2>What is <span>Reality2</span>?</h2>
-    <p class="lead">A decentralised mesh protocol for trust groups. Devices join cryptographic communities where every member can communicate securely without relying on a central server. A browser tab, a microcontroller, a phone &mdash; all equal peers in the mesh.</p>
+    <p class="lead">A protocol that removes the friction of connectivity and authentication. Devices find each other, prove who they are, and communicate securely &mdash; without logins, without pairing screens, without a cloud in the middle. The same code runs on a $5 microcontroller, a phone, a laptop, a server, or inside your web browser as WebAssembly.</p>
 
     <div class="cards">
         <div class="card">
-            <h3>Trust Groups, Not Accounts</h3>
-            <p>No usernames, no passwords. Devices join trust groups with cryptographic certificates. The group key encrypts everything.</p>
+            <h3>No Friction</h3>
+            <p>No passwords, no pairing dialogs, no login screens. Devices in a trust group recognise each other through cryptographic certificates. If you're a member, you're in. Authentication is invisible.</p>
         </div>
         <div class="card">
-            <h3>No Cloud Dependency</h3>
-            <p>The protocol stack runs on your devices. A relay helps with connectivity but never sees your data &mdash; it forwards encrypted bytes it cannot read.</p>
+            <h3>Any Device</h3>
+            <p>One Rust codebase compiles to bare-metal microcontrollers (ESP32, RP2040), Linux SBCs (Raspberry Pi), desktop, mobile, and 70KB of WebAssembly in the browser. A $5 chip and a cloud VM are equal peers.</p>
         </div>
         <div class="card">
             <h3>Any Transport</h3>
-            <p>BLE, WiFi, LoRa, USB, WebSocket &mdash; R2 treats them all the same. Messages route through whatever path is available.</p>
+            <p>BLE, WiFi, LoRa, USB, WebSocket &mdash; R2 treats them all the same. Networks come and go. The system adapts, routes around failures, and strengthens paths that work.</p>
         </div>
         <div class="card">
-            <h3>Browser-Native</h3>
-            <p>The entire R2 stack compiles to 70KB of WebAssembly. Open a web page and your browser becomes a mesh node. No install needed.</p>
+            <h3>No Cloud Dependency</h3>
+            <p>The protocol runs on your devices. A relay helps with connectivity across the internet, but it's untrusted infrastructure &mdash; it forwards encrypted bytes it cannot read. Your data never touches someone else's server.</p>
         </div>
     </div>
 
