@@ -66,8 +66,11 @@
         .card:hover { border-color: rgba(212,168,83,0.15); }
         .card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; color: var(--accent); }
         .card p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin: 0; }
+        .app-card { display: flex; flex-direction: column; }
         .app-card:hover { transform: translateY(-2px); }
         .app-card h3 { color: var(--text); font-size: 20px; }
+        .app-card .app-desc { flex: 1; }
+        .app-card .app-bottom { margin-top: auto; }
         .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-family: var(--mono); }
         .badge-green { background: rgba(110,203,139,0.1); color: var(--green); }
         .badge-amber { background: rgba(212,168,83,0.1); color: var(--accent); }
@@ -172,15 +175,17 @@
                 <svg width="28" height="28" viewBox="0 0 512 512" fill="none"><path d="M256 72L400 156V324L256 408L112 324V156Z" fill="none" stroke="#d4a853" stroke-width="20" stroke-linejoin="round" opacity="0.85"/><line x1="176" y1="200" x2="336" y2="200" stroke="#d4a853" stroke-width="12" stroke-linecap="round" opacity="0.5"/><line x1="176" y1="244" x2="310" y2="244" stroke="#d4a853" stroke-width="12" stroke-linecap="round" opacity="0.5"/><line x1="176" y1="288" x2="280" y2="288" stroke="#d4a853" stroke-width="12" stroke-linecap="round" opacity="0.5"/><path d="M310 320L420 120" stroke="#d4a853" stroke-width="14" stroke-linecap="round"/><path d="M310 320L300 330L314 326Z" fill="#d4a853"/><path d="M420 120Q440 96 448 72Q432 100 420 120" fill="#d4a853" opacity="0.7"/></svg>
                 <h3>Notekeeper</h3>
             </div>
-            <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">Private notes on your R2 mesh. Markdown editing, auto-save, encrypted sync across devices via relay. QR code to add devices.</p>
-            <div style="display:flex;gap:6px;margin-bottom:16px">
-                <span class="badge badge-amber">Beta</span>
-                <span class="badge badge-amber">WASM</span>
-                <span class="badge badge-blue">Encrypted</span>
-            </div>
-            <div style="display:flex;gap:8px">
-                <a href="https://reality2-ai.github.io/r2-notekeeper/" class="btn btn-primary btn-sm">Open</a>
-                <a href="https://github.com/reality2-ai/r2-notekeeper" class="btn btn-secondary btn-sm">Source</a>
+            <p class="app-desc" style="color:var(--text-dim);font-size:14px">Private notes on your R2 mesh. Markdown editing, auto-save, encrypted sync across devices via relay. QR code to add devices.</p>
+            <div class="app-bottom">
+                <div style="display:flex;gap:6px;margin-bottom:12px">
+                    <span class="badge badge-amber">Beta</span>
+                    <span class="badge badge-amber">WASM</span>
+                    <span class="badge badge-blue">Encrypted</span>
+                </div>
+                <div style="display:flex;gap:8px">
+                    <a href="https://reality2-ai.github.io/r2-notekeeper/" class="btn btn-primary btn-sm">Open</a>
+                    <a href="https://github.com/reality2-ai/r2-notekeeper" class="btn btn-secondary btn-sm">Source</a>
+                </div>
             </div>
         </div>
         <div class="card app-card">
@@ -188,13 +193,15 @@
                 <svg width="28" height="28" viewBox="0 0 512 512" fill="none"><path d="M256 72L400 156V324L256 408L112 324V156Z" fill="none" stroke="#d4a853" stroke-width="18" stroke-linejoin="round" stroke-dasharray="40,20" opacity="0.85"/><circle cx="256" cy="240" r="8" fill="#d4a853" opacity="0.5"/></svg>
                 <h3>Relay</h3>
             </div>
-            <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">Your own connectivity, on your own terms. Routes encrypted frames between your devices via WebSocket. Untrusted, stateless - run it on a $5 VPS or a Raspberry Pi in a cupboard.</p>
-            <div style="display:flex;gap:6px;margin-bottom:16px">
-                <span class="badge badge-amber">Beta</span>
-                <span class="badge badge-amber">Rust</span>
-            </div>
-            <div style="display:flex;gap:8px">
-                <a href="https://github.com/reality2-ai/r2-relay" class="btn btn-secondary btn-sm">Source</a>
+            <p class="app-desc" style="color:var(--text-dim);font-size:14px">Your own connectivity, on your own terms. Routes encrypted frames between your devices via WebSocket. Untrusted, stateless - run it on a $5 VPS or a Raspberry Pi in a cupboard.</p>
+            <div class="app-bottom">
+                <div style="display:flex;gap:6px;margin-bottom:12px">
+                    <span class="badge badge-amber">Beta</span>
+                    <span class="badge badge-amber">Rust</span>
+                </div>
+                <div style="display:flex;gap:8px">
+                    <a href="https://github.com/reality2-ai/r2-relay" class="btn btn-secondary btn-sm">Source</a>
+                </div>
             </div>
         </div>
         <div class="card app-card" style="opacity:0.4">
@@ -202,29 +209,37 @@
                 <svg width="28" height="28" viewBox="0 0 200 200" fill="none"><path d="M30,155 Q100,40 170,155" fill="#e94560"/><ellipse cx="100" cy="153" rx="14" ry="9" fill="#1a1a2e"/><path d="M90,70 Q83,56 91,44 Q100,35 109,44 Q117,56 110,70" fill="none" stroke="#4ade80" stroke-width="3"/><line x1="92" y1="70" x2="108" y2="70" stroke="#4ade80" stroke-width="2.5"/><circle cx="100" cy="56" r="4" fill="#4ade80" opacity="0.4"/><line x1="100" y1="30" x2="100" y2="22" stroke="#4ade80" stroke-width="2" opacity="0.5" stroke-linecap="round"/><line x1="79" y1="38" x2="73" y2="32" stroke="#4ade80" stroke-width="2" opacity="0.4" stroke-linecap="round"/><line x1="121" y1="38" x2="127" y2="32" stroke="#4ade80" stroke-width="2" opacity="0.4" stroke-linecap="round"/></svg>
                 <h3>Anthill</h3>
             </div>
-            <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">AI reasoning engine built on R2. Autonomous agents (ANTS) that think, research, and collaborate within trust groups.</p>
-            <div style="display:flex;gap:6px;margin-bottom:8px">
-                <span class="badge badge-dim">In Development</span>
-                <span class="badge badge-amber">Rust</span>
+            <p class="app-desc" style="color:var(--text-dim);font-size:14px">AI reasoning engine built on R2. Autonomous agents (ANTS) that think, research, and collaborate within trust groups.</p>
+            <div class="app-bottom">
+                <div style="display:flex;gap:6px;margin-bottom:8px">
+                    <span class="badge badge-dim">In Development</span>
+                    <span class="badge badge-amber">Rust</span>
+                </div>
+                <p style="font-size:12px;color:var(--text-faint);margin:0"><a href="https://github.com/reality2-ai/anthill">anthill</a></p>
             </div>
-            <p style="font-size:12px;color:var(--text-faint)"><a href="https://github.com/reality2-ai/anthill">anthill</a></p>
         </div>
         <div class="card app-card" style="opacity:0.4">
             <h3>TrustTalk</h3>
-            <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">Encrypted messaging for trust groups. Real-time text across any R2 transport - relay, BLE, LoRa, WiFi, USB.</p>
-            <span class="badge badge-dim">Planned</span>
+            <p class="app-desc" style="color:var(--text-dim);font-size:14px">Encrypted messaging for trust groups. Real-time text across any R2 transport - relay, BLE, LoRa, WiFi, USB.</p>
+            <div class="app-bottom">
+                <span class="badge badge-dim">Planned</span>
+            </div>
         </div>
         <div class="card app-card" style="opacity:0.4">
             <h3>Sensor Dashboard</h3>
-            <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">Real-time environmental monitoring from R2 mesh sensors. Temperature, water level, rainfall. Mariko EarthGrids.</p>
-            <span class="badge badge-dim">Planned</span>
+            <p class="app-desc" style="color:var(--text-dim);font-size:14px">Real-time environmental monitoring from R2 mesh sensors. Temperature, water level, rainfall. Mariko EarthGrids.</p>
+            <div class="app-bottom">
+                <span class="badge badge-dim">Planned</span>
+            </div>
         </div>
         <div class="card app-card" style="opacity:0.7">
             <h3>Vibration Monitor</h3>
-            <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">Wireless accelerometer sensors mounted on physical equipment, streaming motion data to a live dashboard over your R2 mesh. Detects vibrations and perturbations that could indicate stress or damage - before something breaks.</p>
-            <div style="display:flex;gap:6px;margin-bottom:8px">
-                <span class="badge badge-amber">Proof of Concept</span>
-                <span class="badge badge-amber">ESP32</span>
+            <p class="app-desc" style="color:var(--text-dim);font-size:14px">Wireless accelerometer sensors mounted on physical equipment, streaming motion data to a live dashboard over your R2 mesh. Detects vibrations and perturbations that could indicate stress or damage - before something breaks.</p>
+            <div class="app-bottom">
+                <div style="display:flex;gap:6px">
+                    <span class="badge badge-amber">Proof of Concept</span>
+                    <span class="badge badge-amber">ESP32</span>
+                </div>
             </div>
         </div>
     </div>
