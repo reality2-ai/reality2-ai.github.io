@@ -96,13 +96,19 @@
         /* Light theme */
         [data-theme="light"] {
             --bg: #f5f2ec; --surface: #ffffff; --surface2: #ece9e3;
-            --accent: #7a5c18; --accent-glow: #7a5c1818;
+            --accent: #a07828; --accent-glow: #a0782818;
             --green: #2d7a45; --blue: #3570a5;
             --text: #2a2520; --text-dim: #5a554e; --text-faint: #9a958e;
         }
         [data-theme="light"] nav { background: rgba(245,242,236,0.92); border-bottom-color: rgba(122,92,24,0.1); }
-        [data-theme="light"] .card { background: var(--surface); border-color: rgba(122,92,24,0.08); }
-        [data-theme="light"] .card:hover { border-color: rgba(122,92,24,0.2); }
+        [data-theme="light"] .card { background: var(--surface); border-color: rgba(160,120,40,0.1); }
+        [data-theme="light"] .card:hover { border-color: rgba(160,120,40,0.25); }
+        [data-theme="light"] .card svg path, [data-theme="light"] .card svg line,
+        [data-theme="light"] .card svg circle, [data-theme="light"] .card svg ellipse {
+            stroke: #8a6820; fill: none;
+        }
+        [data-theme="light"] .card svg [fill="#d4a853"] { fill: #8a6820; }
+        [data-theme="light"] nav svg path { stroke: #8a6820; }
         [data-theme="light"] #mesh-bg { opacity: 0.08; }
         [data-theme="light"] .fade-word {
             background: linear-gradient(to right, var(--accent) 10%, rgba(122,92,24,0.06) 100%);
