@@ -154,9 +154,25 @@
         }
         .skip-link:focus { top: 0; }
 
+        /* Hamburger menu */
+        .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-dim); }
+        .menu-toggle svg { display: block; }
+        .menu-toggle:hover { color: var(--accent); }
+
         @media (max-width: 640px) {
-            nav { padding: 10px 12px; } nav .logo { font-size: 15px; }
-            nav .links { gap: 10px; font-size: 11px; }
+            nav { padding: 10px 16px; } nav .logo { font-size: 15px; }
+            .menu-toggle { display: block; }
+            nav .links {
+                display: none; position: absolute; top: 100%; right: 0; left: 0;
+                flex-direction: column; gap: 0; font-size: 14px;
+                background: rgba(14,14,18,0.95); backdrop-filter: blur(16px);
+                border-bottom: 1px solid rgba(212,168,83,0.08);
+                padding: 8px 0;
+            }
+            nav .links.open { display: flex; }
+            nav .links a { padding: 12px 24px; }
+            nav .links a:hover { background: rgba(212,168,83,0.05); }
+            nav .links .theme-toggle { margin: 8px 24px; align-self: flex-start; }
             .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 32px; }
             section { padding: 60px 20px; } h2 { font-size: 24px; }
         }
@@ -178,9 +194,12 @@
         <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="#d4a853" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
         Reality2
     </div>
+    <button class="menu-toggle" onclick="document.querySelector('nav .links').classList.toggle('open')" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
     <div class="links">
-        <a href="#built">Built with R2</a>
-        <a href="#developers">Developers</a>
+        <a href="#built" onclick="this.parentElement.classList.remove('open')">Built with R2</a>
+        <a href="#developers" onclick="this.parentElement.classList.remove('open')">Developers</a>
         <a href="https://github.com/reality2-ai">GitHub</a>
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
             <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
