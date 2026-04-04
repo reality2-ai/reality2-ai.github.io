@@ -12,7 +12,7 @@
             --bg: #0e0e12; --surface: #16161d; --surface2: #1e1e28;
             --accent: #d4a853; --accent-glow: #d4a85318;
             --green: #6ecb8b; --blue: #5b9bd5;
-            --text: #d8d4cf; --text-dim: #8a8580; --text-faint: #5a5550;
+            --text: #d8d4cf; --text-dim: #a8a49e; --text-faint: #6a6560;
             --sans: 'DM Sans', -apple-system, sans-serif;
             --mono: 'JetBrains Mono', 'SF Mono', monospace;
         }
@@ -20,6 +20,7 @@
         body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.7; }
         a { color: var(--accent); text-decoration: none; }
         a:hover { text-decoration: underline; }
+        a:focus-visible, .btn:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 50;
@@ -44,7 +45,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .hero .sub { font-size: 18px; color: var(--text); max-width: 560px; line-height: 1.7; margin-bottom: 40px; opacity: 0.85; }
+        .hero .sub { font-size: 18px; color: var(--text); max-width: 560px; line-height: 1.7; margin-bottom: 40px; }
         .cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
         .btn { display: inline-block; padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 15px; border: none; cursor: pointer; font-family: var(--sans); }
         .btn:hover { opacity: 0.9; text-decoration: none; }
@@ -194,7 +195,7 @@
         <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="#d4a853" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
         Reality2
     </div>
-    <button class="menu-toggle" onclick="document.querySelector('nav .links').classList.toggle('open')" aria-label="Menu">
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="links">
@@ -209,7 +210,7 @@
     </div>
 </nav>
 
-<div class="hero" id="main">
+<main class="hero" id="main">
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px">
         <svg width="72" height="72" viewBox="0 0 512 512" fill="none" style="flex-shrink:0;opacity:0.85" aria-hidden="true">
             <path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="#d4a853" stroke-width="16" stroke-linejoin="round"/>
@@ -234,7 +235,7 @@
         <a href="how.html" class="btn btn-secondary">How It Works</a>
     </div>
     <p style="margin-top:32px;font-size:12px;color:var(--text-faint);font-family:var(--mono)">Early development - everything here is experimental</p>
-</div>
+</main>
 
 <section>
     <h2>What is <span>Reality2</span>?</h2>
