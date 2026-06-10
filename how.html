@@ -20,6 +20,7 @@
         body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.8; }
         a { color: var(--accent); text-decoration: none; }
         a:hover { text-decoration: underline; }
+        a:focus-visible, .btn:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 50;
@@ -179,7 +180,7 @@
     </div>
 </nav>
 
-<article id="main">
+<article id="main" role="main">
 
 <a href="index.html" class="back-link" aria-label="Back to Reality2 home">Back to Reality2</a>
 
@@ -192,7 +193,7 @@
     <div class="step-num">1</div>
     <div class="step-content">
         <h3>Your browser fetches a web page</h3>
-        <p>Just like any website. The page is served from GitHub - it's static HTML, CSS, and a 70KB WebAssembly file. That WASM file is the entire R2 protocol stack - encryption, trust groups, mesh routing - compiled from Rust.</p>
+        <p>Just like any website. The page is served from GitHub - it's static HTML, CSS, and a 290KB WebAssembly file. That WASM file is the entire R2 protocol stack - encryption, trust groups, mesh routing - compiled from Rust.</p>
     </div>
 </div>
 

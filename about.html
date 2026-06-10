@@ -19,6 +19,7 @@
         body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.8; }
         a { color: var(--accent); text-decoration: none; }
         a:hover { text-decoration: underline; }
+        a:focus-visible, .btn:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 50;
@@ -165,7 +166,7 @@
     </div>
 </nav>
 
-<article id="main">
+<article id="main" role="main">
 
 <a href="index.html" class="back-link" aria-label="Back to Reality2 home">Back to Reality2</a>
 
