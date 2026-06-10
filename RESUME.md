@@ -9,8 +9,8 @@
 - **Deploy:** GitHub Pages from `main`, served at reality2-ai.github.io (CNAME). Pushes auto-deploy in ~1 min.
 
 ## Current task
-✅ **COMPLETE** — Project-card status-accuracy review of `index.html`. All 6
-"Built with R2" cards reviewed; all changes committed and pushed to `origin/main`.
+✅ **COMPLETE** — Accuracy + accessibility review of all pages (`index.html`,
+`about.html`, `how.html`). All changes committed and pushed to `origin/main`.
 No active task in progress.
 
 ### Done this session
@@ -20,9 +20,12 @@ No active task in progress.
 - r2-hive "Live" → relay.reality2.ai confirmed correct.
 - r2-anthill card: Source → public `anthill` (intentional; reviewed).
 - RESUME.md now tracked + pushed; `.gitignore` repurposed for OS junk.
+- about/how review (commit `5137da4`): fixed `how.html` WASM size 70KB → 290KB
+  (live asset ~300KB); added `role="main"` + focus-visible outlines to about.html
+  and how.html for a11y parity with index.html.
 
 ### Next steps / open
-- Nothing pending — review closed out, working tree clean.
+- Nothing pending — all pages reviewed, working tree clean.
 
 ## Notes
 - Files: `index.html`, `about.html`, `how.html`, `mesh.js`, `CNAME`.
