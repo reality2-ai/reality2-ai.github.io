@@ -23,9 +23,12 @@ No active task in progress.
 - about/how review (commit `5137da4`): fixed `how.html` WASM size 70KB → 290KB
   (live asset ~300KB); added `role="main"` + focus-visible outlines to about.html
   and how.html for a11y parity with index.html.
+- Verified deployed site renders correctly: all three pages serve HTTP 200 (fresh,
+  CDN age 0), markup tag-balanced, and headless-Chrome screenshots confirm
+  index/about/how display correctly with the 290KB fix visible.
 
 ### Next steps / open
-- Nothing pending — all pages reviewed, working tree clean.
+- Nothing pending — all pages reviewed and render-verified, working tree clean.
 
 ## Notes
 - Files: `index.html`, `about.html`, `how.html`, `mesh.js`, `CNAME`.
