@@ -411,6 +411,83 @@ function pointOnEdge(edge, t) {
   };
 }
 
+// Compact fully-dead nodes (and clusters) out of the arrays, remapping EVERY
+// index reference in one consistent pass: edges (i/j + edgeMap keys), packet
+// paths, heartbeat paths, and node.clusterGroup. Anything that referenced a
+// dead node is dropped. This bounds long-run array growth without the dangling-
+// reference hazards of reviving individual slots. No-op when nothing is dead.
+function compactNodes() {
+  const remap = new Array(nodes.length);
+  const newNodes = [];
+  for (let i = 0; i < nodes.length; i++) {
+    if (nodes[i].alive) { remap[i] = newNodes.length; newNodes.push(nodes[i]); }
+    else remap[i] = -1;
+  }
+  if (newNodes.length === nodes.length) return; // nothing dead — skip
+
+  // Rebuild edges + edgeMap with remapped indices; drop edges touching a dead node
+  for (const k in edgeMap) delete edgeMap[k];
+  const survivingEdges = [];
+  for (const e of edges) {
+    const ni = remap[e.i], nj = remap[e.j];
+    if (ni < 0 || nj < 0) continue;
+    e.i = Math.min(ni, nj);
+    e.j = Math.max(ni, nj);
+    e.key = edgeKey(e.i, e.j);
+    edgeMap[e.key] = e;
+    survivingEdges.push(e);
+  }
+  edges.length = 0;
+  for (const e of survivingEdges) edges.push(e);
+
+  // Remap live packet paths; kill any packet whose path touched a dead node
+  // (dead packets are dropped by the end-of-tick compaction).
+  for (const p of packets) {
+    if (!p.alive) continue;
+    let ok = true;
+    for (let h = 0; h < p.path.length; h++) {
+      const nn = remap[p.path[h]];
+      if (nn < 0) { ok = false; break; }
+      p.path[h] = nn;
+    }
+    if (!ok) p.alive = false;
+  }
+
+  // Remap heartbeat paths; drop any that touched a dead node
+  for (let hi = heartbeats.length - 1; hi >= 0; hi--) {
+    const hb = heartbeats[hi];
+    let ok = true;
+    for (let h = 0; h < hb.path.length; h++) {
+      const nn = remap[hb.path[h]];
+      if (nn < 0) { ok = false; break; }
+      hb.path[h] = nn;
+    }
+    if (!ok) heartbeats.splice(hi, 1);
+  }
+
+  // Swap in the surviving nodes
+  nodes.length = 0;
+  for (const n of newNodes) nodes.push(n);
+
+  // Drop dead clusters (their nodes are all gone now) and remap clusterGroup
+  const cRemap = new Array(clusterMeta.length);
+  const newMeta = [];
+  for (let g = 0; g < clusterMeta.length; g++) {
+    if (clusterMeta[g].alive) { cRemap[g] = newMeta.length; newMeta.push(clusterMeta[g]); }
+    else cRemap[g] = -1;
+  }
+  if (newMeta.length !== clusterMeta.length) {
+    for (const n of nodes) {
+      if (n.clusterGroup >= 0) {
+        const ng = cRemap[n.clusterGroup];
+        n.clusterGroup = ng >= 0 ? ng : -1; // orphan if its cluster somehow vanished
+      }
+    }
+    clusterMeta.length = 0;
+    for (const cm of newMeta) clusterMeta.push(cm);
+  }
+}
+
 function tick() {
   frame += dtScale;
   updateActivity();
@@ -682,6 +759,10 @@ function tick() {
   if (clusterLifecycleTimer >= clusterLifecycleDue) {
     clusterLifecycleTimer = 0;
     clusterLifecycleDue = 1500 + Math.floor(Math.random() * 2000); // every ~25-60 seconds
+
+    // Reclaim any fully-dead nodes/clusters from previous retirements before
+    // retiring/spawning again — keeps the arrays bounded over a long session.
+    compactNodes();
 
     // Pick a cluster to retire (not all of them — keep at least 3)
     const aliveClusters = [];
