@@ -9,9 +9,8 @@
 - **Deploy:** GitHub Pages from `main`, served at reality2-ai.github.io (CNAME). Pushes auto-deploy in ~1 min.
 
 ## Current task
-✅ **COMPLETE** — Accuracy + accessibility review of all pages (`index.html`,
-`about.html`, `how.html`). All changes committed and pushed to `origin/main`.
-No active task in progress.
+✅ **COMPLETE** — Reviewed all pages + `mesh.js`. All changes committed and
+pushed to `origin/main`. No active task in progress.
 
 ### Done this session
 - Conformance badge: dropped hardcoded `110/110` → "Conformance" (commit `506fd11`).
@@ -26,9 +25,15 @@ No active task in progress.
 - Verified deployed site renders correctly: all three pages serve HTTP 200 (fresh,
   CDN age 0), markup tag-balanced, and headless-Chrome screenshots confirm
   index/about/how display correctly with the 290KB fix visible.
+- mesh.js review (commit `906dc9c`): fixed packet-array memory leak (dead packets
+  now compacted out each tick); fixed heartbeat return-pulse setTimeout units
+  (frames→200ms); cached the per-frame bg gradient; added a missing-canvas guard.
+  Syntax-checked + headless-rendered clean (no console errors, mesh displays).
 
 ### Next steps / open
-- Nothing pending — all pages reviewed and render-verified, working tree clean.
+- **mesh.js #2 (deferred):** dead nodes + clusterMeta accumulate (grow ~6 per
+  ~25-60s) and are never freed. Riskier fix — edges/packets/heartbeats reference
+  nodes by array index, so needs dead-slot reuse, not splicing. Do as its own pass.
 
 ## Notes
 - Files: `index.html`, `about.html`, `how.html`, `mesh.js`, `CNAME`.
