@@ -29,11 +29,15 @@ pushed to `origin/main`. No active task in progress.
   now compacted out each tick); fixed heartbeat return-pulse setTimeout units
   (frames→200ms); cached the per-frame bg gradient; added a missing-canvas guard.
   Syntax-checked + headless-rendered clean (no console errors, mesh displays).
+- mesh.js node/cluster leak (commit `2cc1b45`): added `compactNodes()` — a
+  reindexing pass that frees dead nodes/clusters and remaps all index references
+  (edge i/j + edgeMap, packet/heartbeat paths, clusterGroup); runs each lifecycle
+  event. Verified with a stubbed-DOM harness (16k frames): node count stabilises
+  at 53, clusters cap at 7, alive==total (no accumulation). Headless render clean.
 
 ### Next steps / open
-- **mesh.js #2 (deferred):** dead nodes + clusterMeta accumulate (grow ~6 per
-  ~25-60s) and are never freed. Riskier fix — edges/packets/heartbeats reference
-  nodes by array index, so needs dead-slot reuse, not splicing. Do as its own pass.
+- Nothing pending — full review (pages + mesh.js, incl. both memory leaks) done,
+  render-verified, working tree clean.
 
 ## Notes
 - Files: `index.html`, `about.html`, `how.html`, `mesh.js`, `CNAME`.
