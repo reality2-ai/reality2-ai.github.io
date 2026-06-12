@@ -1,8 +1,9 @@
 (function(){
 const canvas = document.getElementById('mesh-bg');
+if (!canvas) return;
 const ctx = canvas.getContext('2d');
 
-let W, H;
+let W, H, bgGradient;
 function resize() {
   const dpr = window.devicePixelRatio || 1;
   W = window.innerWidth;
@@ -12,6 +13,10 @@ function resize() {
   canvas.style.width = W + 'px';
   canvas.style.height = H + 'px';
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  // Cache the background gradient — only changes on resize, not per frame
+  bgGradient = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W * 0.7);
+  bgGradient.addColorStop(0, '#0e0e12');
+  bgGradient.addColorStop(1, '#0a0a0e');
 }
 resize();
 window.addEventListener('resize', resize);
@@ -582,11 +587,11 @@ function tick() {
       hb.timer = 0;
       // Send pulse in both directions (ping-pong)
       sendHeartbeatPacket(hb);
-      // Return pulse slightly delayed
+      // Return pulse slightly delayed (200ms — setTimeout takes ms, not frames)
       setTimeout(() => {
         const returnHb = { ...hb, path: [...hb.path].reverse() };
         sendHeartbeatPacket(returnHb);
-      }, hb.period * 8);
+      }, 200);
     }
   }
 
@@ -746,16 +751,21 @@ function tick() {
       }
     }
   }
+
+  // Remove dead packets so the array doesn't grow unbounded.
+  // Nothing references packets by index, so in-place compaction is safe.
+  let pw = 0;
+  for (let pr = 0; pr < packets.length; pr++) {
+    if (packets[pr].alive) packets[pw++] = packets[pr];
+  }
+  packets.length = pw;
 }
 
 // --- Rendering ---
 function draw() {
   ctx.clearRect(0, 0, W, H);
 
-  const bg = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W * 0.7);
-  bg.addColorStop(0, '#0e0e12');
-  bg.addColorStop(1, '#0a0a0e');
-  ctx.fillStyle = bg;
+  ctx.fillStyle = bgGradient;
   ctx.fillRect(0, 0, W, H);
 
   // Edges
