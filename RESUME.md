@@ -34,10 +34,16 @@ pushed to `origin/main`. No active task in progress.
   (edge i/j + edgeMap, packet/heartbeat paths, clusterGroup); runs each lifecycle
   event. Verified with a stubbed-DOM harness (16k frames): node count stabilises
   at 53, clusters cap at 7, alive==total (no accumulation). Headless render clean.
+- WCAG AA contrast audit (commits `e803a07`, `6c50309`): measured every text/bg
+  pair across all 3 themes. Fixes: dark secondary text on about/how brought to
+  homepage parity (text-dim → #a8a49e); text-faint lifted to AA on all pages
+  (dark #817b75 4.61:1, light #6f6b66 4.73:1, was 2.6-3.3:1); light accent
+  unified on darker #7a5c18 (5.57:1) so body links pass AA (replaced homepage's
+  #a07828 3.61:1). Per Roy's design decisions. Light theme render-verified.
 
 ### Next steps / open
-- Nothing pending — full review (pages + mesh.js, incl. both memory leaks) done,
-  render-verified, working tree clean.
+- Nothing pending — pages + mesh.js reviewed (both memory leaks fixed) and a
+  full WCAG AA contrast pass done. Render-verified, working tree clean.
 
 ## Notes
 - Files: `index.html`, `about.html`, `how.html`, `mesh.js`, `CNAME`.
