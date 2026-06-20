@@ -179,6 +179,12 @@
             .step { gap: 14px; }
             .storage-row { flex-direction: column; align-items: flex-start; gap: 2px; }
         }
+        /* Screen-reader-only utility */
+        .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+        /* Respect reduced-motion: neutralise animations/transitions */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+        }
     </style>
     <script>
         (function() {
@@ -190,6 +196,7 @@
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
 
 <nav aria-label="Main navigation">
     <a href="index.html" class="logo" style="text-decoration:none">
@@ -472,6 +479,8 @@ function toggleTheme() {
     if (next === 'dark') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('r2-theme', next);
+    var s = document.getElementById('theme-status');
+    if (s) s.textContent = (next === 'high-contrast' ? 'High contrast' : next.charAt(0).toUpperCase() + next.slice(1)) + ' theme';
 }
 </script>
 </body>

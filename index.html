@@ -217,6 +217,13 @@
             .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 32px; }
             section { padding: 60px 20px; } h2 { font-size: 24px; }
         }
+        /* Screen-reader-only utility */
+        .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+        /* Respect reduced-motion: neutralise animations/transitions, reveal content immediately */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+            .card { opacity:1 !important; transform:none !important; }
+        }
     </style>
     <script>
         (function() {
@@ -228,6 +235,7 @@
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
 <canvas id="mesh-bg" aria-hidden="true" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.3"></canvas>
 
 <nav aria-label="Main navigation">
@@ -235,10 +243,10 @@
         <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="#d4a853" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
         Reality2
     </div>
-    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
-    <div class="links">
+    <div class="links" id="nav-menu">
         <a href="#built" onclick="this.parentElement.classList.remove('open')">Built with R2</a>
         <a href="#developers" onclick="this.parentElement.classList.remove('open')">Developers</a>
         <a href="https://github.com/reality2-ai">GitHub</a>
@@ -449,6 +457,8 @@ function toggleTheme() {
     if (next === 'dark') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('r2-theme', next);
+    var s = document.getElementById('theme-status');
+    if (s) s.textContent = (next === 'high-contrast' ? 'High contrast' : next.charAt(0).toUpperCase() + next.slice(1)) + ' theme';
 }
 // Scroll reveal
 const observer = new IntersectionObserver((entries) => {

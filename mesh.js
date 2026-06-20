@@ -2,6 +2,7 @@
 const canvas = document.getElementById('mesh-bg');
 if (!canvas) return;
 const ctx = canvas.getContext('2d');
+const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 let W, H, bgGradient;
 function resize() {
@@ -1033,7 +1034,15 @@ function loop(now) {
   requestAnimationFrame(loop);
 }
 
-requestAnimationFrame(loop);
+if (reduceMotion) {
+  // Respect prefers-reduced-motion: develop a representative still frame and stop —
+  // no continuous animation for motion-sensitive users. Redraw on resize.
+  for (let i = 0; i < 400; i++) tick();
+  draw();
+  window.addEventListener('resize', draw);
+} else {
+  requestAnimationFrame(loop);
+}
 
 })();
 
