@@ -53,11 +53,17 @@ pushed to `origin/main`. No active task in progress.
   WebSite @graph (logo, sameAs→GitHub); about/how have WebPage nodes linking the
   homepage @ids. logo.png = 512x512 gold-hexagon brand tile. All validated as
   parseable JSON and verified live.
+- Keyboard-nav + screen-reader pass (commit `ed4c9ac`): prefers-reduced-motion
+  (mesh.js renders a static frame + stops; CSS neutralises animations); theme
+  toggle announces via aria-live region; hamburger aria-hidden icon + aria-controls
+  → id="nav-menu". Audit confirmed clean heading order, no positive tabindex, no
+  non-interactive onclick. Reduced-motion path harness-verified (no rAF, draws once).
 
 ### Next steps / open
-- Nothing pending — pages + mesh.js reviewed (both memory leaks fixed), full WCAG
-  AA contrast pass, social/SEO metadata, sitemap/robots, and JSON-LD all done + live.
-- Backlog ideas (unstarted): broader keyboard-nav / screen-reader pass.
+- Nothing pending. Public site reviewed end-to-end: accuracy, accessibility
+  (landmarks, focus, contrast, keyboard, SR, reduced-motion), performance (both
+  mesh leaks), and SEO/social (favicon, OG, sitemap, robots, JSON-LD). All live.
+- No backlog items queued — awaiting new direction or driving ad-hoc polish.
 
 ## Notes
 - Files: `index.html`, `about.html`, `how.html`, `mesh.js`, `CNAME`.
