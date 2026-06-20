@@ -49,12 +49,15 @@ pushed to `origin/main`. No active task in progress.
 - sitemap.xml + robots.txt (commit `1ef41f5`): robots allows all + points to
   sitemap; sitemap lists the 3 pages with lastmod/changefreq/priority. Both live
   (200, correct content-types).
+- JSON-LD structured data + logo (commit `06ef6a1`): index has Organization +
+  WebSite @graph (logo, sameAs→GitHub); about/how have WebPage nodes linking the
+  homepage @ids. logo.png = 512x512 gold-hexagon brand tile. All validated as
+  parseable JSON and verified live.
 
 ### Next steps / open
 - Nothing pending — pages + mesh.js reviewed (both memory leaks fixed), full WCAG
-  AA contrast pass, social/SEO metadata, and sitemap/robots all done + live.
-- Backlog ideas (unstarted): broader keyboard-nav / screen-reader pass; structured
-  data (JSON-LD Organization/WebSite).
+  AA contrast pass, social/SEO metadata, sitemap/robots, and JSON-LD all done + live.
+- Backlog ideas (unstarted): broader keyboard-nav / screen-reader pass.
 
 ## Notes
 - Files: `index.html`, `about.html`, `how.html`, `mesh.js`, `CNAME`.
