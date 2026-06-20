@@ -41,9 +41,16 @@ pushed to `origin/main`. No active task in progress.
   unified on darker #7a5c18 (5.57:1) so body links pass AA (replaced homepage's
   #a07828 3.61:1). Per Roy's design decisions. Light theme render-verified.
 
+- Social/SEO metadata (commit `9d77d70`): added favicon.svg (gold hexagon mark),
+  og-image.png (1200x630 branded card matching the hero), and per-page canonical,
+  theme-color, Open Graph + Twitter summary_large_image tags across all 3 pages.
+  Closes the blank-tab-icon + no-link-preview gap. Assets + tags verified live.
+
 ### Next steps / open
-- Nothing pending — pages + mesh.js reviewed (both memory leaks fixed) and a
-  full WCAG AA contrast pass done. Render-verified, working tree clean.
+- Nothing pending — pages + mesh.js reviewed (both memory leaks fixed), full WCAG
+  AA contrast pass done, and social/SEO metadata added. All render/live-verified.
+- Backlog ideas (unstarted): broader keyboard-nav / screen-reader pass; structured
+  data (JSON-LD); sitemap.xml + robots.txt.
 
 ## Notes
 - Files: `index.html`, `about.html`, `how.html`, `mesh.js`, `CNAME`.
