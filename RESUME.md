@@ -46,11 +46,15 @@ pushed to `origin/main`. No active task in progress.
   theme-color, Open Graph + Twitter summary_large_image tags across all 3 pages.
   Closes the blank-tab-icon + no-link-preview gap. Assets + tags verified live.
 
+- sitemap.xml + robots.txt (commit `1ef41f5`): robots allows all + points to
+  sitemap; sitemap lists the 3 pages with lastmod/changefreq/priority. Both live
+  (200, correct content-types).
+
 ### Next steps / open
 - Nothing pending — pages + mesh.js reviewed (both memory leaks fixed), full WCAG
-  AA contrast pass done, and social/SEO metadata added. All render/live-verified.
+  AA contrast pass, social/SEO metadata, and sitemap/robots all done + live.
 - Backlog ideas (unstarted): broader keyboard-nav / screen-reader pass; structured
-  data (JSON-LD); sitemap.xml + robots.txt.
+  data (JSON-LD Organization/WebSite).
 
 ## Notes
 - Files: `index.html`, `about.html`, `how.html`, `mesh.js`, `CNAME`.
