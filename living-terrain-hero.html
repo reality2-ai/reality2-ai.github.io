@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reality2 — living terrain hero (prototype)</title>
+<!--
+  DESIGN PROTOTYPE — "living terrain" direction. Not wired into the site.
+  Copy is placeholder/draft pending the committed mission canon (spec-first).
+  Demonstrates: peat palette + dual semantic accent (gold = people/intelligence,
+  green = natural world), Fraunces/Hanken Grotesk/JetBrains Mono, topographic
+  contours + mesh-over-terrain signature.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --peat:#0e1311; --peat-deep:#0a0f0d; --surface:#161c19;
+    --gold:#e0b25c;        /* people · devices · distributed intelligence */
+    --green:#7fb59c;       /* the natural world */
+    --text:#e8e3d8; --dim:#9aa39a; --faint:#6a726b;
+    --display:'Fraunces',Georgia,serif;
+    --body:'Hanken Grotesk',-apple-system,sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:var(--body); color:var(--text); background:var(--peat);
+    line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+
+  /* ---- stage ---- */
+  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;
+    background:radial-gradient(120% 90% at 72% 18%, #15201b 0%, var(--peat) 46%, var(--peat-deep) 100%);
+    overflow:hidden}
+  .terrain{position:absolute;inset:0;z-index:0;pointer-events:none}
+  .terrain svg{width:100%;height:100%}
+
+  /* ---- nav ---- */
+  nav{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;
+    padding:26px 7vw;font-size:14px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--display);
+    font-weight:500;font-size:21px;letter-spacing:-0.01em;color:var(--text)}
+  .brand .mark{flex-shrink:0}
+  .navlinks{display:flex;gap:30px;font-family:var(--mono);font-size:12.5px;
+    letter-spacing:0.04em;color:var(--dim);text-transform:lowercase}
+  .navlinks a:hover{color:var(--gold)}
+
+  /* ---- hero copy ---- */
+  .stage{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;
+    justify-content:center;max-width:1000px;margin:0 auto;width:100%;padding:40px 7vw 90px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:0.22em;
+    text-transform:uppercase;color:var(--green);margin-bottom:30px;display:flex;
+    align-items:center;gap:14px}
+  .eyebrow::before{content:"";width:32px;height:1px;background:linear-gradient(90deg,var(--green),transparent)}
+  h1{font-family:var(--display);font-weight:400;font-size:clamp(44px,8vw,104px);
+    line-height:0.98;letter-spacing:-0.025em;max-width:14ch;
+    font-variation-settings:"opsz" 144}
+  h1 .soft{font-style:italic;font-weight:500;
+    background:linear-gradient(105deg,var(--green) 8%,rgba(127,181,156,0.18) 96%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .lede{font-size:clamp(16px,1.7vw,19px);color:var(--dim);max-width:46ch;
+    margin:34px 0 0;line-height:1.7}
+  .lede b{color:var(--text);font-weight:500}
+
+  .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:44px}
+  .btn{font-family:var(--body);font-weight:600;font-size:14.5px;padding:13px 26px;
+    border-radius:2px;border:1px solid transparent;transition:transform .18s ease,background .18s ease,border-color .18s ease;cursor:pointer}
+  .btn-primary{background:var(--gold);color:#1a1208}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{border-color:rgba(127,181,156,0.35);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--green);background:rgba(127,181,156,0.07)}
+
+  /* legend — encodes the dual-accent meaning, honest to the brief */
+  .legend{position:relative;z-index:2;display:flex;gap:28px;flex-wrap:wrap;
+    padding:0 7vw 30px;font-family:var(--mono);font-size:11.5px;letter-spacing:0.04em;color:var(--faint)}
+  .legend span{display:flex;align-items:center;gap:8px}
+  .dot{width:8px;height:8px;border-radius:50%}
+  .dot.g{background:var(--gold);box-shadow:0 0 10px var(--gold)}
+  .dot.n{background:var(--green);box-shadow:0 0 10px var(--green)}
+
+  /* nodes (mesh over terrain) */
+  .node{transform-box:fill-box;transform-origin:center;animation:breathe 6s ease-in-out infinite}
+  .node.n2{animation-delay:-2s}.node.n3{animation-delay:-4s}.node.n4{animation-delay:-1s}
+  @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+
+  @media (max-width:640px){
+    .navlinks{display:none}
+    .legend{gap:16px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .node{animation:none;opacity:.85}
+    .btn{transition:none}
+  }
+</style>
+</head>
+<body>
+<div class="hero">
+
+  <!-- topographic terrain + mesh signature -->
+  <div class="terrain" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+      <defs>
+        <linearGradient id="contour" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#7fb59c" stop-opacity="0.16"/>
+          <stop offset="1" stop-color="#e0b25c" stop-opacity="0.10"/>
+        </linearGradient>
+        <radialGradient id="glowG"><stop offset="0" stop-color="#e0b25c" stop-opacity="0.9"/><stop offset="1" stop-color="#e0b25c" stop-opacity="0"/></radialGradient>
+        <radialGradient id="glowN"><stop offset="0" stop-color="#7fb59c" stop-opacity="0.9"/><stop offset="1" stop-color="#7fb59c" stop-opacity="0"/></radialGradient>
+      </defs>
+
+      <!-- elevation contours around an off-centre peak -->
+      <g stroke="url(#contour)" stroke-width="1.2">
+        <path d="M1040 70 C1230 150 1330 320 1250 470 C1180 600 980 640 860 560 C760 495 760 360 850 280 C930 210 980 120 1040 70Z" opacity="0.9"/>
+        <path d="M1050 130 C1200 200 1275 340 1210 460 C1150 565 990 595 895 530 C815 475 815 370 890 305 C955 248 1005 190 1050 130Z" opacity="0.75"/>
+        <path d="M1058 195 C1170 250 1225 360 1175 455 C1125 545 1000 565 925 510 C865 465 865 385 925 330 C975 285 1025 245 1058 195Z" opacity="0.6"/>
+        <path d="M1062 260 C1140 300 1180 375 1145 445 C1105 520 1015 535 960 495 C915 462 915 400 960 360 C998 327 1038 298 1062 260Z" opacity="0.45"/>
+        <path d="M1062 325 C1112 350 1138 395 1118 440 C1090 495 1030 505 995 480 C967 458 967 415 996 388 C1022 365 1046 348 1062 325Z" opacity="0.32"/>
+      </g>
+      <!-- distant rolling contours (lower-left, like valley floor) -->
+      <g stroke="#7fb59c" stroke-opacity="0.07" stroke-width="1" fill="none">
+        <path d="M-40 760 C220 700 360 800 600 760 C820 724 980 800 1200 760 C1340 735 1440 770 1480 760"/>
+        <path d="M-40 820 C200 770 380 850 620 815 C840 783 1000 855 1220 818 C1360 795 1440 825 1480 818"/>
+        <path d="M-40 700 C240 640 340 730 580 695 C800 663 1000 735 1180 700 C1330 672 1440 705 1480 700"/>
+      </g>
+
+      <!-- mesh edges (intelligence woven over the land) -->
+      <g stroke-width="1.1" fill="none">
+        <path d="M250 300 L470 430" stroke="#e0b25c" stroke-opacity="0.28"/>
+        <path d="M470 430 L360 600" stroke="#e0b25c" stroke-opacity="0.20"/>
+        <path d="M470 430 L690 520" stroke="#7fb59c" stroke-opacity="0.30"/><!-- entanglement: gold↔green -->
+        <path d="M690 520 L900 470" stroke="#7fb59c" stroke-opacity="0.22"/>
+        <path d="M250 300 L150 470" stroke="#e0b25c" stroke-opacity="0.16"/>
+      </g>
+
+      <!-- nodes: gold = people/devices, green = natural entities -->
+      <g>
+        <circle cx="250" cy="300" r="40" fill="url(#glowG)"/>
+        <circle class="node" cx="250" cy="300" r="5" fill="#e0b25c"/>
+        <circle cx="470" cy="430" r="46" fill="url(#glowG)"/>
+        <circle class="node n2" cx="470" cy="430" r="6" fill="#e0b25c"/>
+        <circle cx="360" cy="600" r="34" fill="url(#glowG)"/>
+        <circle class="node n3" cx="360" cy="600" r="4.5" fill="#e0b25c"/>
+        <circle cx="150" cy="470" r="30" fill="url(#glowG)"/>
+        <circle class="node n4" cx="150" cy="470" r="4" fill="#e0b25c"/>
+        <!-- natural-world nodes (green) -->
+        <circle cx="690" cy="520" r="44" fill="url(#glowN)"/>
+        <circle class="node n2" cx="690" cy="520" r="5.5" fill="#7fb59c"/>
+        <circle cx="900" cy="470" r="36" fill="url(#glowN)"/>
+        <circle class="node n3" cx="900" cy="470" r="4.5" fill="#7fb59c"/>
+      </g>
+    </svg>
+  </div>
+
+  <nav>
+    <a class="brand" href="#">
+      <svg class="mark" width="26" height="26" viewBox="0 0 512 512" aria-hidden="true">
+        <path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="#e0b25c" stroke-width="22" stroke-linejoin="round"/>
+        <circle cx="256" cy="242" r="30" fill="#7fb59c"/>
+      </svg>
+      Reality2
+    </a>
+    <div class="navlinks">
+      <a href="#">built with r2</a>
+      <a href="#">how it works</a>
+      <a href="#">github</a>
+    </div>
+  </nav>
+
+  <main class="stage">
+    <p class="eyebrow">off-grid · distributed intelligence · trust groups</p>
+    <h1>Technology that <span class="soft">disappears</span> into the world.</h1>
+    <p class="lede">Your phone, watch, sensors — and the rivers, soil and air they listen to — join one private mesh. <b>No cloud, no logins, no middleman.</b> Intelligence that works <i>with</i> the living world, then gets out of the way.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#">Explore what's built</a>
+      <a class="btn btn-ghost" href="#">How it works</a>
+    </div>
+  </main>
+
+  <div class="legend" aria-hidden="true">
+    <span><i class="dot g"></i>people &amp; devices</span>
+    <span><i class="dot n"></i>natural entities</span>
+    <span>— where they meet, the mesh</span>
+  </div>
+</div>
+</body>
+</html>
