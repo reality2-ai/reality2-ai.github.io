@@ -59,11 +59,20 @@ pushed to `origin/main`. No active task in progress.
   → id="nav-menu". Audit confirmed clean heading order, no positive tabindex, no
   non-interactive onclick. Reduced-motion path harness-verified (no rAF, draws once).
 
+- "Built by a fleet" page (commit `633425d`, LIVE): public colophon —
+  built-by-a-fleet.html. Concept-level only (Roy-approved go-live, supervisor
+  boundary-confirmed): "a fleet of Claude AI agents as a trust group under human
+  guardianship, mirroring R2". Abstract mesh visual; existing site style/themes +
+  a11y/SEO. Linked from every footer + sitemap. Mechanics-scrubbed (page, footers,
+  sitemap, commits, live HTML). NO fleet mechanics anywhere — keep it that way.
+
 ### Next steps / open
-- Nothing pending. Public site reviewed end-to-end: accuracy, accessibility
-  (landmarks, focus, contrast, keyboard, SR, reduced-motion), performance (both
-  mesh leaks), and SEO/social (favicon, OG, sitemap, robots, JSON-LD). All live.
-- No backlog items queued — awaiting new direction or driving ad-hoc polish.
+- Nothing pending. Public site reviewed end-to-end (accuracy, a11y, performance,
+  SEO/social) + "Built by a fleet" page live. All verified.
+- Parked: `design/living-terrain-hero` branch (hero redesign prototype) — hold for
+  the [[mission-vision-refresh-pending]] task. `design/built-by-a-fleet` branch is
+  merged; safe to delete (deliberate step).
 
 ## Notes
-- Files: `index.html`, `about.html`, `how.html`, `mesh.js`, `CNAME`.
+- Files: `index.html`, `about.html`, `how.html`, `built-by-a-fleet.html`, `mesh.js`, `CNAME`.
+- Pages: built-by-a-fleet.html must stay CONCEPT-ONLY (no fleet mechanics) — public repo.
