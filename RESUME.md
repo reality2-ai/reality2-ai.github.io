@@ -60,8 +60,8 @@ pushed to `origin/main`. No active task in progress.
   non-interactive onclick. Reduced-motion path harness-verified (no rAF, draws once).
 
 - "Built by a fleet" page (commit `633425d`, LIVE): public colophon —
-  built-by-a-fleet.html. Concept-level only (Roy-approved go-live, supervisor
-  boundary-confirmed): "a fleet of Claude AI agents as a trust group under human
+  built-by-a-fleet.html. Concept-level only (Roy-approved go-live; reviewed for
+  the public/private boundary): "a fleet of Claude AI agents as a trust group under human
   guardianship, mirroring R2". Abstract mesh visual; existing site style/themes +
   a11y/SEO. Linked from every footer + sitemap. Mechanics-scrubbed (page, footers,
   sitemap, commits, live HTML). NO fleet mechanics anywhere — keep it that way.
