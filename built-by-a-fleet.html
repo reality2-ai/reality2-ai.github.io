@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Built by a Fleet - Reality2</title>
+    <meta name="description" content="Reality2 is built by a fleet of collaborating AI agents under human guidance — distributed intelligence, trust, and oversight, mirroring R2 itself.">
+    <link rel="canonical" href="https://reality2-ai.github.io/built-by-a-fleet.html">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#0e0e12">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Reality2">
+    <meta property="og:title" content="Built by a Fleet - Reality2">
+    <meta property="og:description" content="Reality2 is built by a fleet of collaborating AI agents under human guidance — distributed intelligence, trust, and oversight, mirroring R2 itself.">
+    <meta property="og:url" content="https://reality2-ai.github.io/built-by-a-fleet.html">
+    <meta property="og:image" content="https://reality2-ai.github.io/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Reality2 — Technology That Disappears">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Built by a Fleet - Reality2">
+    <meta name="twitter:description" content="Reality2 is built by a fleet of collaborating AI agents under human guidance — distributed intelligence, trust, and oversight, mirroring R2 itself.">
+    <meta name="twitter:image" content="https://reality2-ai.github.io/og-image.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": "https://reality2-ai.github.io/built-by-a-fleet.html#webpage",
+      "name": "Built by a Fleet - Reality2",
+      "url": "https://reality2-ai.github.io/built-by-a-fleet.html",
+      "description": "Reality2 is built by a fleet of collaborating AI agents under human guidance — distributed intelligence, trust, and oversight, mirroring R2 itself.",
+      "isPartOf": { "@id": "https://reality2-ai.github.io/#website" },
+      "publisher": { "@id": "https://reality2-ai.github.io/#organization" }
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0e0e12; --surface: #16161d; --surface2: #1e1e28;
+            --accent: #d4a853; --accent-glow: #d4a85318;
+            --text: #d8d4cf; --text-dim: #a8a49e; --text-faint: #817b75;
+            --sans: 'DM Sans', -apple-system, sans-serif;
+            --mono: 'JetBrains Mono', 'SF Mono', monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.8; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        a:focus-visible, .btn:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+            padding: 16px 32px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(14,14,18,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(212,168,83,0.06);
+        }
+        nav .logo { font-weight: 700; font-size: 17px; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+        nav .links { display: flex; gap: 24px; font-size: 14px; }
+        nav .links a { color: var(--text-dim); }
+        nav .links a:hover { color: var(--accent); text-decoration: none; }
+
+        article { max-width: 680px; margin: 0 auto; padding: 120px 24px 80px; }
+        article h1 { font-size: 40px; font-weight: 700; letter-spacing: -1px; margin-bottom: 12px; line-height: 1.2; }
+        article h1 span { color: var(--accent); }
+        article .subtitle { font-size: 18px; color: var(--text-dim); margin-bottom: 32px; line-height: 1.6; }
+        article h2 {
+            font-size: 26px; font-weight: 700; letter-spacing: -0.3px;
+            margin: 56px 0 16px; padding-top: 32px; border-top: 1px solid rgba(212,168,83,0.06);
+        }
+        article h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+        article h2 span { color: var(--accent); }
+        article h3 { font-size: 19px; font-weight: 600; margin: 32px 0 12px; }
+        article p { color: var(--text-dim); font-size: 16px; margin-bottom: 16px; }
+        article p em { color: var(--text); font-style: italic; }
+        article p b { color: var(--text); font-weight: 600; }
+
+        .back-link { display: inline-block; margin-bottom: 32px; font-size: 14px; color: var(--text-dim); }
+        .back-link:hover { color: var(--accent); }
+
+        /* Fleet figure — abstract trust group: specialists around a human guardian */
+        .fleet-fig { margin: 8px 0 12px; }
+        .fleet-fig svg { width: 100%; height: auto; display: block; }
+        .fleet-fig .edge { stroke: var(--accent); fill: none; }
+        .fleet-fig .spec { fill: var(--accent); }
+        .fleet-fig .guardian { fill: var(--accent); }
+        .fleet-fig .ring { fill: none; stroke: var(--accent); }
+        .fleet-fig .node { transform-box: fill-box; transform-origin: center; animation: breathe 6s ease-in-out infinite; }
+        .fleet-fig .node:nth-of-type(2) { animation-delay: -1s; }
+        .fleet-fig .node:nth-of-type(3) { animation-delay: -2s; }
+        .fleet-fig .node:nth-of-type(4) { animation-delay: -3s; }
+        .fleet-fig .node:nth-of-type(5) { animation-delay: -4s; }
+        .fleet-fig .node:nth-of-type(6) { animation-delay: -2.5s; }
+        @keyframes breathe { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+        .fleet-cap { font-family: var(--mono); font-size: 12px; color: var(--text-faint); text-align: center; letter-spacing: 0.03em; margin-top: 4px; }
+
+        .principle {
+            background: var(--surface); border: 1px solid rgba(212,168,83,0.06);
+            border-radius: 12px; padding: 20px 24px; margin: 14px 0;
+        }
+        .principle h3 { margin: 0 0 4px; font-size: 17px; color: var(--accent); }
+        .principle p { margin: 0; font-size: 15px; }
+
+        .pullquote {
+            border-left: 3px solid var(--accent); padding: 16px 24px; margin: 36px 0;
+            font-size: 17px; color: var(--text); font-style: italic; line-height: 1.7;
+        }
+
+        .cta-box {
+            background: var(--surface); border: 1px solid rgba(212,168,83,0.1);
+            border-radius: 12px; padding: 32px; text-align: center; margin-top: 48px;
+        }
+        .cta-box p { color: var(--text); font-size: 16px; margin-bottom: 16px; }
+        .btn { display: inline-block; padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; font-family: var(--sans); margin: 0 6px; }
+        .btn:hover { opacity: 0.9; text-decoration: none; }
+        .btn-primary { background: var(--accent); color: #000; }
+        .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid rgba(212,168,83,0.15); }
+
+        footer { padding: 48px 24px; text-align: center; border-top: 1px solid rgba(212,168,83,0.06); font-size: 13px; color: var(--text-faint); max-width: 680px; margin: 0 auto; }
+        footer a { color: var(--text-dim); }
+
+        /* Light theme */
+        [data-theme="light"] {
+            --bg: #f5f2ec; --surface: #ffffff; --surface2: #ece9e3;
+            --accent: #7a5c18; --accent-glow: #7a5c1818;
+            --text: #2a2520; --text-dim: #5a554e; --text-faint: #6f6b66;
+        }
+        [data-theme="light"] nav { background: rgba(245,242,236,0.92); border-bottom-color: rgba(122,92,24,0.1); }
+        [data-theme="light"] .principle { border-color: rgba(122,92,24,0.08); }
+        [data-theme="light"] .pullquote { border-left-color: var(--accent); }
+        [data-theme="light"] .cta-box { border-color: rgba(122,92,24,0.12); }
+
+        /* High contrast theme */
+        [data-theme="high-contrast"] {
+            --bg: #000000; --surface: #0a0a0a; --surface2: #1a1a1a;
+            --accent: #ffd700; --accent-glow: #ffd70020;
+            --text: #ffffff; --text-dim: #e0e0e0; --text-faint: #b0b0b0;
+        }
+        [data-theme="high-contrast"] nav { background: rgba(0,0,0,0.95); border-bottom-color: rgba(255,215,0,0.3); }
+        [data-theme="high-contrast"] .btn-primary { background: #ffd700; color: #000; font-weight: 700; }
+        [data-theme="high-contrast"] .btn-secondary { border-color: rgba(255,215,0,0.4); color: #fff; }
+        [data-theme="high-contrast"] a { color: #ffd700; text-decoration: underline; }
+        [data-theme="high-contrast"] .principle { border-color: rgba(255,215,0,0.25); }
+        [data-theme="high-contrast"] .pullquote { border-left-color: #ffd700; }
+
+        /* Theme toggle */
+        .theme-toggle {
+            background: none; border: 1px solid rgba(212,168,83,0.15); border-radius: 8px;
+            padding: 6px 8px; cursor: pointer; color: var(--text-dim); display: flex; align-items: center;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .theme-toggle:hover { color: var(--accent); border-color: rgba(212,168,83,0.3); }
+        .icon-moon, .icon-hc { display: none; }
+        [data-theme="light"] .icon-sun { display: none; }
+        [data-theme="light"] .icon-moon { display: block; }
+        [data-theme="high-contrast"] .icon-sun { display: none; }
+        [data-theme="high-contrast"] .icon-hc { display: block; }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute; top: -40px; left: 0; background: var(--accent); color: #000;
+            padding: 8px 16px; z-index: 100; font-size: 14px; font-weight: 600;
+            transition: top 0.2s;
+        }
+        .skip-link:focus { top: 0; }
+
+        @media (max-width: 640px) {
+            nav { padding: 12px 16px; } nav .links { gap: 16px; font-size: 13px; }
+            article { padding: 100px 20px 60px; }
+            article h1 { font-size: 28px; }
+            article h2 { font-size: 22px; }
+        }
+        /* Screen-reader-only utility */
+        .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+        /* Respect reduced-motion: neutralise animations/transitions */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+            .fleet-fig .node { opacity: .9; }
+        }
+    </style>
+    <script>
+        (function() {
+            var t = localStorage.getItem('r2-theme');
+            if (t === 'light' || t === 'high-contrast') document.documentElement.setAttribute('data-theme', t);
+        })();
+    </script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+
+<nav aria-label="Main navigation">
+    <a href="index.html" class="logo" style="text-decoration:none">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="#d4a853" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2
+    </a>
+    <div class="links">
+        <a href="index.html#built">Built with R2</a>
+        <a href="about.html">About</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+
+<article id="main" role="main">
+
+<a href="index.html" class="back-link" aria-label="Back to Reality2 home">Back to Reality2</a>
+
+<h1>Built by a <span>Fleet</span></h1>
+<p class="subtitle">Reality2 is made the way Reality2 works — by a fleet of collaborating AI agents, guided by a human.</p>
+
+<div class="fleet-fig">
+    <svg viewBox="0 0 520 300" role="img" aria-label="An abstract diagram: six specialist nodes arranged around a single larger node at the centre, all connected — a fleet of AI agents collaborating around a human guardian.">
+        <g class="edge" stroke-width="1.1">
+            <path d="M260 150 L120 64" stroke-opacity=".35"/>
+            <path d="M260 150 L410 70" stroke-opacity=".35"/>
+            <path d="M260 150 L66 180" stroke-opacity=".35"/>
+            <path d="M260 150 L452 192" stroke-opacity=".35"/>
+            <path d="M260 150 L170 252" stroke-opacity=".35"/>
+            <path d="M260 150 L350 252" stroke-opacity=".35"/>
+            <path d="M120 64 L410 70" stroke-opacity=".12"/>
+            <path d="M66 180 L170 252" stroke-opacity=".12"/>
+            <path d="M452 192 L350 252" stroke-opacity=".12"/>
+        </g>
+        <g>
+            <circle class="node spec" cx="120" cy="64" r="5"/>
+            <circle class="node spec" cx="410" cy="70" r="5"/>
+            <circle class="node spec" cx="66" cy="180" r="4.5"/>
+            <circle class="node spec" cx="452" cy="192" r="4.5"/>
+            <circle class="node spec" cx="170" cy="252" r="4"/>
+            <circle class="node spec" cx="350" cy="252" r="4"/>
+        </g>
+        <circle class="ring" cx="260" cy="150" r="16" stroke-width="1" stroke-opacity=".5"/>
+        <circle class="guardian" cx="260" cy="150" r="8"/>
+    </svg>
+    <p class="fleet-cap">specialists collaborating · a human at the centre</p>
+</div>
+
+<p>A fleet of <b>Claude AI agents</b> builds this project — each a specialist in its own part of the system. They collaborate like a trust group: sharing context, checking one another's work, and converging on decisions.</p>
+
+<p>A <b>human stays at the centre as guardian</b> — setting direction, reviewing the work, and holding the final say. No single agent owns the whole. Intelligence is <b>distributed</b> across many, <b>trust</b> is the connective tissue, and a person provides <b>oversight and purpose</b>.</p>
+
+<p>Even this website was built this way.</p>
+
+<h2>The same shape as <span>R2</span></h2>
+
+<div class="principle">
+    <h3>Distributed</h3>
+    <p>No single mind holds it all. The work is shared across many specialists, each expert in its own domain.</p>
+</div>
+<div class="principle">
+    <h3>Trusted</h3>
+    <p>Agents collaborate within a shared, verifiable context — and check each other's work before it lands.</p>
+</div>
+<div class="principle">
+    <h3>Guided</h3>
+    <p>A human directs, reviews, and decides. Judgement and purpose stay human.</p>
+</div>
+
+<div class="pullquote">
+    A small mirror of the thing we're building: distributed intelligence, in symbiosis with human judgement.
+</div>
+
+<div class="cta-box">
+    <p>See what the fleet has built.</p>
+    <a href="index.html#built" class="btn btn-primary">What's Built</a>
+    <a href="how.html" class="btn btn-secondary">How It Works</a>
+</div>
+
+</article>
+
+<footer>
+    <p><a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:8px">Reality2 is in early development.</p>
+</footer>
+
+<script>
+function toggleTheme() {
+    var current = document.documentElement.getAttribute('data-theme') || 'dark';
+    var next = current === 'dark' ? 'light' : current === 'light' ? 'high-contrast' : 'dark';
+    if (next === 'dark') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('r2-theme', next);
+    var s = document.getElementById('theme-status');
+    if (s) s.textContent = (next === 'high-contrast' ? 'High contrast' : next.charAt(0).toUpperCase() + next.slice(1)) + ' theme';
+}
+</script>
+</body>
+</html>
