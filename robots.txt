@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://reality2-ai.github.io/sitemap.xml
+Sitemap: https://reality2.ai/sitemap.xml
