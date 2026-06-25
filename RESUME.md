@@ -59,6 +59,12 @@ pushed to `origin/main`. No active task in progress.
   → id="nav-menu". Audit confirmed clean heading order, no positive tabindex, no
   non-interactive onclick. Reduced-motion path harness-verified (no rAF, draws once).
 
+- Canonical domain fix (commit `94b3c8f`, LIVE): all canonical/OG/Twitter/
+  JSON-LD @id+url/sitemap `<loc>`/robots Sitemap + the r2-notekeeper sub-app
+  links pointed at the `reality2-ai.github.io` redirect host; site actually
+  serves at `reality2.ai` (CNAME; the .github.io host 301s there). Repointed
+  all 43 refs to reality2.ai (verified every path incl. /r2-notekeeper/ = 200).
+  Removes a redirect hop; canonical/social now resolve the real domain. Live-verified.
 - "Built by a fleet" page (commit `633425d`, LIVE): public colophon —
   built-by-a-fleet.html. Concept-level only (Roy-approved go-live; reviewed for
   the public/private boundary): "a fleet of Claude AI agents as a trust group under human
