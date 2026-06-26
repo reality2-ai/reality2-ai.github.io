@@ -9,8 +9,35 @@
 - **Deploy:** GitHub Pages from `main`, served at reality2-ai.github.io (CNAME). Pushes auto-deploy in ~1 min.
 
 ## Current task
-✅ **COMPLETE** — Reviewed all pages + `mesh.js`. All changes committed and
-pushed to `origin/main`. No active task in progress.
+🚧 **IN PROGRESS** — Homepage/how-page WASM size copy refresh. Companion found
+stale `70KB` homepage claims while doing a takeover smoke check; the live
+`/r2-notekeeper/pkg/r2_wasm_bg.wasm` asset is 307,049 bytes (~300 KiB).
+
+### Current uncommitted changes
+- `index.html`: replaced two stale `70KB` WASM claims with "about 300KB" wording;
+  removed the inaccurate "70KB gzipped" claim.
+- `how.html`: normalized the previous `290KB` wording to "about 300KB" / `~300KB`
+  to match the current live asset size.
+- `RESUME.md`: this handoff update.
+
+### Verification this turn
+- `git status --short --branch`: on `main`, clean before edits; now only
+  `index.html`, `how.html`, and `RESUME.md` modified.
+- Live asset check:
+  `curl -sI https://reality2.ai/r2-notekeeper/pkg/r2_wasm_bg.wasm` returned
+  `HTTP/2 200`, `content-type: application/wasm`, `content-length: 307049`.
+- Downloaded asset size: `wc -c /tmp/r2_wasm_bg.wasm` → `307049`; local gzip
+  check → `114400`, so the old `70KB gzipped` copy was not accurate.
+- `rg -n "70KB|290KB|300KB|WebAssembly|r2-wasm" *.html RESUME.md` confirms
+  public HTML now has only the updated `300KB` references. Historical notes below
+  still mention prior fixes.
+
+### Next actions
+- Review the copy in-browser or with a local static render if desired.
+- Commit and push the three-file update after review.
+- Peer challenge was attempted via `fleet ask website`, but the off-thread reply
+  returned only a provider spend-limit message. Do not assume the base website
+  agent reviewed this change.
 
 ### Done this session
 - Conformance badge: dropped hardcoded `110/110` → "Conformance" (commit `506fd11`).
