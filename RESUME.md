@@ -58,6 +58,21 @@ links close the menu. Content commit: `4ac496f`.
     served the custom themed 404 body (`This page <span>disappeared</span>`).
   - Live article pages contain the hamburger `menu-toggle` and
     `aria-expanded='false'` reset markup.
+- Watchdog verification on 2026-06-28 after the full merged audit batch:
+  - `git fetch origin && git status --short --branch` showed clean
+    `main...origin/main`.
+  - Local static checks passed: JSON-LD parses, manifest parses, no duplicate
+    IDs, article pages contain `menu-toggle`, `aria-expanded` reset,
+    `id="nav-menu"`, and `<main id="main">`.
+  - `git diff --check` passed.
+  - Live paths returned 200: `/`, `/about.html`, `/how.html`,
+    `/built-by-a-fleet.html`, `/404.html`, `/favicon.ico`, `/manifest.json`,
+    `/apple-touch-icon.png`, `/icon-192.png`, `/icon-512.png`, `/og-image.png`,
+    `/logo.png`, `/mesh.js`, `/sitemap.xml`, `/robots.txt`.
+  - Bogus path `/definitely-not-a-real-r2-page-final-check` returned 404 with
+    the custom themed 404 body.
+  - Live article pages contain hamburger markup plus `twitter:image:alt`,
+    JSON-LD `inLanguage`, and `<main id="main">` markers.
 
 ### Changed files this turn
 - `about.html`: added mobile hamburger CSS/markup for the article nav.
