@@ -5,23 +5,27 @@
 
 ## Repo
 - **Branch:** `main` (tracks `origin/main`)
-- **State:** dirty local worktree: `website` has uncommitted article metadata
-  pass changes in `about.html`, `how.html`, and `built-by-a-fleet.html`;
-  website-codex is committing only this RESUME live-verification handoff.
-- **HEAD at live verification:** `7071d96` (`Record article navigation handoff`)
-- **Content commit:** `4ac496f` (`Fix article mobile navigation`)
-- **Base before content commit:** `3e200ef` (`index.html/mesh.js/sitemap: SEO, a11y, and perf audit fixes`)
-- **Deploy:** GitHub Pages from `main`, served at reality2-ai.github.io (CNAME). Pushes auto-deploy in ~1 min.
-- **Current file ownership:** `website-codex` owns this article-page responsive
-  nav fix in `about.html`, `how.html`, and `built-by-a-fleet.html`. `website`
-  landed the metadata/PWA/asset audit in `a63ce92` and `3e200ef` and will own
-  the current uncommitted article metadata/a11y follow-up in `about.html`,
-  `how.html`, and `built-by-a-fleet.html`. Do not edit `index.html`, `mesh.js`,
-  `sitemap.xml`, root PWA/icon assets, product cards, WASM/r2-core provenance,
-  mission/vision copy, or footer wording without coordination.
+- **State:** clean / all work committed + pushed + live-verified.
+- **HEAD:** `9143584` (`Article pages: SEO/a11y/perf parity with homepage`)
+- **Deploy:** GitHub Pages from `main`, served at reality2.ai (CNAME; the
+  `reality2-ai.github.io` host 301s there). Pushes auto-deploy in ~1 min.
+- **Two agents share this worktree** (`website` + `website-codex`): named adds
+  only, coordinate file ownership, re-Read before editing. The audit batch
+  split cleanly — `website-codex` did the article-page responsive nav
+  (`4ac496f`); `website` did the completeness assets + index pass (`a63ce92`,
+  `3e200ef`) and the article-page metadata pass (`9143584`). Held (neither
+  touches): product cards, WASM/r2-core provenance, mission/vision copy.
 
 ## Current task
-✅ **COMPLETE + PUSHED** — Article-page mobile nav overflow fixed. At 360px,
+✅ **COMPLETE + PUSHED + LIVE** — Audit-driven public-site improvement batch
+(perf / a11y / SEO / security / completeness-PWA / cross-page consistency). A
+7-dimension audit produced 45 findings; every mechanical fix landed across both
+agents (`a63ce92`, `3e200ef`, `4ac496f`, `9143584`) and is live-verified on
+reality2.ai. Design/content calls deferred to Roy (see "Open for Roy"). The
+article-nav sub-task detail follows.
+
+### Article-page mobile nav (website-codex, `4ac496f`)
+Article-page mobile nav overflow fixed. At 360px,
 `about.html`, `how.html`, and `built-by-a-fleet.html` previously rendered the
 full inline nav across the fixed header, overlapping/wrapping against the logo.
 Those three pages now use a compact hamburger below 640px, matching the homepage
@@ -67,10 +71,40 @@ links close the menu. Content commit: `4ac496f`.
   sync, main landmark, reduced-motion tweak). Leave unstaged unless
   coordinating.
 
-### Next actions
-- No further website-codex action pending on this task.
-- Open design/product decisions for Roy, not changed here: hero fade-word
-  contrast vs signature aesthetic; Google Fonts privacy vs self-hosted fonts.
+### website audit batch (commits `a63ce92`, `3e200ef`, `9143584`) — LIVE
+- Completeness assets: branded 3-theme `404.html` (noindex; unmatched paths
+  serve it with HTTP 404 — verified), `manifest.json` + `icon-192/512`,
+  `apple-touch-icon.png` (180), `favicon.ico` (16/32/48), `.nojekyll`.
+- Image optimization: og-image 201->150KB (dropped unused alpha on an opaque
+  card), logo 67->43KB (lossless).
+- index.html + all 3 article pages, parity pass: fonts.gstatic preconnect;
+  unified italic-axis Google Fonts URL (fixed faux-italic); referrer policy;
+  twitter:image:alt; JSON-LD inLanguage:en; theme-color + toggle aria-label
+  synced to the active theme on load + toggle; favicon.ico/apple-touch/manifest
+  wired in `<head>`.
+- Landmarks: index `<main>` extended to wrap all sections (skip-link was
+  skipping most of the page); article pages wrapped in a real `<main>` while
+  keeping `<article>` for its CSS. og:type article->website on the 3 pages.
+- mesh.js perf: DPR clamp to 1.5 + squared-distance reject in the O(n^2)
+  repulsion loop (no visual change). sitemap lastmod refreshed.
+- Page-specific: built-by-a-fleet breathe reduced-motion override now wins
+  (!important); how.html diagram role=img moved onto the `<table>` so its two
+  caption sentences re-enter the a11y tree.
+
+### Open for Roy (deferred — design/content decisions, not changed)
+- **Hero fade-word contrast**: index H1 "Disappears" fades to ~7% opacity
+  (fails WCAG 1.4.3 on heading text) — signature aesthetic, left as-is. Option:
+  raise the gradient's terminal opacity so it still fades but stays legible.
+- **Footer wording**: inconsistent across pages ("...Source specifications and
+  code available soon." vs the short form). Pick one to unify.
+- **Self-host fonts**: currently every visitor's IP/UA hits Google Fonts, which
+  sits oddly with the privacy positioning. Bigger change; recommended.
+
+### Deferred technical (recommended, not yet done)
+- Extract shared inline CSS into one cached `styles.css` (duplicated across 4
+  pages). mesh.js per-frame gradient pre-baking (visual-risk; left for a
+  careful pass). Meta CSP (limited value via `<meta>`; inline handlers need
+  'unsafe-inline'). All low priority.
 
 ### Previous task verification
 - Homepage/how-page WASM size copy refreshed. The public HTML no longer claims
