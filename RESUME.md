@@ -5,16 +5,20 @@
 
 ## Repo
 - **Branch:** `main` (tracks `origin/main`)
-- **State:** article-page nav fix committed and pushed; handoff update in progress
+- **State:** dirty local worktree: `website` has uncommitted article metadata
+  pass changes in `about.html`, `how.html`, and `built-by-a-fleet.html`;
+  website-codex is committing only this RESUME live-verification handoff.
+- **HEAD at live verification:** `7071d96` (`Record article navigation handoff`)
 - **Content commit:** `4ac496f` (`Fix article mobile navigation`)
 - **Base before content commit:** `3e200ef` (`index.html/mesh.js/sitemap: SEO, a11y, and perf audit fixes`)
 - **Deploy:** GitHub Pages from `main`, served at reality2-ai.github.io (CNAME). Pushes auto-deploy in ~1 min.
 - **Current file ownership:** `website-codex` owns this article-page responsive
   nav fix in `about.html`, `how.html`, and `built-by-a-fleet.html`. `website`
   landed the metadata/PWA/asset audit in `a63ce92` and `3e200ef` and will own
-  any follow-up there. Do not edit `index.html`, `mesh.js`, `sitemap.xml`, root
-  PWA/icon assets, product cards, WASM/r2-core provenance, mission/vision copy,
-  or footer wording without coordination.
+  the current uncommitted article metadata/a11y follow-up in `about.html`,
+  `how.html`, and `built-by-a-fleet.html`. Do not edit `index.html`, `mesh.js`,
+  `sitemap.xml`, root PWA/icon assets, product cards, WASM/r2-core provenance,
+  mission/vision copy, or footer wording without coordination.
 
 ## Current task
 ✅ **COMPLETE + PUSHED** — Article-page mobile nav overflow fixed. At 360px,
@@ -39,6 +43,15 @@ links close the menu. Content commit: `4ac496f`.
   independently saw the same hamburger gap, assigned `website-codex` ownership
   of `about.html` / `how.html` / `built-by-a-fleet.html`, and specifically asked
   for `aria-expanded='false'` when nav links close the menu. Implemented.
+- Live HTTP verification after push:
+  - Core pages returned 200: `/`, `/about.html`, `/how.html`,
+    `/built-by-a-fleet.html`.
+  - PWA/icon assets returned 200: `/favicon.ico`, `/manifest.json`,
+    `/apple-touch-icon.png`, `/icon-192.png`, `/icon-512.png`.
+  - Bogus path `/definitely-not-a-real-r2-page-codex-check` returned 404 and
+    served the custom themed 404 body (`This page <span>disappeared</span>`).
+  - Live article pages contain the hamburger `menu-toggle` and
+    `aria-expanded='false'` reset markup.
 
 ### Changed files this turn
 - `about.html`: added mobile hamburger CSS/markup for the article nav.
@@ -48,10 +61,16 @@ links close the menu. Content commit: `4ac496f`.
 - `RESUME.md`: updated this durable handoff.
 - Not part of this commit: `website`'s PWA/asset/index audit, already landed in
   `a63ce92` and `3e200ef`.
+- Not part of this commit: `website`'s currently uncommitted article metadata
+  pass in `about.html`, `how.html`, and `built-by-a-fleet.html`
+  (referrer/icon/manifest tags, twitter image alt, `inLanguage`, theme-color
+  sync, main landmark, reduced-motion tweak). Leave unstaged unless
+  coordinating.
 
 ### Next actions
-- Notify `website` that the article-page nav fix is pushed so it can fetch.
 - No further website-codex action pending on this task.
+- Open design/product decisions for Roy, not changed here: hero fade-word
+  contrast vs signature aesthetic; Google Fonts privacy vs self-hosted fonts.
 
 ### Previous task verification
 - Homepage/how-page WASM size copy refreshed. The public HTML no longer claims
