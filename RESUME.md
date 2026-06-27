@@ -5,8 +5,9 @@
 
 ## Repo
 - **Branch:** `main` (tracks `origin/main`)
-- **State:** article-page nav fix staged locally for commit/push
-- **HEAD before this commit:** `3e200ef` (`index.html/mesh.js/sitemap: SEO, a11y, and perf audit fixes`)
+- **State:** article-page nav fix committed and pushed; handoff update in progress
+- **Content commit:** `4ac496f` (`Fix article mobile navigation`)
+- **Base before content commit:** `3e200ef` (`index.html/mesh.js/sitemap: SEO, a11y, and perf audit fixes`)
 - **Deploy:** GitHub Pages from `main`, served at reality2-ai.github.io (CNAME). Pushes auto-deploy in ~1 min.
 - **Current file ownership:** `website-codex` owns this article-page responsive
   nav fix in `about.html`, `how.html`, and `built-by-a-fleet.html`. `website`
@@ -16,12 +17,12 @@
   or footer wording without coordination.
 
 ## Current task
-✅ **COMPLETE LOCALLY** — Article-page mobile nav overflow fixed. At 360px,
+✅ **COMPLETE + PUSHED** — Article-page mobile nav overflow fixed. At 360px,
 `about.html`, `how.html`, and `built-by-a-fleet.html` previously rendered the
 full inline nav across the fixed header, overlapping/wrapping against the logo.
 Those three pages now use a compact hamburger below 640px, matching the homepage
 pattern, with `aria-controls="nav-menu"` and `aria-expanded` reset when nav
-links close the menu.
+links close the menu. Content commit: `4ac496f`.
 
 ### Verification this turn
 - Baseline Firefox headless 360px screenshots showed article-page nav overlap:
@@ -49,9 +50,8 @@ links close the menu.
   `a63ce92` and `3e200ef`.
 
 ### Next actions
-- Commit and push only `about.html`, `how.html`, `built-by-a-fleet.html`, and
-  `RESUME.md`, then notify `website` to fetch.
-- After push, verify `main` tracks `origin/main` at the new article-nav commit.
+- Notify `website` that the article-page nav fix is pushed so it can fetch.
+- No further website-codex action pending on this task.
 
 ### Previous task verification
 - Homepage/how-page WASM size copy refreshed. The public HTML no longer claims
