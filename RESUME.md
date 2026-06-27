@@ -73,6 +73,16 @@ links close the menu. Content commit: `4ac496f`.
     the custom themed 404 body.
   - Live article pages contain hamburger markup plus `twitter:image:alt`,
     JSON-LD `inLanguage`, and `<main id="main">` markers.
+- Cross-provider takeover check on 2026-06-28:
+  - `git status --short --branch` showed clean `main...origin/main` at
+    `ad00471`.
+  - `git diff --name-status` showed no changed files.
+  - Local static takeover checks passed: JSON-LD parses, `manifest.json` parses,
+    no duplicate IDs, and article pages contain hamburger, `aria-expanded`
+    reset, `<main id="main">`, `twitter:image:alt`, and JSON-LD `inLanguage`.
+  - `git diff --check` passed.
+  - No active implementation task found; remaining items are Roy decisions or
+    low-priority deferred technical work.
 
 ### Changed files this turn
 - `about.html`: added mobile hamburger CSS/markup for the article nav.
