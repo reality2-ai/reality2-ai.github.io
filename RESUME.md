@@ -82,11 +82,10 @@ links close the menu. Content commit: `4ac496f`.
 - `RESUME.md`: updated this durable handoff.
 - Not part of this commit: `website`'s PWA/asset/index audit, already landed in
   `a63ce92` and `3e200ef`.
-- Not part of this commit: `website`'s currently uncommitted article metadata
-  pass in `about.html`, `how.html`, and `built-by-a-fleet.html`
-  (referrer/icon/manifest tags, twitter image alt, `inLanguage`, theme-color
-  sync, main landmark, reduced-motion tweak). Leave unstaged unless
-  coordinating.
+- Not part of the article-nav commit, but now landed: `website`'s article
+  metadata pass in `about.html`, `how.html`, and `built-by-a-fleet.html`
+  (`9143584`; referrer/icon/manifest tags, twitter image alt, `inLanguage`,
+  theme-color sync, main landmark, reduced-motion tweak).
 
 ### website audit batch (commits `a63ce92`, `3e200ef`, `9143584`) — LIVE
 - Completeness assets: branded 3-theme `404.html` (noindex; unmatched paths
