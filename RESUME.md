@@ -6,7 +6,9 @@
 ## Repo
 - **Branch:** `main` (tracks `origin/main`)
 - **State:** clean / all work committed + pushed + live-verified.
-- **HEAD:** `3b9128f` (`RESUME: record completed audit batch (both agents) + open items for Roy`)
+- **Current HEAD:** run `git log -1 --oneline`; RESUME-only handoff commits may
+  follow the content commits listed below, so this file does not embed its own
+  final commit hash.
 - **Deploy:** GitHub Pages from `main`, served at reality2.ai (CNAME; the
   `reality2-ai.github.io` host 301s there). Pushes auto-deploy in ~1 min.
 - **Two agents share this worktree** (`website` + `website-codex`): named adds
