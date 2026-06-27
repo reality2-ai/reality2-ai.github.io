@@ -5,33 +5,60 @@
 
 ## Repo
 - **Branch:** `main` (tracks `origin/main`)
-- **State:** clean / up to date
+- **State:** article-page nav fix staged locally for commit/push
+- **HEAD before this commit:** `3e200ef` (`index.html/mesh.js/sitemap: SEO, a11y, and perf audit fixes`)
 - **Deploy:** GitHub Pages from `main`, served at reality2-ai.github.io (CNAME). Pushes auto-deploy in ~1 min.
+- **Current file ownership:** `website-codex` owns this article-page responsive
+  nav fix in `about.html`, `how.html`, and `built-by-a-fleet.html`. `website`
+  landed the metadata/PWA/asset audit in `a63ce92` and `3e200ef` and will own
+  any follow-up there. Do not edit `index.html`, `mesh.js`, `sitemap.xml`, root
+  PWA/icon assets, product cards, WASM/r2-core provenance, mission/vision copy,
+  or footer wording without coordination.
 
 ## Current task
-✅ **COMPLETE** — Homepage/how-page WASM size copy refreshed. The public HTML no
-longer claims `70KB` or `290KB`; it uses "about 300KB" / `~300KB`, matching the
-current live `/r2-notekeeper/pkg/r2_wasm_bg.wasm` asset (307,049 bytes,
-~300 KiB). Content commit: `a66a529` (`Correct WASM size copy`); this final
-handoff update follows it.
+✅ **COMPLETE LOCALLY** — Article-page mobile nav overflow fixed. At 360px,
+`about.html`, `how.html`, and `built-by-a-fleet.html` previously rendered the
+full inline nav across the fixed header, overlapping/wrapping against the logo.
+Those three pages now use a compact hamburger below 640px, matching the homepage
+pattern, with `aria-controls="nav-menu"` and `aria-expanded` reset when nav
+links close the menu.
 
 ### Verification this turn
-- Live asset check:
-  `curl -sI https://reality2.ai/r2-notekeeper/pkg/r2_wasm_bg.wasm` returned
-  `HTTP/2 200`, `content-type: application/wasm`, `content-length: 307049`.
-- Downloaded asset size: `wc -c /tmp/r2_wasm_bg.wasm` → `307049`; local gzip
-  check → `114400`, so the old `70KB gzipped` copy was not accurate.
-- `rg -n "70KB|290KB" index.html about.html how.html built-by-a-fleet.html
-  sitemap.xml robots.txt` returned no matches.
-- `rg -n "about 300KB|~300KB" index.html how.html` returned the four expected
-  updated references.
+- Baseline Firefox headless 360px screenshots showed article-page nav overlap:
+  inline links crowded/wrapped across the logo on `about.html` and `how.html`.
+- After the fix, Firefox headless screenshots at `--window-size 360,640` and
+  `--window-size 320,640` for all three article pages show a clean logo +
+  hamburger header with no overlap/clipping.
 - `git diff --check` passed.
+- Node static check passed: JSON-LD parses, no duplicate IDs, and each article
+  page has `.menu-toggle`, `aria-controls="nav-menu"`, `id="nav-menu"`, and
+  `nav .links.open { display: flex; }`.
+- `pgrep -af firefox` returned no running Firefox processes after verification.
+- Peer challenge/coordination: `website` confirmed no active edit collision,
+  independently saw the same hamburger gap, assigned `website-codex` ownership
+  of `about.html` / `how.html` / `built-by-a-fleet.html`, and specifically asked
+  for `aria-expanded='false'` when nav links close the menu. Implemented.
+
+### Changed files this turn
+- `about.html`: added mobile hamburger CSS/markup for the article nav.
+- `how.html`: added the same article-nav mobile hamburger. Did **not** touch the
+  held WASM/r2-core provenance content.
+- `built-by-a-fleet.html`: added the same article-nav mobile hamburger.
+- `RESUME.md`: updated this durable handoff.
+- Not part of this commit: `website`'s PWA/asset/index audit, already landed in
+  `a63ce92` and `3e200ef`.
 
 ### Next actions
-- None required. After push, GitHub Pages should auto-deploy in the usual window.
-- Peer challenge was attempted via `fleet ask website`, but no substantive answer
-  was available this turn. Do not assume the base website agent reviewed this
-  change.
+- Commit and push only `about.html`, `how.html`, `built-by-a-fleet.html`, and
+  `RESUME.md`, then notify `website` to fetch.
+- After push, verify `main` tracks `origin/main` at the new article-nav commit.
+
+### Previous task verification
+- Homepage/how-page WASM size copy refreshed. The public HTML no longer claims
+  `70KB` or `290KB`; it uses "about 300KB" / `~300KB`, matching the current live
+  `/r2-notekeeper/pkg/r2_wasm_bg.wasm` asset (307,049 bytes, ~300 KiB). Content
+  commit: `a66a529` (`Correct WASM size copy`); handoff commit: `047c737`.
+- `git diff --check` passed.
 
 ### Done this session
 - Conformance badge: dropped hardcoded `110/110` → "Conformance" (commit `506fd11`).
