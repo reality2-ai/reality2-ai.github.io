@@ -96,7 +96,8 @@ links close the menu. Content commit: `4ac496f`.
     JSON-LD, parsing `manifest.json`, checking duplicate IDs, checking every
     main-menu link resets `aria-expanded`, and rechecking article-page metadata
     markers.
-  - Live verification pending until after push/deploy.
+  - Committed + pushed as `273f644`; live-verified on reality2.ai (HTTP 200,
+    deployed homepage serves the close/reset handler on the GitHub nav link).
 
 ### Changed files this turn
 - `index.html`: added the missing mobile-menu close / `aria-expanded='false'`
