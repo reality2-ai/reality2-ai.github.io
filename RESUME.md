@@ -83,8 +83,24 @@ links close the menu. Content commit: `4ac496f`.
   - `git diff --check` passed.
   - No active implementation task found; remaining items are Roy decisions or
     low-priority deferred technical work.
+- Fail-over follow-up on 2026-06-28:
+  - `git fetch origin --prune && git status --short --branch` showed clean
+    `main...origin/main`; HEAD and upstream both resolved to `41d485d`.
+  - Refuted one false-positive static check on article-page nav reset by
+    inspecting the actual markup, then found a real homepage-only parity gap:
+    the `index.html` GitHub nav link did not close the mobile disclosure or
+    reset `aria-expanded` to `false`, unlike the other nav links.
+  - Applied the smallest fix: add the same close/reset inline handler to that
+    single homepage GitHub nav link. No held content changed.
+  - Local verification passed: `git diff --check`; Node static check parsing all
+    JSON-LD, parsing `manifest.json`, checking duplicate IDs, checking every
+    main-menu link resets `aria-expanded`, and rechecking article-page metadata
+    markers.
+  - Live verification pending until after push/deploy.
 
 ### Changed files this turn
+- `index.html`: added the missing mobile-menu close / `aria-expanded='false'`
+  reset on the homepage GitHub nav link.
 - `about.html`: added mobile hamburger CSS/markup for the article nav.
 - `how.html`: added the same article-nav mobile hamburger. Did **not** touch the
   held WASM/r2-core provenance content.
