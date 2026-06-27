@@ -6,9 +6,13 @@
     <title>About Reality2 - Your Digital Life, Under Your Control</title>
     <meta name="description" content="Why Reality2 exists, how trust groups work, and what digital sovereignty means in practice.">
     <link rel="canonical" href="https://reality2.ai/about.html">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#0e0e12">
-    <meta property="og:type" content="article">
+    <meta property="og:type" content="website">
     <meta property="og:site_name" content="Reality2">
     <meta property="og:title" content="About Reality2 - Your Digital Life, Under Your Control">
     <meta property="og:description" content="Why Reality2 exists, how trust groups work, and what digital sovereignty means in practice.">
@@ -21,6 +25,7 @@
     <meta name="twitter:title" content="About Reality2 - Your Digital Life, Under Your Control">
     <meta name="twitter:description" content="Why Reality2 exists, how trust groups work, and what digital sovereignty means in practice.">
     <meta name="twitter:image" content="https://reality2.ai/og-image.png">
+    <meta name="twitter:image:alt" content="Reality2 — Technology That Disappears">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -29,11 +34,13 @@
       "name": "About Reality2 - Your Digital Life, Under Your Control",
       "url": "https://reality2.ai/about.html",
       "description": "Why Reality2 exists, how trust groups work, and what digital sovereignty means in practice.",
+      "inLanguage": "en",
       "isPartOf": { "@id": "https://reality2.ai/#website" },
       "publisher": { "@id": "https://reality2.ai/#organization" }
     }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -191,7 +198,12 @@
     <script>
         (function() {
             var t = localStorage.getItem('r2-theme');
-            if (t === 'light' || t === 'high-contrast') document.documentElement.setAttribute('data-theme', t);
+            if (t === 'light' || t === 'high-contrast') {
+                document.documentElement.setAttribute('data-theme', t);
+                var tc = { light: '#f5f2ec', 'high-contrast': '#000000' }[t];
+                var meta = document.querySelector('meta[name="theme-color"]');
+                if (meta && tc) meta.setAttribute('content', tc);
+            }
         })();
     </script>
 </head>
@@ -220,7 +232,8 @@
     </div>
 </nav>
 
-<article id="main" role="main">
+<main id="main">
+<article>
 
 <a href="index.html" class="back-link" aria-label="Back to Reality2 home">Back to Reality2</a>
 
@@ -334,6 +347,7 @@
 </div>
 
 </article>
+</main>
 
 <footer>
     <p><a href="https://github.com/reality2-ai">GitHub</a> · <a href="built-by-a-fleet.html">Built by a fleet</a></p>
@@ -347,8 +361,14 @@ function toggleTheme() {
     if (next === 'dark') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('r2-theme', next);
+    var label = next === 'high-contrast' ? 'High contrast' : next.charAt(0).toUpperCase() + next.slice(1);
     var s = document.getElementById('theme-status');
-    if (s) s.textContent = (next === 'high-contrast' ? 'High contrast' : next.charAt(0).toUpperCase() + next.slice(1)) + ' theme';
+    if (s) s.textContent = label + ' theme';
+    var tc = { dark: '#0e0e12', light: '#f5f2ec', 'high-contrast': '#000000' }[next];
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta && tc) meta.setAttribute('content', tc);
+    var btn = document.querySelector('.theme-toggle');
+    if (btn) btn.setAttribute('aria-label', 'Theme: ' + label + '. Switch theme');
 }
 </script>
 </body>
