@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page not found - Reality2</title>
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#0e0e12">
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+            var t = localStorage.getItem('r2-theme');
+            if (t === 'light' || t === 'high-contrast') {
+                document.documentElement.setAttribute('data-theme', t);
+                var tc = { light: '#f5f2ec', 'high-contrast': '#000000' }[t];
+                var meta = document.querySelector('meta[name="theme-color"]');
+                if (meta && tc) meta.setAttribute('content', tc);
+            }
+        })();
+    </script>
+    <style>
+        :root {
+            --bg: #0e0e12; --accent: #d4a853; --text: #d8d4cf;
+            --text-dim: #a8a49e; --text-faint: #817b75;
+            --surface: #16161d; --border: rgba(212,168,83,0.2);
+            --sans: 'DM Sans', -apple-system, sans-serif;
+            --mono: 'JetBrains Mono', 'SF Mono', monospace;
+        }
+        [data-theme="light"] {
+            --bg: #f5f2ec; --accent: #7a5c18; --text: #2a2724;
+            --text-dim: #4a4641; --text-faint: #6f6b66;
+            --surface: #ffffff; --border: rgba(122,92,24,0.25);
+        }
+        [data-theme="high-contrast"] {
+            --bg: #000000; --accent: #ffd24a; --text: #ffffff;
+            --text-dim: #e6e6e6; --text-faint: #cccccc;
+            --surface: #0a0a0a; --border: #ffd24a;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--sans); background: var(--bg); color: var(--text);
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 40px 20px; line-height: 1.7;
+        }
+        .mark { opacity: 0.9; margin-bottom: 28px; }
+        .code { font-family: var(--mono); font-size: 14px; letter-spacing: 2px; color: var(--text-faint); text-transform: uppercase; margin-bottom: 12px; }
+        h1 { font-size: 32px; font-weight: 700; letter-spacing: -1px; margin-bottom: 16px; }
+        h1 span { color: var(--accent); }
+        p { font-size: 17px; color: var(--text-dim); max-width: 440px; margin-bottom: 32px; }
+        .links { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+        a.btn {
+            font-family: var(--sans); font-size: 14px; font-weight: 600;
+            padding: 12px 22px; border-radius: 8px; text-decoration: none;
+            border: 1px solid var(--border); transition: opacity 0.2s, transform 0.2s;
+        }
+        a.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+        a.btn-primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+        a.btn-secondary { background: transparent; color: var(--text); }
+        a.btn:hover { transform: translateY(-1px); opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <svg class="mark" width="64" height="64" viewBox="0 0 512 512" fill="none" aria-hidden="true">
+        <path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="var(--accent)" stroke-width="20" stroke-linejoin="round"/>
+        <circle cx="256" cy="242" r="18" fill="var(--accent)"/>
+    </svg>
+    <p class="code">Error 404</p>
+    <h1>This page <span>disappeared</span></h1>
+    <p>The address you followed doesn't lead anywhere on Reality2. It may have moved, or never existed.</p>
+    <div class="links">
+        <a href="/" class="btn btn-primary">Back to home</a>
+        <a href="/how.html" class="btn btn-secondary">How it works</a>
+        <a href="/about.html" class="btn btn-secondary">About</a>
+    </div>
+</body>
+</html>
