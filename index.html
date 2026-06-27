@@ -6,7 +6,11 @@
     <title>Reality2 - Your Digital Life, Under Your Control</title>
     <meta name="description" content="R2 is a decentralised mesh protocol for trust groups. End-to-end encrypted. No cloud. Runs everywhere.">
     <link rel="canonical" href="https://reality2.ai/">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#0e0e12">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Reality2">
@@ -21,6 +25,7 @@
     <meta name="twitter:title" content="Reality2 - Your Digital Life, Under Your Control">
     <meta name="twitter:description" content="R2 is a decentralised mesh protocol for trust groups. End-to-end encrypted. No cloud. Runs everywhere.">
     <meta name="twitter:image" content="https://reality2.ai/og-image.png">
+    <meta name="twitter:image:alt" content="Reality2 — Technology That Disappears">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -40,13 +45,15 @@
           "name": "Reality2",
           "url": "https://reality2.ai/",
           "description": "R2 is a decentralised mesh protocol for trust groups. End-to-end encrypted. No cloud. Runs everywhere.",
+          "inLanguage": "en",
           "publisher": { "@id": "https://reality2.ai/#organization" }
         }
       ]
     }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #0e0e12; --surface: #16161d; --surface2: #1e1e28;
@@ -228,7 +235,12 @@
     <script>
         (function() {
             var t = localStorage.getItem('r2-theme');
-            if (t === 'light' || t === 'high-contrast') document.documentElement.setAttribute('data-theme', t);
+            if (t === 'light' || t === 'high-contrast') {
+                document.documentElement.setAttribute('data-theme', t);
+                var tc = { light: '#f5f2ec', 'high-contrast': '#000000' }[t];
+                var meta = document.querySelector('meta[name="theme-color"]');
+                if (meta && tc) meta.setAttribute('content', tc);
+            }
         })();
     </script>
 </head>
@@ -247,8 +259,8 @@
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="links" id="nav-menu">
-        <a href="#built" onclick="this.parentElement.classList.remove('open')">Built with R2</a>
-        <a href="#developers" onclick="this.parentElement.classList.remove('open')">Developers</a>
+        <a href="#built" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">Built with R2</a>
+        <a href="#developers" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">Developers</a>
         <a href="https://github.com/reality2-ai">GitHub</a>
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
             <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -258,7 +270,8 @@
     </div>
 </nav>
 
-<main class="hero" id="main">
+<main id="main">
+<div class="hero">
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px">
         <svg width="72" height="72" viewBox="0 0 512 512" fill="none" style="flex-shrink:0;opacity:0.85" aria-hidden="true">
             <path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="#d4a853" stroke-width="16" stroke-linejoin="round"/>
@@ -283,7 +296,7 @@
         <a href="how.html" class="btn btn-secondary">How It Works</a>
     </div>
     <p style="margin-top:32px;font-size:12px;color:var(--text-faint);font-family:var(--mono)">Early development - everything here is experimental</p>
-</main>
+</div>
 
 <section>
     <h2>What is <span>Reality2</span>?</h2>
@@ -441,6 +454,7 @@
         <a href="mailto:roy@reality2.ai" class="btn btn-primary" style="padding:12px 24px;font-size:14px">Get in Touch</a>
     </div>
 </section>
+</main>
 
 <footer>
     <p>
@@ -457,8 +471,14 @@ function toggleTheme() {
     if (next === 'dark') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('r2-theme', next);
+    var label = next === 'high-contrast' ? 'High contrast' : next.charAt(0).toUpperCase() + next.slice(1);
     var s = document.getElementById('theme-status');
-    if (s) s.textContent = (next === 'high-contrast' ? 'High contrast' : next.charAt(0).toUpperCase() + next.slice(1)) + ' theme';
+    if (s) s.textContent = label + ' theme';
+    var tc = { dark: '#0e0e12', light: '#f5f2ec', 'high-contrast': '#000000' }[next];
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta && tc) meta.setAttribute('content', tc);
+    var btn = document.querySelector('.theme-toggle');
+    if (btn) btn.setAttribute('aria-label', 'Theme: ' + label + '. Switch theme');
 }
 // Scroll reveal
 const observer = new IntersectionObserver((entries) => {
@@ -474,6 +494,6 @@ document.querySelectorAll('section, .pullquote, .card').forEach(el => {
     observer.observe(el);
 });
 </script>
-<script src="mesh.js"></script>
+<script src="mesh.js" defer></script>
 </body>
 </html>

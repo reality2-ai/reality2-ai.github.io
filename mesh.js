@@ -6,7 +6,9 @@ const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-mo
 
 let W, H, bgGradient;
 function resize() {
-  const dpr = window.devicePixelRatio || 1;
+  // Clamp DPR for this decorative background — sub-pixel sharpness is
+  // imperceptible here, and capping roughly halves fill cost on 2x+ displays.
+  const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
   W = window.innerWidth;
   H = window.innerHeight;
   canvas.width = W * dpr;
@@ -563,7 +565,11 @@ function tick() {
       if (other === n || !other.alive) continue;
       const dx = n.x - other.x;
       const dy = n.y - other.y;
-      const d = Math.hypot(dx, dy);
+      // Cheap squared-distance reject before the sqrt — repulsion only acts
+      // within 50px, so skip hypot for the vast majority of (far) pairs.
+      const d2 = dx * dx + dy * dy;
+      if (d2 >= 2500) continue;
+      const d = Math.sqrt(d2);
       if (d < 50 && d > 0) {
         const repel = 0.0008 * (1 - d / 50);
         n.vx += (dx / d) * repel * dtScale;
