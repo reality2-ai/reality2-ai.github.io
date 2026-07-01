@@ -4,8 +4,19 @@
 > public website facts only; no internal/working context beyond the site.
 
 ## Repo
-- **Branch:** `main` (tracks `origin/main`)
-- **State:** clean / all work committed + pushed + live-verified.
+- **Branch:** `mission-vision-refresh` (off `main`) — spec-derived mission/vision
+  refresh committed locally, NOT merged/published yet. Verified starting HEAD
+  for this doctor pass: `58b14e0` (`Sanitize mission refresh handoff`).
+  `main` is unchanged and remains the live source.
+- **State:** branch work committed; `main` clean + in sync with `origin/main`.
+  `TE-REO-REVIEW.md` is an untracked local reviewer packet and is ignored by
+  git; do not stage it unless explicitly requested.
+- **Remote:** `origin/mission-vision-refresh` now exists as a PUBLIC-SAFE
+  SQUASH (main + one scrubbed commit) pushed 2026-07-02 per Roy's
+  public-content scrub ruling. The full pre-scrub local history (7 commits,
+  contains the parked wording) is preserved ONLY on local branch
+  `mission-vision-refresh-local-history` — NEVER push that branch; publishing
+  that history is a separate decision Roy has explicitly deferred.
 - **Current HEAD:** run `git log -1 --oneline`; RESUME-only handoff commits may
   follow the content commits listed below, so this file does not embed its own
   final commit hash.
@@ -19,6 +30,87 @@
   touches): product cards, WASM/r2-core provenance, mission/vision copy.
 
 ## Current task
+🚧 **IN REVIEW (branch `mission-vision-refresh`)** — spec-derived
+mission/vision refresh. Source of truth: the public R2 canon `R2-INTRO.md`
+(Design Philosophy + the natural-world guardianship framing).
+
+Two additive sections (no existing copy rewritten):
+- **index.html** — new "People and Planet" section after the philosophy
+  pullquote: 3 cards (symbiosis-not-extraction · digital sovereignty extended
+  from people to the natural world via community-guardian trust groups · on-grid-and-off
+  resilience) + a closing pullquote ("sovereignty is built into the architecture").
+- **about.html** — new `#planet` "Beyond People: the Living World" section
+  (guardianship; community trust groups owning natural-world data; insights to
+  researchers via entanglement on the community's terms; off-grid flood
+  resilience) + matching TOC entry.
+
+**Public-hygiene decision (deliberate):** kept the refresh to abstract
+philosophy only. No specific deployment, place, or customer/pilot detail is
+introduced by this branch.
+
+Verification so far: tag/div/section balance OK both files; whitespace clean;
+TOC anchor renders; about.html section render confirmed via headless screenshot
+(clean). Homepage section reuses the exact classes of the adjacent shipped
+"What is Reality2" section; a clean isolated headless screenshot of it was
+blocked by the 100vh animated-mesh hero (tooling limit) — definitive visual
+check deferred to post-merge live verification, as with prior batches.
+
+✅ Copy challenge DONE. Review findings were applied in `5f5c20b`: softened
+marketplace-sounding language, avoided treating a river catchment itself as a
+trust group, changed present-tense resilience claims to "is designed to", and
+expanded the guardian-term gloss. A follow-up public-hygiene pass found no deployment
+or pilot detail in `index.html` / `about.html`.
+
+ONLY remaining gate: the external language review tracked in the local
+reviewer packet `TE-REO-REVIEW.md` (intentionally untracked and gitignored;
+it lists the three reviewed terms). Per Roy's 2026-07-02 public-content scrub
+ruling, those terms were removed from the public pages pending that review:
+the affected passages are parked verbatim in `.private-notes/te-reo-parked.md`
+(local, gitignored) and the pages now carry English guardian/guardianship
+equivalents. The parked passages restore verbatim once the review clears.
+
+Doctor hygiene pass on 2026-06-30:
+- `git status --short --branch` showed `## mission-vision-refresh`; default
+  status was clean after ignoring `TE-REO-REVIEW.md`.
+- `git status --ignored --short -- TE-REO-REVIEW.md` showed
+  `!! TE-REO-REVIEW.md`, confirming the reviewer packet is preserved locally
+  and ignored by git.
+- `git diff main..HEAD --name-status` showed only `.gitignore`, `RESUME.md`,
+  `about.html`, and `index.html` differ from `main`.
+- `git ls-remote --heads origin mission-vision-refresh` returned no remote
+  branch.
+
+On review confirmation: restore the parked passages verbatim from
+`.private-notes/te-reo-parked.md` (apply any reviewer wording fixes), then —
+on Roy's go-ahead — merge to `main`, live-verify, and consider a metadata
+follow-up (meta/OG/Twitter/JSON-LD) for the broadened mission.
+
+**Do not assume:** the language review is complete; the branch is approved for
+merge; the parked wording may be restored; or public deployment details should
+be added. Do NOT restore the parked wording, merge, or push
+`mission-vision-refresh-local-history` until Roy says so.
+
+Public-content scrub (2026-07-02, Roy ruling):
+- Verified BEFORE acting: `main` (the live site) and all remote refs were
+  already clean of the reviewed terms and of pilot-location names; the pending
+  wording existed only in the local branch tree + its 7 local commits.
+  Pilot-location sweep found zero occurrences anywhere (already sanitized in
+  `58b14e0`).
+- Parked the three page passages verbatim → `.private-notes/te-reo-parked.md`
+  (`.private-notes/` added to `.gitignore`); reviewer packet updated to point
+  at it.
+- Replaced the passages with English equivalents in `about.html` (2 paras,
+  "Beyond People" section) and `index.html` (1 card, "People and Planet");
+  scrubbed this file's working notes to guardian/guardianship English.
+- Published shape: because the branch had never been pushed, pushing its full
+  history would have made the unreviewed wording public for the first time —
+  so the remote branch was created as a public-safe squash (main + 1 scrubbed
+  commit), per the pre-agreed "public-safe reviewed branch shape" note above.
+  Full history kept locally on `mission-vision-refresh-local-history`.
+
+---
+
+### Previous task (DONE — live on main)
 ✅ **COMPLETE + PUSHED + LIVE** — Audit-driven public-site improvement batch
 (perf / a11y / SEO / security / completeness-PWA / cross-page consistency). A
 7-dimension audit produced 45 findings; every mechanical fix landed across both

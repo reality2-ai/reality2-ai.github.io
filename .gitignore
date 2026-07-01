@@ -3,3 +3,9 @@
 Thumbs.db
 *.swp
 *~
+
+# Local reviewer packets
+TE-REO-REVIEW.md
+
+# Local parked content awaiting review gates — never commit
+.private-notes/
