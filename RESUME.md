@@ -90,6 +90,22 @@ merge; the parked wording may be restored; or public deployment details should
 be added. Do NOT restore the parked wording, merge, or push
 `mission-vision-refresh-local-history` until Roy says so.
 
+Machine-enforcement guards (2026-07-02, supervisor follow-up to the scrub):
+- CI: `.github/workflows/content-hygiene.yml` (on `main` `a925eca`, synced to
+  this branch) fails any push/PR whose tracked files contain a withheld term.
+  The pattern is base64-encoded IN the workflow file on purpose — the terms
+  must not be published/indexed by the guard itself; decode locally to review.
+  No allowlist: a committed parking file must FAIL, not be excused.
+- Local: `.git/hooks/pre-push.local` (untracked, this worktree, both agents)
+  blocks pushing (a) any `*local-history*` ref, (b) any tree, or (c) any new
+  commit messages/patches containing withheld terms — full plain-text list is
+  safe there because hooks are never committed. Bypass ONLY for the
+  Roy-approved gated restore: `FLEET_SKIP_CONTENT_GUARD=1 git push`.
+  The fleet secret-scan hook (`.git/hooks/pre-push`) was patched to replay
+  stdin to chained hooks (it previously drained it, starving the chain).
+- When the review gate clears and Roy approves the restore, BOTH guards must
+  be lifted/relaxed as part of that change, or the restore will be blocked.
+
 Public-content scrub (2026-07-02, Roy ruling):
 - Verified BEFORE acting: `main` (the live site) and all remote refs were
   already clean of the reviewed terms and of pilot-location names; the pending
