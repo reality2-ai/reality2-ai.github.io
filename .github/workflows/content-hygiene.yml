@@ -1,0 +1,30 @@
+name: Public content hygiene
+
+# Machine-enforcement of the 2026-07-02 public-content ruling: certain
+# withheld terms (pending an external review gate) must not appear anywhere
+# in this PUBLIC repo — this site is served straight from the default branch.
+# The pattern is stored base64-encoded so the withheld terms are not
+# themselves published or indexed by this file; decode locally to review it.
+# Deliberately NO allowlist: the local-only parking files must never be
+# committed, so any hit — including those — is a real violation.
+# Do not relax or remove this guard except as part of the gated restore,
+# on explicit instruction.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  scrub-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan tracked files for withheld terms
+        run: |
+          set -euo pipefail
+          PAT="$(echo 'KFxiKHdhaXJvYXxrYWl0aWFraVthLXpdKnxtYXRhdXJhbmdhfG1hb3JpfG1hcmFlfHdoYWthdGF1a2lbYS16XSp8dGlrYW5nYXx3aGFuYXV8a2F1cGFwYXx0YW9uZ2F8d2hlbnVhfHRhbmdhdGF8dGUgYW98dGUgcmVvKVxifFvEgcSTxKvFjcWrxIDEksSqxYzFql0p' | base64 -d)"
+          if git grep -niIE "$PAT" -- ; then
+            echo "::error::Withheld-term match in tracked content (lines above). This guard lifts only via the gated restore."
+            exit 1
+          fi
+          echo "Content hygiene: clean."
