@@ -11,9 +11,10 @@
 - **State:** branch work committed; `main` clean + in sync with `origin/main`.
   `TE-REO-REVIEW.md` is an untracked local reviewer packet and is ignored by
   git; do not stage it unless explicitly requested.
-- **Remote:** `origin/mission-vision-refresh` now exists as a PUBLIC-SAFE
-  SQUASH (main + one scrubbed commit) pushed 2026-07-02 per Roy's
-  public-content scrub ruling. The full pre-scrub local history (7 commits,
+- **Remote:** `origin/mission-vision-refresh` now exists, created 2026-07-02
+  as a PUBLIC-SAFE SQUASH per Roy's public-content scrub ruling; since then it
+  is that scrub squash (`a914c6e`) + the content-hygiene guard sync merge +
+  RESUME handoff commits (diff vs `main` stays content-only). The full pre-scrub local history (7 commits,
   contains the parked wording) is preserved ONLY on local branch
   `mission-vision-refresh-local-history` — NEVER push that branch; publishing
   that history is a separate decision Roy has explicitly deferred.
