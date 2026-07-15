@@ -5,10 +5,10 @@
 
 ## Repo
 - **Branch:** `mission-vision-refresh` (off `main`) — spec-derived mission/vision
-  refresh committed locally, NOT merged/published yet. Verified starting HEAD
-  for this doctor pass: `58b14e0` (`Sanitize mission refresh handoff`).
-  `main` is unchanged and remains the live source.
-- **State:** branch work committed; `main` clean + in sync with `origin/main`.
+  refresh. **MERGED + PUBLISHED 2026-07-15** (Roy-authorized stake-in-the-ground):
+  `--no-ff` merge `34e2600` on `origin/main`. The branch ref still exists and is
+  now an ancestor of `main`; re-running the merge is a no-op.
+- **State:** branch work merged to `main`; `main` in sync with `origin/main`.
   `TE-REO-REVIEW.md` is an untracked local reviewer packet and is ignored by
   git; do not stage it unless explicitly requested.
 - **Remote:** `origin/mission-vision-refresh` now exists, created 2026-07-02
@@ -30,10 +30,39 @@
   `3e200ef`) and the article-page metadata pass (`9143584`). Held (neither
   touches): product cards, WASM/r2-core provenance, mission/vision copy.
 
+## AGENTS.md onboarding directive (2026-07-10, Roy-directed)
+- Authored + committed the repo's own `AGENTS.md` (AI-agent onboarding) under
+  `website` authorship: commit `6584f68` on `mission-vision-refresh`. Covers
+  public-repo orientation, the §1 publish gates (no pilot/community names, human
+  te-reo reviewer required — not AI-substitutable, Mariko public brand, scrub
+  history before visibility flips, Roy is the publish gate), the machine-enforced
+  content guards, `../r2-specifications` as R2 source of truth, shared-worktree
+  discipline, and deploy layout.
+- **RESOLVED (2026-07-15):** the original `6584f68` was refused by the content
+  guard (its meta-references to the language-reviewer gate carried a withheld
+  term). It was NOT force-pushed and NOT guard-bypassed — it was superseded by a
+  term-free rewrite, `174637c`, which passes the guard cleanly and is now live on
+  `main` via merge `34e2600`. No `FLEET_SKIP_CONTENT_GUARD` bypass was ever used
+  in this lane.
+
 ## Current task
-🚧 **IN REVIEW (branch `mission-vision-refresh`)** — spec-derived
-mission/vision refresh. Source of truth: the public R2 canon `R2-INTRO.md`
-(Design Philosophy + the natural-world guardianship framing).
+✅ **PUBLISHED 2026-07-15 — merge `34e2600` on `main`** (Roy-authorized). The
+spec-derived mission/vision refresh is LIVE at reality2.ai. Source of truth: the
+public R2 canon `R2-INTRO.md` (Design Philosophy + the natural-world
+guardianship framing).
+
+**Publish gate evidence (2026-07-15):** merge built in a throwaway worktree so
+the shared tree stayed untouched; the CI hygiene scan
+(`.github/workflows/content-hygiene.yml`, decoded pattern) run against the merge
+result returned NO match — and the pattern was positive-control tested to confirm
+the green was real, not a broken regex. Also verified clean: commit messages in
+`main..34e2600`, and no `.private-notes/`/parked file is tracked. Push ran with
+both guards live (`pre-push` secret scan chaining `pre-push.local` content
+guard), no bypass env.
+
+**Still gated (unchanged by this merge):** the parked wording awaits a HUMAN
+language reviewer — not AI-substitutable. `mission-vision-refresh-local-history`
+(full pre-scrub history) remains local-only; NEVER push it.
 
 Two additive sections (no existing copy rewritten):
 - **index.html** — new "People and Planet" section after the philosophy
