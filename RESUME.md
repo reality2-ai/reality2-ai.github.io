@@ -14,10 +14,9 @@
 - **Remote:** `origin/mission-vision-refresh` now exists, created 2026-07-02
   as a PUBLIC-SAFE SQUASH per Roy's public-content scrub ruling; since then it
   is that scrub squash (`a914c6e`) + the content-hygiene guard sync merge +
-  RESUME handoff commits (diff vs `main` stays content-only). The full pre-scrub local history (7 commits,
-  contains the parked wording) is preserved ONLY on local branch
-  `mission-vision-refresh-local-history` — NEVER push that branch; publishing
-  that history is a separate decision Roy has explicitly deferred.
+  RESUME handoff commits (diff vs `main` stays content-only). Local-only branch
+  `mission-vision-refresh-local-history`: do not push — the pre-push hook
+  enforces this; publishing it is a decision Roy has explicitly deferred.
 - **Current HEAD:** run `git log -1 --oneline`; RESUME-only handoff commits may
   follow the content commits listed below, so this file does not embed its own
   final commit hash.
@@ -39,11 +38,9 @@
   content guards, `../r2-specifications` as R2 source of truth, shared-worktree
   discipline, and deploy layout.
 - **RESOLVED (2026-07-15):** the original `6584f68` was refused by the content
-  guard (its meta-references to the language-reviewer gate carried a withheld
-  term). It was NOT force-pushed and NOT guard-bypassed — it was superseded by a
-  term-free rewrite, `174637c`, which passes the guard cleanly and is now live on
-  `main` via merge `34e2600`. No `FLEET_SKIP_CONTENT_GUARD` bypass was ever used
-  in this lane.
+  guard. It was NOT force-pushed and NOT guard-bypassed — it was superseded by a
+  clean rewrite, `174637c`, which passes the guard and is now live on `main`
+  via merge `34e2600`. No guard bypass was ever used in this lane.
 
 ## Current task
 ✅ **PUBLISHED 2026-07-15 — merge `34e2600` on `main`** (Roy-authorized). The
@@ -60,9 +57,9 @@ the green was real, not a broken regex. Also verified clean: commit messages in
 both guards live (`pre-push` secret scan chaining `pre-push.local` content
 guard), no bypass env.
 
-**Still gated (unchanged by this merge):** the parked wording awaits a HUMAN
-language reviewer — not AI-substitutable. `mission-vision-refresh-local-history`
-(full pre-scrub history) remains local-only; NEVER push it.
+**Still gated (unchanged by this merge):** the language-review gate below is
+still open — HUMAN reviewer, not AI-substitutable. Local-only branch
+`mission-vision-refresh-local-history`: do not push, hook enforces.
 
 Two additive sections (no existing copy rewritten):
 - **index.html** — new "People and Planet" section after the philosophy
@@ -92,12 +89,10 @@ expanded the guardian-term gloss. A follow-up public-hygiene pass found no deplo
 or pilot detail in `index.html` / `about.html`.
 
 ONLY remaining gate: the external language review tracked in the local
-reviewer packet `TE-REO-REVIEW.md` (intentionally untracked and gitignored;
-it lists the three reviewed terms). Per Roy's 2026-07-02 public-content scrub
-ruling, those terms were removed from the public pages pending that review:
-the affected passages are parked verbatim in `.private-notes/te-reo-parked.md`
-(local, gitignored) and the pages now carry English guardian/guardianship
-equivalents. The parked passages restore verbatim once the review clears.
+reviewer packet `TE-REO-REVIEW.md` (intentionally untracked and gitignored).
+Per Roy's 2026-07-02 public-content scrub ruling, the affected wording is
+held in local, gitignored notes pending that review; it restores once the
+review clears.
 
 Doctor hygiene pass on 2026-06-30:
 - `git status --short --branch` showed `## mission-vision-refresh`; default
@@ -110,49 +105,31 @@ Doctor hygiene pass on 2026-06-30:
 - `git ls-remote --heads origin mission-vision-refresh` returned no remote
   branch.
 
-On review confirmation: restore the parked passages verbatim from
-`.private-notes/te-reo-parked.md` (apply any reviewer wording fixes), then —
-on Roy's go-ahead — merge to `main`, live-verify, and consider a metadata
-follow-up (meta/OG/Twitter/JSON-LD) for the broadened mission.
+On review confirmation (Roy's go-ahead required): apply the reviewer's
+outcome, merge to `main`, live-verify, and consider a metadata follow-up
+(meta/OG/Twitter/JSON-LD) for the broadened mission.
 
 **Do not assume:** the language review is complete; the branch is approved for
-merge; the parked wording may be restored; or public deployment details should
-be added. Do NOT restore the parked wording, merge, or push
-`mission-vision-refresh-local-history` until Roy says so.
+merge; or public deployment details should be added. Do NOT apply the gated
+restore, merge, or push `mission-vision-refresh-local-history` until Roy
+says so.
 
 Machine-enforcement guards (2026-07-02, supervisor follow-up to the scrub):
 - CI: `.github/workflows/content-hygiene.yml` (on `main` `a925eca`, synced to
-  this branch) fails any push/PR whose tracked files contain a withheld term.
-  The pattern is base64-encoded IN the workflow file on purpose — the terms
-  must not be published/indexed by the guard itself; decode locally to review.
-  No allowlist: a committed parking file must FAIL, not be excused.
+  this branch) fails any push/PR that violates the content gate. No allowlist.
 - Local: `.git/hooks/pre-push.local` (untracked, this worktree, both agents)
-  blocks pushing (a) any `*local-history*` ref, (b) any tree, or (c) any new
-  commit messages/patches containing withheld terms — full plain-text list is
-  safe there because hooks are never committed. Bypass ONLY for the
-  Roy-approved gated restore: `FLEET_SKIP_CONTENT_GUARD=1 git push`.
-  The fleet secret-scan hook (`.git/hooks/pre-push`) was patched to replay
-  stdin to chained hooks (it previously drained it, starving the chain).
-- When the review gate clears and Roy approves the restore, BOTH guards must
+  enforces the same gate and refuses `mission-vision-refresh-local-history`.
+- When the review gate clears and Roy approves the restore, both guards must
   be lifted/relaxed as part of that change, or the restore will be blocked.
 
 Public-content scrub (2026-07-02, Roy ruling):
 - Verified BEFORE acting: `main` (the live site) and all remote refs were
-  already clean of the reviewed terms and of pilot-location names; the pending
-  wording existed only in the local branch tree + its 7 local commits.
-  Pilot-location sweep found zero occurrences anywhere (already sanitized in
-  `58b14e0`).
-- Parked the three page passages verbatim → `.private-notes/te-reo-parked.md`
-  (`.private-notes/` added to `.gitignore`); reviewer packet updated to point
-  at it.
-- Replaced the passages with English equivalents in `about.html` (2 paras,
-  "Beyond People" section) and `index.html` (1 card, "People and Planet");
-  scrubbed this file's working notes to guardian/guardianship English.
-- Published shape: because the branch had never been pushed, pushing its full
-  history would have made the unreviewed wording public for the first time —
-  so the remote branch was created as a public-safe squash (main + 1 scrubbed
-  commit), per the pre-agreed "public-safe reviewed branch shape" note above.
-  Full history kept locally on `mission-vision-refresh-local-history`.
+  already clean; the gated wording existed only in local, unpushed state.
+- The gated material is held in local, gitignored notes pending the review
+  gate; the public pages carry reviewed-safe wording.
+- Published shape: the remote branch was created as a public-safe squash
+  rather than pushing unpushed local history; the pre-squash history stays
+  on the local-only branch (hook-enforced, see guards above).
 
 ---
 
