@@ -56,7 +56,7 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
 </nav>
 <article id="main" class="doc-page">
 <a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--formats-companion">Reality2 Standard — Formats companion</h1>
-<p><strong>Status:</strong> DRAFT for ratification, authorized 2026-08-01 (D-023). <strong>Date:</strong> 2026-08-04.</p>
+<p><strong>Status:</strong> DRAFT for ratification, authorized 2026-08-01 (D-023). <strong>Date:</strong> 2026-08-05.</p>
 <blockquote>
 <p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> =
 permission · <em>can</em> = possibility and capability.</p>
@@ -108,8 +108,8 @@ a name, a serial number, or any operator-supplied string (<a href="L4-wire.html#
 </ul>
 <p>each taken big-endian. <code>PROVISIONAL(SS23)</code> — hash and truncation choice.</p>
 <p><strong class="clause" id="c3.4">3.4</strong> The compact wire identity of a hive shall be its <strong>hive half</strong> alone — the
-4-byte projection of 3.3, as adopted provisionally by the core implementation
-(r2-core D-007, endorsed D-013).</p>
+4-byte projection of 3.3, as adopted provisionally by the reference implementation and
+endorsed here.</p>
 <p><strong class="clause" id="c3.5">3.5</strong> Where a derived half equals <code>0x00000000</code> or <code>0xFFFFFFFF</code> (reserved: Layer 4,
 6.1.4 and 7.1.3), the derivation shall be repeated with the byte <code>0x01</code> appended to
 the hashed input, iterating until a non-reserved value results. <code>PROVISIONAL(SS23)</code>.</p>
@@ -986,7 +986,7 @@ The identity derivation (Clause 3) and cipher envelope (Clause 4) vectors land w
 ratification of their provisional choices, and a generator accompanies them — <strong>the vectors
 are generated, never hand-written.</strong></p>
 <p><strong class="clause" id="c8.2">8.2</strong> Until ratification, an implementation building against a <code>PROVISIONAL</code> choice
-shall mirror the mark (as r2-core mirrors vector provisionals in test comments) so
+shall mirror the mark, typically in a comment beside the vector, so
 the swap on ruling is one site, not an archaeology.</p>
 <span class="clause-anchor" id="c9"></span><h2 id="9-what-is-not-decided">9 What is not decided</h2>
 <p>The self-test specification interior (5.1 key 6); the definition/score content
@@ -1016,7 +1016,7 @@ SS273.)</em></p>
     <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
     <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
     <a href="/">reality2.ai</a></p>
-    <p class="stamp">Corpus revision <span class="mono">032faf1</span>, dated 2026-08-05. Rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the revision, not the date — the text moves.</p>
+    <p class="stamp">Corpus revision <span class="mono">c1cc0d8</span>, dated 2026-08-05. Rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the revision, not the date — the text moves.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>
