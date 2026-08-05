@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L7 — Application — Reality2 Standard</title>
+<meta name="description" content="Sentants, ensembles, and what runs on top.">
+<link rel="canonical" href="https://reality2.ai/standard/L7-application.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="L7 — Application — Reality2 Standard">
+<meta property="og:description" content="Sentants, ensembles, and what runs on top.">
+<meta property="og:url" content="https://reality2.ai/standard/L7-application.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t=localStorage.getItem('r2-theme');
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">The standard</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<article id="main" class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-7-application">Reality2 Standard — Layer 7: Application</h1>
+<p><strong>Status:</strong> Draft — <strong>this names the editorial maturity of the text, and nothing else.</strong>
+<strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
+build from it (d041, Roy: <em>standard is the canon</em>). <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> <em>(Subject stated because a status field is scoped to
+a question the reader may not be asking, and a claim with an unstated subject will be given the
+subject the reader brought — composer, 2026-08-03.)</em>
+<strong>Date:</strong> 2026-08-04</p>
+<blockquote>
+<p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
+<em>can</em> = possibility and capability.</p>
+</blockquote>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>Everything below this layer moves, protects and delivers frames. <strong>Layer 7 is what the
+frames were for.</strong> The unit of computation is the <strong>sentant</strong>: an autonomous agent built
+from finite state machines, living on a hive, receiving events, mutating its own state,
+emitting events. Applications are not installed and do not run anywhere in particular —
+they are <strong>ensembles</strong>: described by a score, performed by whichever hives currently host
+their parts, growing and shrinking as hives come and go.</p>
+<p>Three positions define this layer, and each is the top of a column that runs down the
+whole standard.</p>
+<p><strong>A sentant is sovereign over its own behaviour.</strong> Nothing outside a sentant can read its
+state, force a transition, or discover its internal structure. The only thing the world
+can do to a sentant is send it an event, and <strong>the sentant's own state machine decides
+what — if anything — that event does.</strong> This is the top of the trust column: the delivery
+gate decides what arrives; the sentant decides what matters.</p>
+<p><strong>The network below is lossy, moving, and promises nothing</strong> — and this layer is written
+for that, not in spite of it. Events are fire-and-forget by default; effects are
+idempotent; where a purpose needs more assurance, <strong>the endpoints contract for it in
+events</strong>, at whatever grade the purpose warrants. An application that would only work on a
+reliable network is not an application of this standard.</p>
+<p><strong>One carriage for everything.</strong> A sentant's event and a plugin's chunk of data are the
+same artefact — a frame — indistinguishable to every layer below. This layer adds no
+second path to the network, and nothing here is entitled to know how a frame travelled.</p>
+<h2 id="1-scope">1 Scope</h2>
+<p>This document specifies the sentant: its defining properties, its definition, its
+lifecycle, and its event model.</p>
+<p>It specifies the plugin: its contract with the hive, its two ownership flavours, and its
+place in the event model.</p>
+<p>It specifies the ensemble: its composition, its score, and its distributed performance.</p>
+<p>It establishes what conformance at this layer consists of, and identifies what is not
+decided.</p>
+<p>It does not specify the byte-level definition format or score format, which belong to a
+companion part. It does not specify any particular user interface, runtime language or
+host framework.</p>
+<h2 id="2-normative-references">2 Normative references</h2>
+<p>The following documents are referred to in the text in such a way that some or all of
+their content constitutes requirements of this document.</p>
+<ul>
+<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<code>01-terminology.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<code>L0-hardware-and-runtime.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 2: Capability and discovery</strong> (<code>L2-capability-and-discovery.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 4: Wire protocol</strong> (<code>L4-wire.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 5: Trust and identity</strong> (<code>L5-trust-and-identity.md</code>)</li>
+</ul>
+<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<p>For the purposes of this document, the terms and definitions given in the documents listed
+in Clause 2 apply — in particular <em>sentant</em>, <em>plugin</em>, <em>ensemble</em>, <em>apiary</em> and <em>class</em>
+(<code>01-terminology.md</code> 3.4–3.7, 3.9) — together with the following.</p>
+<p><strong>3.1
+automation</strong></p>
+<p>finite state machine within a sentant: states, transitions, and the actions a transition
+performs</p>
+<p><strong>3.2
+vars</strong></p>
+<p>sentant's mutable named values, alterable only by its own transitions</p>
+<p><strong>3.3
+event</strong></p>
+<p>named message, optionally carrying data, that is the sole means of acting on a sentant, a
+plugin, or a hive</p>
+<p><strong>3.4
+public event</strong></p>
+<p>event name a sentant declares as its accepted external interface</p>
+<p><strong>3.5
+origin tag</strong></p>
+<p>marking the hive runtime places on every event: internal, meaning it arose on this hive,
+or external, meaning it arrived over the network</p>
+<p><strong>3.6
+score</strong></p>
+<p>declarative description of an ensemble: its sentants, its plugin requirements, and its
+identity</p>
+<h2 id="4-the-sentant">4 The sentant</h2>
+<h3 id="41-the-six-properties">4.1 The six properties</h3>
+<p><strong>4.1.1</strong> Every sentant shall satisfy all of the following, and an implementation shall
+enforce each.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Immutable</strong></td>
+<td>The definition — automations, class, public events, plugin bindings — is fixed at load. A running sentant's definition shall not be modified; only vars and current states change.</td>
+</tr>
+<tr>
+<td><strong>Persistent</strong></td>
+<td>A loaded sentant exists until explicitly unloaded. It shall not be evicted for inactivity, and a crashed sentant shall be restarted by its hive.</td>
+</tr>
+<tr>
+<td><strong>Unique</strong></td>
+<td>Each sentant instance has an identifier unique on its hive, never reused, and <strong>never transmitted on the wire</strong>.</td>
+</tr>
+<tr>
+<td><strong>Consistent</strong></td>
+<td>A sentant is atomically visible: fully loaded and routable, or invisible. No partially initialised sentant shall be discoverable or receive events.</td>
+</tr>
+<tr>
+<td><strong>Opaque</strong></td>
+<td>Internal structure — states, current state, transitions, private events, vars — shall not be observable by anything outside the sentant. <strong>There is no state query, and none shall be added.</strong></td>
+</tr>
+<tr>
+<td><strong>Deterministic</strong></td>
+<td>Given the same vars, states and event, a sentant produces the same actions. Anything non-deterministic — time, randomness — enters as an observable input via an event or a plugin, never as hidden state.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Note 1 to entry: Opacity is a design position, not a missing feature. A sentant's state is
+observable only through what it chooses to emit — <strong>if it does not emit, the observer
+knows nothing, and that is the contract.</strong> The development-mode diagnostics of Layer 6
+observe the <em>hive's</em> infrastructure, never a sentant's interior; even there, no state
+query exists.</p>
+<p>Note 2 to entry: Determinism is what makes a sentant auditable from its definition and a
+state snapshot alone — behaviour is provable, not observed. <strong>The cost is honest: anything
+that varies has to arrive as input</strong>, which is why time and randomness are plugin-provided
+and visible in the event record.</p>
+<p>Note 3 to entry: Immutability is what makes advertising trustworthy: a class and public
+event list inspected once hold until the sentant is unloaded. <strong>Changing a sentant is
+unload-and-load, never mutation</strong> — the same shape as build modes and firmware: identity
+changes by replacement.</p>
+<h3 id="42-definition-and-storage">4.2 Definition and storage</h3>
+<p><strong>4.2.1</strong> A sentant shall be created from a declarative definition carrying everything
+required to run it: automations, class, public events, plugin bindings, and initial vars.
+A definition shall have no dependency not named within it.</p>
+<p><strong>4.2.2</strong> A definition shall declare its storage class: <strong>volatile</strong> (gone at restart),
+<strong>durable</strong> (definition survives restart, state starts fresh), or <strong>durable-state</strong>
+(definition and last-snapshotted state survive). The default is volatile.</p>
+<p><strong>4.2.3</strong> A hive shall reload durable and durable-state sentants at boot, and a
+durable-state sentant shall tolerate resuming from a snapshot older than its last
+activity.</p>
+<p>Note 1 to entry: 4.2.1's self-containment is what makes a sentant <em>movable</em> — it can be
+carried to another hive, or another group, as a frame's payload, and run there without
+hidden dependencies. <strong>The definition is the unit of portability</strong>, which is also why the
+definition, not the code, is what an ensemble's score names.</p>
+<p>Note 2 to entry: 4.2.3's tolerance clause is the premise applied to storage: <strong>a hard
+power cut loses everything since the last snapshot, and a sentant that cannot survive
+that is mis-declared</strong> — it needed explicit checkpointing through events, not a stronger
+promise from the platform.</p>
+<h3 id="43-lifecycle">4.3 Lifecycle</h3>
+<p><strong>4.3.1</strong> Load, unload, suspend and resume shall be explicit operations, subject to the
+management authority of Layer 6.</p>
+<p><strong>4.3.2</strong> Unloading a durable sentant shall remove its persisted definition; suspension
+shall not.</p>
+<h2 id="5-events">5 Events</h2>
+<h3 id="51-one-model-two-scopes">5.1 One model, two scopes</h3>
+<p><strong>5.1.1</strong> An event shall be the only way anything acts on a sentant.</p>
+<p><strong>5.1.2</strong> Events between sentants on one hive shall be dispatched locally and never
+framed; events to other hives travel as frames of Layer 4, and the sending of one is
+fire-and-forget.</p>
+<p><strong>5.1.3</strong> An event addressed to a class shall be delivered to every sentant of that class
+on the receiving hive.</p>
+<p><strong>5.1.4</strong> Sentant instance identifiers shall never appear in a frame; across the wire,
+addressing ends at the hive and the event name and class do the rest.</p>
+<p>Note 1 to entry: 5.1.4 is Layer 4's <em>the wire stops at the hive</em> seen from above. <strong>What
+handles an event is the receiving hive's own affair</strong>, invisible and unaddressable from
+outside — which is what lets a hive host one sentant or a thousand behind the same
+four-byte address.</p>
+<h3 id="52-public-private-and-the-origin-tag">5.2 Public, private, and the origin tag</h3>
+<p><strong>5.2.1</strong> A sentant's public events (3.4) are its declared external contract, and shall be
+what its hive advertises for it.</p>
+<p><strong>5.2.2</strong> An event not in the public list is private. <strong>A private event arriving from
+outside shall still be processed</strong> — secrecy of names is not access control.</p>
+<p><strong>5.2.3</strong> The hive runtime shall tag every event with its origin (3.5), shall overwrite
+any origin a sender supplied, and a transition may filter on the tag.</p>
+<p>Note 1 to entry: 5.2.2 and 5.2.3 together are the honest version of a boundary that is
+usually faked. Hiding private event names is opacity, not protection — a guessed name
+arrives. <strong>What protects is the tag</strong>: a transition gated on internal origin cannot be
+fired from the network at all, however good the guess, because the runtime — not the
+sender — decides what is internal. One mechanism, applied where the trust actually is.</p>
+<p>Note 2 to entry: The origin tag is binary — internal or external — and says only who
+injected the event: the runtime, or the delivery path. <strong>It does not say what the
+delivery gate established.</strong> An external event arrives with its delivery classification
+(Layer 5, 10.1.1: same-group, entangled by grade, or unauthenticated) as a separate
+fact, and a transition that cares filters on both. A sentant gating on external origin
+alone has decided what <em>all</em> of the outside may do — including its unauthenticated part,
+which 10.1.1 delivers with Layer 7 filtering as the only gate; deciding what the
+<em>verified</em> outside may do is a filter on the classification, not on the tag. <em>(Reworded
+2026-08-01 — the earlier text wrongly excluded unauthenticated delivery.)</em></p>
+<h3 id="53-delivery-semantics">5.3 Delivery semantics</h3>
+<p><strong>5.3.1</strong> Event delivery shall be fire-and-forget: no acknowledgement exists at this layer
+or below, and a sender shall not be able to observe delivery.</p>
+<p><strong>5.3.2</strong> A sentant's externally visible effects shall be idempotent with respect to
+duplicate delivery of the same event.</p>
+<p><strong>5.3.3</strong> Where a purpose requires assurance, the participating endpoints shall contract
+for it in events — a receipt, a release, a completion — at the grade the purpose
+warrants, and such contracts are application traffic carried like any other.</p>
+<p>Note 1 to entry: 5.3.2 is the last line of a defence stated at three layers: transit
+duplicates are suppressed (Layer 3), destination duplicates are bounded (Layer 4), and
+<strong>what makes the residue harmless is that acting twice equals acting once.</strong> Replication
+is how delivery is achieved at all on this network; idempotency is what makes replication
+free to use.</p>
+<p>Note 2 to entry: 5.3.3 is the UDP-to-TCP spectrum with both ends on one substrate. <strong>The
+purpose of a message decides its grade, and only the endpoints know the purpose</strong> — a
+superseded sensor reading wants nothing, a firmware piece wants a receipt, a bounded
+store wants receipt-with-release. The network never learns that grades exist.</p>
+<h2 id="6-plugins">6 Plugins</h2>
+<h3 id="61-the-contract-is-events">6.1 The contract is events</h3>
+<p><strong>6.1.1</strong> A plugin shall interact with its hive, and with sentants, through events alone;
+its implementation, language and process boundary are invisible outside the hive.</p>
+<p><strong>6.1.2</strong> A plugin's data shall travel the network as ordinary frames. <strong>This layer
+defines no other carriage</strong>, and a plugin needing bulk movement uses the chunked-transfer
+contract of Layer 6's model at the assurance grade its purpose warrants.</p>
+<p><strong>6.1.3</strong> A plugin shall be the declared source of any non-determinism a sentant consumes
+(4.1.1), so that time, randomness and the physical world enter the record as events.</p>
+<h3 id="62-two-ownership-flavours">6.2 Two ownership flavours</h3>
+<p><strong>6.2.1</strong> A plugin wrapping a resource the platform exposes once — a network server port,
+an audio device, a display, a filesystem — shall be <strong>hive-shared</strong>: one instance per
+hive, with a registration mechanism by which ensembles attach their use of it.</p>
+<p><strong>6.2.2</strong> A plugin embodying ensemble-specific logic shall be <strong>ensemble-owned</strong>: loaded
+from the ensemble's score, one instance per ensemble per hive.</p>
+<p><strong>6.2.3</strong> A user interface — web, native, voice, physical actuation — is a plugin, in
+either flavour as its resource dictates, and shall have no standing this standard
+distinguishes from any other plugin.</p>
+<p><strong>6.2.2a</strong> "Loaded from the ensemble's score" (6.2.2) is an <strong>instancing</strong> rule, not a
+loading mechanism: the score names the plugin, and a hive provides it by whatever means
+its platform allows — loading it at runtime where the platform declares that facility,
+or having it built into the image where the platform does not. One instance per ensemble
+per hive is the rule in either case.</p>
+<p><strong>6.2.2b</strong> A hive that cannot provide a part — for want of a load facility, a bearer, or
+any other platform capability the part requires — <strong>does not perform that part</strong>, and is
+not thereby non-conformant. The ensemble's behaviour at that subset of its parts is
+governed by 7.2.2.</p>
+<p>Note 3 to entry: 6.2.2a and 6.2.2b state what 7.1.2 and 7.2.2 already imply, because
+read alone 6.2.2 appeared to mandate a runtime loader — which a constrained platform
+does not have and cannot get: <strong>native code cannot enter a flashed image at runtime
+without an interpreter this standard neither requires nor describes.</strong> An ensemble is
+performed by whichever hives currently host its parts (7.1.2); a hive that cannot host a
+part is simply not one of them, and an ensemble is required to define its behaviour at
+any subset of its parts down to one (7.2.2). Nothing further is needed — but the absence
+of the statement read as a requirement no small device could meet.
+<em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>.)</em></p>
+<h3 id="63-reach">6.3 Reach</h3>
+<p><strong>6.3.1</strong> A plugin's <strong>reach</strong> shall be declared as either <em>local</em> — it acts only within
+its hive and the Reality2 network — or <em>egress</em> — it exchanges data with endpoints
+outside the trust group, over a bearer carrying non-Reality2 traffic.</p>
+<p><strong>6.3.2</strong> An egress plugin's traffic <strong>does not pass the delivery gate of Layer 5</strong> and
+is not gated by it: it is not a frame, and no clause of Layer 5 applies to it. The trust
+decision is made when an ensemble's score naming that plugin is authored and admitted to
+the group — <strong>once, at admission, and not per message</strong>.</p>
+<p><strong>6.3.3</strong> A plugin requiring a bearer the platform does not provide is unavailable on
+that platform, and 6.2.2b applies.</p>
+<p>Note 1 to entry: The reach axis is orthogonal to the ownership axis of 6.2: a plugin is
+hive-shared or ensemble-owned, and independently local or egress. <strong>A plugin addressing a
+remote API is the case that makes the axis necessary</strong> — it is exactly the
+non-determinism 6.1.3 requires to enter as a plugin-sourced event, which is the model
+working as intended, and it is simultaneously a path by which data leaves the trust group
+<strong>without any frame being sent</strong>. The whole of Layer 5 gates frames. This path is ungated
+by construction, and 6.3.2 says so rather than leaving it to be discovered: an
+unstated absence reads as a permission, and this one is a permission — but a declared
+one, whose cost is visible in the score before the ensemble is admitted.</p>
+<p>Note 2 to entry: 6.3.3 is the ordinary consequence of Layer 1's registry and Layer 1's
+4.9.4: an egress plugin generally needs an IP-carrying bearer, so a hive whose only
+bearer is a local radio cannot host one. That is a platform fact, not a defect, and it is
+why 6.2.2b exists. <em>(Clause 6.3 added 2026-08-02, <code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p>Note 1 to entry: 6.2.1 exists because the failure is concrete: three ensembles each
+declaring "a web interface" cannot be three web servers fighting for one port. <strong>The
+singleton is the hive's; the ensembles register into it</strong> — routes, bundles, channels —
+and it outlives any one of them.</p>
+<p>Note 2 to entry: 6.2.3 is a real collapse, not a labelling choice. With interfaces as
+plugins, the ensemble model has <strong>exactly two part types</strong>, and everything this standard
+says about plugin lifecycle, advertisement and delivery applies to a voice interface
+exactly as to a sensor driver. The interface to a human is an interface like any other.</p>
+<h2 id="7-ensembles">7 Ensembles</h2>
+<h3 id="71-what-an-ensemble-is">7.1 What an ensemble is</h3>
+<p><strong>7.1.1</strong> An ensemble shall consist of one or more sentants and zero or more plugins,
+described by a score (3.6).</p>
+<p><strong>7.1.2</strong> An ensemble is its score. <strong>It shall have no binary, no installation, and no
+home hive</strong>: it is performed by whichever hives currently host its parts.</p>
+<p><strong>7.1.3</strong> An ensemble shall have a name, a class, and a version, and different versions
+may coexist in a group during transition.</p>
+<h3 id="72-performance">7.2 Performance</h3>
+<p><strong>7.2.1</strong> An ensemble's parts shall find each other by class and event, through the
+discovery of Layer 2 and the delivery of the layers below — never by host address.</p>
+<p><strong>7.2.2</strong> A hive joining a group and hosting parts of an ensemble extends that ensemble's
+performance; a hive leaving contracts it. <strong>Neither event is an error</strong>, and an ensemble
+shall define its behaviour at any subset of its parts, down to one.</p>
+<p><strong>7.2.3</strong> An ensemble's score shall travel within its trust group as content, deliverable
+to a joining hive by the ordinary delivery of this standard.</p>
+<p>Note 1 to entry: 7.2.2 is the premise as an application obligation. On a network where
+peers come and go, <strong>an application is a degradation gradient, not a binary</strong> — the
+question a score answers is not "what do I need to run" but "what do I do with what is
+present". A part that is absent is a part that is absent <em>right now</em>.</p>
+<h3 id="73-apiary">7.3 Apiary</h3>
+<p><strong>7.3.1</strong> An apiary is a suite of ensembles composed for a common purpose. It shall be a
+grouping with an identity, and shall carry no mechanism of its own — membership,
+delivery and trust are the group's, performance is each ensemble's.</p>
+<p>Note 1 to entry: The apiary is deliberately mechanism-free — a name for <em>what these
+ensembles are together</em>. A functional grouping and a security boundary are different
+things; the trust group is the boundary, and an apiary never is.</p>
+<h2 id="8-conformance">8 Conformance</h2>
+<p>Every requirement of this document is demonstrated by conformance evidence of one of
+the three classes of <code>01-terminology.md</code>, 3.10 — behavioural, by construction, or by
+declaration. <strong>A requirement whose evidence is by construction is not thereby
+optional</strong>: the demonstration is an inspection a third party can perform without the
+implementer's cooperation, and its absence is non-conformance exactly as a failed
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <code>01-terminology.md</code> 4.2 to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+<p><strong>8.1</strong> An implementation conforms to this document where it:</p>
+<p>a) enforces all six sentant properties (4.1), including restart of crashed sentants and
+atomic visibility;</p>
+<p>b) honours the storage classes of 4.2 across restart;</p>
+<p>c) tags every event's origin, overwrites sender-supplied origins, and supports origin
+filtering (5.2.3);</p>
+<p>d) delivers class-addressed events to all matching sentants (5.1.3) and keeps instance
+identifiers off the wire (5.1.4);</p>
+<p>e) runs plugins on the event contract with no second network carriage (6.1); and</p>
+<p>f) performs ensembles from scores, at any subset of parts (7.2.2).</p>
+<p><strong>8.2</strong> Conformance to sentant opacity shall be demonstrated negatively: every external
+query surface of the implementation is enumerated, and none returns a sentant's current
+state, transitions or vars.</p>
+<h2 id="9-security-considerations">9 Security considerations</h2>
+<p><strong>9.1</strong> The sentant model is the last firewall: <strong>an event that matches no handler does
+nothing</strong>, silently. A hive processes what its sentants declare and shrugs off the rest —
+there is no registry of valid events to probe and no error to learn from.</p>
+<p><strong>9.2</strong> Origin tagging is trustworthy exactly because the runtime owns it (5.2.3). A
+compromised <em>peer</em> cannot forge internal origin; a compromised <em>hive runtime</em> can, and
+nothing at this layer defends a sentant from its own host.</p>
+<p><strong>9.3</strong> Determinism plus event-visible inputs make a sentant's behaviour auditable and
+replayable — and make the event record sensitive, since it is sufficient to reconstruct
+behaviour. The record is internal state and is protected by opacity like everything else.</p>
+<p><strong>9.4</strong> Idempotency is a security property here, not only a delivery convenience: replayed
+frames verify (Layer 4) and deliver (Layer 5), and <strong>5.3.2 is what makes that harmless at
+the effect.</strong></p>
+<h2 id="10-what-is-not-decided-at-this-layer">10 What is not decided at this layer</h2>
+<p><strong>This clause states gaps and contains no requirements.</strong></p>
+<p><strong>10.1 The execution model.</strong> Declared a gap at Layer 0 and owed here: whether an action
+may block, what time budget an invocation has, whether a plugin invocation may be
+re-entered, and what happens to other sentants while one executes. <strong>The determinism
+property constrains the answer</strong> — single-threaded per sentant is implied by 4.1.1 — but
+blocking, budgets and re-entrancy are unstated, and a component that has to wait for the
+physical world has no stated-safe way to.</p>
+<p><strong>10.2 The definition and score formats.</strong> 4.2.1 and 7.1.1 state what they carry; the
+byte-level formats, their schema, and their versioning are the companion part's, with
+test vectors.</p>
+<p><strong>10.3 The term <em>capability</em>.</strong> Still deliberately undefined (<code>01-terminology.md</code> Clause
+5). This layer speaks of classes and public events; whether <em>capability</em> names the event,
+the class, or a declared set of either is unresolved, and the beacon's capability summary
+(Layer 2) currently summarises public events.</p>
+<p><strong>10.4 Resource bounds.</strong> Persistence forbids eviction (4.1.1) and nothing bounds how many
+sentants a hive accepts, from whom, or what happens at the platform's memory limit — the
+denial-of-service this invites is real and the bound is deployment policy for now.</p>
+<p><strong>10.5 Cross-group ensembles.</strong> Scores travel within a group (7.2.3), and entanglement delivers
+events across groups (Layer 5). Whether an ensemble may <em>span</em> groups — parts performed
+in two groups, joined by entanglement — is neither enabled nor forbidden, and the identity and
+authority questions it raises are unexamined.</p>
+<p><strong>10.6 Declaring an event public by design.</strong> Layer 5, 7.3.1 exempts <em>an event that is public
+by design</em> from intra-group payload encryption and states no criterion and no declaration
+mechanism. <strong>The exemption cannot be specified at Layer 5</strong>: 7.3.3 forbids a frame carrying
+any statement of which key protects it, and <em>no key protects this</em> is such a statement, so a
+receiver cannot distinguish an exempt frame from an encrypted one <strong>from the frame</strong>. The
+discriminator must therefore be a property of the <strong>event's definition</strong>, held by both sides
+before the frame exists — which makes it this layer's to declare, and 4.2.1's definition format
+carries no such field. <strong>The resolution path exists and is unbuilt:</strong> the event identifier hash
+is in clear on every frame (Layer 4, 4.2.1, 7.1.1) and unalterable by a relay (Layer 4, 4.4.2),
+so a receiver holding the definition resolves the question with nothing added to the wire.
+<em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, finding SS44, whose register entry is promoted and
+before Roy. Until it is decided, the fail-closed reading stands: encrypt every intra-group
+payload and take no exemption, because the exemption is the undefined branch.)</em></p>
+<h2 id="bibliography">Bibliography</h2>
+<p><em>Informative.</em></p>
+<ul>
+<li>[1] ISO, <em>How to write standards</em>, 2016. ISBN 978-92-67-10686-1</li>
+<li>[2] ISO/IEC Directives, Part 2, 2016</li>
+</ul>
+
+</article>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+localStorage.setItem('r2-theme',n);
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>

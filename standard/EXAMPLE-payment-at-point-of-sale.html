@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment at point of sale — Reality2 Standard</title>
+<meta name="description" content="High stakes, minutes-long entanglement, laddered person-authentication, receipt-with-release.">
+<link rel="canonical" href="https://reality2.ai/standard/EXAMPLE-payment-at-point-of-sale.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="Payment at point of sale — Reality2 Standard">
+<meta property="og:description" content="High stakes, minutes-long entanglement, laddered person-authentication, receipt-with-release.">
+<meta property="og:url" content="https://reality2.ai/standard/EXAMPLE-payment-at-point-of-sale.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t=localStorage.getItem('r2-theme');
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">The standard</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<article id="main" class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--worked-example-payment-at-a-point-of-sale">Reality2 Standard — worked example: payment at a point of sale</h1>
+<p><strong>Status:</strong> Informative — worked example
+<strong>Date:</strong> 2026-08-03</p>
+<blockquote>
+<p>⚠ <strong>INFORMATIVE, and honest about its edges.</strong> This example exercises the whole stack
+end-to-end against a scenario a user would recognise. Where it runs on decided text it
+cites the clause; <strong>where it runs on register questions it says so in place</strong> — an example
+that hid its open edges would teach an implementer confidence nobody has earned.
+Verified against the documents it cites on 2026-07-31.</p>
+</blockquote>
+<hr />
+<h2 id="cast">Cast</h2>
+<ul>
+<li><strong>Person trust group P</strong> — the user's phone and watch. <strong>The user is P's key holder</strong>:
+that is what personal sovereignty means at Layer 5. The wallet is a sentant on the phone;
+the tokens are signed artefacts in its custody.</li>
+<li><strong>Merchant trust group M</strong> — the PoS terminal, holding delegated authority within M, and
+a back-office hive elsewhere.</li>
+<li><strong>A shared token system</strong> — stipulated: both sides understand the same signed-token
+scheme. Payment is the transfer of tokens from P's wallet to M.</li>
+</ul>
+<p><strong>And the key structural fact (Roy, 2026-07-31): the tokens live in the wallet, on the
+devices the person carries. There is no central authority in this transaction — no bank
+queried, no ledger consulted, no server reachable or needed.</strong> The whole exchange is two
+sovereign groups, physically adjacent, transacting over their own radio link with value one
+of them carries — which is why it works in a market with no signal exactly as it works in a
+city. This is the payment expression of the stack's own shape: no authentication server
+(identity is membership), no routing infrastructure (the mesh is the peers), no truth
+oracle (Thurisaz), and now no mint in the loop at transaction time. <strong>The token system's
+issuer exists somewhere — issuance and settlement are its affair — but the <em>transaction</em>
+needs nobody but the two parties present.</strong> The cost of that sovereignty is named at the
+end: offline value can be double-spent offline, and the token design carries that burden,
+not the network.</p>
+<h2 id="the-three-authentication-axes-kept-apart">The three authentication axes, kept apart</h2>
+<p>The scenario runs on three different kinds of "who is this?", and confusing them is the
+main way to mis-build it:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Axis</th>
+<th>Question</th>
+<th>Who answers, how</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Group</strong> (L5, Clause 7)</td>
+<td>is this frame M's / P's?</td>
+<td>the delivery gate — binary, cryptographic</td>
+</tr>
+<tr>
+<td><strong>Entanglement level</strong> (L5, 10.1)</td>
+<td>how far do these two <em>groups</em> trust each other?</td>
+<td>the entanglement's agreed level and conditions</td>
+</tr>
+<tr>
+<td><strong>Person-authentication level</strong></td>
+<td>how sure is P that <em>its human</em> is present right now?</td>
+<td><strong>P's own devices, as a decaying confidence</strong> — see below</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="the-person-authentication-level">The person-authentication level</h3>
+<p>P's devices continuously estimate the probability that the person wearing and holding them
+is the user: heart-rate signature, gait analysis, wear-continuity, unlock history. The
+estimate is expressed on an agreed scale — <strong>level 0, no idea, to level 7, above 95 %
+certain</strong> — and it behaves exactly as this standard's epistemology says a belief behaves:</p>
+<ul>
+<li><strong>It is a standing level maintained by passive evidence.</strong> Continuously worn, regularly
+moving devices might sustain <strong>level 5</strong> without the user doing anything.</li>
+<li><strong>It decays.</strong> Take the watch off and the level collapses toward 0; leave the phone on a
+table and it sags.</li>
+<li><strong>Active evidence gives a momentary spike above the standing level.</strong> A fingerprint read
+is strong evidence with a fast decay — <strong>level 6 for a moment</strong>, sliding back to 5.</li>
+<li><strong>A confirm affordance is an act that raises it, and affordances are graded</strong>: passive
+presence &lt; an acknowledgement tap &lt; a biometric. <em>(This gives operational shape to a term
+the terminology deliberately leaves undefined; the definition is register work.)</em></li>
+</ul>
+<p><em>(Corpus alignment, informative: this model is substantively <code>R2-AUTH</code> v0.5 — continuous
+Thurisaz identity confidence, discrete escalation evidence with per-level freshness windows
+(the momentary spike), a group-settable <code>AuthPolicy</code> (the amount ladder's mechanism), a
+signed <code>EscalationClaim</code> (the attestation), and a payment-terminal deployment example.
+Canon's §2.5.6 marks the continuous behavioural streams as future; the ruling here makes
+them primary. Q34's decisions are now ruled — the 0–7 probability-anchored scale, with
+operation classes as per-group policy bands and level-only disclosure:
+<code>CLOSED-QUESTIONS.md</code> C6; exact anchors and decay curves are the companion's.)</em></p>
+<p><strong>The human–PoS interaction is ZKP-inspired: prove the predicate, never the evidence</strong>
+(Roy, 2026-07-31). M's question is only ever <em>"is the person present at level ≥ N?"</em> — and
+what crosses the entanglement is a signed attestation of <strong>that predicate and nothing
+else</strong>. The gait signature, the heart-rate model, the fingerprint template, the unlock
+history — <strong>none of it leaves P, ever</strong>; it is not that M does not receive the biometrics,
+it is that the protocol has no place to put them. The user proves <em>enough</em>, and only
+enough: one graded fact per requirement. <em>(Ruled, 2026-08-01: the method never travels —
+level-only crosses the boundary; which affordance reaches which level is the
+person-group's local vocabulary. <code>CLOSED-QUESTIONS.md</code> C6.)</em></p>
+<p><strong>The level is P's self-assessment, and M can never verify the gait data behind it.</strong> What
+M receives is a <strong>signed attestation</strong> of the level — member-attributable evidence from P —
+and M believes it <strong>per the entanglement's conditions</strong>, the way a payment terminal trusts
+a card scheme's cardholder verification within scheme rules. A lying wallet is a breach:
+severance, demotion, and the token system's dispute layer — the liability lives in the
+relationship, priced by the amount ladder below.</p>
+<h2 id="the-signal-trace">The signal trace</h2>
+<h3 id="phase-0--the-mesh-before-anyone-means-anything">Phase 0 — the mesh, before anyone means anything</h3>
+<p>Both devices are already meshing; no decision is involved.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Signal</th>
+<th>Layer facts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.1</td>
+<td>PoS beacons on BLE: marker, beacon identifier, class hash (<code>commerce.pos.terminal</code>), production build mode</td>
+<td>L2 5.1; broadcast, addressed to no one</td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>Phone scans: filter 1 (is it R2), filter 2 (class hash match), build-mode check — production/production, else cooperation is refused</td>
+<td>L2 7.1, 5.4a.5</td>
+</tr>
+<tr>
+<td>0.3</td>
+<td>Both form neighbour entries — <strong>link axis only</strong>; nothing is verified, nothing is trusted</td>
+<td>L3 4.2</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="phase-1--first-contact-on-the-unauthenticated-rung">Phase 1 — first contact, on the unauthenticated rung</h3>
+<p>No shared group, no entanglement: strangers — and strangers are legal (L5 10.1).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Signal</th>
+<th>Layer facts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.1</td>
+<td>PoS sentant → public event <code>commerce.pos.invite</code>: <strong>an invitation and a transaction reference only</strong></td>
+<td>cleartext, claims nothing; the sentant firewall is the only gate (L7 9.1)</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>⚠ <strong>The basket and the amount do not belong in this phase.</strong> The unauthenticated rung is
+cleartext and forgeable. A naive implementation putting the total in the invitation
+broadcasts the user's shopping to the street. Amounts move only inside Phase 3's
+encryption.</p>
+</blockquote>
+<h3 id="phase-2--a-short-lived-entanglement--register-territory-q25">Phase 2 — a short-lived entanglement ⚠ <em>register territory (Q25)</em></h3>
+<p>The two groups establish an entanglement on the ruled frame (L5 10.2): <strong>scope</strong> = this
+transaction's events, both directions · <strong>entanglement level</strong> = payment-grade ·
+<strong>lifetime</strong> = minutes, a condition · <strong>conditions</strong> including the timeout, both sides
+remaining in production mode, <strong>and the amount ladder</strong>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Purchase amount</th>
+<th>Required person-authentication level</th>
+<th>Typical way P reaches it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>under $10</td>
+<td><strong>level 4</strong></td>
+<td>standing passive confidence</td>
+</tr>
+<tr>
+<td>under $100</td>
+<td><strong>level 5</strong></td>
+<td>an acknowledgement tap (4 → 5 is just an acknowledgement)</td>
+</tr>
+<tr>
+<td>over $100</td>
+<td><strong>level 6</strong></td>
+<td>a fingerprint — a momentary spike above the standing level</td>
+</tr>
+</tbody>
+</table></div>
+<p>Establishment requires the human on P's side — the user is the key holder, and what they
+confirm has to be <strong>bound to this terminal</strong>: merchant identity and conditions shown on
+both screens, so a ghost terminal a metre away cannot relay itself into the confirmation.</p>
+<blockquote>
+<p>⚠ <strong>The establishment ceremony's exact signals are Q25 — design-stage.</strong> This example
+runs on the ruled frame (conditions, level, lifetime, severance/demotion); the companion
+document owes the bytes.</p>
+</blockquote>
+<h3 id="phase-3--the-payment-inside-the-entanglement">Phase 3 — the payment, inside the entanglement</h3>
+<p>Every frame now: entanglement-tagged (gate path L5 7.1.2 c), payload encrypted under the
+entanglement's key (L5 7.3) — no key negotiation; <strong>the classification names the key</strong>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Signal</th>
+<th>What it carries</th>
+<th>Layer facts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.1</td>
+<td>M→P <code>commerce.pay.invoice</code></td>
+<td>amount, token type, transaction id, <strong>required person-authentication level for this amount</strong></td>
+<td>encrypted; idempotent by transaction id</td>
+</tr>
+<tr>
+<td>3.2</td>
+<td><em>(phone-local)</em> wallet → screen → the user</td>
+<td>the confirm affordance the amount demands: tap at $50, fingerprint at $150</td>
+<td>never framed, never on air (L7 5.1.2)</td>
+</tr>
+<tr>
+<td>3.3</td>
+<td>P→M <code>commerce.pay.transfer</code></td>
+<td><strong>the signed token</strong> — P's wallet key over <em>"token T to group M, transaction X"</em> — <strong>plus the signed attestation of the current person-authentication level</strong></td>
+<td>the entanglement authenticates the <em>channel</em>; <strong>the token signature authorises the <em>payment</em></strong> (L5 7.2.3: the gate is a floor, never the authorisation)</td>
+</tr>
+<tr>
+<td>3.4</td>
+<td>M checks</td>
+<td>token signature · attested level ≥ required level · transaction id fresh to M</td>
+<td>duplicate deliveries harmless — applied once by transaction id</td>
+</tr>
+<tr>
+<td>3.5</td>
+<td>M→P <code>commerce.pay.receipt</code></td>
+<td>M's signed receipt</td>
+<td><strong>receipt-with-release</strong>: on it, the wallet marks tokens spent; the merchant releases the goods. Until it arrives, the phone retransmits — fire-and-forget beneath, certainty at the endpoints</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Where the security actually lives, stated plainly:</strong> the delivery gate proved the frames
+are M's and P's — and deliberately <strong>not</strong> which member sent them, nor that they are fresh
+(L5 7.2.2). Payment is member-attributable, non-idempotent and freshness-critical — the
+exact class L5 7.2.3 assigns evidence-beyond-the-gate. <strong>The token system supplies that
+evidence</strong> (the wallet's signature, the transaction id), and the level attestation rides
+the same signature. The network carries a payment protocol; it does not do payments.</p>
+<h3 id="phase-4--teardown">Phase 4 — teardown</h3>
+<p>Conditions met → the entanglement <strong>expires</strong> (lifetime was a condition); keys destroyed.
+Timeout or mismatch → <strong>severed</strong> mid-transaction — and the transaction id makes the abort
+clean: a transfer without a receipt is tokens never marked spent.</p>
+<h2 id="what-an-observer-saw">What an observer saw</h2>
+<p>Single-hop BLE: nearly nothing. If relayed: <strong>the envelope only</strong> — that traffic happened,
+when, how much of it, and the event <em>hashes</em> (<code>commerce.pay.*</code> is recognisable in flight —
+the accepted metadata bound of L5 7.3.4). Amounts, tokens, levels: never.</p>
+<h2 id="where-the-tokens-come-from-and-where-they-go">Where the tokens come from, and where they go</h2>
+<p><strong>The lifecycle is cash, deliberately</strong> (Roy, 2026-07-31). The user converted dollars into
+tokens beforehand — the wallet's equivalent of withdrawing cash — and the merchant will
+reconvert them into dollars afterwards, the equivalent of banking the till. Three phases,
+and only the outer two touch any rail beyond the mesh:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Parties</th>
+<th>Where it runs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Issuance</strong> — dollars → tokens into P's wallet</td>
+<td>wallet ↔︎ the token issuer / bank</td>
+<td>online, at the edge of the R2 world; not a mesh concern</td>
+</tr>
+<tr>
+<td><strong>Circulation</strong> — the transaction of this example</td>
+<td>P ↔︎ M, and nobody else</td>
+<td><strong>the sovereign middle: offline, adjacent, authority-free</strong></td>
+</tr>
+<tr>
+<td><strong>Redemption</strong> — tokens → dollars</td>
+<td>M ↔︎ the issuer / bank</td>
+<td>online, at the other edge</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>An issuer exists — and is never in the loop</strong>, exactly as the mint that printed a
+banknote is not a party to handing it over. Both sides' "shared understanding of the token
+system" is, concretely, trust in the issuer's signature on the tokens; what the transaction
+itself needs is only the two groups present.</p>
+<p><strong>Or the token is a true cryptocurrency</strong> — and only the edges change. The "issuer"
+becomes the currency's own protocol; issuance is acquiring coin; redemption is broadcasting
+settlement to the chain when connectivity allows; the offline transfer hands over a signed,
+not-yet-settled instrument, and the double-spend rules are whatever that currency's design
+provides (channel constructions, bounded-float instruments, settle-on-reconnect). <strong>Not one
+frame of the trace above changes</strong> — the stipulated "shared understanding of the token
+system" was the only coupling, and it is deliberately pluggable: fiat-backed issuer tokens
+and a cryptocurrency ride the identical mesh transaction.</p>
+<p><strong>And the scope ruling that closes the subject (Roy, 2026-07-31): the agreement is purely
+between the two entities — it is not this standard's problem.</strong> What the tokens are, what
+they are worth, how they settle, and what happens when the parties fall out are the
+parties' agreement, end to end. The standard's whole contribution to payment is what this
+example has been using it for: discovery, a conditional private channel between two
+sovereign groups, attested evidence at an agreed level, and frames that arrive. <strong>Value is
+an application. It stays one.</strong></p>
+<p><strong>Redemption is also where double-spend settles.</strong> A duplicated offline token is caught
+when the copies meet at the issuer — like counterfeit surfacing at the bank deposit — and
+the merchant's exposure between transaction and redemption is float risk, priced exactly
+where this example already prices risk: <strong>the amount ladder.</strong> Small amounts ride the
+standing level and the float; large amounts demand a fingerprint today and, at the token
+system's discretion, an online check — a choice the token design makes, not the mesh.</p>
+<h2 id="the-open-edges-this-example-touches">The open edges this example touches</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Edge</th>
+<th>Register</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The entanglement establishment ceremony (Phase 2's bytes)</td>
+<td><strong>Q25</strong></td>
+</tr>
+<tr>
+<td>Member-attributable evidence — here supplied by the token system's own signatures, which is the intended layering</td>
+<td><strong>Q24 ruled</strong> — L5 7.4 (<a href="CLOSED-QUESTIONS.md">C7</a>); the attestation now has its native shape</td>
+</tr>
+<tr>
+<td><em>Confirm affordance</em> — given operational shape here (a graded act raising momentary confidence), still owed its definition</td>
+<td>terminology Clause 5</td>
+</tr>
+<tr>
+<td>The person-authentication level scale — <strong>ruled</strong>: 0–7 probability-anchored, level-only disclosure (<a href="CLOSED-QUESTIONS.md">C6</a>); anchors, decay curves and attestation format remain companion work</td>
+<td><strong>Q34 closed</strong>; residuals in the L5 companion</td>
+</tr>
+<tr>
+<td>Double-spend</td>
+<td><strong>the token system's problem, not the network's</strong> — offline tokens can be double-spent offline, and no mesh protocol fixes that; the token design (bearer-unique, issuer-settled, or online-checked) carries it</td>
+</tr>
+</tbody>
+</table></div>
+
+</article>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+localStorage.setItem('r2-theme',n);
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overview — Reality2 Standard</title>
+<meta name="description" content="What Reality2 is, what the parts are, and the order to read them in.">
+<link rel="canonical" href="https://reality2.ai/standard/00-overview.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="Overview — Reality2 Standard">
+<meta property="og:description" content="What Reality2 is, what the parts are, and the order to read them in.">
+<meta property="og:url" content="https://reality2.ai/standard/00-overview.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t=localStorage.getItem('r2-theme');
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">The standard</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<article id="main" class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--overview-and-structure">Reality2 Standard — Overview and structure</h1>
+<p><strong>Status:</strong> Draft — <strong>this names the editorial maturity of the text, and nothing else.</strong>
+<strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
+build from it (d041, Roy: <em>standard is the canon</em>). <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> <em>(Subject stated because a status field is scoped to
+a question the reader may not be asking, and a claim with an unstated subject will be given the
+subject the reader brought — composer, 2026-08-03.)</em>
+<strong>Date:</strong> 2026-08-03</p>
+<blockquote>
+<p><strong>Verbal forms.</strong> The documents of this standard use the <strong>ISO verbal forms</strong> — <em>shall</em>
+for a requirement, <em>should</em> for a recommendation, <em>may</em> for a permission, <em>can</em> for
+possibility and capability.</p>
+<p><strong>This document is informative.</strong> It states the premise the whole standard is built on,
+the structure of the document set, and how the parts fit — and it contains <strong>no
+requirements</strong>. Every requirement of this standard lives in one of the parts listed in
+Clause 5, and where this overview and a part appear to disagree, <strong>the part is right.</strong></p>
+</blockquote>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>Reality2 is a network of cooperating devices — from single-chip sensors to phones and
+servers — that form meshes over whatever communication media they have, host autonomous
+software agents, and organise trust cryptographically into sovereign groups. It is built
+for places where conventional networking assumptions do not hold: devices that sleep for
+hours, radios that reach sometimes, populations that walk in and out of range, and no
+infrastructure anywhere that everyone can rely on.</p>
+<p>This standard is the document set from which an implementer who cannot ask its authors a
+question can build a conformant implementation of Reality2 <strong>transient networking</strong> and
+<strong>trust groups</strong>, and have it interoperate with every other conformant implementation.</p>
+<h2 id="1-scope">1 Scope</h2>
+<p>This document describes the premise shared by every part of the Reality2 Standard, the
+layered structure of the document set, the trust boundary that divides it, the parties
+that communicate at each layer, and a reading order.</p>
+<p>It contains no requirements, no recommendations and no permissions.</p>
+<p>It applies to readers of every other part of the Reality2 Standard.</p>
+<h2 id="2-normative-references">2 Normative references</h2>
+<p><strong>There are no normative references in this document.</strong></p>
+<h2 id="3-the-core-premise">3 The core premise</h2>
+<p><strong>Everything here is built on a highly lossy and movable network where nothing can be
+assumed.</strong> Every mechanism in this standard is shaped by that sentence, and it is the
+test any proposed mechanism has to pass: <em>does this still work when frames are lost,
+peers have moved, and no assumption held?</em></p>
+<p>The pattern it produces, visible at every layer:</p>
+<ul>
+<li><strong>Nothing below the endpoints promises anything.</strong> No acknowledgements, no delivery
+guarantee, no session — a bearer transmits, and only ever knows that it transmitted.</li>
+<li><strong>Loss is repaired by the party that noticed</strong>, end to end: retransmission, the
+missing-pieces pull, idempotent effects — never per-hop reliability.</li>
+<li><strong>Silence is ambiguous, always.</strong> Asleep, moved, dead and budget-exhausted are
+indistinguishable from outside, so nothing consequential is ever concluded from silence
+alone — links fade; membership never does.</li>
+<li><strong>State that matters lives at the endpoints</strong> — assembly state, membership, custody of
+frames for the absent — and survives arbitrary interruption.</li>
+<li><strong>Assurance, where needed, is a contract between the two endpoints, graded by the
+message's purpose.</strong> A sensor reading that the next reading supersedes is
+fire-and-forget; a firmware piece wants a receipt; the spectrum is the UDP-to-TCP
+spectrum, with one structural difference: <strong>both ends of it ride the same substrate.</strong>
+The network has exactly one delivery model — a receiver that says <em>got that</em> is sending
+application data, not a network signal, and the sender's "received, may now be
+replaced" tag is its own storage decision, made on that receipt.</li>
+<li><strong>Time is a local ruler, not a shared fact</strong>, below the trust boundary entirely.</li>
+</ul>
+<h2 id="4-the-epistemology-the-premise-demands">4 The epistemology the premise demands</h2>
+<p>On a network where nothing can be assumed, <strong>nothing is ever proven — things are only
+un-refuted so far.</strong> The reasoning discipline this forces is called the <strong>Thurisaz
+technique</strong>: confidence is earned by <em>surviving attempts to refute</em>, updated
+sequentially as evidence arrives, decaying without fresh evidence, and held <strong>locally,
+with no consensus and no shared truth anywhere</strong>. The standard instantiates it at almost
+every layer:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>The claim</th>
+<th>The test</th>
+<th>The decay</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>"this link works"</td>
+<td>every reception updates quality</td>
+<td>quality falls to zero unheard</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>"something is there / it does X"</td>
+<td><strong>filter step 5: perform the act and observe</strong> — the only authoritative step</td>
+<td>sightings fade per bearer</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>"this path delivers"</td>
+<td><strong>every frame is a refutation attempt</strong> — confidence reinforced by delivery, and the forwarding threshold is a belief threshold</td>
+<td>confidence decays; links fade; nothing is evicted from <em>membership</em> by belief</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>"this neighbour is not a bad actor"</td>
+<td>behaviour observed; graduated and recoverable exclusion — never a verdict</td>
+<td>reputation recovers as behaviour does</td>
+</tr>
+<tr>
+<td>L5</td>
+<td>"this frame is the group's"</td>
+<td>the one <strong>binary</strong> gate in the stack — cryptography, not belief, at the boundary</td>
+<td>grace windows, then nothing</td>
+</tr>
+<tr>
+<td>L6</td>
+<td>"this image is healthy"</td>
+<td><strong>the health check is a refutation attempt</strong>, and rollback is the refutation succeeding</td>
+<td>the prior image is retained until commit</td>
+</tr>
+<tr>
+<td>L7</td>
+<td>"this sentant does what it claims"</td>
+<td>determinism makes behaviour <strong>replayable</strong> — auditable refutation from the definition alone</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Two disciplines, one boundary — and keeping them apart is the design.</strong> Below and
+around the trust boundary, <em>belief</em>: probabilistic, local, decaying, never final. At the
+boundary itself, <em>proof</em>: the frame's integrity tag verifies under a held key or it does
+not — and where an act needs more than the gate, a member's signature likewise verifies
+or does not. <strong>Confidence never
+substitutes for the gate, and the gate never claims what only observation can</strong> — passing
+the gate is a floor, not a character reference (Layer 5, 7.2).</p>
+<h2 id="5-the-stack--one-document-per-layer">5 The stack — one document per layer</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Layer</th>
+<th>Covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>01-terminology.md</code></td>
+<td>—</td>
+<td>Terms used across all parts</td>
+</tr>
+<tr>
+<td><code>L0-hardware-and-runtime.md</code></td>
+<td><strong>L0 Hardware &amp; Runtime</strong></td>
+<td>What a platform provides to every layer above</td>
+</tr>
+<tr>
+<td><code>L1-transport.md</code></td>
+<td><strong>L1 Transport</strong></td>
+<td>The bearer contract, the registry, the profile</td>
+</tr>
+<tr>
+<td><code>L2-capability-and-discovery.md</code></td>
+<td><strong>L2 Capability &amp; Discovery</strong></td>
+<td>Beacons, class, capability — per bearer</td>
+</tr>
+<tr>
+<td><code>L3-routing.md</code></td>
+<td><strong>L3 Routing</strong></td>
+<td>Neighbour table, relay, duplicates, bearer choice, custody</td>
+</tr>
+<tr>
+<td><code>L4-wire.md</code></td>
+<td><strong>L4 Wire Protocol</strong></td>
+<td>The frame, two tiers, addressing, the authenticated span</td>
+</tr>
+<tr>
+<td>—</td>
+<td>═══ <strong>TRUST BOUNDARY</strong> ═══</td>
+<td></td>
+</tr>
+<tr>
+<td><code>L5-trust-and-identity.md</code></td>
+<td><strong>L5 Trust &amp; Identity</strong></td>
+<td>The trust group, claim state, certificates, the delivery gate, entanglement</td>
+</tr>
+<tr>
+<td><code>L6-management.md</code></td>
+<td><strong>L6 Management</strong></td>
+<td>Authority, updates, recovery, diagnostics, surfaces</td>
+</tr>
+<tr>
+<td><code>L7-application.md</code></td>
+<td><strong>L7 Application</strong></td>
+<td>Sentants, events, plugins, ensembles</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two structural facts the layer numbering alone does not convey:</p>
+<ul>
+<li><strong>L1 and L2 instantiate per transport.</strong> A hive runs N parallel lower stacks, one per
+available transport, each with its own bearer binding, its own discovery and its own
+neighbour sensing. <strong>L3 is where they converge into one neighbour table</strong>, and <strong>L4 is
+one framing riding any transport.</strong></li>
+<li><strong>The trust boundary is the L4/L5 seam.</strong> Everything L0–L4 is trustless shared mesh:
+any device participates, and relaying is the default — a hive forwards frames for
+hives it has never met, belonging to groups it cannot join, carrying ciphertext it
+cannot read. Everything L5 and above is authenticated, and every consequential act is
+gated there.</li>
+</ul>
+<h3 id="51-what-the-network-sends-is-frames">5.1 What the network sends is frames</h3>
+<p>A frame might be an event with a payload, or a chunk of a larger transfer — a firmware
+image assembling over days, a sound recording moving upstream. <strong>From the network's point
+of view there is no difference, only what to do with it at the other end</strong>: the type
+field says how to treat a frame, never what it means. There is no second carriage path;
+anything large is divided at its source by the endpoint that knows what the payload
+means, and no layer fragments (Layer 4, 6.2).</p>
+<h2 id="6-who-communicates-with-whom--a-different-answer-at-every-layer">6 Who communicates with whom — a different answer at every layer</h2>
+<p>Most confusion about this system comes from asking "what talks to what?" without naming
+the layer. <strong>A sentant never talks to a bearer; a group never talks to a neighbour.</strong> The
+parties, layer by layer:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Who talks to whom</th>
+<th>Reach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>L0</strong></td>
+<td>nobody — the platform provides facilities to its own upper layers</td>
+<td>one device</td>
+</tr>
+<tr>
+<td><strong>L1</strong></td>
+<td>binding ↔︎ binding across one medium; the parties are adjacent devices on one bearer</td>
+<td>one hop, one bearer</td>
+</tr>
+<tr>
+<td><strong>L2</strong></td>
+<td>one hive → <strong>anyone in range</strong> — the beacon is addressed to no one, and a scanner listens to everything it can hear</td>
+<td>one hop, per bearer, party-less</td>
+</tr>
+<tr>
+<td><strong>L3</strong></td>
+<td>hive ↔︎ <strong>neighbour</strong> — the only relationship this layer has is <em>heard directly</em>; everything farther is neighbours-of-neighbours relaying, and the mesh is what emerges</td>
+<td>hop by hop</td>
+</tr>
+<tr>
+<td><strong>L4</strong></td>
+<td><strong>origin ↔︎ destination</strong> — the frame's meaning is end to end even though its carriage is hop by hop; a relay touches three fields and reads nothing</td>
+<td>end to end</td>
+</tr>
+<tr>
+<td><strong>L5</strong></td>
+<td>member ↔︎ <strong>group</strong> (the gate); <strong>group ↔︎ group</strong> (entanglement, at a level of its ladder); <strong>person ↔︎ device</strong> (the claim, physically)</td>
+<td>trust-scoped</td>
+</tr>
+<tr>
+<td><strong>L6</strong></td>
+<td>appointed authority → its group's devices; operator ↔︎ device in hand; any asker ↔︎ the public tier only</td>
+<td>authority-scoped</td>
+</tr>
+<tr>
+<td><strong>L7</strong></td>
+<td><strong>sentant ↔︎ sentant</strong> by events — same hive by dispatch, other hives by frames; sentant ↔︎ plugin on the same hive only; an ensemble is its parts conversing</td>
+<td>application</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="61-one-message-three-answers-at-once">6.1 One message, three answers at once</h3>
+<p>Asked "is communication sentant-to-sentant, group-to-group, or hive-to-hive?", the
+answer is all three, because they answer different questions:</p>
+<blockquote>
+<p><strong>Sentants converse. Groups permit. Hives carry.</strong>
+A single message, vertically: <em>the sentant composes → the hive addresses → the groups
+permit → the hive delivers → the sentant decides.</em></p>
+</blockquote>
+<p>The user-facing metaphor is the top stratum only — intelligent agents interacting — and
+the strata below are why an agent's access is not free, without that ever being visible
+as mechanism. <strong>An agent can always speak</strong> (fire-and-forget, even unauthenticated);
+what its community's relationships set is whether the far side <em>acts</em>. Told as a story
+it is a social one: your agents can talk with theirs to the degree your communities
+trust each other — a human truth, not a protocol detail, and the reason the
+intelligent-agents metaphor survives the security model instead of fighting it.</p>
+<h3 id="62-groups-and-the-ladder-between-them">6.2 Groups, and the ladder between them</h3>
+<p>A trust group is a flat group of hives sharing a cryptographic identity — sovereign,
+with no hierarchy inside it and no authority above it. Between groups there is a
+<strong>ladder</strong>: traffic between two hives is <em>same-group</em>, <em>entangled</em> — the groups hold a
+conditional agreement, scoped and levelled, standing exactly as long as its conditions
+are met — or <em>unauthenticated</em>, which still exists and still carries. <strong>The mesh is not
+a rung of this ladder</strong>: entanglement is a relationship between trust groups; the mesh
+is a relationship between devices, and every device is in it (Layer 5, Clause 10).</p>
+<h2 id="7-reading-order">7 Reading order</h2>
+<p><strong>Terminology first, then bottom-up.</strong> Each part states what it assumes of the part
+below, so the stack reads in layer order: L0 through L4 for the mesh, L5 through L7 for
+what trust adds. Every part carries its own conformance clause saying who conforms and
+how that is demonstrated, and every part ends with a <em>what is not decided</em> clause —
+<strong>an absence in this standard is labelled as an absence, never left to be read as a
+permission.</strong></p>
+<p>A minimal relaying device is an implementation of L0–L4: that floor is what makes every
+device a citizen of the shared mesh. Membership, delivery, management and applications
+build on it in order.</p>
+<h2 id="8-the-worked-examples">8 The worked examples</h2>
+<p>Four informative examples close the set. Each is a full trace through the same stack —
+<strong>no example uses a mechanism the others lack; they set the same dials to different
+values, and the purpose chooses the values.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Example</th>
+<th>The dials at</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EXAMPLE-payment-at-point-of-sale.md</code></td>
+<td>high stakes, minutes-long entanglement, laddered person-authentication, receipt-with-release</td>
+</tr>
+<tr>
+<td><code>EXAMPLE-presenting-in-a-room.md</code></td>
+<td>near-zero stakes, proximity-conditioned entanglement, contention left to the room — by design</td>
+</tr>
+<tr>
+<td><code>EXAMPLE-a-night-at-the-stadium.md</code></td>
+<td>the whole stack under load, layer by layer; presence as attested history</td>
+</tr>
+<tr>
+<td><code>EXAMPLE-earthgrid-and-the-insights-store.md</code></td>
+<td>years-long entanglements, three parties, trust as a graded decaying quantity — and breach without revocation</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="bibliography">Bibliography</h2>
+<p><em>Informative.</em></p>
+<ul>
+<li>[1] ISO, <em>How to write standards</em>, 2016. ISBN 978-92-67-10686-1</li>
+<li>[2] ISO/IEC Directives, Part 2, 2016</li>
+<li>[3] IETF RFC 768 / RFC 9293 — the UDP and TCP delivery models referenced in Clause 3</li>
+</ul>
+
+</article>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+localStorage.setItem('r2-theme',n);
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>

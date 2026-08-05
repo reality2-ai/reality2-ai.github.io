@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L1 — Transport — Reality2 Standard</title>
+<meta name="description" content="Bearers, framing, and what a link is.">
+<link rel="canonical" href="https://reality2.ai/standard/L1-transport.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="L1 — Transport — Reality2 Standard">
+<meta property="og:description" content="Bearers, framing, and what a link is.">
+<meta property="og:url" content="https://reality2.ai/standard/L1-transport.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t=localStorage.getItem('r2-theme');
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">The standard</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<article id="main" class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-1-transport">Reality2 Standard — Layer 1: Transport</h1>
+<p><strong>Status:</strong> Draft — <strong>this names the editorial maturity of the text, and nothing else.</strong>
+<strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
+build from it (d041, Roy: <em>standard is the canon</em>). <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> <em>(Subject stated because a status field is scoped to
+a question the reader may not be asking, and a claim with an unstated subject will be given the
+subject the reader brought — composer, 2026-08-03.)</em>
+<strong>Date:</strong> 2026-08-04</p>
+<blockquote>
+<p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
+<em>can</em> = possibility and capability.</p>
+</blockquote>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>A Reality2 hive does not have <em>a</em> network connection. It has as many as its hardware
+provides, running at the same time, and it does not choose between them at this layer.</p>
+<p><strong>Layer 1 is where each medium is made to look like every other one.</strong> A radio that
+broadcasts to whoever is listening, a wired link between two processors in the same
+enclosure, a socket to a machine on another continent — above this layer they are the same
+thing: something that carries a frame to a peer, sometimes.</p>
+<p>That word <em>sometimes</em> is the layer's whole difficulty. <strong>Layer 1 promises nothing about
+delivery.</strong> A frame handed to a bearer may arrive, may not, and no one is told which.
+Everything Reality2 does about that — retrying, choosing a different bearer, holding a
+frame for a sleeping peer — happens at Layer 3, and can only happen there if every bearer
+fails in the same shape.</p>
+<p>So this document specifies one contract and requires every bearer to satisfy it. <strong>The
+contract is deliberately thin</strong>, because a rule that only some media can honour would
+either exclude those media or be quietly ignored by them, and both outcomes end in a mesh
+whose behaviour depends on which radio a frame happened to take.</p>
+<p>Three things follow, and they are worth having in mind before the clauses.</p>
+<p><strong>A bearer carries frames; it does not read them.</strong> The bytes handed down are the bytes
+transmitted. A bearer that inspects or rewrites a frame has coupled itself to a format it
+does not own, and will break when that format changes beneath it.</p>
+<p><strong>A bearer reports peers by the identity the rest of the system uses</strong>, never by the
+address it happens to know them by. This is the single rule in this document most likely
+to be got wrong, and 4.5 explains why the failure is silent.</p>
+<p><strong>Adding a bearer changes nothing above Layer 1.</strong> If supporting a new medium requires an
+edit to routing or to the wire format, the contract has been broken rather than extended.</p>
+<h2 id="1-scope">1 Scope</h2>
+<p>This document specifies the contract that every Reality2 transport bearer satisfies,
+whatever medium it uses.</p>
+<p>It specifies what a bearer reports to the layers above it, and what those layers may ask of
+a bearer.</p>
+<p>It defines the bearer registry, and the identifiers by which a bearer is named on the wire.</p>
+<p>It specifies the parameters by which a bearer declares itself, and what a document
+specifying an individual bearer contains.</p>
+<p>It establishes what conformance at this layer consists of.</p>
+<p>It identifies what is not decided at this layer.</p>
+<p>It does not specify any individual medium — modulation, channel plans, association
+procedures, socket options and their like belong to the binding documents described in
+Clause 11. It does not specify frame contents, which are Layer 4, or the choice of which
+bearer carries a given frame, which is Layer 3.</p>
+<h2 id="2-normative-references">2 Normative references</h2>
+<p>The following documents are referred to in the text in such a way that some or all of their
+content constitutes requirements of this document.</p>
+<ul>
+<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<code>01-terminology.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<code>L0-hardware-and-runtime.md</code>)</li>
+</ul>
+<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<p>For the purposes of this document, the terms and definitions given in the documents listed
+in Clause 2 apply, together with the following.</p>
+<p><strong>3.1
+bearer</strong></p>
+<p>means of carrying frames between hives over one medium, satisfying the contract in Clause 4</p>
+<p>Note 1 to entry: A hive commonly runs several bearers at once. They do not coordinate with
+one another at this layer.</p>
+<p><strong>3.2
+binding</strong></p>
+<p>part of an implementation that adapts frames to one medium</p>
+<p>Note 1 to entry: A bearer is the contract; a binding is one realisation of it. Two bindings
+for the same medium can differ entirely in construction and remain interchangeable above
+Layer 1.</p>
+<p><strong>3.3
+transport unit</strong></p>
+<p>quantity of data the medium delivers or fails to deliver as a whole</p>
+<p>Note 1 to entry: A radio frame, a datagram and a length-delimited segment of a stream are
+each a transport unit.</p>
+<p><strong>3.4
+bearer ordinal</strong></p>
+<p>number identifying a bearer, appearing on the wire and in the neighbour table</p>
+<p><strong>3.5
+bearer profile</strong></p>
+<p>set of parameter values a bearer declares, as specified in Clause 7</p>
+<p><strong>3.5a
+bearer in service</strong></p>
+<p>bearer a hive provides and has not disabled, whatever state (5.2) it is currently in</p>
+<p>Note 1 to entry: A bearer in service can be temporarily unable to carry frames. <strong>Being in
+service is a fact about the hive's configuration; state is a fact about the moment.</strong> The
+layers above use the first to decide what a hive is, and the second to decide what it can do
+now.</p>
+<p><strong>3.6
+canonical hive identifier</strong></p>
+<p>identifier of a hive that is the same whichever bearer it is observed on</p>
+<p><strong>3.7
+maximum transport unit payload</strong></p>
+<p>largest frame a bearer can carry in one transport unit at a given moment</p>
+<p><strong>3.8
+broadcast</strong></p>
+<p>send directed at every hive that can hear it, rather than at a named one</p>
+<h2 id="4-the-bearer-contract">4 The bearer contract</h2>
+<p><strong>4.1</strong> A bearer shall satisfy every requirement in this clause. A means of carrying frames
+that does not is not a bearer, and shall not be presented as one.</p>
+<h3 id="42-frames-are-carried-unaltered">4.2 Frames are carried unaltered</h3>
+<p><strong>4.2.1</strong> A bearer shall deliver upward exactly the bytes that were handed down at the
+peer, unaltered.</p>
+<p><strong>4.2.2</strong> A bearer may wrap a frame for its medium — a length prefix, a header, a radio
+preamble — and shall remove that wrapping before delivering the frame upward.</p>
+<p><strong>4.2.3</strong> A bearer shall not interpret the contents of a frame.</p>
+<p>Note 1 to entry: 4.2.3 constrains the implementer, not the hardware. A bearer that reads a
+frame to make a decision has bound itself to a format specified at another layer and
+maintained by other people. <strong>The next change to that format will not be accompanied by a
+warning to anyone working on bearers.</strong></p>
+<p><em>Verification: transmit frames of every permitted length, including the largest the bearer
+declares and a single byte, and compare the delivered bytes with the bytes sent.</em></p>
+<h3 id="43-one-frame-per-transport-unit">4.3 One frame per transport unit</h3>
+<p><strong>4.3.1</strong> Where a medium provides transport unit boundaries, a bearer shall carry exactly
+one frame per transport unit.</p>
+<p><strong>4.3.2</strong> Where a medium provides a byte stream and no boundaries, a bearer shall delimit
+frames, and shall reject a claimed length exceeding its declared maximum without consuming
+further input as though it were payload.</p>
+<p>Note 1 to entry: 4.3.2's second half is the whole of the rule. <strong>A delimiter that trusts a
+length field will follow a corrupt one into the next frame and every frame after it</strong>, and
+a stream bearer that has lost delimitation does not recover on its own.</p>
+<p><em>Verification: supply a stream containing a length field larger than the declared maximum,
+followed by a valid frame. A conforming bearer rejects the first and delivers the second.</em></p>
+<h3 id="44-delivery-is-not-promised">4.4 Delivery is not promised</h3>
+<p><strong>4.4.1</strong> A bearer shall not be required to deliver a frame.</p>
+<p><strong>4.4.2</strong> A bearer shall not acknowledge a frame at this layer, and shall not retransmit one
+on its own initiative.</p>
+<p><strong>4.4.3</strong> A bearer whose medium performs its own acknowledgement or retransmission shall not
+expose either upward.</p>
+<p>Note 1 to entry: 4.4.3 is not a preference for unreliability. <strong>A bearer that is reliable
+where others are not produces a mesh whose behaviour depends on which medium a frame
+happened to take</strong>, which is the property Layer 3 exists to remove. A medium that
+retransmits internally may do so; what it may not do is let anything above notice.</p>
+<p>Note 2 to entry: Where delivery has to be assured, that is done above this layer and
+end-to-end, by a party that can tell whether the thing it wanted actually happened. <strong>A
+bearer only ever knows that it transmitted.</strong></p>
+<p><strong>4.4.4</strong> A bearer may refuse peers or connections to protect its own resources — on a
+medium crossing networks belonging to others, for example. No layer shall treat such
+refusal or acceptance as authenticating anything: frame integrity and trust are
+established above Layer 4, end to end, and a bearer that screens its peers has protected
+its own resources, never the frames it carries.</p>
+<h3 id="45-peers-are-reported-by-their-canonical-hive-identifier">4.5 Peers are reported by their canonical hive identifier</h3>
+<p><strong>4.5.1</strong> When a bearer delivers a frame upward, it shall report the sender's canonical hive
+identifier (3.6).</p>
+<p><strong>4.5.2</strong> A bearer shall not report an identifier derived from a medium address where the
+canonical identifier is known.</p>
+<p><strong>4.5.3</strong> Where no canonical identifier is yet known for a medium address, a bearer may
+report one derived from that address, and shall replace it with the canonical identifier as
+soon as one becomes known for that address.</p>
+<p>Note 1 to entry: <strong>This is the rule in this document most likely to be implemented wrongly,
+and its failure is silent.</strong> A bearer naturally knows its peers by medium address — a radio
+address, an address and port — and reporting that is the obvious thing to do. Nothing
+rejects it. Nothing logs it.</p>
+<p>Note 2 to entry: What happens instead is that <strong>a hive reachable on three bearers becomes
+three neighbours</strong>. Each entry accumulates its own history, each is judged separately on
+how well it is working, and the layers above never learn that the three are one hive. Every
+decision that depends on knowing a peer as one peer — how confident a path is, whether a
+frame has been seen before, which of several bearers to prefer for a destination — is made
+on a third of the evidence. <strong>The system does not fail; it performs worse than it should,
+for a reason that is invisible from any layer that could detect it.</strong></p>
+<p><em>Verification: bring up one hive reachable on two bearers at once. It appears in the
+neighbour table as one entry carrying two bearers, never as two entries.</em></p>
+<h3 id="46-broadcast-and-addressed-send">4.6 Broadcast and addressed send</h3>
+<p><strong>4.6.1</strong> A bearer shall support sending a frame to one named hive.</p>
+<p><strong>4.6.2</strong> A bearer shall support broadcast (3.8).</p>
+<p>Note 1 to entry: A bearer whose medium has no native broadcast satisfies 4.6.2 by sending to
+each peer it knows of. That is more expensive and is permitted; <strong>being unable to broadcast
+at all is not</strong>, because the layers above use broadcast to find peers they do not yet know.</p>
+<h3 id="47-the-discovery-marker-belongs-to-the-medium">4.7 The discovery marker belongs to the medium</h3>
+<p><strong>4.7.1</strong> A bearer shall carry a marker in its medium framing by which a receiver can
+distinguish Reality2 traffic from other traffic on the same medium.</p>
+<p><strong>4.7.2</strong> The marker shall not be placed inside the frame.</p>
+<p>Note 1 to entry: This is the whole of Layer 1's part in discovery. <strong>What is advertised, and
+what a receiver does with it, is Layer 2.</strong> The marker only answers <em>is this ours?</em> — cheaply,
+before anything is parsed, on a medium that carries other people's traffic too.</p>
+<p>Note 2 to entry: 4.7.2 follows from 4.2.1. A marker inside the frame would be bytes the
+bearer added, and there are none.</p>
+<h3 id="48-no-bearer-is-privileged">4.8 No bearer is privileged</h3>
+<p><strong>4.8.1</strong> Supporting an additional bearer shall not require any change at Layer 3 or above.</p>
+<p>Note 1 to entry: 4.8.1 is testable in the only way that matters: <strong>add a bearer and see what
+else has to change.</strong> If routing or the wire format has to be edited, the contract has been
+broken rather than extended, and the correct response is to find which requirement in this
+clause the new bearer does not satisfy.</p>
+<h3 id="49-provision-is-not-policy">4.9 Provision is not policy</h3>
+<p><strong>4.9.1</strong> A <strong>deployable image</strong> — a production image (Layer 6, 6.2.1), as distinct
+from a development image — shall include a binding for every bearer the target
+hardware provides; only a bearer whose hardware is absent from the target may be
+omitted.</p>
+<p><strong>4.9.2</strong> Frugality shall be exercised at runtime — by disabling a bearer — and never by
+omitting its binding at build time.</p>
+<p><strong>4.9.3</strong> Disabling a bearer to save power shall remove power from its radio where the
+hardware permits.</p>
+<p><strong>4.9.4</strong> 4.9.1 obliges bindings for the bearers the target <strong>hardware</strong> provides. A
+bearer not carried by a radio of its own is not obliged by this clause — whether it
+rides an operating system's networking, or an IP stack linked into the image itself.</p>
+<p>Note 0 to entry: <strong>The test is a radio of its own, and nothing else.</strong> The earlier
+wording turned on a bearer <em>riding host networking</em>, which reads naturally as an
+operating system handing sockets to an application — leaving the fleet's own bare-metal
+target ambiguous, since a firmware image that links its own IP stack <strong>is</strong> the stack and
+is a tenant of nothing. The radio test decides that case and every other one without
+appealing to a relationship that may not exist. <em>(Reworded 2026-08-02,
+<code>PROVISIONAL(supervisor)</code>: the ruled intent is unchanged — Note 2's "hardware a
+deployment paid for and cannot use" — only the phrasing that carried it.)</em></p>
+<p>Note 1 to entry: This clause forbids the silent role-subsetting it is possible to ship:
+a board with two radios, one never compiled in, presents itself as a smaller device than
+it is and no runtime inspection reveals it. <strong>What the hardware can do, the image can
+do; what the deployment wants is set at runtime, visibly and reversibly.</strong> <em>(Restored
+2026-08-01 from a ratified rule of the pre-standard corpus that had not survived into
+this document.)</em></p>
+<p>Note 2 to entry: <strong>Development images are exempt</strong> (4.9.1), because bringing a board
+up one bearer at a time is how a board is brought up at all — and a development image
+announces itself as one (Layer 2, 5.4a), so nothing it omits can be mistaken for a
+production device's capability. The boundary 4.9.4 draws is the same one: the clause
+is about <strong>hardware a deployment paid for and cannot use</strong>, not about every transport
+a platform could conceivably speak. <em>(Both scopes ruled 2026-08-01.)</em></p>
+<h2 id="5-what-a-bearer-reports-upward">5 What a bearer reports upward</h2>
+<p><strong>5.1</strong> A bearer shall report the following, and shall keep each current.</p>
+<p>Note 1 to entry: <em>Addressable</em> is what this bearer can send to — an open connection, an entry
+in its own address table, a peer within range. <strong>It is not the same question as which peers
+have been heard announcing themselves, which is Layer 2's and is answered separately.</strong> A
+peer can be addressable without having been heard from recently, and can have been heard
+from without being addressable. <strong>Neither record substitutes for the other</strong>, and a bearer
+that reports one in place of the other has answered a question nobody asked.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Reported</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bearer ordinal</td>
+<td>which bearer this is (Clause 8)</td>
+</tr>
+<tr>
+<td>State</td>
+<td>one of the four states in 5.2</td>
+</tr>
+<tr>
+<td>Maximum transport unit payload</td>
+<td>the largest frame it can carry now (3.7)</td>
+</tr>
+<tr>
+<td>Link quality, per peer</td>
+<td>5.3</td>
+</tr>
+<tr>
+<td>Addressable peers</td>
+<td>which hives this bearer can presently send to</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="52-state">5.2 State</h3>
+<p><strong>5.2.0</strong> A bearer state is a property of <strong>(hive, bearer)</strong>, not of the device. Where
+one physical medium carries the bearers of more than one hive, each hive holds its own
+state for it, and those states are independent. A conformance claim about a bearer
+shall be scoped to the hive making it.</p>
+<p>Note 1 to entry: This says what every implementation already assumed and none had
+written down — <strong>the assumption was that (device, bearer) identifies a state, and it does
+not.</strong> A phone is the first platform where the two come apart observably: runtime
+permissions are granted per user profile, so one radio, one application and one device
+were measured holding <strong>three different permission states at once</strong>, and two hives in
+different profiles would report different states for that radio at the same instant with
+neither being wrong. The consequence is that <strong>which profile a hive runs in is
+conformance-relevant rather than an installation detail.</strong> <em>(Added 2026-08-02 from a
+measured platform finding and an implementer's model statement, which agreed;
+<code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p><strong>5.2.1</strong> A bearer shall report one of the following states.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>State</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>available</strong></td>
+<td>can carry frames to peers it knows and to peers it does not yet know</td>
+</tr>
+<tr>
+<td><strong>restricted</strong></td>
+<td>can carry frames to peers it already knows, and cannot take on new ones</td>
+</tr>
+<tr>
+<td><strong>unavailable</strong></td>
+<td>cannot carry frames now, and expects to be able to later</td>
+</tr>
+<tr>
+<td><strong>failed</strong></td>
+<td>cannot carry frames, and needs intervention or recovery before it can</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>5.2.2</strong> A bearer that cannot send shall report <em>unavailable</em> or <em>failed</em> rather than
+accepting a frame and discarding it.</p>
+<p>Note 0 to entry: <strong>On a medium that completes transmission asynchronously</strong> — a radio
+whose driver signals completion by callback after the send call returns — acceptance
+means <em>accepted for transmission while the bearer believes it able</em>, and refusal is
+owed only where the bearer knows it unable: queue full, budget exhausted, radio down.
+A failure discovered after acceptance is ordinary loss, feeding state and link quality;
+it is never reported upward as a delivery outcome, because 4.4.3 forbids exposing the
+medium's own acknowledgement — and a completion callback <strong>is</strong> that acknowledgement,
+so waiting on it inside <code>send</code> would import per-hop reliability the core premise
+refuses. <em>(Added 2026-08-01 from implementation evidence: the clause settled the
+question unaided; the note only spares the next implementer the derivation.)</em></p>
+<p>Note 1 to entry: <em>restricted</em> exists because several media have a hard limit on
+simultaneous peers. Without a state for it, such a bearer has to either refuse frames to
+peers it is perfectly able to reach, or accept frames to peers it cannot reach at all.
+<strong>Both are worse than saying which case it is in.</strong></p>
+<p>Note 2 to entry: The distinction between <em>unavailable</em> and <em>failed</em> is whether waiting will
+help. <strong>It is stated as a requirement because the two look identical from outside and lead
+to opposite responses</strong> — one is waited out, the other is acted on.</p>
+<p><em>Verification: exhaust the bearer's peer capacity and read its state; it reports
+<em>restricted</em>, not <em>available</em> and not <em>failed</em>.</em></p>
+<h3 id="53-link-quality">5.3 Link quality</h3>
+<p><strong>5.3.1</strong> A bearer shall report, for each peer it can reach, a quality value between 0 and
+1 inclusive, where 0 is unusable and 1 is as good as that bearer gets.</p>
+<p><strong>5.3.2</strong> A bearer should report the medium-specific measurements the quality value was
+derived from, where it has them.</p>
+<p>Note 1 to entry: <strong>Some platforms supply reception-side evidence only.</strong> A radio driver
+may be unable to report a transmission's outcome without blocking, and blocking a send
+to obtain that evidence is already forbidden by 4.4.3 — the completion signal is the
+medium's own acknowledgement. Quality derived from reception alone is therefore
+conformant; what is not conformant is waiting on that signal to improve it. <em>(Added
+2026-08-01 from bring-up evidence on a synchronous radio API.)</em></p>
+<p><strong>5.3.3</strong> A bearer shall report quality 0, or report the peer as unreachable, for a peer it
+can no longer reach.</p>
+<p>Note 1 to entry: The normalised value is required and the raw measurements are not, because
+<strong>the layers above compare bearers with one another</strong>. A signal strength in dBm and a
+round-trip time in milliseconds cannot be compared; two numbers between 0 and 1 can. The
+raw measurements are worth reporting for diagnosis, and are worth nothing for the decision
+the value is used to make.</p>
+<p>Note 2 to entry: Two bearers reporting the same quality value are not claiming the same
+physical conditions. <strong>Each value is relative to what that bearer can achieve</strong>, which is
+what makes them comparable at all.</p>
+<h2 id="6-what-may-be-asked-of-a-bearer">6 What may be asked of a bearer</h2>
+<p><strong>6.1</strong> A bearer shall accept a request to send one frame to one target, where the target is
+a canonical hive identifier (3.6) or the broadcast target.</p>
+<p><strong>6.2</strong> A bearer shall not require the layers above it to know anything about its medium in
+order to make that request.</p>
+<p><strong>6.3</strong> A bearer shall reject a frame larger than its currently declared maximum transport
+unit payload, and shall not fragment it.</p>
+<p>Note 1 to entry: 6.3 assigns fragmentation to whoever knows what the frame means. <strong>A bearer
+splitting a frame it is required by 4.2.3 not to read would be dividing something whose
+structure it cannot see</strong>, and reassembly would then be a second place where the format is
+known.</p>
+<h2 id="7-the-bearer-profile">7 The bearer profile</h2>
+<p><strong>7.1</strong> A bearer shall declare a profile stating a value for each of the following.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Parameter</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B1</td>
+<td>Ordinal</td>
+<td>its entry in the registry (Clause 8)</td>
+</tr>
+<tr>
+<td>B2</td>
+<td>Maximum transport unit payload</td>
+<td>largest frame in one transport unit; may vary with link mode, in which case the profile states the range and what varies it</td>
+</tr>
+<tr>
+<td>B3</td>
+<td>Wire tier</td>
+<td>which frame encoding the layers above use on this bearer by default; what a frame crossing between bearers of different tiers undergoes is specified at Layer 4</td>
+</tr>
+<tr>
+<td>B4</td>
+<td>Quality metric</td>
+<td>what 5.3.1's value is derived from</td>
+</tr>
+<tr>
+<td>B5</td>
+<td>Fade rate</td>
+<td>how quickly a peer not heard from on this bearer should be treated as receding</td>
+</tr>
+<tr>
+<td>B6</td>
+<td>Relative cost</td>
+<td>the cost of sending on this bearer, relative to other bearers on the same hive</td>
+</tr>
+<tr>
+<td>B7</td>
+<td>Reach</td>
+<td>the distance class this bearer covers: proximity, local, long-range, global, or point-to-point</td>
+</tr>
+<tr>
+<td>B8</td>
+<td>Regulated</td>
+<td>whether transmission on this medium is limited by a duty cycle or airtime budget (Clause 9)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>7.2</strong> A bearer profile shall be readable by the layers above without knowledge of the
+medium.</p>
+<p>Note 1 to entry: B5 is why silence means different things on different media. <strong>A bearer
+that speaks every few seconds and a bearer that speaks every few minutes cannot share one
+definition of "not heard from lately"</strong> — applying the fast bearer's patience to the slow
+one declares working links dead, and applying the slow one's to the fast leaves dead links
+in the table long after they are gone.</p>
+<p>Note 2 to entry: <strong>B5's value is not a property of the medium and is not set here.</strong> It is
+set against how often the bearer is used to announce presence, which is specified at Layer
+2. A bearer declares the value; Layer 2 states what the value has to exceed.</p>
+<p>Note 2 to entry: B7 exists so that the layers above can choose a bearer by whether it can
+reach the destination at all, before considering what it costs. The classes are ordered:
+proximity, local, long-range, global. <strong>Point-to-point is deliberately outside that order</strong> —
+a wired link between two processors reaches exactly one peer and no distance.</p>
+<p>Note 3 to entry: <strong>B7 classifies the medium's distance bound. It never promises that any
+particular destination is reachable.</strong> A global-reach bearer on an isolated network — a
+<code>udp</code> binding on a LAN with no route out — reaches only that network's peers, and nothing
+is wrong: the class says how far the medium <em>can</em> carry, and the only ground truth about
+reaching a given destination is the addressable-peers report (5.1), which Layer 3's
+viability rule consumes. <strong>Reach class filters candidates for destinations not yet
+located; addressability decides delivery.</strong></p>
+<h2 id="8-the-bearer-registry">8 The bearer registry</h2>
+<h3 id="81-what-binds">8.1 What binds</h3>
+<p><strong>8.1.1</strong> The bearer ordinal and its bit are normative. <strong>The name is a label.</strong></p>
+<p><strong>8.1.2</strong> An implementation shall interoperate with an implementation using a different
+label for the same ordinal.</p>
+<p>Note 1 to entry: Names change and ordinals cannot. Anything comparing bearers across two
+implementations compares ordinals.</p>
+<h3 id="82-registry">8.2 Registry</h3>
+<p><strong>8.2.1</strong> The bearer ordinals are as follows.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Ordinal</th>
+<th>Bit</th>
+<th>Label</th>
+<th>Reach</th>
+<th>Wire tier</th>
+<th>Largest payload</th>
+<th>Relative cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>0x01</code></td>
+<td><code>ble</code></td>
+<td>proximity</td>
+<td>compact</td>
+<td>200 B</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>0x02</code></td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>0x04</code></td>
+<td><code>lora</code></td>
+<td>long-range</td>
+<td>compact</td>
+<td>222 B</td>
+<td>5</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>0x08</code></td>
+<td><code>tcp</code></td>
+<td>global</td>
+<td>extended</td>
+<td>65 535 B</td>
+<td>8</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>0x10</code></td>
+<td><code>usb</code></td>
+<td>point-to-point</td>
+<td>compact</td>
+<td>255 B</td>
+<td>0</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>0x20</code></td>
+<td><code>wifi-mesh</code></td>
+<td>local</td>
+<td>compact</td>
+<td>250 B</td>
+<td>9</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>0x40</code></td>
+<td><code>udp</code></td>
+<td>global</td>
+<td>extended</td>
+<td>65 535 B</td>
+<td>8</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>8.2.2</strong> The bearer-set field is seven bits wide: the mask <code>0x7F</code>. The set of assignable
+bearers is <code>0x7D</code> while ordinal 1 remains reserved (8.3.1) — a mask consumer accepting
+bit <code>0x02</code> as live has accepted a bearer that cannot exist. <em>(Reworded 2026-08-01: the
+earlier "set of all bearers is <code>0x7F</code>" contradicted 8.3.1.)</em></p>
+<p><strong>8.2.3</strong> A bearer shall not use an ordinal not in this registry.</p>
+<p>Note 1 to entry: <code>usb</code> has relative cost 0 because a hive on the far end of that link is
+powered through it. Cost here is energy spent by the sender, not difficulty.</p>
+<p>Note 2 to entry: <code>wifi-mesh</code> carries the compact tier although it uses the same radio band
+as bearers that carry the extended tier. <strong>The tier follows the ordinal, never the band</strong> —
+the bearer uses the medium without its addressing or association, so nothing about the two
+cases is shared beyond the frequency.</p>
+<p>Note 3 to entry: Ordinal 3 is a reliable ordered stream over IP. More than one medium
+presents itself that way — a socket carrying length-delimited frames, and a message-oriented
+protocol layered on such a socket — and 8.2.4 permits both to use the ordinal.</p>
+<p><strong>8.2.4</strong> More than one binding may use the same ordinal, provided the bindings are
+indistinguishable above Layer 1.</p>
+<p>Note 1 to entry: <em>Indistinguishable</em> is the whole condition, and it is stronger than
+<em>similar</em>. Two bindings sharing an ordinal have the same reach, the same wire tier, the same
+delivery properties and the same profile; <strong>what differs is only how bytes reach the
+medium.</strong> Where any of those differ, the bindings are different bearers and 8.4 applies.</p>
+<h3 id="83-reserved-ordinals">8.3 Reserved ordinals</h3>
+<p><strong>8.3.1</strong> Ordinal 1 and bit <code>0x02</code> are reserved. They shall not be assigned to a bearer.</p>
+<p>Note 1 to entry: An ordinal is reserved rather than freed because the bit positions above
+it would otherwise move, and every implementation that had stored a bearer set would be
+holding a wrong one. <strong>Reservation costs one bit and reassignment costs correctness.</strong></p>
+<p>Note 2 to entry: <strong>A retired ordinal's record covers this registry only.</strong> The same bit may have meant something else in a layout that was never this
+registry — in the deployment this standard replaces, the bit at position 1 travelled on
+the wire meaning a different bearer entirely, under an ad-hoc scalar layout — so
+"was this bit ever used?" has different true answers depending on which layout the
+question means. The useful record of a retired ordinal is <strong>what the bit meant in
+every layout that shipped</strong>, not only in the one being retired; without that, the next
+party to ask gets a confident half-answer. <em>(Added 2026-08-02 from the composer lane's
+forensic answer to exactly that question.)</em></p>
+<p>Note 2 to entry: What ordinal 1 <em>was</em> is part of the registry's record: <strong>infrastructure
+WiFi, retired as a bearer</strong> (ruled 2026-07-23). An AP-associated link is not a bearer in
+this registry. The host's IP stack presents <code>tcp</code> (3) and <code>udp</code> (6), and Reality2 runs
+over them as an application — a <em>tenant</em> of the host's networking rather than the owner
+of a radio — so <strong>the WiFi-ness of the link underneath a socket is invisible above
+Layer 1</strong>, exactly as the ethernet-ness of a wired one is. An implementation carrying a
+legacy assignment of ordinal 1 is carrying a retired bearer, and a future bearer never
+takes the ordinal: it takes the lowest unassigned one (8.4.1).</p>
+<h3 id="84-adding-a-bearer">8.4 Adding a bearer</h3>
+<p><strong>8.4.1</strong> A new bearer shall be given the lowest unassigned ordinal.</p>
+<p><strong>8.4.2</strong> A new bearer shall satisfy Clause 4 in full before it is assigned an ordinal.</p>
+<p><strong>8.4.3</strong> Where more than seven bearers are needed, the width of the bearer set shall be
+extended at Layer 4, and ordinals shall not be reused to avoid doing so.</p>
+<p>Note 1 to entry: 8.4.3 states the one thing that cannot be allowed when the registry fills.
+<strong>Reusing an ordinal makes every stored bearer set silently wrong</strong> rather than merely full,
+and nothing distinguishes an old value from a new one.</p>
+<h2 id="9-regulated-media">9 Regulated media</h2>
+<p><strong>9.1</strong> A bearer whose medium is subject to a transmission duty cycle or airtime budget
+shall declare so in its profile (B8).</p>
+<p><strong>9.2</strong> Such a bearer shall report <em>unavailable</em> when its budget is exhausted, and shall not
+accept frames it cannot lawfully transmit.</p>
+<p><strong>9.3</strong> Such a bearer shall not exceed its budget in order to send a frame, whatever the
+frame is.</p>
+<p>Note 1 to entry: 9.3 has no exception for urgency, and the omission is deliberate.
+<strong>A budget with an exception for important traffic is a budget that is exceeded whenever
+traffic is important</strong>, which on a shared medium is exactly when everyone else needs it
+too. The obligation is also a legal one on the operator in most jurisdictions, and this
+standard cannot grant relief from it.</p>
+<p>Note 2 to entry: 9.2 makes exhaustion visible as a state rather than as unexplained loss.
+The layers above can then choose another bearer or wait, which they cannot do if the frame
+was simply dropped.</p>
+<h2 id="10-bearers-that-hold-connections">10 Bearers that hold connections</h2>
+<p><strong>10.1</strong> A bearer whose medium requires a connection before frames can be carried shall
+maintain that connection, and shall not require the layers above to know it exists.</p>
+<p><strong>10.2</strong> Such a bearer shall treat a peer as unreachable after a period of silence, and
+shall declare that period in its profile.</p>
+<p><strong>10.3</strong> The silence period shall be at least three times the interval at which the bearer
+expects to hear from a peer.</p>
+<p><strong>10.4</strong> Such a bearer should reattempt a lost connection with an interval that increases up
+to a stated maximum, and should continue reattempting for as long as the bearer is in
+service.</p>
+<p>Note 1 to entry: The factor of three in 10.3 is a floor, not a recommendation. <strong>One missed
+exchange is normal on every medium in this registry; two is common on the regulated ones.</strong>
+A silence period shorter than the factor allows declares live peers dead during ordinary
+operation, and each such declaration costs a reconnection.</p>
+<p>Note 2 to entry: 10.4's continuing indefinitely is deliberate. A hive that gives up on a
+peer permanently is a hive that has to be restarted by a person when the peer returns, and
+<strong>the peers in this system are expected to come and go</strong>.</p>
+<h2 id="11-what-a-binding-document-specifies">11 What a binding document specifies</h2>
+<p><strong>11.1</strong> A document specifying an individual binding shall state:</p>
+<p>a) the ordinal it uses, from the registry in 8.2, and where it shares that ordinal with
+another binding (8.2.4), which properties make the two indistinguishable above Layer 1;</p>
+<p>b) how a frame is placed in a transport unit, and how transport units are delimited where
+the medium does not delimit them;</p>
+<p>c) the discovery marker required by 4.7, exactly, as bytes and as their position in the
+medium framing;</p>
+<p>d) how a medium address is associated with a canonical hive identifier, satisfying 4.5;</p>
+<p>e) the maximum transport unit payload, and what varies it if it is not fixed;</p>
+<p>f) how the quality value of 5.3.1 is derived from what the medium measures;</p>
+<p>g) the conditions producing each of the four states in 5.2;</p>
+<p>h) its duty cycle or airtime budget, where 9.1 applies; and</p>
+<p>i) its connection lifecycle and silence period, where Clause 10 applies; and</p>
+<p>j) the build-mode declaration required by Layer 2, 5.4a.1, exactly, as bytes and as their
+position in the medium framing — or, where the medium's announcement cannot carry it, that
+it cannot.</p>
+<p>Note 0 to entry: <strong>j) closes a deferral with no destination.</strong> Layer 2, 5.4a.1 obliges a
+development hive to declare its mode <strong>in every beacon on every bearer</strong>, and Layer 2's own
+scope defers byte layout to the binding document — but until j) <strong>nothing obliged a binding
+document to carry the field</strong>, and 5.4a.3 reads <em>where the bearer's announcement layout
+carries one</em> as though that were a property of the medium rather than of the binding. <strong>So
+two conformant implementations could not interoperate on a flag one of them was never
+required to encode</strong>, for a declaration that controls admission (Layer 5, 9.2). <strong>The second
+half of j) is the honest case rather than a loophole:</strong> where an announcement genuinely has
+no room, saying so is what lets a scanner apply 5.4a.4's <em>unknown</em> deliberately instead of
+by accident, and it is <code>01-terminology.md</code> 4.5's form — where the requirement cannot be met,
+say so and name what prevents it. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding
+SS206.)</em></p>
+<p><strong>11.1a</strong> Where a medium has roles a device adopts — an initiator and a responder, a
+central and a peripheral — the binding document shall state the role-concurrency
+obligation: which roles a conforming device supports at once, or the yield rule by
+which two devices in the same role resolve it.</p>
+<p>Note 1 to entry: Without this, <strong>two conforming devices can be unable to meet</strong>, and
+each looks correct alone. Observed: two boards running one stack each ran continuous
+initiator-side connect attempts and refused inbound connections while busy initiating;
+their mutual connect never completed and the bearer was dead across the bench. Nothing
+was wrong with either device by any test either could run on itself.
+<em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, on bench evidence.)</em></p>
+<p><strong>11.2</strong> A binding document shall not restate a requirement of this document.</p>
+<p>Note 1 to entry: 11.2 is what keeps the bindings interchangeable. <strong>A requirement restated
+in seven binding documents is seven requirements</strong>, and they will not stay identical — the
+first one edited becomes the one that differs, and nothing indicates which of the seven was
+meant to govern.</p>
+<p>Note 2 to entry: 11.1 c) says <em>exactly</em> because a discovery marker is compared byte for
+byte. A marker described in prose is a marker two implementers will spell differently, and
+<strong>two hives whose markers differ do not fail to connect — they never see each other at
+all.</strong></p>
+<h2 id="12-conformance">12 Conformance</h2>
+<p>Every requirement of this document is demonstrated by conformance evidence of one of
+the three classes of <code>01-terminology.md</code>, 3.10 — behavioural, by construction, or by
+declaration. <strong>A requirement whose evidence is by construction is not thereby
+optional</strong>: the demonstration is an inspection a third party can perform without the
+implementer's cooperation, and its absence is non-conformance exactly as a failed
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <code>01-terminology.md</code> 4.2 to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+<p><strong>12.1</strong> A bearer conforms to this document where it:</p>
+<p>a) satisfies every requirement of Clause 4;</p>
+<p>b) reports everything required by Clause 5, keeping each current;</p>
+<p>c) accepts what Clause 6 requires and rejects what Clause 6 forbids;</p>
+<p>d) declares a complete profile under Clause 7;</p>
+<p>e) uses an ordinal from the registry in 8.2;</p>
+<p>f) meets Clause 9 where its medium is regulated, and Clause 10 where it holds connections;
+and</p>
+<p>g) is specified by a binding document meeting Clause 11.</p>
+<p><strong>12.2</strong> An implementation of Layer 1 conforms where every bearer it provides conforms, and
+where 4.8.1 holds of it.</p>
+<p><strong>12.3</strong> Conformance shall be demonstrable with two implementations of one bearer built
+independently from its binding document.</p>
+<p><strong>12.4</strong> Conformance to 11.1a shall be demonstrated by a role-asymmetric pairing test:
+two devices of the <strong>same</strong> implementation, both attempting to reach the other, complete
+a connection.</p>
+<p>Note 1 to entry: 12.3 and 12.4 catch different failures, and 12.3 cannot catch 12.4's.
+<strong>Two independent implementations is the wrong probe for a symmetric deadlock</strong>, because
+the deadlock needs both sides to make the same choice — which is exactly what two
+implementations of one binding document, written independently, are least likely to do.
+The failure that motivated this is invisible to every test a device can run on itself.
+<em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p>Note 1 to entry: 12.3 is the only test that reaches what this layer is for. A single
+implementation tested against itself will agree with itself about anything it left
+unstated — <strong>including the discovery marker, which is where two independent implementations
+most often discover they were never going to meet.</strong></p>
+<h2 id="13-what-is-not-decided-at-this-layer">13 What is not decided at this layer</h2>
+<p><strong>This clause states gaps and contains no requirements.</strong></p>
+<p><strong>13.1 What a hive does with a bearer that reports <em>failed</em>.</strong> 5.2 requires the state to be
+reported and distinguishes it from <em>unavailable</em> by whether waiting helps. <strong>What constitutes
+the intervention, whether it can be automatic, and whether a hive may retire a bearer that
+keeps failing, are unspecified.</strong></p>
+<p><strong>13.2 <em>Medium framing</em> is used normatively and defined nowhere — and it decides B2.</strong> 4.7.1
+places the discovery marker <em>in its medium framing</em>, 4.7.2 forbids it <em>inside the frame</em>, and
+11.1 c) and j) require a binding document to state a position <em>in the medium framing</em>. <strong>The
+term appears in this document three times, in requirements, and Clause 3 does not define it.</strong>
+Two readings survive the text and <strong>they differ by exactly the advertised maximum transport
+unit payload</strong>:</p>
+<ul>
+<li><strong>the medium's own framing, outside the payload it carries</strong> — the marker costs no payload
+bytes and 3.7's <em>largest frame in one transport unit</em> is unaffected; or</li>
+<li><strong>anything a bearer adds for its medium, including the 4.2.2 wrapping that sits inside the
+transport unit</strong> — the marker consumes payload and B2 falls by its length.</li>
+</ul>
+<p><strong>The first is the better reading on two structural grounds, neither conclusive.</strong> 11.1 lists
+b) <em>how a frame is placed in a transport unit</em> and c) the marker's position <strong>as separate
+items</strong>, so the marker's position is not the frame's placement; and <strong>11.1 j)'s escape —
+<em>where the medium's announcement cannot carry it, that it cannot</em> — is meaningless under the
+second reading</strong>, because wrapping a bearer adds itself always has room. <strong>A medium that
+cannot carry a field is a fact about the medium, which is what makes that branch honest.</strong></p>
+<p><strong>Consequence, and it is live:</strong> a bearer whose medium exposes no framing outside the payload
+is required by 4.7.1 to carry a marker and forbidden by 4.7.2 from the only place it could put
+one. <strong>4.7 offers no <em>cannot carry it</em> branch, which is what 11.1 c) inherits.</strong>
+<em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, finding SS272; reached for by hive, whose
+measured wrapping on an ESP-NOW binding is zero bytes today and becomes the marker's length
+under the second reading.)</em></p>
+<h2 id="bibliography">Bibliography</h2>
+<p><em>Informative.</em></p>
+<ul>
+<li>[1] ISO, <em>How to write standards</em>, 2016. ISBN 978-92-67-10686-1</li>
+<li>[2] ISO/IEC Directives, Part 2, 2016</li>
+</ul>
+
+</article>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+localStorage.setItem('r2-theme',n);
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earthgrid and the insights store — Reality2 Standard</title>
+<meta name="description" content="Long-lived sensing, aggregation, and the limits of what may be pooled.">
+<link rel="canonical" href="https://reality2.ai/standard/EXAMPLE-earthgrid-and-the-insights-store.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="Earthgrid and the insights store — Reality2 Standard">
+<meta property="og:description" content="Long-lived sensing, aggregation, and the limits of what may be pooled.">
+<meta property="og:url" content="https://reality2.ai/standard/EXAMPLE-earthgrid-and-the-insights-store.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t=localStorage.getItem('r2-theme');
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">The standard</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<article id="main" class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--worked-example-a-community-earthgrid-and-the-insights-store">Reality2 Standard — worked example: a community earthgrid and the insights store</h1>
+<p><strong>Status:</strong> Informative — worked example
+<strong>Date:</strong> 2026-08-03</p>
+<blockquote>
+<p>⚠ <strong>INFORMATIVE.</strong> The fourth worked example, and the first with <strong>long-lived
+entanglements</strong> and <strong>more than two parties</strong>. Payment was minutes, the room was hours,
+the stadium was an evening; <strong>this one runs for years</strong>, and its subject is the thing
+the other three only brushed: <strong>trust as a graded, earned, local, decaying quantity —
+and what happens to a party that breaches it.</strong> This is Trust, not Authority, and it is
+the Thurisaz technique's home ground: value transactions. Open edges are flagged in
+place.</p>
+<p><em>Corpus input (informative): the working corpus's marketplace and reputation drafts
+(<code>TH-MARKET</code>, <code>TH-REP</code>, <code>TH-WEAVE</code>, <code>MK-ACCESS</code>) supply much of this machinery in
+earlier form; they are input to the companion documents, not requirements of this
+standard.</em></p>
+</blockquote>
+<hr />
+<h2 id="cast">Cast</h2>
+<ul>
+<li><strong>Community trust group C</strong> — an earthgrid: river-level sensors, rain gauges, a
+camera at the sandbar, all in one trust group <strong>owned by the community</strong>. The people of
+the community are its members; they manage the sensors with their own hands and their
+own management surfaces.</li>
+<li><strong>The insights store, trust group S</strong> — a facility communities and organisations both
+entangle with. It runs a catalogue, relays requests, settles payment. <strong>It never holds
+raw data and it never grants access to anyone else's.</strong></li>
+<li><strong>Organisation trust group O</strong> — an insurance company, building a flood-exposure
+report: <em>towns on floodplains with a sandbar across the tidal river.</em></li>
+<li><strong>Many more communities</strong> — C is one of hundreds entangled with S, each sovereign,
+each different.</li>
+</ul>
+<h2 id="the-topology-a-hub-of-entanglements-and-what-the-hub-is-not">The topology: a hub of entanglements, and what the hub is not</h2>
+<pre><code>  C1 ─────┐
+  C2 ─────┤  long-term        long-term  ┌───── O1 (insurer)
+  C3 ─────┼── entanglements ── S ────────┤
+  ...     │      (years)        (years)  └───── O2
+  Cn ─────┘</code></pre>
+<ul>
+<li><strong>C ↔︎ S</strong>: a long-term entanglement whose conditions are the community's terms of
+trade — which insight classes may be offered, to what kinds of buyer, under what
+licence, at what price floor, with payment terms. Scoped, levelled, conditional,
+severable (L5 10.2) — exactly the same contract shape as the payment example's
+ninety-second entanglement, <strong>with the lifetime dial turned to years</strong>.</li>
+<li><strong>O ↔︎ S</strong>: the same shape from the buyer's side — what O may request, what it may do
+with what it buys, how it pays.</li>
+<li><strong>C ↔︎ O: nothing.</strong> The insurer is never entangled with any community. <strong>The store is
+a hub of pairwise agreements, not a root of authority</strong> — it cannot see C's raw data,
+cannot speak for C, and cannot grant O anything that is C's to give.</li>
+</ul>
+<p>Distance changes nothing: C's bridge hive reaches S over an internet bearer, and an
+entanglement is indifferent to which bearers carry it — the same clause 10 contract that
+ran over one room's radio runs over an ocean.</p>
+<h2 id="the-data-sovereignty-rule-stated-before-any-request-arrives">The data sovereignty rule, stated before any request arrives</h2>
+<p><strong>Raw observations never leave the community's trust group.</strong> What crosses the boundary
+to S — and only ever under the entanglement's terms — is a <strong>derived insight</strong>: a
+conclusion computed inside C, carrying its confidence, its time bounds, and its
+provenance. The river's minute-by-minute levels are the community's; <em>"flood risk at the
+north bridge: moderate, confidence 0.6, next six hours"</em> is a product. The distinction
+is the business model <strong>and</strong> the privacy model, and it is enforced where everything in
+this standard is enforced: at C's own delivery gate, by C's own policy, on C's own hives.</p>
+<h2 id="the-request-one-question-many-sovereign-answers">The request: one question, many sovereign answers</h2>
+<p>The insurer asks S for floodplain-town exposure. What happens next is the heart of this
+example:</p>
+<ol type="1">
+<li><strong>S consults its catalogue and relays a derived request</strong> to the communities whose
+offerings could bear on it — coastal, tidal-river, sandbar-flagged earthgrids. The
+request carries what O is, what it wants, and under which licence class.</li>
+<li><strong>Each community judges for itself.</strong> There is no central grant. C's policy sentant —
+configured by the community, escalating to a person for anything unusual — weighs the
+request <strong>against the terms of its own entanglement with S</strong>: is this buyer class
+admitted? this insight class offered? this licence acceptable? this price right? And
+one more input, which is where Thurisaz enters: <strong>how much does C currently believe
+about O's good conduct?</strong></li>
+<li><strong>Some communities answer</strong> — an insight event, encrypted under the C ↔︎ S
+entanglement key, priced, provenance attached. <strong>Some decline by silence.</strong> A
+community that does not wish to serve an insurer does not file a refusal or plead an
+exception; its gate simply does not open. <em>Not blocked; unheeded</em> — the same posture
+the protester met at the council screen, now doing commercial work.</li>
+<li><strong>S assembles what was given</strong> — never what wasn't — settles payment along both
+entanglements, and the communities that contributed are paid. Value moves as the
+payment example moves it; what the tokens are is, as ever, the parties' agreement.</li>
+</ol>
+<p><strong>The report the insurer receives is not "the data."</strong> It is the union of what several
+dozen sovereign groups each independently chose to sell that morning, at the confidence
+each was willing to stand behind.</p>
+<h2 id="the-breach-and-why-nobody-revokes-anything">The breach, and why nobody revokes anything</h2>
+<p>A year later the insurer breaches its terms — say it redistributes licensed insights to
+a subsidiary the licence never covered. Now watch what does <strong>not</strong> happen: no licence
+is revoked, no account is suspended, no authority hands down a ban. <strong>There is no
+authority to do it.</strong> What happens instead is graded, local, and everywhere at once:</p>
+<ul>
+<li><strong>Evidence arrives and is weighed, not obeyed.</strong> A breach claim is a claim like any
+other — it enters each party's Thurisaz weave with a weight set by who asserts it and
+what supports it. S, holding the transaction records, forms its belief first.</li>
+<li><strong>S demotes the O ↔︎ S entanglement</strong> — the breach is a condition failure, and L5 10.3
+offers exactly two responses: sever, or move down the ladder. S moves O down: still
+entangled, at a level that now admits only view-only licences, or only aggregate
+insights, or nothing without prepayment.</li>
+<li><strong>Each community updates its own belief.</strong> S's observation reaches the communities as
+an attested claim under their entanglements — believed to the degree their conditions
+say S is believable, corroborated or not by their own transaction history with O's
+requests. <strong>Each C adjusts its own number.</strong> No two communities need agree, and none
+can be made to.</li>
+<li><strong>The next request finds a different world.</strong> O asks again; the request goes out; and
+this time fewer gates open. Some communities decline outright, some quote higher, some
+offer coarser insights at lower confidence, a few — unpersuaded by the evidence, or
+indifferent — trade as before, as is their right. <strong>The consequence is the aggregate
+of independent judgements, which is precisely why it cannot be appealed, bribed, or
+seized: there is no single mind to capture.</strong></li>
+</ul>
+<p>And because belief is Thurisaz-shaped, <strong>the standing decays toward neutral rather than
+freezing at the verdict</strong> — conduct re-earns what conduct spent. A party that breaches
+is not branded forever; it is <em>disbelieved for a while, in proportion</em>, and the way back
+is the same way everyone got in: transactions that survive scrutiny. The corpus's
+reputation draft gives group-level standing a half-life of days-to-weeks; the number is
+a dial, but <strong>the shape — evidence in, decay toward neutral, redemption by conduct — is
+the design.</strong></p>
+<h2 id="trust-not-authority--the-distinction-this-example-exists-to-draw">Trust, not Authority — the distinction this example exists to draw</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Authority</th>
+<th>Trust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lives</td>
+<td><strong>inside</strong> a group (L6): update authority, membership by hands</td>
+<td><strong>between</strong> groups: entanglements, reputation, standing</td>
+</tr>
+<tr>
+<td>Form</td>
+<td>binary — held or not held, enumerable (L6 4.1)</td>
+<td><strong>graded</strong> — a belief between 0 and 1, never done moving</td>
+</tr>
+<tr>
+<td>Granted by</td>
+<td>the group, by ceremony</td>
+<td><strong>nobody</strong> — earned transaction by transaction</td>
+</tr>
+<tr>
+<td>Removed by</td>
+<td>revocation — one act, total effect</td>
+<td><strong>decay and demotion</strong> — many local judgements, proportional effect</td>
+</tr>
+<tr>
+<td>Wrong answer looks like</td>
+<td>a forbidden act performed</td>
+<td><strong>a counterparty nobody will deal with</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>The community's members hold <em>authority</em> over their own sensors — that is L6, inside the
+boundary, binary and ceremonial. Everything between C, S and O runs on <em>trust</em> — graded,
+local, decaying, priced. <strong>The stack keeps them apart because they fail differently</strong>:
+captured authority is a coup; poisoned trust is a market correction.</p>
+<p>This is also why the earlier examples' machinery needed no extension here. The
+entanglement contract (payment), silence toward the unentitled (the room), evidence
+believed per conditions (the stadium's attestation) — <strong>the same dials, with lifetime
+turned to years and belief doing the work that a central authority does in every system
+this standard declines to be.</strong></p>
+<h2 id="open-edges-this-example-touches">Open edges this example touches</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Edge</th>
+<th>Register</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What evidences a breach — whose signature covers the claim, what corroborates it</td>
+<td><strong>Q24 ruled</strong> — the claim rides the L5 7.4 evidence shape (<a href="CLOSED-QUESTIONS.md">C7</a>); what corroborates it stays with <strong>Q25</strong>'s conditions vocabulary</td>
+</tr>
+<tr>
+<td>Entanglement terms as machine-readable conditions (buyer classes, licences, price floors)</td>
+<td><strong>Q25</strong></td>
+</tr>
+<tr>
+<td>Cross-group reputation: how standing is asserted, weighed, shared, and how fast it decays</td>
+<td><strong>Q33</strong> (the generalised Thurisaz facility — this example is its value-transaction consumer)</td>
+</tr>
+<tr>
+<td>The insight artefact: provenance chain, confidence composition, format</td>
+<td><strong>Q32</strong>-adjacent; corpus <code>TH-MARKET</code>/<code>TH-WEAVE</code> are the input drafts</td>
+</tr>
+<tr>
+<td>Payment settlement along two entanglements</td>
+<td>value is an application; the parties' agreement, per the payment example</td>
+</tr>
+</tbody>
+</table></div>
+
+</article>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+localStorage.setItem('r2-theme',n);
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>

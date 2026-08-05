@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L5C — Management and wallet — Reality2 Standard</title>
+<meta name="description" content="Custody of credentials and the owner&#x27;s side of the boundary.">
+<link rel="canonical" href="https://reality2.ai/standard/L5C-management-wallet.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="L5C — Management and wallet — Reality2 Standard">
+<meta property="og:description" content="Custody of credentials and the owner&#x27;s side of the boundary.">
+<meta property="og:url" content="https://reality2.ai/standard/L5C-management-wallet.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t=localStorage.getItem('r2-theme');
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">The standard</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<article id="main" class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-5-companion-the-management-wallet">Reality2 Standard — Layer 5 companion: The management wallet</h1>
+<p><strong>Status:</strong> Draft — first pass
+<strong>Date:</strong> 2026-08-03</p>
+<blockquote>
+<p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
+<em>can</em> = possibility and capability.</p>
+</blockquote>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>A person who stewards more than one trust group — a household's groups, a community's
+earthgrid, a fleet of deployments — holds something Layer 5 names but does not specify:
+<strong>custody of keys for provisioning others, distinct from membership in anything</strong>
+(Layer 5, 4.3 Note 2). This document specifies the instrument of that custody: the
+management wallet.</p>
+<p>Two commitments shape it:</p>
+<p><strong>Custody is not membership, and the wallet keeps them apart.</strong> The wallet's host hive
+has exactly one persona, in exactly one group, like every hive (Layer 5, 4.3.2). The
+group secrets the wallet holds are cargo, never identity — held for the moments custody
+exists for, and exercised as nothing else.</p>
+<p><strong>The wallet stores while the owner is absent; it acts only while the owner is
+present.</strong> Holding is passive and unattended. Every exercise of custody is an act of the
+owner, evidenced at a stated person-authentication level — the wallet is a person's
+instrument, never an autonomous authority.</p>
+<p>One disambiguation, before anything else: <strong>this document is not about value tokens or
+attestation claims.</strong> The worked examples speak informally of a person's "wallet" of
+payment tokens and presence claims — those are application data, stored however
+applications store things. The management wallet holds <em>key custody</em>. Same word in the
+street; different thing in this standard.</p>
+<h2 id="1-scope">1 Scope</h2>
+<p>This document specifies the management wallet: what it may hold, the separation of
+custody from membership, the conditions under which held material may be exercised, how
+custody is granted and transferred, what its loss costs, and when a custody relationship
+should be an entanglement grant instead.</p>
+<p>It establishes what conformance to this document consists of, and identifies what is not
+decided.</p>
+<p>It does not specify byte formats, which belong to the formats companion. It does not
+specify storage of application data — value tokens, attestations, claims — which is not
+custody and not this document's subject.</p>
+<h2 id="2-normative-references">2 Normative references</h2>
+<p>The following documents are referred to in the text in such a way that some or all of
+their content constitutes requirements of this document.</p>
+<ul>
+<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<code>01-terminology.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<code>L0-hardware-and-runtime.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 5: Trust and identity</strong> (<code>L5-trust-and-identity.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 5 companion: Entanglement</strong> (<code>L5A-entanglement.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 5 companion: The enrolment ceremony</strong> (<code>L5B-enrolment.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 6: Management</strong> (<code>L6-management.md</code>)</li>
+</ul>
+<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<p>For the purposes of this document, the terms and definitions given in the documents
+listed in Clause 2 apply, together with the following.</p>
+<p><strong>3.1
+management wallet</strong></p>
+<p>facility on a hive holding custody of key material for trust groups its owner manages</p>
+<p><strong>3.2
+custody</strong></p>
+<p>holding of a group's secret key material for the purpose of managing that group, as
+distinct from membership in it</p>
+<p>Note 1 to entry: Layer 3 uses <em>custody</em> for a different thing at a different scale — a
+relay holding a <strong>frame</strong> for later forwarding (Layer 3, 3.8). In this document custody
+is always of <strong>key material</strong>; where the two could be confused, say <em>key custody</em> and
+<em>frame custody</em>.</p>
+<p><strong>3.3
+owner</strong></p>
+<p>person whose authority every exercise of a wallet's custody evidences</p>
+<p><strong>3.4
+custodian</strong></p>
+<p>wallet, or the person owning it, holding custody of a given group's secret</p>
+<h2 id="4-custody-is-not-membership">4 Custody is not membership</h2>
+<p><strong>4.1</strong> A wallet's host hive shall have exactly one persona, in exactly one group
+(Layer 5, 4.3.2); the groups whose material the wallet holds shall not be among its
+memberships by virtue of that holding.</p>
+<p><strong>4.2</strong> A wallet shall not use held material to participate in a held group: not to
+beacon as it, answer as it, originate or tag its frames, or pass its delivery gate as a
+member.</p>
+<p><strong>4.3</strong> Held material shall be exercised only for the management acts custody exists
+for: issuing certificates at enrolment (<code>L5B-enrolment.md</code>), rotation, recovery, the
+issuing of invitations, and the activation of dormant personas (5.1 e). <strong>Activation is
+not the wallet participating</strong>: the sealed hive that wakes acts as itself (5.1a, 6.5),
+and 4.2 binds the wallet, not it.</p>
+<p><strong>4.4</strong> The custody rules of Layer 5, 5.3 apply to every key a wallet holds: most
+protected facility, no implicit copies, erased when released, redacted from every
+diagnostic.</p>
+<p>Note 1 to entry: 4.2 is the clause that keeps the wallet from becoming what Layer 5
+4.3 Note 2 warns against — <strong>a bridge no group agreed to.</strong> A wallet that answered as a
+member of five groups would be one device inside five boundaries: its compromise is
+five compromises, and its ordinary traffic links five groups to one radio. Custody held
+but never worn keeps the exposure at rest, where Clause 8 can price it.</p>
+<p>Note 2 to entry: The distinction is enforceable because the acts differ in kind.
+Membership is exercised on the mesh — beacons, frames, gate passages — continuously and
+observably. <strong>Custody is exercised in ceremonies</strong> — rare, local, owner-present. An
+implementation that finds itself using wallet material on the data path has crossed the
+line 4.2 draws.</p>
+<h2 id="5-what-a-wallet-may-hold">5 What a wallet may hold</h2>
+<p><strong>5.1</strong> A wallet may hold:</p>
+<p>a) group secret key material, for each group whose custodian its owner is;</p>
+<p>b) invitations — issued and not yet consumed, and received and not yet exercised
+(<code>L5B-enrolment.md</code>, Clause 5);</p>
+<p>c) recovery material — shares or equivalents by which a group's secret can be
+reconstituted, where a group has split its custody (8.3); and</p>
+<p>d) the records custody requires: agreement artefacts the owner signed
+(<code>L5A-entanglement.md</code>), certificates issued, rotation history for the groups held; and</p>
+<p>e) <strong>dormant personas</strong> — complete hive personas, each sealed in its own isolated
+environment, held for activation as hives on the wallet's host or elsewhere.</p>
+<p><strong>5.1a</strong> A dormant persona shall stay sealed: the wallet holds and activates the sealed
+environment, and shall not extract, read or exercise the persona's key material itself.
+An activated persona runs as an ordinary hive — one persona, one group, its own beacon —
+under Layer 5, 4.3.5 where co-hosted, and its member secret never leaves its sandbox
+(Layer 5, 5.3.3 is satisfied because the sandbox <em>is</em> the hive).</p>
+<p><strong>5.1b</strong> On a platform capable of one hive at a time, activation of a dormant persona
+shall deactivate the running one first: personas swap; they do not stack.</p>
+<p><strong>5.2</strong> A wallet shall enumerate what it holds to its owner, and to no one else.</p>
+<p><strong>5.3</strong> A wallet shall hold nothing whose exercise it cannot gate under Clause 6.</p>
+<p>Note 1 to entry: 5.2's second half is a privacy commitment with teeth: <strong>the list of
+groups a person manages is a map of their responsibilities</strong> — which communities, which
+deployments, which households. No protocol surface, no diagnostic tier, no entangled
+peer is owed that map. The wallet's inventory is between the wallet and its owner.</p>
+<h2 id="6-holding-and-acting">6 Holding and acting</h2>
+<p><strong>6.1</strong> A wallet shall associate every operation class it supports with a required
+person-authentication level of its owner, and shall refuse the operation when the
+owner's current attested level is below it. <em>(The scale is ruled 0–7 and its normative
+home is the person-authentication companion — 12.4; the ruling record is
+<code>CLOSED-QUESTIONS.md</code> C6, informative.)</em></p>
+<p><strong>6.2</strong> Unattended — the owner absent or below every stated level — a wallet shall
+store, and shall exercise nothing.</p>
+<p><strong>6.3</strong> Custody transfer (Clause 7) and custodian revocation shall require the highest
+level the wallet supports, including a fresh momentary confirmation; they shall not
+proceed on standing presence alone.</p>
+<p><strong>6.4</strong> An enrolment the wallet provisions shall additionally satisfy the ceremony's
+own requirements (<code>L5B-enrolment.md</code>, 6.3, 6.4) — the wallet's owner gate does not
+substitute for the ceremony's person.</p>
+<p><strong>6.5</strong> Activation and deactivation of a dormant persona (5.1 e) are operation classes
+under 6.1. Once activated, the running hive is not the wallet's: it acts as itself, and
+nothing it does is gated here.</p>
+<p>Note 1 to entry: This clause is where the wallet's answer to <em>"what may it do without
+the owner present?"</em> is stated, and the answer is <strong>nothing that exercises custody</strong>.
+The graded levels do the useful softening: standing presence — the owner nearby,
+passively attested, decaying — can suffice for the routine low end (reading the
+inventory, issuing a pre-authorised invitation), while the irreversible high end
+demands the fresh explicit act. The levels are stated per operation class by the
+wallet's configuration; this document deliberately pins none, for the same reason C6
+left the anchors to the companion.</p>
+<p>Note 2 to entry: The asymmetry of 6.2 is the design: <strong>a stolen, powered, unattended
+wallet is a vault, not an agent.</strong> What its thief holds is Clause 8's problem — real,
+priced there — but nothing about possession alone makes the wallet <em>do</em> anything.</p>
+<h2 id="7-granting-and-transferring-custody">7 Granting and transferring custody</h2>
+<p><strong>7.1</strong> Custody shall be granted only by a ceremony at the key-custody grade
+(<code>L5B-enrolment.md</code>, 6.3.1): anchored, with a person confirming at the invitation's
+stated level.</p>
+<p><strong>7.2</strong> Custody, once held, cannot be taken back — it is outlived: <strong>removing a
+custodian shall be effected by rotating the group's keys without them</strong> (Layer 5,
+Clause 8), after which what they hold opens nothing current.</p>
+<p><strong>7.3</strong> A transfer of custody shall be a grant to the new custodian (7.1) followed by a
+rotation past the old (7.2), where the old custodian is to lose custody; and a grant
+alone, where custody is to be shared.</p>
+<p><strong>7.4</strong> A backup of a wallet is a custodian: it shall be granted custody as 7.1
+requires, counted as a custodian thereafter, and rotated past like any other when
+retired.</p>
+<p>Note 1 to entry: 7.2 is the honest mechanics of symmetric material: <strong>a secret shown
+cannot be unshown.</strong> A protocol that claimed to "revoke custody" by deleting a copy it
+does not control would be a phantom gate. Rotation is the only real revocation this
+architecture has, and it already exists — so custody removal costs one rotation, which
+is exactly what eviction of a member key-holder already costs (Layer 5, 8.1).</p>
+<p>Note 2 to entry: 7.4 closes the quiet hole. A "backup" that were exempt from custody
+accounting would be an unenumerated custodian — the exposure of Clause 8 with none of
+the bookkeeping. Naming it a custodian makes the copy visible to the one party entitled
+to the map (5.2): the owner deciding how exposed their groups are.</p>
+<h2 id="8-loss-compromise-and-splitting">8 Loss, compromise, and splitting</h2>
+<p><strong>8.1</strong> A wallet's capture shall be treated as the simultaneous exposure of every group
+whose secret it holds: <strong>the response is rotation of every held group</strong> (Layer 5,
+Clause 8), at the zero-grace severity of a compromise.</p>
+<p><strong>8.2</strong> A wallet's owner shall be able to enumerate, from outside the lost wallet, which
+groups require that rotation — the inventory of 5.2 shall be recoverable by the owner
+without the wallet.</p>
+<p><strong>8.3</strong> A group may split its custody so that no single wallet holds material sufficient
+to exercise it alone; the threshold and scheme are the group's choice, and the formats
+companion's to encode.</p>
+<p>Note 1 to entry: The wallet is, by construction, <strong>the highest-value capture in this
+architecture</strong> — a single object whose loss is many groups' compromise at once. This
+document does not soften that; it prices it. 8.2 makes the recovery <em>actionable</em> (an
+owner who cannot list what was lost cannot rotate what was lost); 8.3 offers the one
+real mitigation, which is not holding the whole secret anywhere; and Layer 0's
+protection-at-rest gap (L0 10.4) is nowhere more load-bearing than here.</p>
+<h2 id="9-custody-or-grant--which-relationship-to-use">9 Custody or grant — which relationship to use</h2>
+<p><strong>9.1</strong> Where another party is to manage a group's devices in a bounded way, the
+relationship should be a management-bearing entanglement (<code>L5A-entanglement.md</code>,
+Clause 9) — enumerated operations, member-attributed acts, revocable at will — and not
+a grant of custody.</p>
+<p><strong>9.2</strong> Custody should be held only where stewardship is intended: the holder stands in
+for the group's own continuity, not for a bounded task.</p>
+<p>Note 1 to entry: The two mechanisms bracket delegation honestly. <strong>A grant is bounded
+power, revocable by a policy change; custody is total power, revocable only by
+rotation.</strong> A community that hands its earthgrid's secret to a contractor has made them
+a steward it can only rotate away from; the same contractor under a management-bearing
+entanglement is a named group, doing named things, attributable per act, severable in
+one decision. The default belongs at the bounded end.</p>
+<h2 id="10-conformance">10 Conformance</h2>
+<p>Every requirement of this document is demonstrated by conformance evidence of one of
+the three classes of <code>01-terminology.md</code>, 3.10 — behavioural, by construction, or by
+declaration. <strong>A requirement whose evidence is by construction is not thereby
+optional</strong>: the demonstration is an inspection a third party can perform without the
+implementer's cooperation, and its absence is non-conformance exactly as a failed
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <code>01-terminology.md</code> 4.2 to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+<p><strong>10.1</strong> An implementation conforms to this document where it:</p>
+<p>a) keeps custody out of membership: one persona, no participation as any held group
+(Clause 4);</p>
+<p>b) holds only what Clause 5 permits and enumerates it to the owner alone;</p>
+<p>c) gates every exercise on the owner's attested level, exercises nothing unattended,
+and demands the fresh high-level confirmation for transfer and revocation (Clause 6);</p>
+<p>d) grants custody only by the key-custody ceremony, treats removal as rotation, and
+counts backups as custodians (Clause 7); and</p>
+<p>e) supports the capture response of Clause 8, including the owner's out-of-wallet
+inventory.</p>
+<p><strong>10.2</strong> Conformance to 6.2 shall be demonstrated by the negative case: a wallet with
+its owner absent, presented with each supported operation, exercises none — and the
+vacuity guard is the positive case, the same operations succeeding with the owner
+attested at level.</p>
+<p><strong>10.3</strong> Conformance to 4.2 shall be demonstrated by observing the wallet's host on the
+mesh: it presents exactly one persona, and no traffic of any held group originates from
+it outside a ceremony.</p>
+<h2 id="11-security-considerations">11 Security considerations</h2>
+<p><strong>11.1</strong> The wallet concentrates what the architecture elsewhere distributes. Clause 8
+prices the capture; 8.3 is the only structural reduction. A deployment that cannot
+tolerate single-point custody splits it or does not create it.</p>
+<p><strong>11.2</strong> The owner is the gate, so the owner is the target: coercion of a present owner
+defeats every level the wallet can state. That residual is social, not protocol — named
+here so nobody believes a level solves it. Duress-shaped mitigations are application
+territory.</p>
+<p><strong>11.3</strong> The inventory is surveillance-grade metadata (5.2 Note 1). Implementations
+carry the redaction discipline of Layer 5, 5.3.4 to the inventory as much as to the
+keys.</p>
+<p><strong>11.4</strong> A wallet's owner-binding rides the person-authentication scale, and inherits
+its honesty: standing presence is probabilistic. 6.3's fresh-confirmation floor for the
+irreversible acts exists because a decaying standing level is exactly what a thief
+walks in behind.</p>
+<h2 id="12-what-is-not-decided-at-this-layer">12 What is not decided at this layer</h2>
+<p><strong>This clause states gaps and contains no requirements.</strong></p>
+<p><strong>12.1 Byte formats.</strong> The wallet's records, the inventory, recovery shares, the
+out-of-wallet inventory copy — owed to the formats companion.</p>
+<p><strong>12.2 The splitting scheme.</strong> 8.3 permits split custody and fixes nothing about the
+threshold scheme — owed with the formats companion, and the corpus's share-based
+recovery drafts are input.</p>
+<p><strong>12.3 Succession.</strong> A steward dies; the community's groups have to outlive them. Split
+custody (8.3) is the structural answer available today; whether the standard owes a
+named succession mechanism — dormant shares, time-locked recovery, social recovery —
+is undecided, and it is the most human-shaped gap in this document.</p>
+<p><strong>12.4 Per-operation level anchors.</strong> 6.1 requires stated levels and pins none; the
+anchors land with the person-authentication companion (C6 residuals).</p>
+<p><strong>12.5 Wallet-to-wallet protocol.</strong> 7.3's transfer decomposes into existing ceremonies;
+whether a dedicated wallet-to-wallet transfer exchange exists — one act instead of
+grant-plus-rotation — is undecided.</p>
+<h2 id="bibliography">Bibliography</h2>
+<p><em>Informative.</em></p>
+<ul>
+<li>[1] ISO, <em>How to write standards</em>, 2016. ISBN 978-92-67-10686-1</li>
+<li>[2] ISO/IEC Directives, Part 2, 2016</li>
+</ul>
+
+</article>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+localStorage.setItem('r2-theme',n);
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>

@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L5 — Trust and identity — Reality2 Standard</title>
+<meta name="description" content="Trust groups, personas, key custody, and the delivery gate.">
+<link rel="canonical" href="https://reality2.ai/standard/L5-trust-and-identity.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="L5 — Trust and identity — Reality2 Standard">
+<meta property="og:description" content="Trust groups, personas, key custody, and the delivery gate.">
+<meta property="og:url" content="https://reality2.ai/standard/L5-trust-and-identity.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t=localStorage.getItem('r2-theme');
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">The standard</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<article id="main" class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-5-trust-and-identity">Reality2 Standard — Layer 5: Trust and identity</h1>
+<p><strong>Status:</strong> Draft — <strong>this names the editorial maturity of the text, and nothing else.</strong>
+<strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
+build from it (d041, Roy: <em>standard is the canon</em>). <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> <em>(Subject stated because a status field is scoped to
+a question the reader may not be asking, and a claim with an unstated subject will be given the
+subject the reader brought — composer, 2026-08-03.)</em>
+<strong>Date:</strong> 2026-08-04</p>
+<blockquote>
+<p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
+<em>can</em> = possibility and capability.</p>
+</blockquote>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>Everything below this layer works for everyone. A relay carries any group's frames, a
+beacon announces to anyone listening, and nothing below the boundary can tell a member from
+a stranger. <strong>Layer 5 is where that stops being true</strong> — where a hive holds keys, belongs
+to something, and decides whether a frame that arrived is a frame that gets acted on.</p>
+<p>The unit of belonging is the <strong>trust group</strong>: a flat set of hives sharing a cryptographic
+identity. Flat is a design position, not a simplification — <strong>there are no groups of
+groups, no hierarchy, and no administrator standing above the members.</strong> Where two groups
+need to interact, they do it by explicit, revocable agreement between equals, and nothing
+is implied by resemblance, proximity or common ownership.</p>
+<p>Four commitments organise everything below.</p>
+<p><strong>There is no ungrouped state.</strong> A hive belongs to a trust group from its first boot — at
+minimum a group containing only itself, with real keys it generated. "No group yet" does
+not exist as a running state, and nothing in this document has to handle it. What
+distinguishes an unclaimed device from an owned one is not the presence of keys but a
+<strong>claim state</strong>, and the transition between the two is guarded physically.</p>
+<p><strong>One group at a time.</strong> A hive belongs to exactly one trust group at any instant. A device
+holding the keys of two security domains is a standing leak between them, so simultaneous
+membership does not exist here — <strong>groups interact through entanglement, never through shared
+members.</strong> Changing group is identity replacement: the old persona is destroyed, and what
+joins the new group is, observably, a different hive.</p>
+<p><strong>Delivery is gated, and the gate fails closed.</strong> A frame addressed to a group is acted on
+only after its integrity tag verifies against a key the receiver actually holds. No key, no
+delivery — not "no key, deliver cautiously". <strong>A gate that fails open is worse than no gate,
+because everything downstream believes the gate was passed.</strong></p>
+<p><strong>Membership is deliberate, in both directions.</strong> A hive joins a group through a ceremony
+involving a person, and leaves it by an explicit act — its own or the group's. <strong>Silence is
+never departure</strong>: a member asleep for a season is still a member, and the group's memory of
+who belongs does not decay. What decays is reachability, which is a routing fact and is
+kept strictly apart.</p>
+<h2 id="1-scope">1 Scope</h2>
+<p>This document specifies the trust group: its identity, its keys, its membership, and its
+lifecycle.</p>
+<p>It specifies the claim state by which a device is unclaimed or owned, and the transitions
+between them.</p>
+<p>It specifies member certificates, their issuance, renewal and revocation, and how
+revocation reaches members that were absent when it happened.</p>
+<p>It specifies the delivery gate by which a received frame is accepted, and what acceptance
+does and does not establish.</p>
+<p>It specifies the relationship between groups: entanglement, its conditions, its levels,
+and its severance.</p>
+<p>It specifies the development trust group and its admission rule.</p>
+<p>It establishes what conformance at this layer consists of, and identifies what is not
+decided.</p>
+<p>It does not specify the enrolment ceremony's transport and user interaction, which belong
+to a companion document of this layer. It does not specify frame layout, which is Layer 4,
+or what an application does with a delivered frame, which is Layer 7.</p>
+<h2 id="2-normative-references">2 Normative references</h2>
+<p>The following documents are referred to in the text in such a way that some or all of
+their content constitutes requirements of this document.</p>
+<ul>
+<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<code>01-terminology.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<code>L0-hardware-and-runtime.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 2: Capability and discovery</strong> (<code>L2-capability-and-discovery.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 4: Wire protocol</strong> (<code>L4-wire.md</code>)</li>
+</ul>
+<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<p>For the purposes of this document, the terms and definitions given in the documents listed
+in Clause 2 apply, together with the following.</p>
+<p><strong>3.1
+trust group</strong></p>
+<p><em>(defined in <code>01-terminology.md</code> 3.8)</em></p>
+<p><strong>3.2
+persona</strong></p>
+<p>hive's membership of one trust group, together with the identity and key material that
+membership gives it</p>
+<p><strong>3.3
+group keypair</strong></p>
+<p>signature keypair whose public half is the trust group's identity and whose secret half
+signs its certificates</p>
+<p><strong>3.4
+key holder</strong></p>
+<p>member holding the group's secret key</p>
+<p><strong>3.5
+member keypair</strong></p>
+<p>signature keypair generated by a hive for one persona, whose public half is the subject of
+its certificate</p>
+<p><strong>3.6
+claim state</strong></p>
+<p>persisted state of a device: OPEN, meaning claimable, or OWNER, meaning claimed</p>
+<p><strong>3.7
+delivery gate</strong></p>
+<p>check a receiver applies to a group-addressed frame before anything above this layer sees
+it</p>
+<p><strong>3.8
+entanglement</strong></p>
+<p>explicit, conditional agreement between two trust groups by which frames of one are
+accepted by the other, standing as long as its conditions are met</p>
+<p><strong>3.9
+re-persona</strong></p>
+<p>replacement of a hive's persona: destruction of the current one and enrolment into another
+group</p>
+<h2 id="4-the-trust-group">4 The trust group</h2>
+<h3 id="41-shape">4.1 Shape</h3>
+<p><strong>4.1.1</strong> A trust group shall be a flat set of hives. Groups shall not contain groups, and
+no hierarchy of groups shall be expressed at this layer.</p>
+<p><strong>4.1.2</strong> Authenticated interaction between groups shall occur only through entanglement
+(Clause 10), which also admits the unauthenticated level of its ladder.</p>
+<p>Note 1 to entry: Flatness is what keeps authority where the members are. <strong>A hierarchy
+would put someone above the group</strong> — and every mechanism in this document assumes there is
+no such party to appeal to, defer to, or be compromised through.</p>
+<h3 id="42-identity">4.2 Identity</h3>
+<p><strong>4.2.1</strong> A trust group shall have exactly one group keypair (3.3). The public half shall be
+the group's identity.</p>
+<p><strong>4.2.2</strong> The group's identifier shall be derived from its public key, so that generating
+the keypair determines the identifier.</p>
+<p><strong>4.2.3</strong> Every structure at this layer carrying a key, signature or ciphertext shall carry
+an algorithm identifier. An implementation shall support the required algorithms and shall
+reject, without acting on, any structure whose algorithm identifier it does not recognise.</p>
+<p><strong>4.2.4</strong> The required signature algorithm is Ed25519; the required key-establishment
+algorithm is X25519. Identifier values, key sizes and reserved codes are given in the test
+vectors of this layer.</p>
+<p>Note 0 to entry: <strong>Those vectors do not yet exist</strong> — 14.3 records the debt, and until
+they land, the algorithm identifier values 4.2.3 requires cannot be obtained from this
+standard at all, so no two implementations can agree on them. The purpose strings of the
+derivation are owed with them (<code>FORMATS.md</code>, Clause 4a). <em>(Debt made explicit
+2026-08-01, matching Layer 4's own statement at its 12.3 — an unstated debt reads as an
+oversight, a stated one as work.)</em></p>
+<p>Note 1 to entry: 4.2.2 removes a whole class of mistake: <strong>there is no separate act of
+naming a group</strong>, so no two groups can claim one name, and no registry adjudicates. The
+identifier is checkable by anyone holding the public key.</p>
+<p>Note 2 to entry: 4.2.3 is the agility seam. Algorithms will be replaced within the life of
+this standard, and the identifier is what lets new ones arrive without a protocol break —
+<strong>silent rejection of the unrecognised is what makes a future algorithm safe to introduce.</strong></p>
+<h3 id="43-every-hive-is-always-in-a-group">4.3 Every hive is always in a group</h3>
+<p><strong>4.3.1</strong> On first boot, a hive shall create a trust group containing only itself: it shall
+generate a group keypair, hold the secret half, and derive the group identifier from the
+public half.</p>
+<p><strong>4.3.1a</strong> A hive shall be able to report whether the persona it holds was <strong>created during
+the current boot</strong> or <strong>loaded from storage</strong>, and shall not report the two alike.</p>
+<p>Note 1 to entry: <strong>An identity store that returns a valid key either way lets a device
+silently become a different device.</strong> Measured in an implementation: the store answered with
+32 valid bytes whether it had <strong>loaded</strong> an established identity or <strong>minted</strong> one seconds
+earlier, so a failure to read existing material was indistinguishable from correct
+operation — <strong>the hive comes up healthy, its peers see a stranger, and nothing anywhere
+reports it.</strong> Every peer's view of the group changes and the device itself is the only party
+that could have noticed.</p>
+<p>Note 2 to entry: <strong>This asks for less than a provenance record and deliberately so.</strong> The
+platform-written record of Layer 6, 5.4.2a at least carries a sequence that encodes a
+generation; an identity store commonly carries <strong>no marker at all</strong> — no counter, no
+timestamp — so nothing distinguishes an identity five seconds old from one six months old,
+and a full provenance scheme would be a larger change than the evidence supports.
+<strong>Distinguishing <em>minted now</em> from <em>loaded</em> is enough to make the silent case audible</strong>,
+and it is answerable by any platform, since a hive that has just created a persona knows it
+did. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS138. This is
+<code>01-terminology.md</code> 5.4 at the identity layer: the key material is valid, and valid says
+nothing about whether it is the identity this device had yesterday.)</em></p>
+<p><strong>4.3.2</strong> A hive shall be a member of exactly one trust group at any instant.</p>
+<p><strong>4.3.3</strong> There shall be no ungrouped, keyless or persona-less running state.</p>
+<p><strong>4.3.4</strong> A hive leaving a group without joining another shall enter a fresh group of one,
+with a newly generated keypair and therefore a new group identifier.</p>
+<p><strong>4.3.3a</strong> A hive reporting its trust group, its keys or its persona shall not present the
+absence of one as a legitimate value.</p>
+<p>Note 0 to entry: <strong>4.3.3 decides what a report showing no group means, and the answer is not
+<em>blank</em>.</strong> A hive that cannot produce a trust group is not a hive with a field left unset —
+by <code>01-terminology.md</code> 3.2 it is <strong>not a hive</strong>, and by 4.3.3 it is not a running state this
+standard admits. So <em>none</em>, <em>unset</em> or an empty field is the wrong report: each reads as
+<em>nothing here yet</em> when what has been observed is <strong>a fault</strong>. <code>01-terminology.md</code> 5.3's
+third answer applies — <em>I cannot tell</em> is distinct and conformant — but <strong>it is distinct from
+<em>there is none</em>, and both are distinct from a value.</strong> The same reading follows for keys and
+personas, which 4.3.3 names in the same breath. <em>(Added 2026-08-02,
+<code>PROVISIONAL(supervisor)</code>, after a panel specification was written to display an unset trust
+group as an ordinary field; finding SS202. <strong>4.3.3 was already sufficient about the state</strong> —
+what was missing was a clause about the report, and anyone reaching either.)</em></p>
+<p>Note 1 to entry: The group-of-one is not a placeholder. <strong>Its keys are real, its structure
+is ordinary, and the delivery gate treats it as any other group</strong> — a frame addressed to it
+under its own key verifies and is delivered; every other group's frames fail closed exactly
+as they would anywhere. "Create a group" and "boot a fresh hive" are the same key-level
+act.</p>
+<p>Note 2 to entry: 4.3.2 is the leak rule. A hive inside two groups is a bridge neither group
+agreed to — <strong>its compromise is both groups' compromise, and its ordinary operation moves
+information across a boundary that entanglement exists to make explicit.</strong> Where a person or
+operator legitimately manages many groups, what they hold is <em>custody of keys for
+provisioning others</em> — their own hive still has exactly one persona.</p>
+<p><strong>4.3.5</strong> One device may host more than one hive concurrently. Where it does:</p>
+<p>a) each hosted hive shall hold its persona, keys and state in an environment isolated
+from every other hosted hive's; and</p>
+<p>b) co-hosted hives shall have no communication path with one another other than the
+transient network: each is, to every other, an ordinary peer — discovered by its beacon,
+reached by frames, gated by its gate.</p>
+<p>Note 3 to entry: 4.3.5 is the dual of the complex hive. <strong>A complex hive is several
+devices being one hive; this is one device being several hives</strong> — a PC running a work
+persona and a home persona side by side, each sandboxed, each in exactly one group
+(4.3.2 applies per hive, and is not bent by co-residence). The b) rule is what keeps
+co-residence from becoming the bridge Note 2 forbids: two personas that could whisper
+through shared memory would link their groups through a channel no gate sees. Through
+the network, their traffic crosses the same boundaries as anyone else's — <strong>the sandbox
+wall does for one device what the trust boundary does for the mesh.</strong></p>
+<p>Note 4 to entry: The normal case remains one device, one hive — <strong>most devices are
+capable of running exactly one</strong>, and nothing here obliges more. Co-hosting is a
+capability of larger platforms; the simple form of many-personas on a small device is
+dormancy — personas held sealed and activated one at a time
+(<code>L5C-management-wallet.md</code>, 5.1 e), never two running at once.</p>
+<h3 id="44-claim-state--the-physical-guard">4.4 Claim state — the physical guard</h3>
+<p><strong>4.4.1</strong> Every persona shall carry a persisted claim state (3.6): OPEN or OWNER.</p>
+<p><strong>4.4.2</strong> Claim state shall be OPEN only at first boot or after a physical reset. A claim —
+enrolment of an OPEN device into an owner's group — shall proceed only from OPEN, checked
+both before the request is emitted and again before installation, and the installation
+shall set OWNER in the same atomic commit that installs the persona.</p>
+<p><strong>4.4.3</strong> The transition OWNER to OPEN shall be possible only by local physical action on
+the device. <strong>There shall be no network-invocable path to OPEN — not even an authenticated
+one.</strong></p>
+<p><strong>4.4.4</strong> Leaving a group shall not set OPEN. The departing hive enters a closed group of
+one (4.3.4) and remains unclaimable until physically reset.</p>
+<p><strong>4.4.5</strong> A firmware update shall preserve the persona and its claim state.</p>
+<p><strong>4.4.6</strong> A missing or unreadable claim state shall be treated at boot as not-OWNER and
+not claimable over the network, recoverable only by local action.</p>
+<p><strong>4.4.6a</strong> A hive should report a missing claim state distinguishably from an unreadable
+one.</p>
+<p>Note 0 to entry: <strong>4.4.6 folds the two for behaviour, correctly, and 4.4.6a refuses to fold
+them for reporting.</strong> Neither is evidence of OPEN, so neither is claimable and the claim
+logic treats them identically — but <strong>an unprovisioned device and one whose storage
+faulted are entirely different facts to whoever investigates</strong>, with different fixes. This
+is Layer 6, 5.5.4's rule one layer down, and <code>01-terminology.md</code> 5.3's test applied to a
+report rather than to a decision: <em>indistinguishable to the machinery</em> and <em>indistinguishable
+to whoever acts on it</em> are different questions.</p>
+<p>Note 0a to entry: <strong>The distinction is destroyed at the point of reading, not downstream,
+and that is where it has to be defended.</strong> An implementation reported the root cause as its
+own input type: a claim state read as <em>an optional value</em> has <strong>one empty case, and there
+are two ways to have no value</strong> — so the conflation happens before any later code could
+possibly recover it. <strong>No amount of care downstream restores a distinction the input type
+has already erased.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, from the lane that
+found it in its own reader.)</em></p>
+<p>Note 1 to entry: 4.4.3 is the clause that closes remote takeover, and its absolutism is the
+point. <strong>Any network path to OPEN — however authenticated — is a remote reset-then-claim
+chain</strong>: whoever can invoke it can make the device claimable and then claim it. Requiring
+the hand that resets to be at the device makes stealing a hive cost physical presence,
+which is the one cost this standard's threat model consistently relies on.</p>
+<p>Note 2 to entry: 4.4.4 closes the same hole from the other side. If leaving made a device
+claimable, then anyone who could induce a leave — a compromised key holder, a forged
+eviction — could open it remotely. <strong>A departed hive is sovereign, not available.</strong></p>
+<p><em>Verification: attempt the OWNER-to-OPEN transition by every network surface the
+implementation exposes, authenticated and not. All fail. The vacuity guard is the local
+path: the physical action succeeds, or the test proved only that nothing works.</em></p>
+<h2 id="5-identity-and-keys">5 Identity and keys</h2>
+<h3 id="51-the-identity-split">5.1 The identity split</h3>
+<p><strong>5.1.1</strong> A hive shall generate a fresh member keypair (3.5) for each persona. The public
+half is the persona's identity within the group and its certificate subject.</p>
+<p><strong>5.1.1a</strong> A persona identity shall be unique among personas. A hive shall present as its own
+only a persona identity it generated under 5.1.1 and has held without interruption since.</p>
+<p>Note 1 to entry: <strong>The obligation is stated directly, because the corpus does not define a
+persona as a composition of identifiers and this clause must not be the first place that says
+it does.</strong> <strong>3.2 defines a persona as a hive's membership of one trust group together with the
+identity and key material that membership gives it</strong> — membership and material, not a pair of
+identifiers. <strong>What composes a group half with a hive half is the WIRE ENCODING</strong> of an
+extended identity (<code>FORMATS.md</code> 3.3, Layer 4, 6.1.3), <strong>which is a projection of the persona
+and not its definition.</strong> <strong>So uniqueness does not derive from a composition and is required
+here on its own terms.</strong></p>
+<p>Note 1a to entry: <strong>What the persona's identity IS, and what it is not, because the two are
+deliberately separated.</strong> 5.1.1 makes the persona's identity <strong>the member keypair's public
+half</strong>. Layer 0, 4.3.1 separately requires <strong>every device</strong> to have an identity unique among
+devices that persists across loss of power — <strong>and 5.1.2 forbids that device identity from
+being transmitted on the mesh, from being a certificate subject, and from being derivable from
+any persona identity.</strong> <strong>So the hive half on the wire is a projection of the PERSONA's key,
+never of the device identity</strong> — the two obligations govern different objects, and satisfying
+one says nothing about the other. <em>(Recorded because a natural reading joins them and the
+clauses forbid it.)</em></p>
+<p>Note 2 to entry: <strong>The sharper reading of a duplicate, and the reason the clause is worth
+having: two devices presenting one persona means one of the two halves was not what it
+claimed.</strong> Either a device identity was not unique or did not persist — Layer 0, 4.3.1 — or a
+persona was adopted rather than generated, which the second sentence forbids. <strong>A duplicated
+persona is therefore never a normal condition and never an accident of the wire.</strong></p>
+<p>Note 3 to entry: <strong>This is not in conflict with <code>FORMATS.md</code> 3.6, which governs a different
+object, and that document already draws the line.</strong> 3.6's <em>uniqueness is not guaranteed</em>
+applies to the <strong>four-byte truncated wire identity</strong>, where a collision is a property of a hash
+and <strong>nobody is at fault</strong> — such collisions are survived. Its own closing sentence separates
+the two: <em>the identity itself (the public key) is what is unique with overwhelming
+probability.</em> <strong>5.1.1a makes that an obligation on the persona key rather than an expectation
+about randomness</strong>: what 3.6 says will almost certainly hold, this clause says shall hold, and
+<strong>a breach means something went wrong rather than something was unlucky.</strong></p>
+<p>Note 4 to entry: <strong>What this clause does NOT say, stated because the gap is deliberate: it
+places no duty on a receiver.</strong> Nothing here requires a hive observing one identity from two
+sources to detect, report or act on it, and the two mechanisms such a duplicate would disturb —
+the per-origin high-water mark of 7.4.3 b) and Layer 3's duplicate suppression — <strong>remain
+documented as anti-replay and as a member's misbehaviour respectively.</strong> <strong>Whether a receiver
+owes anything is a separate question and is not answered here.</strong> <em>(Added 2026-08-05 on Roy's
+ruling. <strong>RATIFIED by Roy 2026-08-05, d273</strong> — 5.1.1a and its notes are normative text and
+their wording is his to change. Finding SS284.)</em></p>
+<p><strong>5.1.2</strong> A hive's durable device identity (Layer 0, 4.3) shall never be transmitted on the
+mesh, shall never be a certificate subject, and shall never be derivable from any persona
+identity.</p>
+<p><strong>5.1.3</strong> The identities of one hive's successive personas shall not be derivable from one
+another or from anything the hive transmits.</p>
+<p><strong>5.1.4</strong> On re-persona (3.9), a hive shall destroy the member keypair, the derived keys and
+the beacon identifier of the old persona, and shall generate all three afresh.</p>
+<p>Note 1 to entry: The split in 5.1.2 is the standard's deepest privacy commitment: <strong>what the
+mesh sees is a persona; what the owner holds is a device.</strong> The durable identity exists for
+exactly one audience — the owner, off-mesh, for update targeting and custody — and keeping
+it off the air is what makes 5.1.3 achievable at all.</p>
+<p>Note 2 to entry: <strong>5.1.4's third item is easy to miss and voids the other two if missed.</strong>
+The beacon identifier is stable through a persona's life (Layer 2), and canon holds that a
+persona change is observationally a different hive. <strong>A beacon identifier carried across
+re-persona links the two personas to any observer with a log</strong> — the one identifier that
+survived is the one identifier that was broadcast in clear the whole time.</p>
+<h3 id="52-one-derivation-many-keys">5.2 One derivation, many keys</h3>
+<p><strong>5.2.1</strong> Every key derived at this layer shall use one derivation: HKDF-SHA256, 32-byte
+output, the relevant secret as input keying material, the relevant public binding as salt,
+and a domain-separating purpose string as info.</p>
+<p><strong>5.2.2</strong> The group's payload-protection key and its integrity key shall be derived from
+the group secret by that template, under distinct purpose strings.</p>
+<p><strong>5.2.3</strong> No two derivations shall share a purpose string.</p>
+<p>Note 1 to entry: One template is a rule about the future as much as the present. <strong>The next
+key this layer needs will be derived the same way with a new purpose string</strong> — and because
+purpose strings are disjoint, no new derivation can collide with an existing one by
+accident. A second derivation scheme is how that guarantee is lost.</p>
+<h3 id="53-custody-of-key-material">5.3 Custody of key material</h3>
+<p><strong>5.3.1</strong> The group secret key shall exist only on key holders (3.4), stored in the most
+protected facility the platform provides.</p>
+<p><strong>5.3.1a</strong> Where the platform provides no facility meeting 5.3.2, the group secret key shall
+live in volatile memory only.</p>
+<p><strong>5.3.1b</strong> 5.3.1 shall not be read as permitting a key to rest unsealed in the most protected
+facility a platform happens to provide.</p>
+<p>Note 0 to entry: <strong>5.3.1 states a RELATIVE obligation and 5.3.2 an ABSOLUTE one, and on a
+platform with no sealing facility they contradict.</strong> <em>The most protected facility the platform
+provides</em> is satisfied by plaintext flash where that is all there is; <em>plaintext key material
+at rest is forbidden in every case</em> is not. <strong>Two adjacent clauses cannot both hold there</strong>,
+and an implementer resolving it privately will resolve it the cheap way. 5.3.1a says which
+governs: <strong>the absolute one.</strong> <em>Raised by a lane whose platform turned out to have a
+qualifying facility — so this defect did not bite it and would have waited for a platform that
+has nothing.</em> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS217.)</em></p>
+<p><strong>5.3.2</strong> Derived keys shall be persisted only sealed, such that what rests in storage
+is unreadable without a hardware-rooted secret of the device. Where the platform
+provides no such facility, derived keys shall live in volatile memory only and be
+re-obtained on next contact with the group. <strong>Plaintext key material at rest is
+forbidden in every case.</strong></p>
+<p>Note 0 to entry: <strong>The <em>verify</em> of Note 1 below is verification under the group's symmetric
+integrity key, and it establishes nothing about which peer sent a frame.</strong> <strong>7.2.2 states the
+bound</strong> — passage of the gate does not establish which member sent a frame — and 7.2 Note 1
+states the mechanism: <strong>every member of a group can tag any frame of it.</strong> <strong>The pointer is here
+because the collapse has been made:</strong> two independent readers took <em>unable to verify</em> as
+<em>unable to recognise a specific peer</em>, on the same day and in the same direction. <strong>Losing
+keys costs a hive the ability to verify frames of its group at all; it costs nothing that was
+ever per-peer, because nothing here was.</strong> <em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>,
+finding SS277.)</em></p>
+<p>Note 1 to entry: The volatile-only rule cannot be absolute, and the reason is the
+member that is not a key holder: <strong>it has no group secret to re-derive from</strong> (5.2
+derives from what it does not hold), so an absolute rule would leave a field sensor
+that rebooted alone deaf to its own group — unable to verify, tag or decrypt — until it
+next met a key holder, which may be days. Sealed persistence under a hardware root is
+the ratified resolution (corpus key-custody contract, 2026-06-23): the requirement is
+stated as a <strong>property</strong> — unreadable without the hardware-rooted secret — never as a
+named silicon feature, and what a given platform's sealing facility is, and how its
+presence is declared and checked, remains the Layer 0 gap (L0 10.4) this clause
+inherits.</p>
+<p><strong>5.3.3</strong> A member secret key shall never leave the hive that generated it.</p>
+<p><strong>5.3.4</strong> An implementation shall erase secret key material when it leaves use, by a means
+the toolchain cannot elide; shall not make implicit copies of it; and shall redact it from
+every diagnostic, log, error and serialised representation.</p>
+<p>Note 1 to entry: 5.3.4's third item is the one that catches real systems. <strong>A key printed
+into a crash report has been persisted as surely as one written to disk</strong> — the rule
+against persistence is only as strong as the discipline of every path that formats a
+structure containing a key.</p>
+<p><em>Verification: by inspection of types — key-bearing types are non-copyable and erase on
+release — and by asserting the redacted form of every key-bearing type's diagnostic
+output.</em></p>
+<h2 id="6-certificates">6 Certificates</h2>
+<h3 id="61-what-a-certificate-is">6.1 What a certificate is</h3>
+<p><strong>6.1.1</strong> A member's certificate shall bind the member keypair's public half to the group,
+signed by the group secret key.</p>
+<p><strong>6.1.2</strong> A hive is a member of a group if and only if it holds a valid, unrevoked
+certificate of that group.</p>
+<p><strong>6.1.3</strong> A certificate shall name the key epoch (Clause 8) at which it was issued, and
+shall be current only while that epoch is within the group's stated acceptance depth of
+the current epoch and its subject is not revoked.</p>
+<p><strong>6.1.4</strong> Certificates shall be re-issued in the background: at rotation for members
+present, and on next contact with a key holder for members that were not.</p>
+<p><strong>6.1.5</strong> A member absent through any number of rotations remains a member unless
+revoked. On return it walks the retained chain forward (8.4), or receives current
+material directly at re-issue; a key holder shall re-issue against the member keypair
+and any authentic prior certificate of that subject, however old, unless the subject is
+in the revocation set. <strong>Absence shall never be grounds for refusal.</strong></p>
+<p>Note 1 to entry: Rotation cadence and acceptance depth together are the quiet half of
+revocation. <strong>A revocation that fails to reach a member is bounded by cadence × depth</strong>
+— the certificate it would have revoked falls out of currency when its epoch does — which
+is the bound certificate expiry used to provide, now measured in rotations instead of
+calendar time.</p>
+<p>Note 2 to entry: 6.1.3 replaced this standard's one absolute-time judgement (ruled
+2026-08-01, <code>CLOSED-QUESTIONS.md</code> C8). Currency is now a set-membership question over
+epochs — <em>does this certificate chain to an epoch I still accept?</em> — answerable by any
+platform from material it already holds, with nothing to reconstruct after power loss.
+<strong>Every time judgement in this standard is now an interval</strong>, and the intervals that
+matter here (the rotation cadence) are measured by key holders, the clocked and powered
+end.</p>
+<p>Note 3 to entry: 6.1.5 is <em>membership never decays</em> made mechanical, and it is the
+returning device's whole story. A sensor dark for a season comes back holding its member
+keypair (which never rotates) and a stale-epoch certificate: <strong>stale currency is not
+lost membership.</strong> Its certificate is no longer money, but it is still <em>evidence</em> — an
+authentic, revocation-checked claim on re-issue. Where the retained chain no longer
+reaches back to its epoch, the revocation set does (6.2.1, append-only and never
+pruned): the set is the permanent summary of every eviction the walker missed.</p>
+<h3 id="62-revocation">6.2 Revocation</h3>
+<p><strong>6.2.1</strong> A group shall maintain a revocation set: append-only, grow-only, never pruned.</p>
+<p><strong>6.2.2</strong> Each entry shall name the revoked certificate subject; the key epoch (Clause 8)
+current when it was issued, together with a sequence number within that epoch; a reason
+drawn from 6.2.2a; and shall be signed by the group secret key. An entry may also carry
+an absolute time, which is advisory only and shall not be relied on by any decision.</p>
+<p><strong>6.2.2a</strong> The reason shall be one of: <strong>compromise</strong> — the subject's key material is
+believed exposed; <strong>eviction</strong> — the subject is removed from the group by decision;
+<strong>retirement</strong> — the subject has left or been decommissioned without fault; or
+<strong>superseded</strong> — the certificate is replaced by a later one for the same subject.</p>
+<p>Note 1 to entry: The ordering is (epoch, sequence), not a clock, for the reason the whole
+standard gives: <strong>time is a local ruler, not a shared fact.</strong> The epoch is already
+carried by every certificate (6.1.3) and already increments on every rotation (8.5), so
+the ordering a revocation set needs exists without inventing anything. An absolute time
+is permitted because an operator reading a revocation set wants to know <em>when</em>, and
+forbidden from being load-bearing because two groups' clocks are not comparable and
+nothing in this standard makes them so. The reason set is enumerated here because 8.2
+grades the grace period by it — compromise gets zero grace, and a reason the receiver
+cannot interpret cannot be graded. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p><strong>6.2.2b</strong> A revocation entry shall be admitted to the revocation set only after its
+signature has been verified against the group's public key.</p>
+<p>Note 1 to entry: 6.2.1 and 6.2.2 are each correct and <strong>dangerous together</strong>: the set is
+append-only and never pruned, so an entry admitted before its signature is checked is
+permanent, and a single forged entry evicts an arbitrary member irreversibly — with
+6.2.4's binding of revocations into rotations giving the forgery reach. This is the
+ordering rule of <code>01-terminology.md</code> 5.2, and it is worse here than at 7.4.3a because
+<strong>no epoch lapses it.</strong> An implementation had exactly this defect, found by audit rather
+than by test, for the usual reason: no legitimate exchange distinguishes the two
+orderings. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p><strong>6.2.3</strong> On learning of a revocation, a member shall reject the revoked certificate
+immediately.</p>
+<p><strong>6.2.4</strong> A revocation that evicts a member shall be bound into the key rotation it
+triggers (Clause 8), such that a member cannot accept the rotation without also receiving
+the eviction.</p>
+<p><strong>6.2.4a</strong> The binding shall be a signature by the group secret key over the rotation
+link, covering <strong>the epoch it rotates to and the link's cause</strong>, where the cause states
+either that the rotation is routine or that it carries an eviction, and in the latter
+case commits to the revoked subject and the reason of 6.2.2a. A member shall reject a
+link whose signature does not verify.</p>
+<p>Note 1 to entry: <strong>6.2.4 states a requirement that cannot be met without 6.2.4a.</strong> As
+first written it said what must be true — the eviction cannot be separated from the
+rotation — without saying what makes that so, and nothing else in this document said
+what makes a rotation link authentic at all. <strong>A link presented as routine, with the
+eviction simply omitted, was therefore indistinguishable from a genuine routine
+rotation</strong>: a returning member walks forward, arrives at the current epoch holding
+current keys, and never learns the eviction happened. That is precisely the outcome
+6.2.4 exists to prevent, and no implementation could detect it.</p>
+<p>Note 2 to entry: <strong>The signature covers the cause, not merely the eviction, and the
+difference is the whole mechanism.</strong> Signing only an eviction leaves a routine claim
+unauthenticated, so stripping the eviction still yields a link that verifies as routine.
+Signing the cause makes a routine link and an eviction-carrying link <strong>different signed
+objects</strong>, so omission changes the signed bytes and fails. It also gives 8.4's
+walk-forward something to verify per link, which it otherwise lacks.</p>
+<p>Note 3 to entry: <strong>Both omissions were measured as rewarding</strong>, which is why the reason
+is inside the commitment and not merely alongside it. Dropping the entry keeps an evicted
+member alive on every hive that walks the chain. Dropping the <strong>reason</strong> turns a
+compromise eviction's mandatory zero grace (8.2) into the deployment's full grace — and
+Clause 8's own note says grace on a compromise eviction is a window in which the rotation
+has changed nothing. <strong>One omitted field converts the most urgent action in this standard
+into a no-op while the hive believes it has rotated.</strong> <em>(Added 2026-08-02 from an
+implementation that could not close this in code and said so;
+<code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p>Note 1 to entry: 6.2.4 is how revocation reaches the absent. Propagating revocations is
+best-effort and proves nothing about who received them — <strong>what an absent member cannot
+skip is the key rotation it has to accept to keep functioning, so the eviction rides inside
+the thing its acceptance is conditioned on.</strong> The set is the record; the rotation is the
+delivery.</p>
+<p>Note 2 to entry: The bound this achieves is honest and partial: <strong>a member that stays absent
+learns nothing until it next meets the group</strong>, and its staleness is unbounded and
+unobservable meanwhile. That residual is stated rather than engineered away, because a
+monotonic mechanism cannot express "revoked at the current epoch" — only the currency
+bound of cadence × depth (6.1 Note 1) limits that case.</p>
+<h2 id="7-the-delivery-gate">7 The delivery gate</h2>
+<h3 id="71-the-gate">7.1 The gate</h3>
+<p><strong>7.1.1</strong> A receiver shall apply the delivery gate to every frame carrying a group
+integrity tag before anything above this layer sees it.</p>
+<p><strong>7.1.2</strong> The gate shall be, in order:</p>
+<p>a) <strong>not addressed to me</strong> — neither to my group, nor to my hive, nor to all hives
+(Layer 4, 6.1) → relay only, never deliver locally;</p>
+<p>b) <strong>addressed to me</strong> → verify the tag against the group's currently valid integrity
+keys — the current key, and the immediately prior key only within its grace period; on
+success, deliver as intra-group;</p>
+<p>c) on failure of b), where live entanglements exist, trial-verify the tag against each
+live entanglement's keys; on a match, deliver as a crossing of that entanglement, subject
+to its scope and level;</p>
+<p>d) nothing verifies → <strong>drop</strong>.</p>
+<p><strong>7.1.3</strong> A receiver holding no usable key for a group-addressed frame shall not deliver
+it. <strong>Failing open shall not be a configuration, a fallback, or a migration default.</strong></p>
+<p>Note 1 to entry: 7.1.2 a) says <em>addressed to me</em>, not <em>addressed to my group</em>, because
+Layer 4 addresses a frame to all hives, to one group, <strong>or to one hive</strong> (6.1.1) — and a
+frame addressed to this hive's half is one the layers below deliver upward (Layer 3,
+8.1 c). Read as <em>my group</em> alone, unicast-to-hive and broadcast would both fall to
+relay-only and never be delivered by anyone, which is not the design. The tag is still
+verified under group or entanglement keys in b) and c); <strong>what a) decides is whose
+frame this is, not which key opens it.</strong> <em>(Corrected 2026-08-01 —
+<code>PROVISIONAL(supervisor)</code>, pending Roy: two independent implementation readings hit the
+literal text and reached this same conclusion.)</em></p>
+<p>Note 2 to entry: <strong>A grace period does not survive a restart.</strong> 7.1.2 b) accepts the
+immediately prior key only within its grace period; a grace deadline is an instant on
+the local monotonic ruler; and Layer 0, 5.2 forbids assuming that an interval spanning
+a power cycle is measurable. A deadline recorded before a restart therefore means
+nothing after it, and the only reading consistent with 7.1.3 is that <strong>no prior key is
+in grace after a restart</strong> until the group re-supplies material. An implementer who
+persists the deadline and trusts it gets a silently over-long grace window — an error
+in exactly the direction this clause exists to prevent. <em>(Stated 2026-08-01 from
+implementation evidence; it follows from two clauses and was written in neither.)</em></p>
+<p><strong>7.1.3a</strong> Where the computation of the authenticated span and the verification of the tag
+are performed by separately implemented components — as Layer 0, 6.1 requires — the
+interface between them shall carry <strong>the frame</strong>, or bytes the verifying component can
+itself establish to be the span of Layer 4, 10.2.1. <strong>A caller-chosen byte sequence
+shall not be accepted as the span.</strong></p>
+<p>Note 1 to entry: <strong>A verifier verifies a tag over whatever bytes it is given, and every byte
+sequence is a valid one.</strong> A caller passing a <strong>shorter</strong> span — omitting the target, say —
+obtains a tag that verifies <strong>while saying nothing about the omitted field</strong>, which an
+attacker may then alter freely. Nothing in such an interface refuses it, and no test of
+either side finds it: both components are correct, and <strong>the agreement between them is the
+whole of the guarantee.</strong></p>
+<p>Note 2 to entry: <strong>This is a seam that Layer 0, 6.1 creates rather than one an implementer
+chose.</strong> That clause forbids Layer 1–4 code from touching trust material, so the span is
+computed where the frame is understood and the tag is verified where the key is held, and
+<strong>the two ends cannot be one function.</strong> An isolation requirement <strong>does not remove the
+coupling — it converts a shared function into an agreement between parties</strong>, which is no
+longer enforced by a compiler and is enforced instead by whoever reads both sides.
+<code>01-terminology.md</code> 5.4b applies at this seam by the same reasoning as at a durable record.</p>
+<p>Note 3 to entry: <strong>Carrying the frame is the stronger of the two permitted forms</strong>, because
+it makes a wrong span unrepresentable rather than discouraged; the second form exists for
+implementations whose layering genuinely prevents it. <strong>Both are conformant, and the
+asymmetry is doing the work rather than a prohibition</strong>: the escape hatch exists but is
+visibly the lesser option, <strong>so choosing it is a decision someone has to defend rather than a
+default they drift into.</strong> <em>(Added 2026-08-02,
+<code>PROVISIONAL(supervisor)</code>, finding SS148, from an implementation that found the seam by
+applying a general rule to code it had written hours earlier.)</em></p>
+<p><strong>7.1.4</strong> The gate shall be identical on every platform class and every bearer. There shall
+be no local-network, same-site or debug exemption in a production image.</p>
+<p>Note 1 to entry: 7.1.2 a) is the boundary made operational: <strong>relay is below the gate, and
+the gate governs delivery only.</strong> A hive forwards frames it could never verify, and that is
+correct — the gate's question is never "may this frame exist" but "may this frame act
+here".</p>
+<p>Note 2 to entry: The trial-verify in c) is deliberate. The frame does not say which key
+signed it, because a claim in the frame would still have to be checked by trying the key —
+<strong>the flag would add bytes and remove nothing</strong> (Layer 4, 10.3). Entanglements are few, so
+the trial is cheap; a forged frame fails every key a no-key forger could not hold.</p>
+<p>Note 3 to entry: 7.1.3's phrasing is from a real failure: a gate that delivered unverified
+when no keys were loaded, in a build whose key loader never ran in production — <strong>an
+inactive gate that reported itself as a gate.</strong> Everything downstream believed the frames
+were verified. No gate at all would have been safer, because nothing would have claimed
+otherwise.</p>
+<p><em>Verification: present a group-addressed frame to a receiver holding no key for it. The
+frame relays or drops, and nothing above Layer 5 observes it. The vacuity guard: the same
+frame, with the key loaded, delivers.</em></p>
+<h3 id="72-what-passing-the-gate-establishes--and-does-not">7.2 What passing the gate establishes — and does not</h3>
+<p><strong>7.2.1</strong> A frame passing the gate under a group key establishes one thing: <strong>the content
+was tagged by a holder of an accepted key of that group.</strong></p>
+<p><strong>7.2.2</strong> A receiver shall not treat passage as establishing which member sent the frame,
+that the sender currently holds a valid certificate, that the frame is fresh, or that no
+key holder altered it in flight.</p>
+<p><strong>7.2.3</strong> An operation whose effect depends on <em>which member</em> asked, or on <em>when</em>, shall
+require evidence beyond the gate: a signature attributable to a member, freshness evidence,
+or both. The gate is a floor, never the authorisation.</p>
+<p>Note 1 to entry: The group integrity key is symmetric and group-wide — <strong>every member can
+tag any frame, and a captured frame replays with a valid tag.</strong> 7.2 exists because the
+natural reading of "verified" is all the things 7.2.2 lists, and every one of them is
+false. The layer that acts on a frame decides how much more than the floor it needs, and
+Clause 13 records what this document has not yet given it.</p>
+<p>Note 2 to entry: <strong>The natural misreading is specific, and it survives knowing 7.2.1.</strong> A
+frame's origin sits <em>inside</em> Layer 4's authenticated span, so an implementer reads that the
+tag covers the origin — which it does — and concludes that the origin is authenticated,
+which it is not. <strong>The span makes the origin unforgeable by an outsider; the group key makes
+it freely forgeable by a member.</strong> The concrete consequence is at Layer 3: duplicate
+suppression keys on <code>(origin, message identifier)</code>, so a member can pre-claim another
+member's pairs and have every relay drop that member's genuine frames — <strong>one member
+silencing another, with valid tags throughout.</strong> Layer 3, 5.3.4 bounds it and Layer 3, 10.5
+records what remains. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, after an implementer
+swept for artefacts trusted because they validate and asked whether per-member attribution
+was ever meant to be authenticated. It is not — 7.2.2 says so, and 7.2.3 says what to use
+instead.)</em></p>
+<h3 id="73-confidentiality--the-classification-names-the-key">7.3 Confidentiality — the classification names the key</h3>
+<p><strong>7.3.1</strong> The payload of an intra-group frame shall be encrypted under the group's
+payload-protection key (5.2.2), unless the event is public by design; the payload of an
+entangled crossing shall be encrypted under that entanglement's encryption key, at its
+level.</p>
+<p><strong>7.3.2</strong> A frame at the unauthenticated level carries its payload in clear: no shared key
+exists at that level, and none is negotiated.</p>
+<p><strong>7.3.3</strong> No frame shall carry a key identifier, cipher negotiation, or any statement of
+which key protects it. <strong>The delivery gate's classification names the decryption key</strong>:
+a frame that verified as own-group decrypts under the group's key; a frame that verified
+as a crossing decrypts under the matched entanglement's key.</p>
+<p><strong>7.3.4</strong> The fields a relay reads — the event identifier hash, the target, the hop limit,
+the budget, the route record — are not encrypted, on any frame.</p>
+<p>Note 1 to entry: 7.3.3 is why two sentants never negotiate how to understand each other.
+<strong>The act that authorises a frame is the act that names its key</strong> — membership distributed
+the group key at join; establishment distributed the entanglement's at agreement — so by
+the time a payload is decrypted, the question "which key?" was already answered by the
+verification that admitted it. A key identifier in the frame would answer a question
+nobody still has, and advertise key structure to every carrier.</p>
+<p>Note 2 to entry: 7.3.4 states the honest boundary of confidentiality. <strong>A carrier sees
+that traffic exists, when, how much, between which neighbours, and what event hash it
+names — never what the payload says.</strong> The envelope is the price of being routable by
+devices that are deliberately not trusted; the non-aggregation position (Clause 12) is
+what bounds the price.</p>
+<p>Note 3 to entry: The cleartext of 7.3.2 is not a weakness of the unauthenticated level;
+it is its meaning. That level carries public speech — and <strong>anything confidential requires
+at least an entanglement, which is the incentive pointing exactly where the design wants
+it.</strong></p>
+<h3 id="74-member-attributable-evidence">7.4 Member-attributable evidence</h3>
+<p><strong>7.4.1</strong> Evidence attributable to a member shall be a signature by that member's member
+key (5.2) over the operation or claim together with a freshness token (7.4.3), accompanied
+by the member's certificate (Clause 6).</p>
+<p><strong>7.4.2</strong> A verifier shall verify the chain against the issuing group's public key alone —
+the certificate binds the member key to the group; the signature binds the claim to the
+member key — and shall not require the group's membership roster.</p>
+<p><strong>7.4.3</strong> The freshness token shall be one of:</p>
+<p>a) for an interactive exchange, a nonce issued by the verifier for this exchange; or</p>
+<p>b) otherwise, a monotonic (epoch, sequence) token, against which the verifier shall keep
+a per-origin high-water mark and shall reject evidence whose token does not exceed the
+last accepted.</p>
+<p>Neither form shall require absolute time.</p>
+<p><strong>7.4.3a</strong> A verifier shall not advance the high-water mark on evidence whose signature
+it has not verified. The mark is advanced by evidence, and <strong>a token is evidence only
+once signed</strong>: the certificate chain and the member signature are verified first, and
+the mark is advanced last.</p>
+<p>Note 1 to entry: Without this ordering the anti-replay mechanism becomes a <strong>lockout</strong>,
+and the attack costs nothing. Certificates are public — 6.1.4 re-issues them in the
+background and 7.4.1 has them accompany every piece of evidence — so any party who has
+ever seen member M's certificate can present it with a junk signature and a far-future
+sequence. A verifier that recorded the token before verifying it then rejects <strong>M's own
+genuine evidence</strong> at every sequence below that value, until the epoch changes. M is
+locked out; the verifier believes it is enforcing anti-replay correctly; and M's frames
+pass the delivery gate the whole time, so nothing looks wrong at any layer.</p>
+<p>Note 2 to entry: A stateless pre-filter is permitted and sensible — rejecting an
+obviously stale token before doing curve arithmetic costs an attacker nothing and saves
+a verifier real work. <strong>What 7.4.3a forbids is the state change</strong>, not the early
+rejection.</p>
+<p>Note 3 to entry: The dangerous ordering and the correct one are <strong>indistinguishable in a
+passing test suite</strong>: every legitimate exchange behaves identically under both, and only
+an adversary tells them apart. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, from
+implementation evidence — the finding is core's, and the ordering was not stated
+anywhere.)</em></p>
+<p><strong>7.4.4</strong> A verifier may accept, and a member may produce, a membership proof that does
+not reveal which member signed, only where the entanglement between the groups carries a
+condition explicitly granting that verifier the member-key set the proof is verified
+against. Where no such condition stands, the anonymous form is not offered.</p>
+<p>Note 1 to entry: 7.4.2 is the load-bearing choice: <strong>the evidence carries its own chain,
+so the verifier needs nothing it does not already hold</strong> — its own group's public key, or
+an entangled group's, learned at establishment. The alternative — proofs verified against
+an enumerated member set — requires distributing the roster to every verifier, which
+cross-group is a disclosure of exactly what 12.5 keeps unenumerable. Revocation rides the
+machinery already here: rotation on eviction (Clause 8) retires the certificate with the
+key that signed it.</p>
+<p>Note 2 to entry: What the default form reveals is <em>which member key</em> signed — a per-group
+pseudonym, derived independently of every other identifier the device has (5.1, 5.2), and
+meaningless outside the group's own scope. For the operations that need this evidence —
+authority, manifests, attestations — the attribution is the point.</p>
+<p>Note 3 to entry: 7.4.4 prices the anonymity trade rather than resolving it by fiat.
+<strong>Anonymity toward a verifier costs the roster's disclosure to that verifier, and
+signature work that grows with the group</strong> — so the group that wants the anonymous form
+pays for it, in a condition declared in its entanglement's terms, and a platform that
+cannot afford the computation simply does not offer the grade.</p>
+<p>Note 4 to entry: One scheme, every consumer: member-specific authority (7.2.3), update
+manifests (Layer 6), attestations at their ruled shape — level, time, signature — and
+anti-replay, which is 7.4.3 doing its work rather than a separate mechanism. Byte formats
+for the evidence, the certificate and the token are the companion document's.</p>
+<p><em>Verification: present a verifier with valid evidence; the same evidence replayed (token
+not exceeding the high-water mark); evidence whose certificate names an epoch outside the
+group's acceptance depth (6.1.3); and a bare signature without its certificate. It
+accepts the first and rejects the other three — and the anonymous form, offered without a standing roster-grant
+condition, is refused.</em></p>
+<h2 id="8-rotation">8 Rotation</h2>
+<p><strong>8.1</strong> A group shall be able to rotate its derived keys, and shall rotate on every
+eviction.</p>
+<p><strong>8.2</strong> A rotation shall carry a grace period for the immediately prior key, graded by
+reason: an eviction for compromise shall have zero grace.</p>
+<p><strong>8.3</strong> A rotation triggered by eviction shall bind the eviction as 6.2.4 requires.</p>
+<p><strong>8.4</strong> A member absent through one or more rotations shall be able to walk forward through
+the retained chain when it returns, receiving each rotation's bound evictions as it goes.
+<strong>A member shall verify each link of that chain before absorbing the evictions bound into
+it</strong>, and shall stop at the first link that does not verify.</p>
+<p>Note 0 to entry: The walk is the one path by which a member accepts evictions it did not
+witness, and the links arrive over the network. Absorbing them before verification is
+6.2.2b's defect reached by a different route — and a worse one, because a single forged
+link both evicts an arbitrary member <strong>and</strong> carries the walk forward past the point where
+anything true could still be learned. Stopping at the first bad link, rather than skipping
+it, is what keeps a partial walk honest: a member that cannot verify link <em>n</em> knows only
+what it knew at <em>n−1</em>. <em>(Added 2026-08-02; found by re-reading the neighbours of 6.2.2b
+after fixing it. <code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p><strong>8.5</strong> Each rotation shall increment the group's key epoch, and the epoch shall be named
+in every certificate issued (6.1.3).</p>
+<p><strong>8.6</strong> A group's policy shall state a maximum interval between rotations, and its key
+holders shall rotate at least that often, measured on their own rulers; the policy shall
+likewise state the acceptance depth of 6.1.3.</p>
+<p>Note 1 to entry: Grace exists for the honest member that was briefly asleep during an
+ordinary rotation, and 8.2's zero-grace case exists because <strong>the compromised key is the
+thing the rotation exists to retire</strong> — a grace period on it is a window in which the
+rotation has changed nothing.</p>
+<p>Note 2 to entry: 8.6 exists because rotation now carries the function certificate expiry
+used to carry (6.1 Note 1): <strong>a group that never rotated would never expire anything</strong>,
+and a missed revocation's window would be unbounded. The obligation is normative; the two
+numbers — cadence and depth — are the group's own, chosen for its purpose the way every
+graded value in this standard is, and measured at the clocked, powered end.</p>
+<h2 id="9-the-development-trust-group">9 The development trust group</h2>
+<p><strong>9.1</strong> There shall be one development trust group, whose key material is published.</p>
+<p><strong>9.1a</strong> The development group's key material shall be derived from the seed, which is
+these 57 bytes of US-ASCII and no others:</p>
+<pre><code>Reality2 development trust group - not for production use</code></pre>
+<p><strong>9.1b</strong> The seed shall be those bytes exactly: US-ASCII, no terminator, no trailing
+newline, and no character outside the printable range.</p>
+<p><strong>9.1h</strong> The seed shall be 57 bytes.</p>
+<p><strong>9.1c</strong> The group secret shall be SHA-256 of the seed, taken as the 32-byte Ed25519
+private seed of RFC 8032.</p>
+<p><strong>9.1e</strong> The group's public half shall be
+<code>cc9527cecd948b5bb97b0c10e5838dd2ca0960694f317e34ebfda924a5333163</code>.</p>
+<p><strong>9.1f</strong> The group identifier shall be derived from that public half exactly as 4.3.1 derives
+any group identifier, giving the wire group half <code>0e6c3b8c</code> (<code>FORMATS.md</code> 3.3, non-reserved).</p>
+<p><strong>9.1g</strong> The development group shall be the only group whose identity material is not
+generated from a random source.</p>
+<p><strong>9.1d</strong> This pattern — a published seed deriving a group key — shall not be used for any
+group other than the development group.</p>
+<p>Note 0 to entry: <strong>The seed is a printable sentence rather than random bytes, deliberately.</strong>
+This group's security is <strong>its admission rule, not its secrecy</strong> (Note 2 below), so
+<strong>auditability beats entropy</strong>: anyone who dumps this key material and traces it back finds a
+sentence saying what it is, and <strong>if it ever appears where it should not, the bytes themselves
+say so.</strong></p>
+<p>Note 1 to entry: <strong>The byte-level precision is not pedantry, and the drafting nearly proved
+it.</strong> The first draft of this seed was written with an <strong>em-dash</strong> (U+2014) rather than a
+hyphen — <strong>not ASCII</strong>. Two implementations, one typing an em-dash and one a hyphen, <strong>derive
+different keys and never interoperate</strong>, which is <strong>precisely the failure Clause 9 exists to
+prevent, reintroduced by the fix for it.</strong> Hence 9.1b, and hence the verification value: the
+SHA-256 of the seed bytes is <code>7ffcba77aa8afc962e32f9f42ebc500414a46bdffade96db18dab8baf7c8b3ac</code> — <strong>stated so a transcription error in this clause is
+detectable rather than propagated</strong>. <strong>And 9.1h's length check catches that near miss before the hash does</strong>: the em-dash is <strong>three bytes in UTF-8</strong>, so the variant is <strong>59 bytes, not 57</strong> — <em>the cheapest possible check catches the failure mode most likely to occur, because an em-dash is what several editors produce from a typed hyphen automatically.</em> For this artefact <strong>a typo and a different group
+are indistinguishable.</strong></p>
+<p>Note 2 to entry: <strong>9.1c derives by a plain hash rather than through the key-derivation
+function of <code>FORMATS.md</code> 4a, and that is a deliberate exception rather than an omission.</strong>
+The derivation function requires a purpose label; <strong>the purpose labels are themselves awaiting
+ratification</strong>, and routing this through them would chain a clause that unblocks every
+implementer behind a ruling that has not arrived. <strong>A public, single-purpose group has no
+purpose separation to preserve.</strong> <em>Stated as an exception with its reason, because the next
+reader will otherwise treat it as a defect and 'fix' it.</em></p>
+<p>Note 2a to entry: <strong>9.1c pins the representation because three readings of <em>the SHA-256
+output</em> give three different groups.</strong> Treated as an RFC 8032 <strong>private seed</strong>, as a
+<strong>scalar</strong>, or as an <strong>expanded secret</strong>, the same 32 bytes yield <strong>different public keys</strong> —
+so a clause saying only <em>SHA-256 of the seed</em> leaves the group undetermined while appearing
+exact. <strong>The public half and the identifier are therefore stated as values, not as
+procedures.</strong></p>
+<p>Note 2b to entry: <strong>9.1g is a bounded exception to <code>FORMATS.md</code> 3.2</strong>, which requires identity
+material to come from the platform's cryptographically secure random source and <strong>never from
+an operator-supplied string</strong>. <strong>This group's material comes from a published sentence, which
+3.2 forbids</strong> — stated as an exception with its scope rather than left as a contradiction
+between two documents, and bounded by 9.1d and 9.1g: <strong>exactly one group, and no other may
+claim it.</strong></p>
+<p>Note 2c to entry: <strong>What this lane verified and what it did not, because on this artefact the
+distinction is the point.</strong> Verified here directly: <strong>57 bytes</strong>, every byte in <strong>0x20–0x79</strong>
+(inside the printable bound 0x20–0x7E — <em>both statements are true, and a re-deriver measuring
+0x79 should not conclude someone erred</em>), <strong>no trailing newline</strong>, and <strong>both SHA-256
+values</strong>. <strong>Not verified here: the curve operation</strong> — this lane has no Ed25519
+implementation available. <strong>The public half rests on three independent derivations sharing no
+curve library</strong>: one in Rust, one via OpenSSL from a raw secret wrapped in the PKCS8 prefix,
+and one pure RFC 8032 implementation cross-checked against OpenSSL. <em>Recorded because
+corroboration by three implementations is stronger than one lane's assertion, and because a
+reader is entitled to know which half of this clause its author could check.</em></p>
+<p>Note 2d to entry: <strong>Two excluded cases, because they fail at different gates and only one is
+cheap to catch.</strong> A <strong>non-ASCII</strong> substitution — the em-dash — changes the <strong>length</strong> and dies
+at 9.1h <strong>before anything is hashed</strong>. A <strong>single valid-ASCII character</strong> — <code>production</code>
+capitalised — is <strong>still 57 bytes and still printable</strong>, so <strong>every structural check passes</strong>
+and only the digest catches it, giving group half <code>d6cb6c3e</code> instead of <code>0e6c3b8c</code>. <strong>A vector
+carrying only the first would leave an implementation that checks length and range looking
+correct.</strong> Both identities are in <code>TEST-VECTORS-FORMATS.md</code> FV-021, derived to the identifier
+by an independent lane and the digests recomputed here.</p>
+<p>Note 3 to entry: <strong>9.1d is normative rather than advisory because the mechanism will be
+copied.</strong> A published seed deriving a group key is correct <strong>exactly once, for exactly this
+reason</strong> — and someone will read the mechanism without the note. <em>(Added 2026-08-02 on Roy's
+ruling, relayed by the supervisor; the seed bytes, their length, their ASCII range and the
+digest were verified independently in this lane before the clause was written. Finding
+SS214.)</em></p>
+<p><strong>9.1i</strong> A development-mode device may hold the development group's derived keys (5.2.2), and
+its group secret key, in plaintext at rest, as a bounded exception to 5.3.2.</p>
+<p><strong>9.1j</strong> That exception shall extend to no other group, to no other key material, and to no
+device that is not development-mode.</p>
+<p>Note 0 to entry: <strong>9.1i is written in the form 9.1g uses, and for the same reason: an
+exception this document takes is stated with its scope rather than left to be inferred.</strong>
+5.3.2 forbids plaintext key material at rest <strong>in every case</strong>, and 5.3.1b exists to stop a
+custody clause being read permissively — <strong>so without 9.1i the one material this standard
+publishes is also the one it forbids a device to keep.</strong> <strong>The exception costs nothing that
+was ever protected</strong>: 9.1a–9.1c derive this secret from a published sentence, so an image
+carrying it discloses what Clause 9 has already printed. <strong>AND THE STRONGER ARGUMENT IS
+CORE'S, MEASURED FROM THE IMPLEMENTING SIDE: WITHOUT 9.1i, BOTH BRANCHES OF 5.3.2 ARE CLOSED
+FOR THIS GROUP.</strong> Sealed persistence needs a facility a bench board may not have; the
+volatile-only branch requires the key to be <em>re-obtained on next contact with the group</em> — and
+<strong>the development group has no distribution mechanism at all</strong> (SS271: no clause moves group
+material to a member, and SS266: no clause issues the certificate). <strong>So there is no
+conforming way to run the development group, rather than merely an awkward one</strong>, which is a
+larger claim than the exception costing nothing. <strong>9.1j is the fence, and it is the
+whole of the safety</strong>, exactly as 9.1d fences 9.1g — <strong>together with 9.3a, which forbids the
+same material in a production image.</strong> <em>(Added 2026-08-04. <strong>RATIFIED by Roy 2026-08-05, d255</strong> — this clause and 9.1j are
+normative text and their wording is his to change. Finding
+SS276. Raised because the fleet's only verified two-node network runs on material this
+document did not permit any device to hold.)</em></p>
+<p>Note 1 to entry: <strong>What this clause does NOT settle is membership, and the distinction is
+load-bearing.</strong> Holding the key and being a member are different facts: <strong>7.1.2 b) admits a
+frame on <em>the group's currently valid integrity keys</em>, while 6.1.2 makes membership turn on a
+certificate</strong>, and <strong>no clause requires the key to have arrived through the membership.</strong>
+<em>Swept rather than asserted:</em> across this document, <code>L5A</code>, <code>L5B</code> and <code>L5C</code>, the only
+entitlement restriction on key material is <strong>5.3.1</strong>, which confines the group secret key to
+key holders — <strong>and there is no counterpart for the derived keys 5.2.2 produces and 7.1.2 b)
+consumes.</strong> <strong>⚠ THAT SWEEP WAS TAKEN AT <code>d79c7d5</code>, BEFORE 9.1j EXISTED, AND A RE-RUN OF ITS
+IDIOMS NOW RETURNS TWO.</strong> The second hit is <strong>9.1j</strong>, which restricts <strong>the scope of an
+exception</strong> rather than who may hold key material — <strong>so the finding is unchanged and the
+count that carried it is not.</strong> <strong>What decides this is the clause text, not the tally: 5.3.1
+is still the only clause saying who key material may exist on.</strong> (d237/d240.) <strong>The corpus drew this line once and did not draw it here</strong>, which is why the
+absence is a finding rather than a silence of style. <strong>Who issues a development device's
+certificate remains SS266 and is not answered by this clause.</strong></p>
+<p><strong>9.2</strong> A development-mode device shall join only the development group. <strong>The development
+group shall admit only development-mode devices.</strong></p>
+<p><strong>9.3</strong> A production device shall treat the development group's credentials as inert:
+possession shall confer nothing, and no production device shall be enrollable into it by
+any route.</p>
+<p><strong>9.3a</strong> The development group's secret key, and the seed of 9.1a from which it derives,
+shall be absent from a production image, not disabled in it.</p>
+<p>Note 0 to entry: <strong>Why the clause names BOTH the key and the seed, stated from a measurement
+rather than from an argument.</strong> <strong>The case that actually occurs is that an image carries the
+key and NOT the seed</strong> — measured on a real firmware artefact: the secret is present as a
+pinned constant array, while the seed is absent because its only consumer is a test-gated
+assertion. <strong>So a clause forbidding only the seed would be satisfied by an image carrying the
+key.</strong> <strong>And the reverse hazard is real but was the imagined one:</strong> the seed is a short
+printable sentence that derives the secret, so a clause forbidding only the key would be
+satisfied by an image carrying the sentence. <strong>Both directions are closed because either
+alone leaves the other open — and the first is the one that has been observed.</strong> <em>(Measured by
+core on a linked release image; recorded this way because a note that justifies a correct
+clause with the case that does not happen is a note the first implementer will doubt.)</em></p>
+<p>Note 0a to entry: <strong>9.3 regulates the effect of possession; 9.3a regulates possession.</strong> Read
+alone, 9.3 presupposes that a production image may carry this material and requires only that
+holding it achieve nothing — <strong>and that is a runtime check on build mode, which this standard
+names and refuses everywhere else it has drawn this line.</strong> Layer 6, 6.2.1 requires
+development-only code <em>absent from a production image, not disabled in it</em>, and its Note 0
+states that a runtime check on build mode <strong>is</strong> the <em>disabled</em> the clause refuses: <strong>the code
+ships, the branch is one flipped byte from taken, and the binary still contains the answers.</strong>
+<code>01-terminology.md</code> 5A Note 3a generalises it, and Layer 2, 5.4a.2 applies it to bytes rather
+than code, forbidding a production beacon to carry any development-related bytes. <strong>Against four such
+rules, 9.3 alone stopped at behaviour</strong>, and a secret is the one thing for which the
+distinction is not academic: <strong>an inert credential in an image is a credential one glitched
+comparison away from active, on a device an attacker has in hand.</strong> <strong>AND d231 RAISES THE
+STAKES RATHER THAN THE DRAFT:</strong> with the build-mode partition of Layer 2, 5.4a.5 revoked,
+development and production devices share one transient network — <strong>so a production image
+carrying this material can present as a development device on a network with production peers
+on it.</strong> 9.3a was hygiene when it was written and is load-bearing now; <strong>the clause is
+unchanged and only its consequence has grown.</strong> <em>(Added 2026-08-04. <strong>RATIFIED by Roy 2026-08-05, d255.</strong>
+Finding SS276. The omission was raised by core as conspicuous rather
+than merely absent; the sweep behind this note found the corpus regulating what a
+shipped non-development image may contain, in four places, three of them by absence, and the
+runtime-check pattern refused by name in two. <strong>This sentence deliberately does not write the
+two-word term it counted</strong> — d245: where the claim sits inside the population it measures,
+naming the token makes the note its own next hit. <strong>⚠ THAT FIGURE WAS TAKEN AT <code>e4b5230</code>, BEFORE THIS CLAUSE EXISTED. A RE-RUN NOW FINDS FIVE, AND THE FIFTH IS 9.3a ITSELF</strong> — a carriage rule, so the proportion moves from three-of-four to four-of-five while the argument is unchanged. <strong>The count is evidence about the corpus BEFORE the repair; the repair is not evidence for itself.</strong> (d237/d240.))</em></p>
+<p>Note 0b to entry: <strong>One conformance demonstration exists for this clause, by a consumer,
+before the clause exists — and it is the only empirical input to a decision otherwise made
+entirely from clause reading.</strong> A firmware lane's build satisfies <em>absent, not disabled</em> on two
+legs: the gated module is the only path to the material, <strong>and an unreferenced constant does
+not link</strong> — the second measured on a host build <strong>with a control consumer that does name the
+material</strong>, which is what makes the absence mean something rather than being an artefact of a
+build that referenced nothing. <strong>The middle leg was REPRODUCED rather than merely
+measured</strong> — two lanes, different tooling, the same offset in the same image, which is the
+difference between a number and a result.</p>
+<p><strong>And the constrained-target leg is now closed, more strongly than a clean search would have
+closed it: with the feature off, the target does not COMPILE.</strong> Two unresolved-import sites,
+both resolving to the gate. <strong>Material cannot survive in a read-only data section of an image
+that never links</strong> — an absence a search could only have suggested, a linker settles.</p>
+<p><strong>One half remains open and is stated here because a reader would otherwise infer it wrongly:
+the gate has not been shown working in a SHIPPING PRODUCTION IMAGE, because no production
+image exists.</strong> That firmware is development-only as written. <strong>This is a fact about the
+product and NOT a defect against this clause</strong> — 9.3a constrains what a production image may
+carry, and nothing is owed by a clause because the artefact it governs has not been built yet.
+<em>(Recorded 2026-08-05, d254.)</em></p>
+<p>Note 1 to entry: The second direction of 9.2 is what makes publication safe. <strong>A published
+credential that only opens development devices is a credential worth nothing against the
+production world</strong> — and the first direction keeps a development device from being a
+foothold into a real group. The pair is the boundary of Layer 2's build-mode clause,
+expressed in membership.</p>
+<p>Note 2 to entry: This is a real trust group with the ordinary mechanics — keys, gate,
+certificates — and one deliberate abnormality: <strong>its secrecy is zero and its admission rule
+is its entire security.</strong> It exists so that bench and test devices interoperate without
+each bench minting its own group, and it is expected to matter early and fade
+(<code>CLOSED-QUESTIONS.md</code> records the lifecycle expectation).</p>
+<h2 id="10-entanglement">10 Entanglement</h2>
+<h3 id="101-the-ladder-of-authentication">10.1 The ladder of authentication</h3>
+<p><strong>10.1.1</strong> Communication between hives of different trust groups shall be possible at
+every level of the following ladder, and the receiving side decides, per operation, what
+level that operation requires.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Evidence the receiver holds</th>
+<th>What may happen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>same-group</strong></td>
+<td>the frame verifies under the receiver's own group key</td>
+<td>full intra-group delivery</td>
+</tr>
+<tr>
+<td><strong>entangled, by grade</strong></td>
+<td>the frame verifies under a live entanglement's keys</td>
+<td>delivery within that entanglement's scope and grade</td>
+</tr>
+<tr>
+<td><strong>unauthenticated</strong></td>
+<td>the frame carries no group tag</td>
+<td>delivery as unauthenticated; the receiving application's own filtering (Layer 7) is the only gate, and no group-addressed claim was made</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>10.1.2</strong> A frame carrying a group tag that verifies under nothing shall be dropped
+(7.1.2 d); a frame carrying no tag is not that case, and may be delivered as
+unauthenticated.</p>
+<p>Note 1 to entry: <strong>The ladder governs delivery — what a frame may <em>do</em> above the trust
+boundary. It does not govern communication as such</strong>, because below the boundary, devices
+of any and every group are already communicating: relaying one another's frames, hearing
+one another's beacons, forming one another's neighbour entries. <strong>That is the shared mesh
+(Layers 0 to 4), it exists before and beneath any entanglement, and neither entanglement
+nor its absence touches it.</strong> Entanglement is a relationship between trust groups; the mesh
+is a relationship between devices, and every device is in it.</p>
+<p>Note 2 to entry: The unauthenticated level is why hives that share no group and no
+entanglement can still exchange <em>application</em> traffic. <strong>An unauthenticated frame claims
+nothing and gets nothing</strong> — it reaches the sentant firewall (Layer 7, 9.1), where no
+handler means no effect — but a public reading, a discovery exchange, a first hello all
+live at this level, and requiring entanglement for them would make every first contact
+impossible. <strong>What distinguishes it from the failed verification of 7.1.2 d) is the
+claim</strong>: a frame that <em>claimed</em> a group and failed its proof is a forgery; a frame that
+claimed nothing is a stranger, and strangers are legal.</p>
+<h3 id="102-what-an-entanglement-is">10.2 What an entanglement is</h3>
+<p><strong>10.2.1</strong> An entanglement shall be an explicit agreement between two trust groups,
+holding its own derived keys under the one derivation of 5.2, carrying:</p>
+<p>a) a <strong>scope</strong> — what may cross, in which direction;</p>
+<p>b) a <strong>level of authentication</strong> — the grade at which crossings are trusted; and</p>
+<p>c) its <strong>conditions</strong> — the stated terms on which the entanglement stands.</p>
+<p><strong>10.2.2</strong> An entanglement may be short-lived or long-lived; its intended lifetime is one
+of its conditions.</p>
+<p><strong>10.2.3</strong> An entanglement shall persist exactly as long as its conditions are met.</p>
+<p>Note 1 to entry: <strong>The companion is <code>L5A-entanglement.md</code></strong>, and it is not optional
+reading for an implementer of this clause: establishment and its sequence are its
+Clause 5, the grades of authentication its 5.3, the expression and evaluation of
+conditions its Clause 6, and the ways an entanglement ends its Clause 8. A reader of
+this document alone has the model but not the mechanism. <em>(Cross-reference made
+explicit 2026-08-01.)</em></p>
+<h3 id="103-breach">10.3 Breach</h3>
+<p><strong>10.3.1</strong> Where either side breaches the conditions, the other side shall either <strong>sever</strong>
+the entanglement or <strong>demote it</strong> — move it down a level of authentication — and which
+response applies to which breach is itself one of the conditions.</p>
+<p><strong>10.3.2</strong> Severing shall stop crossings at once: frames verifying only under the severed
+entanglement's keys fail the gate from that moment. Demotion shall re-scope crossings to
+the lower level at once.</p>
+<p><strong>10.3.3</strong> Either side may sever at any time, without the other's consent, conditions
+aside.</p>
+<p>Note 1 to entry: <strong>The conditions are the entanglement.</strong> Two groups are not entangled
+because a ceremony happened once; they are entangled <em>as long as</em> the stated terms hold —
+which makes an entanglement a standing claim, tested by conduct, in exactly the sense the
+rest of this standard tests claims: <strong>never proven, only un-breached so far.</strong> Demotion is
+that epistemology given a mechanism — a breach that warrants less trust rather than none
+moves the relationship down the 10.1 ladder instead of off it.</p>
+<p>Note 2 to entry: 10.3.3 preserves sovereignty over and above the conditions: <strong>no group is
+ever contractually locked into trusting another.</strong> The conditions govern what counts as a
+breach; they never oblige a group to keep a door open.</p>
+<h3 id="104-crossings">10.4 Crossings</h3>
+<p><strong>10.4.1</strong> A frame crossing an entanglement shall pass the delivery gate as 7.1.2 c), and
+its acceptance establishes <strong>which entanglement it crossed</strong> — never which member of the
+entangled group sent it.</p>
+<p>Note 1 to entry: This clause states the contract; establishment, the grades themselves,
+condition expression, and lifecycle are the entanglement companion's
+(<code>L5A-entanglement.md</code>) — the frame here is the decided part, and the companion fills it.</p>
+<h2 id="11-what-this-layer-provides-and-requires">11 What this layer provides and requires</h2>
+<p><strong>11.1</strong> This layer shall provide to the layers above:</p>
+<p>a) delivered frames, each marked intra-group, a crossing of a named entanglement, or
+unauthenticated;</p>
+<p>b) the hive's persona: its group, its member identity, its claim state; and</p>
+<p>c) the association between beacon identifiers and known peers (Layer 2, 5.4.3), learned
+here and only here.</p>
+<p><strong>11.2</strong> This layer shall require of the layers below: delivery of frames as Layer 3
+provides them, the integrity tag mechanics of Layer 4, and the key-material facilities of
+Layer 0.</p>
+<p><strong>11.3</strong> Nothing below this layer shall hold, read or depend on trust material. <em>(Layer 0,
+Clause 6.)</em></p>
+<h2 id="12-security-considerations">12 Security considerations</h2>
+<p><strong>12.1</strong> The group's symmetric keys are held by every member. <strong>The capture of any one
+member exposes what those keys protect</strong> — past traffic it recorded, and the ability to tag
+frames — until rotation. Membership is the security perimeter, and the perimeter is as
+strong as its most exposed member.</p>
+<p><strong>12.2</strong> The gate authenticates groups, not members (7.2). Everything member-specific rides
+above it.</p>
+<p><strong>12.3</strong> Replay of captured frames verifies (Layer 4, 10.2 Note 3). Idempotent effects are
+the systemic defence; traffic that is not idempotent carries the freshness token of 7.4.3,
+and its replay fails at the verifier's high-water mark.</p>
+<p><strong>12.4</strong> Physical possession of an OPEN device is ownership of it, by design (4.4). Physical
+possession of an OWNER device yields its persona's material only as well as the platform
+protects it — and Layer 0 records that protection as a stated gap.</p>
+<p><strong>12.5</strong> What this layer never does: no central authority exists to compromise, no registry
+maps groups to devices, and no party outside a group can enumerate its members from
+protocol traffic.</p>
+<p>Note 0 to entry: <strong>12.5's third claim is stated without a bound and is not true without one.</strong>
+Layer 4, 6.1.3 puts <strong>a group half and a hive half</strong> in the extended target, both <strong>four bytes
+on the wire</strong>; 7.3.4 leaves the target unencrypted on every frame; and the route record
+carries hive identities the same way. <strong>So a party in range that neither relays nor joins can
+read (group, hive) pairs directly off passing frames</strong> — which is enumeration of that group's
+transmitting members, to the resolution of a truncated hash. <strong>What is true is the bounded
+version:</strong> no party can enumerate members <strong>it never hears</strong>, no registry maps groups to
+devices, and the identities recovered are truncated hashes rather than identities
+(<code>FORMATS.md</code> 3.6 declines to guarantee their uniqueness). <strong>The unqualified sentence claims
+more than the wire permits.</strong> <strong>AND THE CONSEQUENCE REACHES BACK:</strong> Note 2 to 7.3.4 names <em>the
+non-aggregation position (Clause 12)</em> as <strong>what bounds the price</strong> of the unencrypted
+envelope — <strong>so an over-broad 12.5 is a bound that bounds nothing, at the one place the
+standard admits its envelope is readable.</strong> <em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>,
+finding SS282, reached from android's question whether Clause 12 shares 7.3.4 Note 2's
+carrier-scoping. It does not share that defect; it has a larger one.)</em></p>
+<h2 id="13-what-is-not-decided-at-this-layer">13 What is not decided at this layer</h2>
+<p><strong>This clause states gaps and contains no requirements.</strong></p>
+<p><strong>13.1 The enrolment ceremony — drafted (2026-08-01).</strong> The ceremony between the states
+this document defines is now <code>L5B-enrolment.md</code>: invitation, commit-then-reveal
+exchange, role-graded verification, atomic install, forward-only re-claim. What remains
+owed from this gap is its byte formats (with the formats companion) and the management
+wallet (13.7).</p>
+<p><strong>13.2 Certificate time — settled (2026-08-01).</strong> Certificate validity was this
+standard's one absolute-time judgement, unanswerable after restart on platforms this
+standard permits. <strong>Ruled: epoch-anchored currency</strong> (6.1.3), with obligatory rotation
+cadence (8.6) carrying expiry's function and the return path stated (6.1.5). No clause
+of this standard now requires absolute time. <em>(The ruling: <code>CLOSED-QUESTIONS.md</code> C8;
+this was the surviving half of the question the dropped rotating identifier closed.)</em></p>
+<p><strong>13.3 Protecting persona material against physical capture of an OWNER device.</strong> Layer 0
+requires retention and records protection as a gap (L0 10.4). The consequence at this layer
+is 12.1: a captured member is a group exposure. Hardware-anchored protection, scoped
+member keys for exposed roles, or acceptance — undecided, and the decision shapes what a
+field deployment may store on its most exposed devices.</p>
+<p><strong>13.4 Anti-replay for non-idempotent operations — settled (2026-08-01).</strong> The freshness
+token of 7.4.3 closes this: interactive exchanges carry the verifier's nonce, everything
+else a monotonic token gated by a per-origin high-water mark, and neither requires
+absolute time. What remains owed is the token's byte format, with the companion.</p>
+<p><strong>13.5 Member-attributable evidence — the scheme is settled (2026-08-01); the formats are
+owed.</strong> 7.4 defines the shape: a certificate-carrying member signature verified against
+the group public key alone, with the anonymous form gated behind an explicit
+roster-disclosure condition — which resolves the corpus's member-set conflict by pricing
+it into the entanglement's terms. Byte formats for evidence, certificate and token are
+the companion document's. <em>(The ruling: <code>CLOSED-QUESTIONS.md</code> C7.)</em></p>
+<p><strong>13.6 Aggregate rate limiting.</strong> Below the boundary, per-origin limits bound nuisance
+(Layer 3, 5.7); nothing bounds a determined key-holding origin across the mesh. Whether
+group-level policy should, and how it would be expressed, is undecided.</p>
+<p><strong>13.7 Custody and the management wallet — drafted (2026-08-01).</strong> The wallet's rules
+are now <code>L5C-management-wallet.md</code>: custody kept out of membership, storing-vs-acting
+gated on the owner's attested level, custody removable only by rotation, backups counted
+as custodians, capture priced as every held group's compromise. What remains owed from
+this gap is byte formats and the splitting scheme, with the formats companion.</p>
+<p><strong>13.8 The public-by-design exemption of 7.3.1 — not decided, and not this layer's to
+decide.</strong> 7.3.1 exempts <em>an event that is public by design</em> from intra-group payload
+encryption and gives no criterion and no declaration mechanism. <strong>It cannot be given one
+here.</strong> 7.3.3 forbids a frame carrying any statement of which key protects it, and <em>no key
+protects this</em> is such a statement — so a receiver, told by its own classification to decrypt
+under the group key, <strong>cannot distinguish an exempt frame from an encrypted one by looking at
+the frame</strong>. The property must belong to the event's definition, known to both sides before
+the frame exists, which places it at Layer 7 (10.6). <strong>Until it is decided, the fail-closed
+reading governs: encrypt every intra-group payload and take no exemption</strong>, because 7.3.1's
+default is encryption and the exemption is the undefined branch. <em>(Added 2026-08-04,
+<code>PROVISIONAL(standard)</code>, finding SS44 — registered before this date, promoted when it began
+gating an implementation, and reached for by two lanes wiring 7.3.)</em></p>
+<p><strong>13.9 What a non-key-holder member holds — the material is entailed and no clause moves
+it.</strong> 5.2.2 requires the payload-protection and integrity keys, 7.3.1 and 7.4 require a member
+to use them, and 5.3.1 confines the group secret they derive from to key holders — so a member
+that is not a key holder must <strong>receive</strong> them. <strong>No clause states that it does.</strong> The
+enrolment companion's install step returns <em>the group material the role carries</em> (L5B 6.1.1 e)
+without defining the phrase, and 5.3.2's <em>re-obtained on next contact with the group</em> names no
+path. <strong>Note 1 to 7.3.3's <em>membership distributed the group key at join</em> is a note, and states
+the intent rather than the requirement.</strong> <em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, finding
+SS271; stated fully in L5B 10.6.)</em></p>
+<p><strong>13.10 Clause 9 names an admission and specifies none — and the consequence lands on the
+certificate.</strong> L5B 4.5 makes <em>the development group's published-credential admission (Clause
+9)</em> the one path that replaces the ceremony. <strong>Clause 9 gives key material (9.1a–9.1h), an
+admission rule (9.2) and production-side inertness (9.3), and no procedural clause at all.</strong>
+<strong>The consequence is specific rather than general:</strong> 6.1.2 makes a hive a member <strong>if and only
+if</strong> it holds a valid, unrevoked certificate; 6.1.1 requires that certificate to be signed by
+the group secret key; and <strong>the only issuance site the corpus describes is the ceremony's
+install step</strong> (L5B 6.1.1 e)), which this path replaces. <strong>So a development-mode device can
+hold this group's persona and still not be a member by 6.1.2, and Clause 9's stated purpose —
+benches interoperating without each minting its own group — does not complete.</strong> <strong>Nothing in
+this corpus says a device issues its own certificate</strong>; that reading is an inference, and it
+is not written here. <strong>And the text points away from it rather than merely failing to support
+it:</strong> 6.1.1 requires the signature of <strong>the group secret key</strong>, so <strong>whatever holds that key
+and can sign is a candidate issuer</strong> — which for a published-credential group is not
+necessarily the joining device. <strong>What 4.5 removes is the issuer, not the issuance.</strong> <em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, finding SS266, sharpened by
+android, which reached the gap from the implementing side while migrating a member keypair.
+Whether this path is a second route or a variation within the ceremony is the companion
+question, SS267.)</em></p>
+<p><strong>13.12 What a development-mode device holds, and how it holds it.</strong> Clause 9 gives the
+development group's material, its admission rule and its production-side inertness, and says
+<strong>nothing about what a device on that group holds at run time or where it keeps it.</strong> Two
+silences follow, and a working bench network depends on both. <strong>First, the gate does not
+require membership.</strong> 7.1.2 b) verifies against <em>the group's currently valid integrity keys</em> —
+a key the receiver holds — while 6.1.2 makes membership turn on a <strong>certificate</strong>, and <strong>no
+clause requires the key to have arrived through the membership.</strong> A hive holding the key and no
+certificate therefore passes the gate and is not a member. <strong>Second, custody had no stated
+exemption here — CLOSED 2026-08-05 by 9.1i and 9.1j, ratified by Roy as d255.</strong> It read that
+5.3.2 forbids plaintext key material at rest <em>in every case</em> while Clause 9 stated exceptions
+where it had them and none against Clause 5. <strong>9.1i is now that exception and 9.1j is its
+fence, and 9.3a closes the production side.</strong> <strong>The first silence is NOT closed and is the one
+that matters now</strong>: nothing still requires the key to have arrived through a membership, so a
+hive holding it is not thereby a member. <strong>This half of the entry stays open, and who issues a
+development device's certificate remains SS266.</strong></p>
+<p><em>(Half-closure recorded here rather than by deleting the entry: a gap clause that is silently
+edited when part of it is answered leaves a reader unable to tell which part moved. This
+paragraph is not ratified text — the ratification is 9.1i, 9.1j and 9.3a — and updating a
+<em>what is not decided</em> clause when something becomes decided is bookkeeping, not an amendment
+to what Roy signed.)</em> <em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>,
+finding SS276; adjacent to SS266, which asks who issues the certificate this silence makes
+unnecessary.)</em></p>
+<p><strong>13.11 The means by which a GROUP_MGMT frame's authenticity is established.</strong> Layer 4 states
+twice that this layer supplies it — 10.1.4 for its <strong>authenticity</strong>, Note 2 to 8.3 for its
+<strong>origin</strong> — and <strong>this document names no such means.</strong> The type does not appear anywhere in
+it. <strong>The second forward is the sharper problem:</strong> 7.2.2 states that passing the gate does
+<strong>not</strong> establish which member sent a frame, and 7.2.3 requires evidence beyond the gate for
+any operation turning on <em>which member</em> — <strong>so Layer 4 forwards to this layer the very property
+this layer declines to establish.</strong> <strong>And 7.2.3 does not close the gap by analogy</strong>, because
+its subject is a frame that <strong>passed</strong> the gate: it governs a floor that is insufficient, while
+an untagged frame has <strong>no floor at all</strong>, and 10.1.2 permits such a frame to be delivered as
+unauthenticated without stating any obligation on what receives it. <strong>What is owed is a
+receiver obligation — whether one exists, and what evidence discharges it.</strong> <em>Any answer is
+constrained by carriage: Layer 4, 5.3 makes the payload opaque at that layer and its Note 2 to
+8.3 makes carriage one hop with no route record, so member-attributable evidence (7.4) could
+only ride inside a payload Layer 4 must not parse.</em> <strong>The hazard is armed rather than
+theoretical: an implementation that has not yet written a group-management consumer is safe by
+sequencing, not by any guard, and a clean delivery reads as permission.</strong> <em>(Added 2026-08-04,
+<code>PROVISIONAL(standard)</code>, finding SS274, raised by core as CORE-17 and confirmed here with an
+independent control. Created by settling SS31 — the ruling that GROUP_MGMT is never tagged is
+right, and it named a destination that is empty.)</em></p>
+<h2 id="14-conformance">14 Conformance</h2>
+<p>Every requirement of this document is demonstrated by conformance evidence of one of
+the three classes of <code>01-terminology.md</code>, 3.10 — behavioural, by construction, or by
+declaration. <strong>A requirement whose evidence is by construction is not thereby
+optional</strong>: the demonstration is an inspection a third party can perform without the
+implementer's cooperation, and its absence is non-conformance exactly as a failed
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <code>01-terminology.md</code> 4.2 to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+<p><em>(Added 2026-08-01 — <code>PROVISIONAL(supervisor)</code>, pending Roy. Clause 1 has always
+asserted that this document establishes what conformance at this layer consists of, and
+no such clause existed; every sibling part has one. It is numbered 14 rather than
+inserted before Security considerations because clauses 12 and 13 are cited from other
+documents and from the register, and renumbering them would break those citations.
+Placement is Roy's to correct at ratification.)</em></p>
+<p><strong>14.1</strong> An implementation conforms to this document where it:</p>
+<p>a) holds exactly one group keypair per group and derives the group identifier from its
+public half (4.2), and maintains the one-group-per-hive and no-nesting rules of 4.1
+and 4.3;</p>
+<p>b) carries an algorithm identifier on every key, signature and ciphertext structure, and
+rejects unrecognised identifiers without acting on them (4.2.3);</p>
+<p>c) maintains persona and claim state as Clause 4.4 requires, including the atomic
+OWNER-setting commit, the physical-action-only path to OPEN, and preservation across
+firmware update;</p>
+<p>d) generates and protects key material as Clause 5 requires — fresh member keypair per
+persona, the single derivation of 5.2 under distinct purpose strings, and the storage,
+non-transmission and erasure rules of 5.3;</p>
+<p>e) issues, re-issues and revokes certificates as Clause 6 requires, including
+background re-issue and the append-only revocation set;</p>
+<p>f) applies the delivery gate of 7.1 in the stated order, on every platform class and
+every bearer, with no exemption in a production image, and never treats gate passage as
+member attribution (7.2);</p>
+<p>g) encrypts payloads as 7.3 requires and carries no key identifier or cipher
+negotiation on any frame;</p>
+<p>h) constructs and verifies member-attributable evidence as 7.4 requires, including the
+freshness token and the per-origin high-water mark; and</p>
+<p>i) rotates keys as Clause 8 requires, binding evictions into the rotation that follows
+them.</p>
+<p><strong>14.2</strong> Conformance to 7.1.2 shall be demonstrated with a frame addressed to the
+hive rather than to its group, and with a broadcast frame: each is delivered when its
+tag verifies, and neither falls to relay-only.</p>
+<p><strong>14.3</strong> Conformance to 4.2.3 and 5.2 cannot presently be demonstrated: <strong>the test
+vectors this document's 4.2.4 sources identifier values, key sizes and reserved codes
+from do not exist</strong>, and the derivation's purpose strings are drafted but unratified
+(<code>FORMATS.md</code> 4a). Producing both is owed work, and until it lands two implementations
+can each believe themselves conformant with no way to prove it to each other.</p>
+<h2 id="bibliography">Bibliography</h2>
+<p><em>Informative.</em></p>
+<ul>
+<li>[1] ISO, <em>How to write standards</em>, 2016. ISBN 978-92-67-10686-1</li>
+<li>[2] ISO/IEC Directives, Part 2, 2016</li>
+</ul>
+
+</article>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+localStorage.setItem('r2-theme',n);
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>

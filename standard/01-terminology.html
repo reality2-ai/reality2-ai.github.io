@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminology — Reality2 Standard</title>
+<meta name="description" content="Defined terms. Every other part depends on these.">
+<link rel="canonical" href="https://reality2.ai/standard/01-terminology.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="Terminology — Reality2 Standard">
+<meta property="og:description" content="Defined terms. Every other part depends on these.">
+<meta property="og:url" content="https://reality2.ai/standard/01-terminology.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t=localStorage.getItem('r2-theme');
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">The standard</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<article id="main" class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--terminology-and-core-definitions">Reality2 Standard — Terminology and core definitions</h1>
+<p><strong>Status:</strong> Draft — <strong>this names the editorial maturity of the text, and nothing else.</strong>
+<strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
+build from it (d041, Roy: <em>standard is the canon</em>). <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> <em>(Subject stated because a status field is scoped to
+a question the reader may not be asking, and a claim with an unstated subject will be given the
+subject the reader brought — composer, 2026-08-03.)</em>
+<strong>Date:</strong> 2026-08-04
+<strong>Drafting rules:</strong> ISO, <em>How to write standards</em> (2016) and ISO/IEC Directives Part 2,
+as recorded in <code>.claude/skills/writing-a-standard/SKILL.md</code>.</p>
+<blockquote>
+<p><strong>Verbal forms.</strong> This document uses the <strong>ISO verbal forms</strong> — <em>shall</em> for a
+requirement, <em>should</em> for a recommendation, <em>may</em> for a permission, <em>can</em> for possibility
+and capability. <em>(Register settled by Roy, 2026-07-31; see <code>README.md</code>.)</em></p>
+<p><strong>The status of a <em>Note to entry</em> is NOT stated anywhere in this corpus, and it is being
+relied on in both directions.</strong> There are <strong>530 notes</strong> across the thirteen parts, several
+of which change what an implementer does while using no verbal form at all — so counting
+verbal forms does not find them. <strong>Under the ISO convention a note carries no requirement</strong>, and
+this corpus reaches that convention only through the drafting-rules line above, which names
+a file that <strong>does not exist</strong> (verified absent 2026-08-01, D-007). <strong>Until it is ruled, the
+safe reading is that a note explains a requirement stated elsewhere, and the safe authoring
+practice is to put nothing in a note that a conforming implementation has to do.</strong>
+<em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, finding SS275, asked by core while measuring a
+forward reference that lives in a note. <strong>This paragraph is deliberately free of verbal
+forms</strong>: the first draft used two recommendations and the register gate refused the commit —
+a normative token outside a numbered clause, which is the defect this entry describes,
+committed while describing it.)</em></p>
+</blockquote>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>This document defines the terms used throughout the Reality2 Standard.</p>
+<p><strong>The Reality2 Standard is self-contained.</strong> Everything an implementer is bound by is
+inside this folder, and nothing in a normative clause depends on a document an implementer
+cannot obtain.</p>
+<p><strong>A term appears here only where the meaning decides which rule applies.</strong> Vocabulary that
+merely helps a reader along belongs in the clause using it. Clause 6 lists the terms
+Reality2 uses without yet defining them, so that their absence reads as a decision rather
+than an oversight — <strong>an undefined term doing load-bearing work cannot be tested against,
+because each reader supplies their own boundary for it.</strong></p>
+<h2 id="1-scope">1 Scope</h2>
+<p>This document defines terms used in the Reality2 Standard for transient networking and
+trust groups.</p>
+<p>It specifies the requirement of Clause 4, which arises from the definition of <em>complex
+hive</em> and cannot be stated inside a terminological entry, and the cross-layer
+resolution rules of Clause 5, which apply wherever a value or an ordering decides
+between a permissive and a restrictive behaviour.</p>
+<p>It applies to all other documents of the Reality2 Standard.</p>
+<p>It does not specify wire formats, protocol behaviour, or conformance criteria for any
+mechanism.</p>
+<h2 id="2-normative-references">2 Normative references</h2>
+<p><strong>There are no normative references in this document.</strong></p>
+<p><em>(This clause is stated even when empty. No normative clause in this document depends on
+any other document. Background reading is listed in the Bibliography, which is
+informative.)</em></p>
+<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<p>For the purposes of this document, the following terms and definitions apply.</p>
+<p>Each definition is a single phrase substitutable for the term wherever it is used, and
+contains no requirement or recommendation.</p>
+<p><strong>3.1
+device</strong></p>
+<p>hardware that receives frames of the Reality2 wire protocol, validates them, and can
+originate or relay them</p>
+<p>Note 1 to entry: The wire protocol is specified at Layer 4. Equipment that only transmits
+raw data without processing it is not a device; it connects to one as a peripheral.</p>
+<p>Note 2 to entry: <em>Device</em> names the hardware. <em>Hive</em> (3.2) names what the network
+addresses. The two terms are not interchangeable.</p>
+<p><strong>3.2
+hive</strong></p>
+<p>externally-visible R2 entity having one identity, one beacon, one capability set and one
+trust-group binding</p>
+<p>Note 1 to entry: In the normal case, a hive is a device (3.1).</p>
+<p>Note 2 to entry: Where a document requires the addressable entity — hive identifier,
+beacon identity, trust-group membership, capability advertisement — it means hive, not
+device.</p>
+<p><strong>3.3
+complex hive</strong></p>
+<p>hive (3.2) implemented by two or more cooperating processors and indistinguishable from a
+single-processor hive to every other hive</p>
+<p>Note 1 to entry: A complex hive can span two physical devices; the canonical instance is a
+phone and a microcontroller joined over USB.</p>
+<p>Note 2 to entry: Clause 4 states the condition under which physically separated processors
+constitute one hive.</p>
+<p><strong>3.4
+sentant</strong></p>
+<p>autonomous finite-state-machine-based agent residing on a hive (3.2) that receives events,
+mutates internal state, and emits events</p>
+<p>Note 1 to entry: The sentant is the fundamental unit of computation.</p>
+<p>Note 2 to entry: A sentant's finite state machines are termed <em>automations</em>; its mutable
+state is termed <em>vars</em>.</p>
+<p><strong>3.5
+plugin</strong></p>
+<p>component running on a hive (3.2) that provides capabilities, whose lifecycle the hive
+manages and with which the hive communicates by events</p>
+<p>Note 1 to entry: How a plugin is implemented is not visible outside the hive.</p>
+<p><strong>3.6
+ensemble</strong></p>
+<p>composite distributed unit of functionality comprising one or more sentants (3.4) and zero
+or more plugins (3.5), described by a score</p>
+<p>Note 1 to entry: An ensemble has no binary and is not installed. It is performed by
+whichever hives currently host its parts.</p>
+<p>Note 2 to entry: An ensemble is its score — the declarative description of its parts —
+rather than the parts themselves.</p>
+<p>Note 3 to entry: An ensemble with zero plugins is valid and common.</p>
+<p><strong>3.7
+apiary</strong></p>
+<p>suite of ensembles (3.6) composed for a common purpose</p>
+<p>Note 1 to entry: An apiary is a functional grouping. A trust group (3.8) is a security and
+membership boundary. The two are distinct.</p>
+<p><strong>3.8
+trust group</strong></p>
+<p>flat group of hives (3.2) sharing a cryptographic identity</p>
+<p>Note 1 to entry: There is no hierarchy within a trust group.</p>
+<p><strong>3.9
+class</strong></p>
+<p>UTF-8 string implying by convention a minimum set of events handled by its bearer</p>
+<p>Note 1 to entry: Reverse-DNS format is recommended for global uniqueness. Any non-empty
+string is valid. There is no central registry; class conventions are established by
+agreement between implementers.</p>
+<p>Note 2 to entry: A class applies at two scales. A sentant (3.4) has a class. A hive's
+(3.2) class is an overall descriptor of the summation of the classes of the sentants it
+hosts. These are one concept at two scales.</p>
+<p>Note 3 to entry: The hive-level summation can be authored by hand; it is not required to
+be derived mechanically.</p>
+<p>Note 4 to entry: Both scales share one 32-bit FNV-1a hash space with no central registry.
+A collision or a near-miss spelling between scales produces no match and no error.</p>
+<p><strong>3.10
+conformance evidence</strong></p>
+<p>what an implementer offers to show that a requirement is met, of one of three classes</p>
+<p>Note 1 to entry: <strong>behavioural</strong> — an input produces an observable result a third party
+can decide. This is the default and covers most requirements.</p>
+<p>Note 2 to entry: <strong>by construction</strong> — the requirement is negative and structural, and
+the evidence is a stated demonstration that the capability is <em>absent</em>: a named module
+or crate boundary across which the thing cannot be referred to, an enumerated interface
+surface, a build artefact lacking the symbol.</p>
+<p>Note 2a to entry: <strong>The criterion, and it is what keeps this class honest.</strong> A claim
+qualifies as demonstrable by construction <strong>only if a third party can verify it by
+reading a bounded and identified piece of the implementation, without the implementer's
+cooperation.</strong> <em>Bounded</em> and <em>identified</em> are both load-bearing: "the code enforces it"
+names nothing a reviewer can open. <strong>"Trust me, it holds" is not evidence of this class —
+it is an unproven claim wearing the class as a costume</strong>, and by-construction evidence
+and an unproven claim look identical from outside. The difference is whether the absence
+is reviewable. This class exists because negative structural requirements genuinely have
+no behavioural test; it does not exist as somewhere to put what an implementer cannot
+demonstrate.</p>
+<p>Note 2b to entry: <strong>Some properties are unobservable in-language, and saying so is
+better than a weak test that implies otherwise.</strong> Whether a comparison runs in constant
+time is not visible to a unit test — a test showing it agrees with an ordinary comparison
+would pass for an ordinary comparison too — and whether memory was erased on release
+cannot be read back in a language that forbids reading freed memory. For these the
+evidence is the code itself, and Note 2a's criterion is what makes that acceptable: a
+named, bounded fragment a reviewer can read. <strong>A weak test left standing as though it
+were a control is worse than an acknowledged limit</strong>, because it answers a question
+nobody asked and implies the real one was settled.</p>
+<p>Note 3 to entry: <strong>by declaration</strong> — the requirement obliges the implementer to state
+something, and the statement is the evidence.</p>
+<p>Note 4 to entry: The classes exist because <strong>a negative structural requirement has no
+passing behavioural test, and never will.</strong> Layer 0's requirement that code implementing
+Layers 1 to 4 have no access to trust-group private keys is met by a boundary across
+which those keys cannot be named; there is no input that makes an implementation <em>demonstrate</em> that
+absence by behaving. Calling such a requirement untestable is wrong — it is testable by
+inspection, and this clause says so rather than leaving each implementer to decide
+whether an unverifiable-by-input requirement is binding. <em>(Added 2026-08-02 on
+implementation evidence: 48 of 334 rows in an implementer's conformance matrix were
+recorded as blocked, most of them requirements of exactly this shape.)</em></p>
+<p>Note 5 to entry: A requirement obliging no implementation at all — one whose subject is
+another document, or this standard itself — has no conformance evidence of any class,
+and belongs in a note rather than in a requirement.</p>
+<h2 id="4-requirements-arising-from-clause-3">4 Requirements arising from Clause 3</h2>
+<p><strong>4.1</strong> Where the cooperating processors of a complex hive (3.3) do not share an enclosure
+and a power source, every bridge crossing that boundary <strong>shall</strong> be cryptographically
+keyed.</p>
+<p>Note 1 to entry: Where the key is absent, the parts are not a weakened single hive. <strong>They
+are two devices (3.1)</strong> — and each one then needs its own identity, its own beacon and its
+own trust-group binding, because there is nothing making them one thing.</p>
+<p>Note 1a to entry: <strong>4.1's condition is ambiguous in the case the definition names as
+canonical, and the ambiguity is live.</strong> <em>Do not share an enclosure and a power source</em> reads
+either as <strong>neither shared</strong> (a key is required only when both are separate) or as <strong>not both
+shared</strong> (a key is required as soon as either is). <strong>A phone with a USB-attached
+microcontroller — 3.3 Note 1's canonical instance — shares a power source and not an
+enclosure</strong>, so the two readings give opposite answers for the very example the definition was
+written around. <strong>Under the first reading no key is required; under the second one is, and
+without it 4.1 Note 1 makes them two devices rather than one hive.</strong> <em>This lane's recommended
+reading is the second: the enclosure is what makes a bridge unreachable without disassembly,
+and a shared power source protects nothing — a USB cable is separable by hand.</em> <strong>Held for
+Roy, not landed</strong>, because it decides whether a build is one hive or two. <em>(Raised
+2026-08-02, finding SS218.)</em></p>
+<p>Note 2 to entry: The requirement is stated as a clause because a definition cannot contain
+one. <em>Complex hive</em> (3.3) says what the term means; 4.1 says what has to be true for the
+term to apply.</p>
+<p><strong>4.2</strong> Behavioural conformance evidence (3.10) shall include, for each demonstration that
+a requirement is met, the same procedure applied to a case the requirement excludes.</p>
+<p><strong>4.3</strong> The excluded case of 4.2 shall produce a result that does not satisfy the
+requirement and is distinguishable from the satisfying one.</p>
+<p><strong>4.4</strong> The non-satisfying result of 4.3 shall be shown to follow from the requirement
+under test rather than from another cause.</p>
+<p><strong>4.5</strong> Where no case the requirement excludes can be constructed, the evidence shall state
+that, and name what prevents it.</p>
+<p>Note 3 to entry: <strong>A demonstration that could not have come out any other way is not
+evidence.</strong> It is a procedure producing a confident output while being incapable of the
+outcome that would matter — <strong>structurally the same object as a check that never fails</strong>,
+and indistinguishable from a real demonstration in any report. 4.2 is the smallest thing
+that separates them: <em>the check refused the bad input</em> is worth nothing without <em>and it
+accepted the good one</em>, and the converse holds equally.</p>
+<p>Note 4 to entry: <strong>4.4 is stated apart from 4.3 because a failure for the wrong reason
+looks exactly like a failure for the right one.</strong> Measured across implementing lanes: of
+three demonstrations where the positive result was recorded and the control was never run,
+<strong>two of the controls were hollow when finally run</strong> — a guard that could not match the
+inputs it was passed, so it refused nothing and reported clean; and a build gate that was
+credited with a refusal <strong>the compiler had made</strong>. In both the artefact read as a passing
+control. <em>The result must be attributable to the requirement, not merely coincident with
+it.</em></p>
+<p>Note 4a to entry: <strong>The operational form of 4.3 and 4.4 is one word: a denominator.</strong>
+Reported by an implementer that had run both a sound control and a hollow one and could say
+which was which only afterwards:</p>
+<blockquote>
+<p><strong>Predict the exact set of results the excluded case produces, and name it before running.
+Not that something fails — which of them, and how many.</strong></p>
+</blockquote>
+<p><strong>A prediction with a denominator is falsifiable in both directions.</strong> Too few failures means
+<strong>the excluded case never took effect</strong> (4.3); too many means <strong>something other than the
+requirement under test also broke</strong> — a wrong-reason result wearing a right-reason appearance
+(4.4). <em>Something failed</em> distinguishes neither. <strong>Collateral failures are not noise to be
+tolerated: they are the attribution evidence.</strong> The sound control disabled one mechanism and
+predicted <strong>exactly two</strong> named failures; it produced exactly two and no others. The hollow
+ones asserted only that something refused.</p>
+<p>Note 4b to entry: <strong>Where the failing set cannot be enumerated in advance, 4.5 is not the only
+recourse.</strong> The substitute is weaker than a count and still falsifiable: <strong>name in advance one
+outcome that would refute attribution, and check for it</strong> — <em>no compiler error may appear in
+the log</em> is the instance, and it is what caught a build gate that had been credited with a
+refusal the compiler made. <strong>Constructible where a count is not</strong>, which is what keeps 4.4
+affordable on the paths that most need it.</p>
+<p>Note 4c to entry: <strong>4.5 has an analogue in fleet process, offered as an analogy rather than as
+proof.</strong> In the
+normative form: an implementer facing an obligation that cannot be met <strong>either fakes it or
+ignores the clause</strong>, so the standard provides the third answer. In fleet process, a
+supervisor withdrew a policy on measurement after a lane reported that four of its six
+controls needed a host that is sometimes asleep — <em>a rule that makes honest reporting
+impossible produces dishonest reporting or silence</em>. <strong>The shapes rhyme: declare the gap rather than pretend the
+obligation is met.</strong> <em>(Recorded 2026-08-02. <strong>The analogy is not proof and the note no longer
+claims it is</strong> — a host that is asleep is temporarily unavailable, which is not the same as a
+case that cannot be constructed, and the process instance rests on a report this document does
+not hold. What the analogy is good for is the failure mode it names, not the strength of the
+clause.)</em></p>
+<p>Note 5 to entry: <strong>The same defect outside code, which is why this is stated generally.</strong> A
+pin voltage was credited as evidence of a wiring fault and carried two independent
+diagnoses, until an unmodified board of the same type, connected to nothing, produced the
+same reading. Every step of the reasoning was locally sound; <strong>the unasked question was
+<em>what else produces this result</em>, and it was answered in thirty seconds by measuring a unit
+known to be well.</strong> An implementer can satisfy a clause with a measurement of that kind,
+and the evidence is indistinguishable from a real one — so the standard asks for the
+excluded case rather than trusting the question to be asked.</p>
+<p>Note 6 to entry: <strong>Stated once here after being stated for one document.</strong> Layer 4, 12.2
+already requires both directions of its wire vectors — a vector required to fail for each
+covered field <strong>and</strong> a byte-identical pair for each field outside the span — and its Note 0
+records why one direction alone is insufficient: an implementation authenticating a mutable
+field passes every required-to-fail vector and cannot relay. <strong>That is 4.2 and 4.3 for one
+clause set, written before anyone saw it was general.</strong></p>
+<p>Note 7 to entry: <strong>Scope.</strong> 4.2 binds behavioural evidence only. <em>By construction</em> evidence
+is an inspection with no procedure to run (3.10, Note 2a), and <em>by declaration</em> evidence is
+a statement. <strong>Where a by-construction property is enforced by a build-time mechanism, the
+demonstration that the mechanism refuses is itself behavioural evidence about that
+mechanism</strong>, and 4.2 to 4.4 apply to it — which is 5.2, Note 3's compile-failure test, and
+the reason it is a control rather than a claim.</p>
+<p>Note 8 to entry: <strong>Satisfied in practice before it was required, which is the argument that
+it is affordable.</strong> An implementation demonstrating Layer 6, 5.4.3 on hardware recorded not
+only that the device reverted, but that <strong>the reversion was attributable to its named health
+check rather than to a crash</strong> — 4.4 without being asked. <em>(Added 2026-08-02,
+<code>PROVISIONAL(supervisor)</code>, finding SS183, on implementation evidence from three lanes.)</em></p>
+<h2 id="5-resolution-of-absent-unreadable-unrecognised-and-false-values">5 Resolution of absent, unreadable, unrecognised and false values</h2>
+<p><strong>5.1</strong> Where a value selects between a more permissive and a more restrictive
+behaviour, a value that is <strong>absent, unreadable, or not recognised shall select the
+more restrictive behaviour.</strong></p>
+<p><strong>5.2</strong> Where a check and a state change are both required, and performing the state
+change before the check would admit a behaviour the check exists to prevent, <strong>the check
+shall precede the state change.</strong></p>
+<p><strong>5.3</strong> Where a platform is asked a question about its own state, <strong>an answer meaning <em>I
+cannot tell</em> is a distinct and conformant answer</strong>, and a clause posing such a question
+shall name it alongside the others.</p>
+<p>Note 0 to entry: Written after the same omission appeared <strong>four times in four
+subsystems</strong>: claim state, the update sequence record, boot position, and the length of an
+image held in a slot. Each time an implementer faced a question with three real answers and
+a clause offering two, and each time <strong>folding the third into a definite one was the
+dangerous move</strong> — a faulted device read as claimable, a corrupt record read as a floor, an
+unaccounted image read as pending, and free space read where a live rollback target sits.
+That last is the sharpest: a platform storing raw images genuinely cannot always report a
+length, and folding <em>unknown</em> into <em>empty</em> invites a caller to <strong>erase the fallback that
+5.4.3 depends on.</strong> <em>Four instances is a pattern; the fifth will be someone folding it.</em></p>
+<p>Note 0a to entry: <strong>The fifth arrived within the hour, and it changes how this clause must
+be read.</strong> A health verdict held two answers where there are three — a self-test needing a
+radio that is down cannot report <em>passed</em> and cannot report <em>failed</em>. <strong>What makes it
+different from the first four is that no behaviour diverges:</strong> both non-passing answers
+revert, fail-closed, identically. Every functional test passes either way. <strong>The harm is in
+what the device <em>says</em>, not in what it does</strong> — reporting <em>the checks did not pass</em> when
+the checks never ran sends whoever reads it hunting a defect in the new image while the
+real fault is that the check could not execute.</p>
+<p><strong>So the test is not whether folding changes the code's behaviour.</strong> An implementer who
+asks that will find it does not, and fold anyway. The test is:</p>
+<blockquote>
+<p><strong>Is the third answer distinguishable to whoever acts on it?</strong></p>
+</blockquote>
+<p><em>(Contributed by the lane that supplied the fourth instance, on finding it had committed
+the fifth in the same crate.)</em></p>
+<p>Note 1 to entry: 5.1 is written because it was discovered four times independently, by
+four implementers, none of them prompted by a clause saying it — a damaged claim state
+must not read as <em>claimable</em>; an unreadable update-sequence record must not read as a
+floor; an unreadable build class must not buy a development image's exemptions; an
+unrecognised algorithm identifier must not be acted on. <strong>Each was found after the
+permissive reading had already been written somewhere</strong>, and in two cases after hardware
+had failed in the field.</p>
+<p>Note 2 to entry: 5.2 is the same rule in time rather than in value, and its failure mode
+is worse: <strong>the wrong order is invisible to conformance testing by construction.</strong> Every
+legitimate exchange behaves identically under both orderings, so only an adversary
+distinguishes them — as at Layer 5, 7.4.3a, where advancing an anti-replay mark before
+verifying a signature converts the mechanism into a lockout that anyone holding a public
+certificate can trigger.</p>
+<p>Note 3 to entry: <strong>The strongest form of 5.2 is a value that cannot exist unverified</strong>,
+rather than a check an implementer must remember to call — and the reason is measured.
+Across three lanes, every instance of this defect found so far shared a shape that is
+<em>not</em> "somebody forgot a check": in each, <strong>the check existed, was correct, and was
+documented — it simply was not on the path that mattered.</strong> One implementation held a
+well-written verification function naming the very clause it enforced, with passing
+tests and <strong>zero production callers</strong>; the only shipping path never called it.</p>
+<blockquote>
+<p><strong>A check reachable only from tests is indistinguishable, in the shipped artifact,
+from a check never written — and worse than never writing it, because the tests pass
+and a reviewer grepping for the clause name finds a hit.</strong></p>
+</blockquote>
+<p>A value that cannot be constructed without its check makes <em>check exists but is not
+called</em> impossible to express, and covers bulk import, deserialisation,
+restore-from-storage and test helpers at once. <strong>Such a guard still needs a control, and
+it is a compile-failure test rather than a runtime one</strong> — otherwise "the type prevents
+it" is exactly the unproven claim Note 2a warns of, and nobody has shown the compiler
+actually refuses. This is the <em>by construction</em> evidence
+class of 3.10 doing security work rather than paperwork.</p>
+<p>Note 4 to entry: <strong>Refusing on an anomalous precondition preserves the diagnosis;
+proceeding destroys it.</strong> This is the second argument for 5.1, and it is independent of
+safety. A bring-up sequence that stopped on an unexpected reading produced a cheap,
+decisive follow-up test and a one-line physical instruction; had it proceeded instead,
+the observable result would have been <em>silence</em> — indistinguishable from a dead part, a
+wrong rate, a wrong protocol or a wrong address, and the team would have been debugging a
+phantom. The same shape runs through this standard's refusal rules — Layer 1, 5.2.2
+(refuse rather than accept and discard), Layer 6, 5.2.4 (refuse without leaking why), the
+unreadable-record rule of Layer 6, 5.2.3b. <strong>A system that proceeds on a bad precondition
+does not merely risk harm: it converts a diagnosable fault into an ambiguous symptom.</strong></p>
+<p>Note 5 to entry: <strong>Two severities, which look alike in a report and are not alike.</strong> A
+guard that production <em>goes around</em> means the shipped artifact contains an unchecked
+path. A guard that is merely <em>not reached yet</em> is a reprieve, not an acquittal — the
+protection is worth nothing until someone writes the path, and worth nothing then either
+if they reach for a lower-level interface instead of the guarded one. The remedy that
+survives both is the same: <strong>an unconstructible value keeps its worth while unreached,
+because whoever finally writes the path cannot express the unchecked call.</strong> A remembered
+check that is currently unreached is worth nothing later; a type that cannot be built
+without its check is worth exactly as much later as today.</p>
+<p>Note 6 to entry: <strong>This class of defect clusters by authorship proximity, not by call
+graph</strong> — which decides what a fix should trigger. Instances found while these clauses
+were being written sat two variants along in one enumeration, one method either side of a
+corrected one, one level up in the containing structure, and inside a type whose own
+defect had just been fixed. In every case the neighbours were <strong>written by the same
+author in the same sitting under the same unstated assumption</strong>, and in none was the
+neighbour adjacent in the call graph. <strong>A reviewer reading the diff of a fix sees none of
+them, because the neighbours are unchanged lines.</strong> The practical consequence: when a
+defect of this class is fixed, the unit to re-read is the whole structure and its
+immediate relations — siblings, container, contents — not the change. Two of this
+standard's own clauses were found that way.</p>
+<p>Note 7 to entry: Both clauses are general because the alternative is stating them once
+per occasion and missing one. <strong>Where a layer needs a different answer it says so
+explicitly</strong> — Layer 3, 4.2.2 deliberately updates the link axis from unverified frames,
+and says why — and an explicit exception is exactly what a general rule makes visible.
+<em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p>Note 8 to entry: <strong>5.1 does not decide when the two behaviours are restrictive toward
+different parties</strong>, and until this note it offered no tie-break. Layer 6, 5.5.4 is the
+instance: an unreadable persona read as <em>present</em> keeps a device locked to its group and
+refuses any new claim, which looks like the restrictive answer; read as <em>fresh</em> the device
+refuses to exercise a membership it cannot prove, which also looks like the restrictive
+answer. Two axes, and 5.1 alone chooses neither. The rule that decides it:</p>
+<blockquote>
+<p><strong>Ask which reading grants an authority, not which looks more locked down. The
+restrictive answer is the one under which an unauthorised holder gains nothing.</strong></p>
+</blockquote>
+<p>Under that test the persona case is not close — <em>fresh</em> costs an owner a membership,
+<em>present</em> hands one to whoever holds the hardware. <em>(Added 2026-08-02,
+<code>PROVISIONAL(supervisor)</code>, after an implementer reached the same answer independently by
+asymmetry of harm: a confirmation of 5.1 and a finding about its wording at once.)</em></p>
+<p><strong>5.4</strong> A record's integrity check establishes that the mechanism owning the record wrote
+its bytes; it does not establish that those bytes still describe the world. Where a
+decision is irreversible, or raises a floor that later refuses what it once accepted, the
+recorded description <strong>shall be confirmed against the state it describes</strong>, wherever the
+platform can observe that state.</p>
+<p>Note 0 to entry: <strong>No checksum catches a true-looking lie.</strong> A magic value, a CRC or a
+signature answers <em>did the owning mechanism write this?</em> — a question about the record.
+Every clause that leans on such a discriminator inherits the limit, and until this clause
+none of them said so. The instance that produced it: an interrupted copy left a staged
+slot erased while the update record still named it as pending, so the record parsed
+cleanly, validated cleanly, and was false. The platform then health-checked the wrong
+image, passed, and raised a floor above an image that had never been applied
+(Layer 6, 5.4.2b).</p>
+<p>Note 1 to entry: <strong>The bound is deliberate on both sides.</strong> <em>Irreversible or floor-raising</em>
+keeps the obligation off the ordinary path — most decisions are re-made on the next boot
+and a stale record costs a retry. <em>Wherever the platform can observe that state</em> keeps it
+achievable: a platform that cannot inspect what the record describes cannot be obliged to,
+and 5.3 already gives it the words to say so. The general form of the rule is Layer 6,
+5.4.1a's, stated for one case before it was stated for all: <strong>a platform's own assertion
+about its configuration is not evidence of that configuration.</strong> <em>(Added 2026-08-02,
+<code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p>Note 1a to entry: <strong>The bound was measured from the implementing side and it excludes
+more than it admits.</strong> A lane swept its workspace against this clause: <strong>two</strong> sites in
+scope — a floor being raised and a prior image being released, both describing state the
+platform can observe — and <strong>four</strong> bounded out: a recovery persona write, a revocation
+insertion, a claim-state transition to OWNER, and an evidence high-water mark. Every one of
+the four is irreversible, and in every one <strong>the record is the only account of the fact</strong>,
+with no independent state to confirm against. <strong>The clause excludes them, rather than an
+implementer's judgement excluding them</strong>, which is the difference between a rule that is
+applied and one that is worked around: unbounded, it would have obliged four confirmations
+that <strong>cannot be performed</strong>, and an implementer facing that either fakes them or ignores
+the clause.</p>
+<p>Note 1b to entry: <strong>The writer of a false record need not be adversarial, interrupted, or
+faulty.</strong> The strongest instance measured so far was written by a platform's own boot path,
+<strong>in good faith, exactly as documented</strong>: a bootloader on a layout with no factory image
+found no valid update record, and — as designed — <strong>constructed and wrote a fresh one
+marked valid</strong>, with a correct checksum. Nothing malfunctioned. But <em>valid</em> there means
+<strong>there was nothing here so I wrote something</strong>, not <em>an update was applied and confirmed</em>,
+and no reader of the record alone can tell the two apart. <strong>A record's provenance being
+trustworthy says nothing about whether it describes the world</strong>, which is why 5.4 is stated
+about the record rather than about who wrote it.</p>
+<p>Note 1c to entry: <strong>A discriminator that covers part of a record leaves the rest
+unvalidated, and the split is rarely where a reader assumes.</strong> In the same platform the
+checksum covers the record's <strong>sequence</strong> and not its <strong>state</strong>, so a corrupted state that
+lands on a defined value passes validation intact — the record is <em>valid</em> and its most
+consequential field is unchecked. <strong>Ask what the discriminator covers, not whether one is
+present</strong>; the answer is usually narrower than the word <em>checksum</em> suggests. <em>(Both notes
+added 2026-08-02 from a measured platform finding, <code>OPEN-QUESTIONS.md</code> SS135.)</em></p>
+<p>Note 2 to entry: <strong>The test that follows from 5.4 is one question, and it is not the
+question a validator answers.</strong> Not <em>is this artefact well-formed</em> but:</p>
+<blockquote>
+<p><strong>Does anything check this artefact against the thing it claims?</strong></p>
+</blockquote>
+<p><strong>The artefact and the world it describes can disagree, and only something that reads both
+can notice</strong> — which is why the disagreement that produced this clause existed <em>between</em> an
+update record and a storage slot, where no checksum over either could ever have seen it.</p>
+<p>Note 3 to entry: <strong>The case for stating this as a clause rather than leaving it as good
+practice is measured.</strong> An implementation swept nine of its own artefacts that rest on a
+validity discriminator and found <strong>exactly one</strong> that already compared the artefact against
+the world: certificate epoch currency, where a claimed epoch is checked against the group's
+known epoch (Layer 5, 6.1.3). <strong>It was handled because the standard said to.</strong> Everywhere
+the standard was silent, the artefact was trusted — reported not as carelessness but
+because <strong>a validated structure feels settled.</strong> A rule that must survive that feeling
+belongs in the normative text. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, with the
+sweep's four nil results recorded at <code>OPEN-QUESTIONS.md</code> SS126.)</em></p>
+<p><strong>5.4a</strong> Where a durable record is read by more than one party whose actions depend on it,
+an implementation shall accept that record only under the <strong>strictest</strong> validity predicate
+applied by any of those parties.</p>
+<p>Note 0 to entry: <strong>Two correct readers of one record can disagree, and nothing in the record
+can reveal it.</strong> Measured on the reference platform: the boot chooser requires three
+conditions of an image-position record — a sequence that is not the empty marker, a matching
+checksum, and a state that is neither invalid nor aborted — while <strong>the library the
+application reads it through writes a checksum and never verifies one on read</strong>, comparing
+sequences alone. So a record with a good sequence and a corrupt checksum is <strong>invalid to the
+boot chooser and valid to the application</strong>: the device <strong>boots one image and reports
+another</strong>, silently, with every integrity check the application can see passing.</p>
+<p>Note 1 to entry: <strong>Neither party is corrupt and neither is wrong.</strong> Each is a correct
+implementation of its own contract; the disagreement is <strong>entirely in the predicates</strong>, and
+<strong>a checksum cannot tell a reader that another reader ignored it.</strong> Only reading both
+definitions finds it — which is why this is stated as an obligation rather than left to
+verification, since <strong>verifying the artefact is not enough when someone else has already
+verified it differently.</strong></p>
+<p>Note 2 to entry: The consequence names which predicate governs: <strong>the weaker reader's
+acceptance is the system's acceptance</strong>, because the party that acts on the record acts
+whether or not the other would have. This is Layer 6, 5.4.1a's rule one level down — <em>a
+platform's own assertion about its configuration is not evidence of that configuration</em>, and
+now: <strong>the platform's own library's assertion about the platform's own record is not
+evidence either.</strong> A conformant implementation can be built on a binding that quietly
+disagrees with the boot chooser it ships beside. <em>(Added 2026-08-02,
+<code>PROVISIONAL(supervisor)</code>, finding SS144 — raised as <code>CORE-2</code>, found while reading that
+source for an unrelated question.)</em></p>
+<p><strong>5.4b</strong> An implementation that reads such a record shall <strong>state the conditions under
+which it accepts it</strong>, in a form the other parties reading that record can read.</p>
+<p>Note 0 to entry: <strong>5.4a can only be satisfied by comparing definitions, so an unstated
+predicate does not merely risk divergence — it guarantees the other party is guessing.</strong>
+Publishing the conditions is the minimum an implementation owes the other readers of a
+record it shares, and it costs nothing: the conditions already exist, in a function body
+where no one else can reach them.</p>
+<p>Note 1 to entry: <strong>The statement is worth little unless it says what any integrity check
+covers.</strong> A checksum over a <em>subset</em> of a record is the divergence of 5.4a Note 0 in
+miniature — a reader that sees <em>checksummed</em> and assumes <em>all of it</em> has been told the
+truth and drawn a false conclusion. <strong>Naming the covered fields, and any condition checked
+separately on top, is what makes the predicate comparable</strong> rather than merely present.</p>
+<p>Note 2 to entry: <strong>Validation effort is not a substitute for definition comparison.</strong>
+Neither party can detect a divergence from its own side, so an implementer who has not
+compared its predicate against the other reader's <strong>has not satisfied 5.4a, however
+carefully it validated the bytes it read.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>,
+finding SS147.)</em></p>
+<h2 id="5a-one-origin-many-surfaces">5A One origin, many surfaces</h2>
+<p><strong>5A.1</strong> Where an implementation asserts the same fact about its own state on more than one
+surface, every surface shall derive that assertion from <strong>one origin</strong>.</p>
+<p>Note 1 to entry: <strong>This is the opposite of the rule that governs a check, and the difference
+is real rather than a contradiction.</strong> For a <strong>check</strong>, two independent origins are required,
+because agreement is evidence only where the sides could have disagreed. For an <strong>assertion
+about your own state</strong>, disagreement <em>is</em> the failure: <strong>if two surfaces ever disagree the
+device is lying on one of them, and which one is not discoverable from either.</strong>
+<strong>Same-source is a defect in a comparison and a requirement in a broadcast.</strong></p>
+<p>Note 2 to entry: <strong>The instance, and both surfaces are required by this standard rather than
+by a bench convention.</strong> A device declares its build mode to <strong>every peer</strong> (Layer 2, 5.4a.1)
+and, in its <strong>identity-and-health answer to any asker</strong> (Layer 6, 6.1.1, which names <em>its
+build mode as Layer 2 declares it</em>), and peers <strong>act on it by refusing admission</strong> (Layer 5,
+9.2). <em>An indicator on a panel is a third surface where a product has one, and this standard
+requires no indicator; the rule binds whatever surfaces exist.</em> Set independently — one a build flag, the other a runtime read — the two can
+drift, and <strong>the surface a human trusts is the one with no protocol consequence.</strong> The
+requirement is that a refactor separating them <strong>breaks something</strong> rather than producing a
+device that is honest to a scanner and wrong to its owner.</p>
+<p><strong>5A.2</strong> Where such an assertion controls admission, membership or trust, and the
+implementation cannot determine the value, it shall assert the value that grants least.</p>
+<p><strong>5A.3</strong> Where 5A.2 applies, a surface answering <em>what this implementation knows about
+itself</em> shall report both the value asserted and whether that value was determined.</p>
+<p>Note 2a to entry: <strong>5A.2 and 5.3 pull in opposite directions and this clause says which
+applies where.</strong> 5.3 requires <em>I cannot tell</em> to be a distinct, conformant answer; 5A.2
+requires an undetermined admission-controlling assertion to take <strong>the least-granting value</strong>.
+<strong>They are not the same fact.</strong> The <strong>assertion</strong> — the beacon of Layer 2, 5.4a.1 — carries
+what the device <strong>asserts</strong>, and 5A.2 fixes that to <em>development</em> because a peer acts on it.
+The <strong>report</strong> — Layer 6, 6.1.1's identity-and-health answer, or any diagnostic surface —
+carries what the device <strong>knows</strong>, and <em>it could not be determined</em> is the true answer there.
+<strong>So the two surfaces do not disagree in the sense Note 1 forbids:</strong> one states an assertion,
+the other states the provenance of that assertion. <strong>They are not interchangeable, and the
+first drafting of this note wrongly said a reader of either could reconstruct the other</strong> — a
+beacon declaring development <strong>cannot reveal whether the mode was known or merely undetermined</strong>,
+and Layer 6, 6.1.1 asks for the build mode rather than for its provenance. <strong>A reader needing
+both must be given both</strong>, which is what 5A.3 now obliges — <strong>and the first drafting did not:
+it required the reporting surface to say <em>undetermined</em> INSTEAD OF the asserted value, which
+loses the assertion the peer is acting on.</strong> Layer 6, 6.1.1 asks for <em>the build mode as Layer
+2 declares it</em>, so a report that answers only <em>undetermined</em> does not answer 6.1.1 either.
+<strong>Two outputs, not a substitution.</strong> <em>(Corrected 2026-08-02, finding SS216 — the third
+correction to this clause, each one narrowing what <em>report</em> meant.)</em> <em>(Corrected
+2026-08-02, finding SS215.)</em> What Note 1 forbids is two surfaces stating <strong>the same fact differently</strong> — a
+beacon saying production while a panel says development. <em>(Added 2026-08-02,
+<code>PROVISIONAL(supervisor)</code>, finding SS211, raised by an independent review that asked which of
+the two rules governs which surface — the question the clause had left to the implementer.)</em></p>
+<p>Note 3 to entry: <strong>The failure directions are asymmetric, which is why 5A.2 states a
+direction rather than leaving it to 5.1.</strong> A development device that fails to advertise
+development <strong>is admitted to a production network</strong> — a relaxed-trust device inside a
+production boundary, which is precisely what the rule exists to prevent. The reverse costs
+the device its admission and is loud. <strong>Absence of certainty is not absence of the
+property.</strong> 5.1 already selects the more restrictive branch for an absent value; 5A.2 says
+the same for a value the device cannot determine <strong>about itself</strong>, where the temptation is to
+report the pleasant answer.</p>
+<p>Note 3a to entry: <strong>The origin is not always a runtime value, and where the standard says
+<em>absent, not disabled</em>, it must not be.</strong> This clause was first written as <em>one runtime
+value</em> and that wording was wrong within the hour: Layer 6, 6.2.1 requires development-only
+code to be <strong>absent from a production image, not disabled in it</strong>, and its Note 0 states that
+<strong>a runtime check on build mode IS the <em>disabled</em> the clause refuses</strong> — the answering code
+ships, the branch is one flipped byte from taken, and the binary still contains the answers.
+<strong>So for build mode the origin is the build configuration: one configuration, two surfaces,
+and neither surface exists in a production image at all.</strong> <em>A single runtime flag driving an
+indicator and a beacon satisfies the letter of 5A.1 and destroys what Layer 6 was protecting.</em></p>
+<p>Note 4 to entry: <strong>A caveat for implementers, because it is easy to lose the guarantee while
+obeying this clause.</strong> Layer 2, 5.4a Note 1 argues that a production device cannot falsely
+declare development <strong>by construction</strong>, since only a development image carries the code that
+writes the declaration. <strong>That argument holds only while the mode is a property of the image.</strong>
+An implementation that makes it a runtime value read from storage — so that both surfaces can
+share it — <strong>has replaced a structural guarantee with a data one</strong>, and the forgery 5.4a Note 2
+calls impossible becomes a write. Where both are needed, the runtime value is derived from the
+image at build and the storage copy is evidence, never the source.
+<em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, findings SS203/SS204.)</em></p>
+<h2 id="6-terms-not-defined-in-this-document">6 Terms not defined in this document</h2>
+<p>Listed so their absence is legible as a decision rather than an oversight. <strong>No term below
+may be inferred from context by an implementer.</strong> Where a later document of this standard
+needs one, it names the gap rather than assuming a reading.</p>
+<p><em>(An entry leaves this table when a layer document settles the question — <strong>relay</strong> left on
+2026-07-31: Layer 3 states that relaying is a function every device performs by default,
+never a role, so no terminological entry is needed.)</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>What is undecided</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>capability</strong></td>
+<td>Whether the word names an event, a class, or a declared set of either. <strong>What a hive advertises is now decided</strong> — the capability summary is over public events (Layer 2, Clause 8; Layer 7, 5.2.1) — so the residue is purely which thing the <em>word</em> should name (Layer 7, 10.3).</td>
+</tr>
+<tr>
+<td><strong>confirm affordance</strong></td>
+<td>Which means of confirming an action count. The term decides how strongly an action is authorised, so an implementer needs its boundary and not a list of examples that happen to be on one side of it.</td>
+</tr>
+<tr>
+<td><strong>bridge</strong></td>
+<td>Whether a bridge is a kind of transport, a kind of device, or the link between parts of one hive. The word is currently doing all three jobs — and the phone-plus-dongle device family is the concrete case that will force the decision, since one dongle does all three at once.</td>
+</tr>
+<tr>
+<td><strong>swarm</strong></td>
+<td>Whether it names anything distinct from <em>ensemble</em> (3.6).</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="bibliography">Bibliography</h2>
+<p><em>Informative.</em></p>
+<ul>
+<li>[1] ISO, <em>How to write standards</em>, 2016. ISBN 978-92-67-10686-1</li>
+<li>[2] ISO/IEC Directives, Part 2, 2016, <em>Principles and rules for the structure and
+drafting of ISO and IEC documents</em></li>
+<li>[3] IETF RFC 2119, <em>Key words for use in RFCs to Indicate Requirement Levels</em></li>
+</ul>
+
+</article>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+localStorage.setItem('r2-theme',n);
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>

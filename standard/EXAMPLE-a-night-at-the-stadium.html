@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A night at the stadium — Reality2 Standard</title>
+<meta name="description" content="Many strangers, brief overlaps, and what a crowd does to a mesh.">
+<link rel="canonical" href="https://reality2.ai/standard/EXAMPLE-a-night-at-the-stadium.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="A night at the stadium — Reality2 Standard">
+<meta property="og:description" content="Many strangers, brief overlaps, and what a crowd does to a mesh.">
+<meta property="og:url" content="https://reality2.ai/standard/EXAMPLE-a-night-at-the-stadium.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t=localStorage.getItem('r2-theme');
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">The standard</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<article id="main" class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--worked-example-a-night-at-the-stadium">Reality2 Standard — worked example: a night at the stadium</h1>
+<p><strong>Status:</strong> Informative — worked example
+<strong>Date:</strong> 2026-08-03</p>
+<blockquote>
+<p>⚠ <strong>INFORMATIVE.</strong> The third worked example, and the first at <strong>scale</strong>: tens of
+thousands of R2-enabled devices in one bowl of concrete. Payment showed the high-stakes
+dials, the room showed the low-stakes dials; <strong>this one walks the whole stack, layer by
+layer, under load</strong> — and adds one new shape: <strong>presence as attested history</strong>, the
+virtual sticker you can only buy because you were there. Open edges are flagged in place.</p>
+</blockquote>
+<hr />
+<h2 id="cast">Cast</h2>
+<ul>
+<li><strong>Person trust group P</strong> — one fan among thousands: a phone, and a watch that sleeps.</li>
+<li><strong>Venue trust group V</strong> — the stadium operator: snack kiosks, the kitchen behind them,
+fixed relay hives bolted to the concourse, big screens, and an attestation sentant.</li>
+<li><strong>The crowd</strong> — everyone else's person groups. <strong>They are not bystanders; below the
+trust boundary they are the infrastructure.</strong></li>
+</ul>
+<h2 id="the-premise-of-this-example">The premise of this example</h2>
+<p>A stadium is the shared mesh's home fixture: thousands of strangers, packed close, none of
+them entangled with each other, every one of them relaying (L3: relaying is the default,
+not conditional on knowing anybody). <strong>The venue does not build a network for the crowd —
+the crowd <em>is</em> the network</strong>, and the venue's fixed hives are just the members of it that
+never leave and never sleep.</p>
+<h2 id="layer-by-layer">Layer by layer</h2>
+<h3 id="layer-0--what-is-actually-in-the-bowl">Layer 0 — what is actually in the bowl</h3>
+<p>Every platform in the stadium published its declaration long before tonight (L0 8.2):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Who</th>
+<th>Platform character</th>
+<th>Availability (P8)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fan's phone</td>
+<td>large class, duty-cycled by its host OS</td>
+<td>duty-cycled, short intervals</td>
+</tr>
+<tr>
+<td>Fan's watch</td>
+<td>small class, aggressive sleeper</td>
+<td><strong>duty-cycled, long intervals</strong></td>
+</tr>
+<tr>
+<td>Kiosk, kitchen, fixed relays</td>
+<td>mains-powered</td>
+<td><strong>always-on</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Nothing above this layer asks what the hardware <em>is</em> — only what it declared. The watch's
+long sleep intervals are about to matter three layers up.</p>
+<h3 id="layer-1--the-bearers-in-service">Layer 1 — the bearers in service</h3>
+<p>Phones and kiosks share a short-range high-rate bearer; the venue's fixed hives add a
+long-range regulated bearer as a backbone for their own telemetry. Each bearer is <em>in
+service</em> or it is nothing (L1 3.5a): a fan whose phone has its short-range radio on is on
+that bearer's network, full stop. <strong>The regulated backbone matters for what it forbids</strong>:
+its airtime budget is a hard ceiling, and everything the venue does tonight is planned so
+that nothing time-critical depends on it.</p>
+<p>One tier discipline, decided here and honoured everywhere above: <strong>signed traffic is
+planned end-to-end within one tier</strong> (L4 9.2.3) — so everything person-to-venue tonight
+lives on the crowd's own tier, and the backbone never carries a frame that would have to
+cross to reach a fan.</p>
+<h3 id="layer-2--discovery-in-a-beacon-storm">Layer 2 — discovery in a beacon storm</h3>
+<p>Forty thousand beacons in one bowl, and the layer is built for exactly this:</p>
+<ul>
+<li><strong>Step 1 of the progressive filter is free</strong> (L2 7.1): almost everything a fan's scanner
+hears is another fan, and the class hash — checked before any connection, before any
+cost — discards them in one comparison. The scanner is looking for
+<code>ai.reality2.vendor.kiosk</code>, and the crowd is noise it never spends a query on.</li>
+<li><strong>Cadence is an outcome, not a setting</strong> (L2 6.2, 6.3): on anything regulated, beacons
+are the lowest-priority traffic, so the busier the air the rarer the announcements — and
+every fade period was set against the loaded interval, not the bench one, which is why
+peers are not declared dead at half-time when the air is thickest.</li>
+<li><strong>The watch declares its duty class in its beacon</strong> (L2 5.4b): receptive only at
+intervals, with a coarse longest-interval value. Every stranger's phone within range —
+none of them entangled with the fan, none of them able to verify anything — now knows to
+hold rather than transmit at a silent radio. <strong>This value could not have arrived any
+other way</strong>: the crowd relays for groups it does not belong to, and a verified message
+is exactly what a stranger cannot get.</li>
+</ul>
+<blockquote>
+<p>⚠ <strong>Open edge, flagged:</strong> nothing bounds how many peers a scanner tracks or which
+sighting it discards when full (<strong>Q15</strong>, L2 12.2). Tonight is the case that question
+exists for: two conformant phones in row 40 will know about different subsets of the
+crowd, and neither is wrong.</p>
+</blockquote>
+<h3 id="layer-3--routing-through-forty-thousand-relays">Layer 3 — routing through forty thousand relays</h3>
+<ul>
+<li><strong>Every fan's phone forwards frames for strangers</strong>, ciphertext it cannot read, for
+groups it cannot join. The bounds that make this survivable are the ones that need no
+identity: hop limit, replication budget, payload size (L3 10.4 Note 1) — deliberately
+crude, and the reason a hive that believes nothing it hears is still safe in a crowd.</li>
+<li><strong>Duplicate suppression is doing more work here than anywhere else</strong> (L3 5.3): in a
+dense mesh every frame arrives many times by many paths, and the cache is what keeps
+density from becoming amplification.</li>
+<li><strong>The fan moves and nothing breaks.</strong> Seat, concourse, queue, seat again — the physical
+substrate under P changes completely in minutes, and the logical destination does not
+change at all. Neighbour tables converge on wherever P is hearable now; frames for P
+flow toward the current truth, not the remembered one.</li>
+<li><strong>The watch's frames wait.</strong> Its neighbours — strangers included — hold rather than
+flood (L3 7.3.3), on the duty class its beacon declared, with retention patience sized
+by the declared interval (L3 7.4.3).</li>
+</ul>
+<h3 id="layer-4--the-frames-themselves">Layer 4 — the frames themselves</h3>
+<p>Everything tonight is frames, indistinguishable to the network (frame principle, L4 5.1
+Note 4): a beacon, an order, a payment, a picked-up notification, a sticker attestation —
+the type field says how to treat, never what it means. Signed frames stay on the tier they
+were born on (L4 9.2.3); the venue planned for that at Layer 1.</p>
+<h3 id="layer-5--three-kinds-of-relationship-all-live-at-once">Layer 5 — three kinds of relationship, all live at once</h3>
+<p>The whole ladder is on display in one place (L5 10.1):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Relationship</th>
+<th>Rung</th>
+<th>What flows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fan ↔︎ the crowd</td>
+<td><strong>the mesh — not a rung at all</strong></td>
+<td>carriage: relayed ciphertext, beacons, nothing readable</td>
+</tr>
+<tr>
+<td>P ↔︎ V, all evening</td>
+<td><strong>low-level entanglement</strong></td>
+<td>presence, order events, the attestation</td>
+</tr>
+<tr>
+<td>P ↔︎ kiosk, for one order</td>
+<td><strong>payment-grade entanglement</strong></td>
+<td>tokens, per the payment example</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>P ↔︎ V</strong> is established on arrival with near-zero ceremony, conditioned on <strong>proximity
+through the event window</strong> — the conference-room entanglement, outdoors. Walking out at
+full-time is the teardown; nobody logs out of a stadium.</li>
+<li><strong>P ↔︎ kiosk</strong> is the PoS example verbatim: amount ladder, level-4 acknowledgement for a
+snack-sized purchase, tokens from the wallet P carries, no central authority in the
+loop. <strong>Its lifetime is the order</strong>: scope is this order's events, and the standing
+condition is <em>an order exists that is not yet fulfilled</em>.</li>
+<li><strong>The delivery gate never sleeps</strong>: every event under either entanglement is classified,
+and the classification names the key (L5 7.3). An observer in row 41 — in radio range of
+everything — sees envelopes.</li>
+</ul>
+<h3 id="layer-6--the-venues-fleet-invisible-tonight">Layer 6 — the venue's fleet, invisible tonight</h3>
+<p>Two hundred venue hives get their firmware as chunked transfers (L6 5.3.5) — <strong>overnight,
+on the quiet air, never during a match</strong>, because the update model tolerates taking days
+and the airtime budget tonight is spoken for. Diagnostics stay silent toward strangers
+(L6 6.2.2): forty thousand devices probe nothing, learn nothing.</p>
+<h3 id="layer-7--the-sentants-and-the-snack">Layer 7 — the sentants, and the snack</h3>
+<p>The order, as events between sentants, each at the assurance grade its purpose warrants
+(L7 5.3):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Event</th>
+<th>Grade</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>P → kiosk: <code>order.place</code> + payment</td>
+<td><strong>receipt-with-release</strong></td>
+<td>money moved; the payment example's contract</td>
+</tr>
+<tr>
+<td>2</td>
+<td>kiosk → P: <code>order.accepted</code> + order reference</td>
+<td>receipt</td>
+<td>the fan walks away on the strength of it</td>
+</tr>
+<tr>
+<td>3</td>
+<td>kitchen → P: <code>order.ready</code></td>
+<td><strong>receipt, re-sent until acknowledged</strong></td>
+<td>P has moved; the frame chases them through the crowd — repeated at intervals, each copy suppressed as a duplicate wherever paths converge, until P's phone says <em>got it</em></td>
+</tr>
+<tr>
+<td>4</td>
+<td>P arrives; hand over; <code>order.fulfilled</code></td>
+<td>fire-and-forget</td>
+<td>the snack in the hand is the real receipt</td>
+</tr>
+</tbody>
+</table></div>
+<p>Event 4 fulfils the entanglement's condition, and the P ↔︎ kiosk keys die with it. <strong>The
+network never knew any of this was food.</strong></p>
+<h2 id="the-sticker-presence-as-attested-history">The sticker: presence as attested history</h2>
+<p>The new shape. Weeks later, the fan can buy a virtual sticker — <em>I was at that match</em> —
+and <strong>only</strong> someone who was there can.</p>
+<p><strong>During the event</strong>, V's attestation sentant issues, under the P ↔︎ V entanglement, a
+signed claim into P's wallet: <em>this persona's entanglement with V stood through event E's
+window</em>. The evidence behind it is exactly the entanglement's own condition — proximity,
+continuously, on the venue's bearers — which V was already maintaining for its own
+purposes. <strong>The attestation costs one event.</strong></p>
+<p><strong>At purchase time</strong>, P presents the claim. This is the ZKP-inspired posture from the
+payment example, applied to history instead of identity: <strong>prove the predicate — <em>was at
+event E</em> — never the evidence.</strong> No movement trace, no entry time, no seat, no companions;
+the claim carries the predicate and V's signature, nothing else.</p>
+<p><strong>And the sovereignty keystone, third appearance:</strong> the venue keeps no attendance
+register. <strong>The person carries their own proof of where they have been</strong>, discloses it
+when <em>they</em> choose, to whom they choose — presence history is wallet contents, not
+somebody's database. The venue could not sell, leak, or be subpoenaed for a record it
+never held.</p>
+<p>Two honest costs, named:</p>
+<ul>
+<li><strong>Re-persona forfeits the sticker rights.</strong> The claim names the persona, and re-persona
+is, observably, a different hive (L5 5.1.4) — deliberately unlinkable to the old one.
+The fresh start is genuinely fresh, in both directions.</li>
+<li><strong>The claim is only as good as its issuer's signature discipline.</strong> V's group signature
+authenticates <em>an insider of V</em> — which insider, and whether kiosk firmware could mint
+attendance claims, is exactly the member-attributable evidence question (<strong>Q24, since
+ruled</strong>: the attestation is a certificate-carrying member signature, L5 7.4, so a claim
+now names its issuing member key), and a venue that cares will want its attestation
+authority narrower than <em>any member</em> — a policy it can enforce on evidence that exists.</li>
+</ul>
+<blockquote>
+<p>⚠ <strong>Open edges, flagged:</strong> proximity as a condition — its evidence, continuity, and
+spoof-tolerance at stadium scale (someone parked outside the gates all evening) — is
+<strong>Q25</strong>'s conditions vocabulary; whose signature covers an attestation is <strong>Q24</strong>; what
+a presence claim carries and what it deliberately omits follows the ruled Q34
+disclosure floor — the predicate only (<a href="CLOSED-QUESTIONS.md">C6</a>); its wire format is
+companion work.</p>
+</blockquote>
+<h2 id="what-each-layer-contributed-in-one-line-each">What each layer contributed, in one line each</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Tonight's contribution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L0</td>
+<td>the watch said it sleeps; the kiosk said it never does</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>bearers in service; signed traffic planned within one tier</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>one free comparison discards a stadium; the duty class arrives from strangers</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>forty thousand relays, bounded by rules that need no identity</td>
+</tr>
+<tr>
+<td>L4</td>
+<td>everything is frames; the network never knew it was food</td>
+</tr>
+<tr>
+<td>L5</td>
+<td>mesh, low entanglement, and payment-grade — all three rungs at once</td>
+</tr>
+<tr>
+<td>L6</td>
+<td>the fleet updates on the quiet air, never tonight</td>
+</tr>
+<tr>
+<td>L7</td>
+<td>four events, three assurance grades, one snack</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Same stack as the payment and the room. No stadium mode exists</strong> — density stressed the
+dials; it did not add any.</p>
+<h2 id="open-edges-this-example-touches">Open edges this example touches</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Edge</th>
+<th>Register</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scanner behaviour beyond its tracking bound, in exactly this density</td>
+<td><strong>Q15</strong></td>
+</tr>
+<tr>
+<td>Whose signature covers the presence attestation</td>
+<td><strong>Q24 ruled</strong> — the certificate-carrying member signature, L5 7.4 (<a href="CLOSED-QUESTIONS.md">C7</a>)</td>
+</tr>
+<tr>
+<td>Proximity as an entanglement condition, at scale and against spoofing</td>
+<td><strong>Q25</strong></td>
+</tr>
+<tr>
+<td>Chunked transfer profile (the venue's overnight updates)</td>
+<td><strong>Q27</strong></td>
+</tr>
+<tr>
+<td>What an attestation carries and omits — the disclosure floor</td>
+<td><strong>Q34 ruled</strong> — level-only (<a href="CLOSED-QUESTIONS.md">C6</a>)</td>
+</tr>
+</tbody>
+</table></div>
+
+</article>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+localStorage.setItem('r2-theme',n);
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>

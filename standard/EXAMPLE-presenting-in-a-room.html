@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presenting in a room — Reality2 Standard</title>
+<meta name="description" content="Near-zero stakes, proximity-conditioned entanglement, contention left to the room — by design.">
+<link rel="canonical" href="https://reality2.ai/standard/EXAMPLE-presenting-in-a-room.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="Presenting in a room — Reality2 Standard">
+<meta property="og:description" content="Near-zero stakes, proximity-conditioned entanglement, contention left to the room — by design.">
+<meta property="og:url" content="https://reality2.ai/standard/EXAMPLE-presenting-in-a-room.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t=localStorage.getItem('r2-theme');
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">The standard</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<article id="main" class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--worked-example-presenting-slides-in-a-room">Reality2 Standard — worked example: presenting slides in a room</h1>
+<p><strong>Status:</strong> Informative — worked example
+<strong>Date:</strong> 2026-08-04</p>
+<blockquote>
+<p>⚠ <strong>INFORMATIVE.</strong> The deliberate counterpart to
+<code>EXAMPLE-payment-at-point-of-sale.md</code>: the same stack, the same mechanisms, at the
+<strong>other end of every ladder</strong> — minimal authentication, minimal ceremony, and one
+governing decision most protocols get wrong: <strong>where no mechanism is needed, none is
+imposed.</strong> Open edges are flagged in place.</p>
+</blockquote>
+<hr />
+<h2 id="cast">Cast</h2>
+<ul>
+<li><strong>Person trust group P</strong> — the presenter's phone, holding the slide deck.</li>
+<li><strong>Room trust group R</strong> — the conference-room screen: a hive whose display is a plugin,
+with a sentant handling presentation events (class <code>ai.reality2.display.screen</code>).</li>
+<li><strong>The room itself</strong> — full of people, and doing more governing than any protocol below.</li>
+</ul>
+<h2 id="the-premise-of-this-example">The premise of this example</h2>
+<p>Nothing here is worth stealing. The stakes are a slide shown or not shown — so <strong>the
+requirement is proximity, the entanglement is low-level, and the ceremony is near zero</strong>.
+This is the assurance spectrum doing its job in the opposite direction from payment: the
+purpose selects the grade, and this purpose selects almost none.</p>
+<h2 id="the-signal-trace">The signal trace</h2>
+<h3 id="phase-0--discovery">Phase 0 — discovery</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Signal</th>
+<th>Layer facts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.1</td>
+<td>Screen beacons: marker, beacon identifier, class hash of <code>ai.reality2.display.screen</code>, production mode</td>
+<td>L2 5.1</td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>Phone scans, matches the class — filter 2 exact, or filter 3 by asking for the class string and matching <code>*.display.screen</code></td>
+<td>L2 7.1, 7.2</td>
+</tr>
+<tr>
+<td>0.3</td>
+<td>Phone asks what the screen can do — formats, resolution: the capability question</td>
+<td>L2 7.1 step 4, on the unauthenticated rung</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="phase-1--a-low-level-entanglement-conditioned-on-presence">Phase 1 — a low-level entanglement, conditioned on presence</h3>
+<p>P and R entangle on the ruled frame (L5 10.2), and every parameter sits at the bottom of
+its range:</p>
+<ul>
+<li><strong>level</strong> — display-grade: low. The screen needs to know almost nothing about who sends.</li>
+<li><strong>scope</strong> — presentation events and slide content, essentially one direction.</li>
+<li><strong>lifetime</strong> — <em>while present</em>: the governing condition is <strong>proximity, continuously</strong>,
+not a duration. The phone is here, hearably, on the room's own bearer.</li>
+<li><strong>ceremony</strong> — near zero: at most the screen shows a short code the phone displays back,
+binding the entanglement to <em>this</em> screen rather than the identical one next door.</li>
+</ul>
+<p><strong>When the presenter walks out, the condition fails and the entanglement expires</strong> — the
+sighting fades on the room's bearer (L2 6.3), the condition is no longer met (L5 10.2.3),
+and the keys die. Leaving the room <em>is</em> the teardown; nobody logs out.</p>
+<blockquote>
+<p>⚠ <strong>Two open edges, flagged:</strong> the establishment ceremony's signals are <strong>Q25</strong>, and
+<em>proximity as an entanglement condition</em> — what evidences it, how continuously, how
+spoofable-at-range it is allowed to be — belongs to Q25's conditions vocabulary. For
+slides, coarse radio presence is plainly enough; <strong>the point is that the condition's
+strength is priced by the level, and this level is low.</strong></p>
+</blockquote>
+<h3 id="phase-2--the-deck-and-the-show">Phase 2 — the deck, and the show</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Signal</th>
+<th>What it carries</th>
+<th>Layer facts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2.1</td>
+<td>P→R: the deck, as <strong>chunked transfer</strong></td>
+<td>slide images as manifest-verified pieces, encrypted under the entanglement's key</td>
+<td>the L6 5.3.5 model at the <strong>receipt</strong> grade — the phone wants to know the deck arrived before standing up</td>
+</tr>
+<tr>
+<td>2.2</td>
+<td>P→R <code>display.show</code>, <code>display.next</code>, <code>display.prev</code></td>
+<td>slide index</td>
+<td>ordinary events, fire-and-forget — a lost <em>next</em> is repaired by pressing it again, which is the human doing end-to-end repair without knowing it</td>
+</tr>
+<tr>
+<td>2.3</td>
+<td>R renders</td>
+<td>—</td>
+<td>the display plugin is hive-shared (L7 6.2.1); the sentant's handler is the only gate that matters here</td>
+</tr>
+</tbody>
+</table></div>
+<p>Even here the payload is encrypted — the deck is not broadcast to the street; an observer
+in radio range sees the envelope only (<strong>L2 11.4</strong>; L5 7.3.4 states the same boundary for a
+<em>carrier</em>, which an observer in range need not be). <strong>Confidentiality costs nothing extra:
+it fell out of the entanglement existing at all.</strong></p>
+<h3 id="phase-3--who-presents-the-room-decides-and-that-is-a-design-position">Phase 3 — who presents? The room decides, and that is a design position</h3>
+<p>Several people may be entangled with the screen at once, all legitimately. <strong>The standard
+supplies no floor-control protocol, no presenter token, no arbitration — the screen shows
+what it is sent, and who sends is governed by social cues.</strong> Someone stands up; someone
+defers; the chair nods. The mechanism for turn-taking in a meeting has been deployed for
+roughly as long as meetings, and <strong>a technical arbiter inserted here would be worse than
+none</strong>: it would move a social negotiation into a protocol nobody in the room can see or
+overrule.</p>
+<p><em>(This is the standard's own discipline applied: an absence labelled as a decision. The
+absence of arbitration is not a gap — it is the correct allocation of a problem to the
+layer that actually solves it, which is the people.)</em></p>
+<h3 id="phase-4--the-escalated-variant-locking-the-screen-to-a-speaker">Phase 4 — the escalated variant: locking the screen to a speaker</h3>
+<p><strong>The council meeting, the contentious topic, the protester with a phone.</strong> The same room
+now needs what the seminar did not: the slides locked to a specific person. Nothing new is
+built — <strong>the screen's group raises the requirements, using machinery the payment example
+already exercised</strong>:</p>
+<ul>
+<li>R's policy for <code>display.*</code> events switches from <em>any live entanglement</em> to: <strong>only the
+clerk's entanglement</strong>, or only events carrying <strong>member-attributable evidence at a
+stated person-authentication level</strong> (the Q34 scale, consumed exactly as the PoS
+consumed it).</li>
+<li>R may also refuse <em>new</em> entanglements while locked.</li>
+</ul>
+<p>The protester's phone can still discover the screen, still speak, possibly still entangle
+— <strong>and its <code>display.show</code> matches no accepting policy. It is not blocked; it is
+unheeded</strong> (the strata synthesis: the agent can always speak; whether the far side acts is
+what is governed). No error educates the protester about the policy, either — silence
+toward the unentitled is the same posture the diagnostics tier takes (L6 6.2.2).</p>
+<p><strong>And the lock releases the way everything here releases:</strong> the clerk walks out, their
+proximity condition fails, their entanglement expires, and the screen's policy falls back
+to whatever the room configured for that case.</p>
+<h2 id="the-pairing-stated-once">The pairing, stated once</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Payment</th>
+<th>Presenting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stakes</td>
+<td>money</td>
+<td>a slide</td>
+</tr>
+<tr>
+<td>Entanglement level</td>
+<td>payment-grade</td>
+<td>display-grade</td>
+</tr>
+<tr>
+<td>Governing condition</td>
+<td>the amount ladder</td>
+<td><strong>proximity, continuously</strong></td>
+</tr>
+<tr>
+<td>Person-authentication</td>
+<td>attested, laddered, ZKP-inspired</td>
+<td>none — until the lock, when the same machinery returns</td>
+</tr>
+<tr>
+<td>Assurance grade</td>
+<td>receipt-with-release</td>
+<td>receipt for the deck; fire-and-forget for the clicks</td>
+</tr>
+<tr>
+<td>Contention</td>
+<td>not applicable</td>
+<td><strong>the room, socially — by design</strong></td>
+</tr>
+<tr>
+<td>Teardown</td>
+<td>transaction completes</td>
+<td><strong>walking out</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>One stack, no modes.</strong> Neither example uses a mechanism the other lacks — they set the
+same dials to different values, and the purpose chose the values. That is the claim the
+two examples exist to demonstrate.</p>
+<h2 id="open-edges-this-example-touches">Open edges this example touches</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Edge</th>
+<th>Register</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Establishment ceremony; proximity as a condition (evidence, continuity, spoof-tolerance)</td>
+<td><strong>Q25</strong></td>
+</tr>
+<tr>
+<td>The chunked-transfer profile (the deck)</td>
+<td><strong>Q27</strong></td>
+</tr>
+<tr>
+<td>The lock's evidence requirements</td>
+<td><strong>Q34 ruled</strong> — 0–7 scale, level-only (<a href="CLOSED-QUESTIONS.md">C6</a>); consumed as in the payment example</td>
+</tr>
+</tbody>
+</table></div>
+
+</article>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+localStorage.setItem('r2-theme',n);
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>

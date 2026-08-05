@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L5A — Entanglement — Reality2 Standard</title>
+<meta name="description" content="Binding two hives into a shared context.">
+<link rel="canonical" href="https://reality2.ai/standard/L5A-entanglement.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="L5A — Entanglement — Reality2 Standard">
+<meta property="og:description" content="Binding two hives into a shared context.">
+<meta property="og:url" content="https://reality2.ai/standard/L5A-entanglement.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t=localStorage.getItem('r2-theme');
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">The standard</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<article id="main" class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-5-companion-entanglement">Reality2 Standard — Layer 5 companion: Entanglement</h1>
+<p><strong>Status:</strong> Draft — first pass
+<strong>Date:</strong> 2026-08-03</p>
+<blockquote>
+<p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
+<em>can</em> = possibility and capability.</p>
+</blockquote>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>Layer 5 decided what an entanglement <em>is</em>: an explicit agreement between two trust
+groups — a scope, a level, and conditions — standing exactly as long as its conditions
+are met, answered on breach by severance or demotion (Layer 5, Clause 10). <strong>This
+document supplies what that frame deliberately left open: how an entanglement is
+established, what the levels are, how conditions are expressed and evaluated, how the
+relationship lives, lapses, and ends, and what liveness across it can and cannot mean.</strong></p>
+<p>Two design commitments run through every clause:</p>
+<p><strong>The conditions are the agreement, and the agreement is one signed artefact.</strong> There is
+no ceremony whose memory fades and no terms that live in two places. Both groups sign one
+statement of terms, each holds it, and everything the entanglement later does — gate
+crossings, judge conduct, demote, expire — is done against that artefact.</p>
+<p><strong>Each side judges alone.</strong> No arbiter exists, no shared evaluator, no consensus. Each
+group evaluates the conditions on its own evidence, by its own lights — which means the
+two sides can disagree about whether the entanglement still stands, and the design treats
+that as ordinary rather than as an error.</p>
+<h2 id="1-scope">1 Scope</h2>
+<p>This document specifies the establishment of an entanglement between two trust groups:
+the agreement artefact, the authority to bind a group, the key establishment, the grades
+of the level of authentication, and the completing trial.</p>
+<p>It specifies the vocabulary of conditions, their two failure classes, and how each side
+evaluates them.</p>
+<p>It specifies the lifecycle: standing, lapse, completion, demotion, severance, and
+re-establishment, and what liveness across an entanglement establishes.</p>
+<p>It establishes what conformance to this document consists of, and identifies what is not
+decided.</p>
+<p>It does not specify byte formats, which belong to the formats companion. It does not
+specify the enrolment ceremony or the management wallet, which are a separate companion
+document. It does not specify bearer-specific evidence of proximity, which belongs to
+each bearer's binding document.</p>
+<h2 id="2-normative-references">2 Normative references</h2>
+<p>The following documents are referred to in the text in such a way that some or all of
+their content constitutes requirements of this document.</p>
+<ul>
+<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<code>01-terminology.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<code>L0-hardware-and-runtime.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 2: Capability and discovery</strong> (<code>L2-capability-and-discovery.md</code>)</li>
+<li><strong>Reality2 Standard — Layer 5: Trust and identity</strong> (<code>L5-trust-and-identity.md</code>)</li>
+</ul>
+<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<p>For the purposes of this document, the terms and definitions given in the documents
+listed in Clause 2 apply, together with the following.</p>
+<p><strong>3.1
+agreement artefact</strong></p>
+<p>statement of an entanglement's scope, grade, conditions and intended lifetime, signed by
+an authorised member of each participating group</p>
+<p><strong>3.2
+grade</strong></p>
+<p>named strength of the verification binding an entanglement's keys to the counterpart
+group's identity</p>
+<p>Note 1 to entry: The grade instantiates the <em>level of authentication</em> of Layer 5, 10.2.1
+b). Grades are ordered; demotion (Layer 5, 10.3) moves down them.</p>
+<p><strong>3.3
+condition</strong></p>
+<p>stated predicate of an agreement artefact that a participating group evaluates locally
+against its own evidence</p>
+<p><strong>3.4
+lapse</strong></p>
+<p>end of an entanglement because a condition is no longer met, without fault</p>
+<p><strong>3.5
+introducer</strong></p>
+<p>group holding standing entanglements with two other groups, whose attestation carries one
+group's identity to the other</p>
+<h2 id="4-the-agreement-artefact">4 The agreement artefact</h2>
+<h3 id="41-one-artefact-both-signatures">4.1 One artefact, both signatures</h3>
+<p><strong>4.1.1</strong> An entanglement shall be recorded in a single agreement artefact stating its
+scope, its grade, its conditions, and its intended lifetime.</p>
+<p><strong>4.1.2</strong> The artefact shall carry member-attributable evidence (Layer 5, 7.4) from each
+participating group, computed over the identical terms.</p>
+<p><strong>4.1.3</strong> Each group shall hold its own copy of the signed artefact, and every judgement
+this document requires — gating a crossing, classing a failure, demoting, expiring —
+shall be made against it.</p>
+<p>Note 1 to entry: 4.1.2 binds the conditions <em>into</em> the signed thing. <strong>Terms that
+travelled beside a signature rather than under it could drift apart from it</strong>, and a
+dispute would then be about which terms were agreed rather than whether they were met.
+One artefact, two signatures, zero ambiguity about what was promised.</p>
+<p>Note 2 to entry: The evidence of 4.1.2 names the member key that signed for each group.
+That is deliberate: <strong>when conduct is later judged, the claim "your side agreed to this"
+is checkable against a signature</strong>, not against a recollection of a ceremony.</p>
+<h3 id="42-authority-to-bind">4.2 Authority to bind</h3>
+<p><strong>4.2.1</strong> The member signing an artefact for its group shall hold that group's authority
+to entangle (Layer 6, 4.1).</p>
+<p><strong>4.2.2</strong> A counterpart shall verify the signer's membership by the evidence of 4.1.2,
+and is not required to verify the signer's internal authority.</p>
+<p>Note 1 to entry: 4.2.2 states where the burden falls, and it falls inward. <strong>A group is
+bound to its counterparts by any member signature its counterpart accepted in good
+faith</strong> — whether that member held the internal authority is the group's own governance,
+enforced by its own enumeration (Layer 6, 4.1) and answered by its own eviction and
+rotation machinery. A counterpart cannot audit another group's constitution, and this
+document does not pretend otherwise.</p>
+<h2 id="5-establishment">5 Establishment</h2>
+<h3 id="51-the-sequence">5.1 The sequence</h3>
+<p><strong>5.1.1</strong> An entanglement shall be established by the following sequence, in order:</p>
+<p>a) <strong>proposal</strong> — one group presents terms: scope, grade, conditions, intended lifetime;</p>
+<p>b) <strong>agreement</strong> — the groups exchange revisions until the terms are identical, and each
+side's authorised member signs the identical terms (4.1);</p>
+<p>c) <strong>verification</strong> — the counterpart group's identity is verified at the agreed grade
+(5.3);</p>
+<p>d) <strong>key establishment</strong> — the entanglement's keys are derived (5.2); and</p>
+<p>e) <strong>trial</strong> — one crossing in each contracted direction passes the counterpart's
+delivery gate (5.4).</p>
+<p><strong>5.1.2</strong> Until the trial completes, the entanglement shall be provisional: crossings
+under it shall not be delivered beyond what the trial itself requires.</p>
+<p>Note 1 to entry: Proposal and agreement ride the unauthenticated level of the ladder
+(Layer 5, 10.1) — that level exists precisely so that first contact is possible. Nothing
+is granted by the exchange itself; everything is granted by what is signed and then
+verified.</p>
+<h3 id="52-key-establishment">5.2 Key establishment</h3>
+<p><strong>5.2.1</strong> The entanglement's keys shall be derived bilaterally from the two groups' key
+material and the agreement artefact, under the one-derivation rule of Layer 5, 5.2, such
+that both sides derive identical keys and neither transmits one.</p>
+<p><strong>5.2.2</strong> The derivation shall produce at least a payload-protection key and an integrity
+key, distinct from each other and from every key of either group.</p>
+<p><strong>5.2.3</strong> The derivation shall order the two groups' identities canonically, so that the
+keys are independent of which group initiated.</p>
+<p><strong>5.2.4</strong> The keys shall be re-derivable from the artefact and the groups' retained key
+material.</p>
+<p>Note 1 to entry: 5.2.4 is the durability rule, and it is why an entanglement survives a
+crash without a resumption protocol. <strong>The relationship's keys are a deterministic
+consequence of one bilateral invariant</strong> — who agreed, to what — so a device that lost
+its session state and still holds its group material and the artefact holds the
+entanglement. Nothing needs to be re-negotiated; the agreement <em>is</em> the state.</p>
+<p>Note 2 to entry: The exact agreement scheme, derivation labels and key set are the
+formats companion's. What binds here is the shape: bilateral, canonical ordering, one
+derivation, re-derivable, nothing transmitted.</p>
+<h3 id="53-the-grades">5.3 The grades</h3>
+<p><strong>5.3.1</strong> The grade shall be one of the following, ordered from weakest to strongest, and
+the artefact shall name it.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Grade</th>
+<th>Name</th>
+<th>What binds the keys to the counterpart</th>
+<th>Defeats</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><strong>opportunistic</strong></td>
+<td>nothing beyond the in-band exchange</td>
+<td>passive observation only</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>confirmed</strong></td>
+<td>a short verification string, derived from both group identities and the establishment exchange, compared over a channel the establishment did not use — a screen read aloud, a display matched, a physical tap</td>
+<td>an interposer at establishment</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>introduced</strong></td>
+<td>an introducer's member-attributable attestation (Layer 5, 7.4) of the counterpart's group identity, under an entanglement each side already holds with the introducer at grade 1 or above</td>
+<td>an interposer, without physical co-presence</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>ceremonial</strong></td>
+<td>grade 1 or 2, and additionally a person on each side confirming at a person-authentication level the artefact states</td>
+<td>an interposer, and an unattended endpoint</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>5.3.2</strong> The verification string of grade 1 shall be derived from both groups'
+identities and the establishment exchange, such that an interposed establishment yields
+visibly different strings; it shall bind the group identities and shall not be a
+reusable code.</p>
+<p><strong>5.3.3</strong> An introducer's attestation (grade 2) shall carry the counterpart's group
+identity and shall be believed per the conditions of the entanglement it arrives under.</p>
+<p><strong>5.3.4</strong> A receiver shall treat the grade as a ceiling on what its own policies may
+accept over the entanglement, and demotion (Layer 5, 10.3) shall lower that ceiling to
+the named lower grade at once.</p>
+<p>Note 1 to entry: Grade 0 is stated honestly rather than dressed up: <strong>its keys encrypt
+against the world but authenticate nothing about the counterpart</strong> — an interposer
+present at establishment holds the channel. It exists because the payment example's
+counterpart — the conference-room screen — needs exactly this and no more, and because
+refusing to name the weak grade would not remove it, only leave it unlabelled.</p>
+<p>Note 2 to entry: Grade 2 is how the hub topology works at scale: the insights store
+introduces a community to nothing — it attests <em>identity</em>, and each pair still agrees its
+own terms. <strong>An introduction is evidence about who the counterpart is, never a grant of
+anything.</strong></p>
+<p>Note 3 to entry: Grade 3 is the floor for management-bearing scope (Clause 9). The
+artefact states the required level; how a group's devices reach that level is its own
+vocabulary. <strong>The scale itself — ruled as 0–7, probability-anchored, level-only across
+boundaries — has its normative home in the person-authentication companion, not yet
+written; until it lands, the level is a number the two artefact signers agree the meaning
+of.</strong> <em>(Ruling record: <code>CLOSED-QUESTIONS.md</code> C6 — informative.)</em></p>
+<h3 id="54-the-trial">5.4 The trial</h3>
+<p><strong>5.4.1</strong> The trial shall consist of at least one frame in each contracted direction,
+carrying no application effect, crossing the counterpart's delivery gate under the
+entanglement's keys.</p>
+<p><strong>5.4.2</strong> An entanglement whose trial does not complete within the artefact's stated
+establishment window shall be discarded: keys destroyed, artefact void.</p>
+<p>Note 1 to entry: The trial is the will-it-actually-work check made structural. An
+entanglement that was agreed, verified and keyed — and whose frames then cannot cross,
+because a tier boundary intervenes or a scope was mis-stated — is a standing lie. Two
+frames retire it.</p>
+<h2 id="6-conditions">6 Conditions</h2>
+<h3 id="61-what-a-condition-is">6.1 What a condition is</h3>
+<p><strong>6.1.1</strong> Each condition of an artefact shall state:</p>
+<p>a) the predicate — what is claimed to hold;</p>
+<p>b) the evidence — what each side evaluates it against; and</p>
+<p>c) the failure class — <strong>lapse</strong> (6.2) or <strong>breach</strong> (Layer 5, 10.3), and for breach,
+whether the stated response is severance or demotion and to which grade.</p>
+<p><strong>6.1.2</strong> Each group shall evaluate every condition locally, against its own evidence.
+No condition shall require a shared evaluator, an arbiter, or the counterpart's
+agreement to fail.</p>
+<p><strong>6.1.3</strong> A group shall not adopt a condition whose evidence requires a facility its
+platforms have not declared (Layer 0, Clause 8).</p>
+<p>Note 1 to entry: 6.1.3 is why there is no absolute-time trap here. A condition anchored
+to calendar time is adoptable by the venue with a clock and not by the sensor without
+one — <strong>the condition vocabulary bends to the platform declaration, never the reverse.</strong>
+The party that holds the ruler makes the measurement.</p>
+<h3 id="62-the-two-failure-classes">6.2 The two failure classes</h3>
+<p><strong>6.2.1</strong> A lapse shall end the entanglement, or suspend it where the artefact stands
+and its terms permit resumption; in either case the derived keys are destroyed as 8.2
+requires, and a suspended entanglement resumes only by re-derivation under 5.2.4. A
+lapse is without fault: no standing is affected, and re-establishment is ordinary.</p>
+<p>Note 1 to entry: Suspension and key destruction are not in conflict, because <strong>the keys
+are not the entanglement.</strong> 5.2.4 requires them to be re-derivable from the artefact and
+the groups' retained key material, and 8.5 already relies on exactly that to survive a
+restart — so a side holding the artefact holds the relationship, whatever it does with
+the derived keys. What ends an entanglement is the artefact going void (5.4.2), a
+terminal lapse such as completion or lifetime end, severance, or dissolution (8.1).
+<em>(Reworded 2026-08-02: the earlier text left "suspend" apparently contradicting 8.2.
+No choice was made here — 5.2.4 and 8.5 already decided it, and this states what they
+decide.)</em></p>
+<p><strong>6.2.2</strong> A breach shall be answered as Layer 5, 10.3 provides — severance or demotion,
+as the artefact states — and is evidence about the breaching group's conduct.</p>
+<p><strong>6.2.3</strong> A condition whose failure can occur innocently — presence fading, a lifetime
+ending, a scope completing — shall be classed as lapse.</p>
+<p><strong>6.2.4</strong> <strong>No condition shall class silence as breach.</strong> Unreachability shall only ever
+lapse.</p>
+<p>Note 1 to entry: 6.2.4 is the core premise applied to fault. <strong>Silence is ambiguous,
+always</strong> — asleep, moved, dead, and budget-exhausted are indistinguishable from outside —
+so a group can never be <em>at fault</em> for being unheard. A counterpart that needs standing
+liveness contracts for it (Clause 7) and treats the contract's failure as lapse: the
+door closes; nobody is blamed for the weather.</p>
+<p>Note 2 to entry: The distinction is what the earthgrid example turns on. The presenter
+walking out of the room is a lapse — the condition failed, the keys died, no one's
+standing moved. The insurer redistributing licensed insights is a breach — the artefact
+named it one, and the response and the reputational evidence follow. <strong>Conflating the
+two would make every sleeping sensor a defaulter.</strong></p>
+<h3 id="63-the-condition-vocabulary">6.3 The condition vocabulary</h3>
+<p><strong>6.3.1</strong> An artefact's conditions shall be drawn from the following classes; a class an
+implementation does not support is a condition it shall not agree to.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Predicate over</th>
+<th>Evidence</th>
+<th>Typical failure class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>presence</strong></td>
+<td>the counterpart hearable on named bearers</td>
+<td>sightings and fade behaviour (Layer 2, 6.3)</td>
+<td>lapse</td>
+</tr>
+<tr>
+<td><strong>temporal</strong></td>
+<td>a window or lifetime</td>
+<td>the ruler of the side that holds one (6.1.3)</td>
+<td>lapse</td>
+</tr>
+<tr>
+<td><strong>transactional</strong></td>
+<td>requirements per crossing — a required person-authentication level per operation or amount, required member-attributable evidence per event class</td>
+<td>the crossing itself (Layer 5, 7.4; attested levels)</td>
+<td>neither — an unmet transactional condition refuses that crossing and nothing else, unless the artefact states that repetition is breach</td>
+</tr>
+<tr>
+<td><strong>conduct</strong></td>
+<td>obligations on use of what crossed — licence, redistribution, retention</td>
+<td>member-attributable claims and the group's own observation, weighed as all claims are weighed</td>
+<td>breach</td>
+</tr>
+<tr>
+<td><strong>disclosure</strong></td>
+<td>grants of visibility — the member-key set (Layer 5, 7.4.4), class and capability queries, catalogue listing</td>
+<td>the grant's presence in the artefact</td>
+<td>breach if exceeded</td>
+</tr>
+<tr>
+<td><strong>reciprocity</strong></td>
+<td>contracted liveness — an expected keepalive under Clause 7</td>
+<td>the contracted signal's arrival</td>
+<td>lapse (6.2.4)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>6.3.2</strong> A disclosure grant shall be explicit in the artefact; no disclosure shall be
+inferred from any other condition or from the entanglement's existence.</p>
+<p>Note 1 to entry: The transactional row is where the payment ladder lives: <em>under 10 at
+level 4, under 100 at level 5, over 100 at level 6</em> is three transactional conditions
+over one entanglement — evaluated per crossing, refusing individually, breaching
+nothing. The amount ladder never tears the relationship down; it prices each act.</p>
+<p>Note 2 to entry: Conduct conditions are evaluated on claims — and a claim of breach is
+itself evidence carrying its issuer's signature (Layer 5, 7.4), weighed by the receiving
+group with everything it knows, corroborated or not. <strong>The artefact makes conduct
+judgeable; it does not make judgement automatic.</strong></p>
+<h3 id="64-disagreement-between-the-sides">6.4 Disagreement between the sides</h3>
+<p><strong>6.4.1</strong> The sides may reach different conclusions about a condition, and an
+implementation shall tolerate the asymmetry: an entanglement one side holds lapsed and
+the other holds standing fails crossings in one direction and not the other.</p>
+<p><strong>6.4.2</strong> A side whose crossings repeatedly fail should re-evaluate the entanglement's
+standing rather than retry indefinitely.</p>
+<p>Note 1 to entry: There is no protocol here to force convergence, deliberately — a
+convergence protocol would be a shared evaluator wearing a different hat. <strong>The mesh's
+ordinary signals — crossings failing, liveness fading — carry the disagreement to
+whichever side has not yet noticed</strong>, and 6.4.2 is the nudge to listen to them.</p>
+<h2 id="7-liveness-across-an-entanglement">7 Liveness across an entanglement</h2>
+<p><strong>7.1</strong> Traffic verifying under the entanglement's integrity key shall establish only
+that <strong>some holder of the entanglement's keys</strong> was reachable: it is advisory, it shall
+not establish which group — still less which member — was alive, and it shall not
+satisfy any life-safety or standing-liveness contract.</p>
+<p><strong>7.2</strong> Authoritative liveness of the counterpart shall require member-attributable
+evidence (Layer 5, 7.4) over a challenge or fresh token — the entanglement's channel
+keys shall not substitute for it.</p>
+<p>Note 1 to entry: The channel keys are symmetric and bilateral: <strong>either side — including
+the asker — can produce traffic that verifies under them</strong>, and a replayed frame
+verifies too. 7.1 keeps that honest. 7.2 is the strong form, and it exists in this
+standard already: the certificate-carrying member signature over a nonce is exactly the
+evidence of Layer 5, 7.4.3 a). The standing keepalive contract itself — rates, windows,
+scopes — is register work (<code>OPEN-QUESTIONS.md</code> Q36); what is decided here is the two
+strengths and the rule that one never impersonates the other.</p>
+<h2 id="8-lifecycle">8 Lifecycle</h2>
+<p><strong>8.1</strong> An entanglement shall end in exactly one of the following ways, and an
+implementation shall distinguish them:</p>
+<p>a) <strong>completion</strong> — the scope is exhausted or the lifetime ends: a lapse, planned;</p>
+<p>b) <strong>lapse</strong> — a lapse-class condition is no longer met (6.2);</p>
+<p>c) <strong>severance</strong> — by breach response, or unilaterally at either side's discretion
+(Layer 5, 10.3.3); or</p>
+<p>d) <strong>dissolution</strong> — both sides agree to end it.</p>
+<p><strong>8.2</strong> On completion, lapse, severance or dissolution, a side shall destroy the
+entanglement's derived keys it holds; crossings under them fail the gate from that
+moment.</p>
+<p><strong>8.3</strong> Demotion (Layer 5, 10.3) shall not end the entanglement: the keys stand, the
+grade ceiling lowers (5.3.4), and the artefact's stated demotion terms govern what
+remains in scope.</p>
+<p><strong>8.4</strong> A severing or dissolving side may send notice to the counterpart; notice shall
+be a courtesy, and the end of the entanglement shall never depend on its delivery.</p>
+<p><strong>8.5</strong> An entanglement shall survive restart: a side holding its group material and the
+artefact holds the entanglement (5.2.4), and conditions are re-evaluated on return.</p>
+<p><strong>8.6</strong> Re-establishment after any ending shall be a fresh establishment (Clause 5) with
+fresh keys; the prior relationship's record is evidence for each side's own judgement,
+never an entitlement and never a bar.</p>
+<p>Note 1 to entry: 8.4 is the no-promises rule applied to goodbye. <strong>A severance that
+required notice to take effect would hand the severed party a veto by unreachability.</strong>
+The gate simply starts refusing; the courtesy event, where it arrives, spares the
+counterpart some failed crossings.</p>
+<p>Note 2 to entry: 8.6 is where standing does its work without becoming authority. The
+insurer whose entanglement was severed for breach can ask again — and meets each
+community's updated belief, priced into the new terms or into silence. <strong>Nothing forbids
+the second chance; nothing subsidises it either.</strong></p>
+<h2 id="9-management-bearing-entanglements">9 Management-bearing entanglements</h2>
+<p><strong>9.1</strong> An artefact whose scope includes management operations (Layer 6) shall be at
+grade 3, and shall name the managing group, the managed surface, and the operations
+granted, explicitly and exhaustively.</p>
+<p><strong>9.2</strong> A management crossing shall carry member-attributable evidence (Layer 5, 7.4)
+regardless of the entanglement's other terms; the entanglement's channel keys alone
+shall never authorise a management operation.</p>
+<p><strong>9.3</strong> A management grant shall be revocable by the granting side as a demotion or
+severance (Layer 5, 10.3), at any time.</p>
+<p>Note 1 to entry: This clause is the narrow neck through which cross-group management
+passes, and it is deliberately narrow: <strong>top grade, exhaustive enumeration, member
+attribution on every act, revocable at will.</strong> A group that manages another's devices
+does so as a named member of a named group under a named grant — never as a key that
+opened a channel once.</p>
+<h2 id="10-conformance">10 Conformance</h2>
+<p>Every requirement of this document is demonstrated by conformance evidence of one of
+the three classes of <code>01-terminology.md</code>, 3.10 — behavioural, by construction, or by
+declaration. <strong>A requirement whose evidence is by construction is not thereby
+optional</strong>: the demonstration is an inspection a third party can perform without the
+implementer's cooperation, and its absence is non-conformance exactly as a failed
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <code>01-terminology.md</code> 4.2 to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+<p><strong>10.1</strong> An implementation conforms to this document where it:</p>
+<p>a) establishes entanglements only by the sequence of 5.1, over one dually-signed
+artefact (Clause 4);</p>
+<p>b) derives keys bilaterally, canonically ordered, re-derivably (5.2);</p>
+<p>c) implements the grades of 5.3 it offers, treats the grade as a ceiling, and lowers it
+on demotion at once;</p>
+<p>d) states, for every condition it agrees to, the predicate, the evidence and the failure
+class, evaluates them locally, and never classes silence as breach (Clause 6);</p>
+<p>e) treats channel-key traffic as advisory liveness only (Clause 7);</p>
+<p>f) distinguishes the endings of 8.1, destroys keys on ending, and survives restart
+(Clause 8); and</p>
+<p>g) gates management scope as Clause 9 requires.</p>
+<p><strong>10.2</strong> Conformance to 6.2.4 shall be demonstrated by the negative case: a counterpart
+made unreachable mid-entanglement lapses and is not recorded as in breach.</p>
+<h2 id="11-security-considerations">11 Security considerations</h2>
+<p><strong>11.1</strong> Grade 0 authenticates nothing about the counterpart. An interposer present at
+establishment holds the channel thereafter. The grade exists for stakes where that is
+acceptable, and 5.3.1 requires the artefact to say so in its own text.</p>
+<p><strong>11.2</strong> The entanglement's keys are symmetric: <strong>either side can fabricate traffic that
+verifies as the channel</strong> — which is why a crossing establishes the entanglement and
+never the member (Layer 5, 10.4.1), why liveness under channel keys is advisory only
+(7.1), and why management requires member attribution per act (9.2).</p>
+<p><strong>11.3</strong> A disclosure grant, once exercised, cannot be unexercised: a member-key set
+handed over under 7.4.4 is knowledge the counterpart keeps even after severance.
+Rotation retires the keys' validity, not the counterpart's memory of the roster's size
+and shape.</p>
+<p><strong>11.4</strong> Breach claims are an attack surface: a false claim, credibly signed, damages a
+group's standing with third parties. The defence is the standard's ordinary epistemology
+— claims are weighed, not obeyed; corroboration is priced in; and a claimant caught
+fabricating has spent its own standing to no effect.</p>
+<p><strong>11.5</strong> Grade 2 concentrates trust in introducers. An introducer that lies about an
+identity poisons every entanglement built on its word — bounded by 5.3.3: its
+attestations are believed per each side's own entanglement conditions with it, and an
+introducer's standing is as revisable as anyone's.</p>
+<h2 id="12-what-is-not-decided-at-this-layer">12 What is not decided at this layer</h2>
+<p><strong>This clause states gaps and contains no requirements.</strong></p>
+<p><strong>12.1 Byte formats.</strong> The artefact, the evidence it carries, the derivation labels, the
+verification-string length and alphabet, the grade encoding — all owed to the formats
+companion.</p>
+<p><strong>12.2 A machine-readable condition grammar.</strong> Clause 6 fixes the semantics — predicate,
+evidence, failure class — and the vocabulary classes, and does not fix an encoding in
+which two implementations express arbitrary terms interoperably. Hand-configured
+conditions interoperate today because both sides configure them; a marketplace where a
+policy sentant reads a stranger's terms needs the grammar. This is the largest open item
+in this document.</p>
+<p><strong>12.3 Per-bearer proximity evidence.</strong> What evidences presence, how continuously, and
+how spoofable-at-range it may be, per bearer — owed to the bearer binding documents,
+priced by grade.</p>
+<p><strong>12.4 The standing keepalive contract.</strong> Rates, windows, scopes and its relation to
+life-safety silence detection — register item Q36; Clause 7 decides only the two
+strengths.</p>
+<p><strong>12.5 The enrolment ceremony and the management wallet.</strong> Deliberately not here — one
+document per concern. They remain owed as their own companion (Layer 5, 13.1 and 13.7).</p>
+<p><strong>12.6 Introducer protocol detail.</strong> Grade 2 states what an introduction establishes;
+the exchange by which one is requested and delivered is not specified.</p>
+<h2 id="bibliography">Bibliography</h2>
+<p><em>Informative.</em></p>
+<ul>
+<li>[1] ISO, <em>How to write standards</em>, 2016. ISBN 978-92-67-10686-1</li>
+<li>[2] ISO/IEC Directives, Part 2, 2016</li>
+</ul>
+
+</article>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+localStorage.setItem('r2-theme',n);
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>
