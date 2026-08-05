@@ -60,7 +60,7 @@ its generator. <strong>Date:</strong> 2026-08-02.</p>
 <blockquote>
 <p>⚠ <strong>NOT PART OF THE REALITY2 STANDARD.</strong> Companion vectors for
 <code>REQUIREMENTS-FORMATS.md</code>. Every entry states <strong>the conforming case and the case the
-obligation excludes</strong>, because <code>01-terminology.md</code> 4.2 requires the excluded case and
+obligation excludes</strong>, because <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> requires the excluded case and
 4.3 requires it to be distinguishable. <strong>A vector that passes shows an implementation
 accepts a conforming input; it does not show it would reject a non-conforming one.</strong></p>
 <p><strong>The test applied to every entry: name what it would reject.</strong> Where that cannot be
@@ -69,67 +69,67 @@ format exists, and it does not belong here.</p>
 <p><strong>Coverage is partial and stated rather than implied.</strong> These cover the
 byte-mechanical obligations — identity derivation, purpose strings, the CBOR profile,
 firmware identity, and the signature exemption. <strong>The Clause 7 document obligations
-are not yet covered</strong>, and <code>FORMATS.md</code> 8.1 carries that debt.</p>
+are not yet covered</strong>, and <a href="FORMATS.html#c8.1"><code>FORMATS.md</code> 8.1</a> carries that debt.</p>
 </blockquote>
 <hr />
 <h3 id="fv-001--extended-wire-identity-hive-half-from-the-identity-key">FV-001 — Extended wire identity: hive half from the identity key</h3>
-<p><strong>Demonstrates:</strong> <code>F-005</code> (<code>FORMATS.md</code> 3.3).</p>
+<p><strong>Demonstrates:</strong> <code>F-005</code> (<a href="FORMATS.html#c3.3"><code>FORMATS.md</code> 3.3</a>).</p>
 <p><strong>Conforming.</strong> key = 000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f
 hive half = <code>630dcd29</code> (SHA-256 of the key, bytes 0-3, big-endian; 0 reserved-value iterations)</p>
 <p><strong>Excluded — must be refused.</strong> the same key truncated LITTLE-endian = <code>29cd0d63</code></p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> an implementation that reads the four bytes in the wrong order — it is wrong about the same bytes and never fails on a positive-only vector.</p>
 <h3 id="fv-002--reserved-half-forces-iteration-and-the-iteration-is-stated">FV-002 — Reserved half forces iteration, and the iteration is stated</h3>
-<p><strong>Demonstrates:</strong> <code>F-007</code> (<code>FORMATS.md</code> 3.5).</p>
+<p><strong>Demonstrates:</strong> <code>F-007</code> (<a href="FORMATS.html#c3.5"><code>FORMATS.md</code> 3.5</a>).</p>
 <p><strong>Conforming.</strong> a key whose first derivation lands on <code>00000000</code> or <code>ffffffff</code> re-derives over key ‖ <code>0x01</code>, and repeats until the value is not reserved</p>
 <p><strong>Excluded — must be refused.</strong> accepting the reserved value, or re-deriving over a different suffix (<code>0x00</code>, a counter, the value itself)</p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> an implementation that iterates with any other suffix: it produces a legal-looking identity that no peer derives, so the failure appears as an unroutable device rather than as a format error.</p>
 <h3 id="fv-003--purpose-string-is-exact-ascii-no-terminator-no-padding">FV-003 — Purpose string is exact ASCII, no terminator, no padding</h3>
-<p><strong>Demonstrates:</strong> <code>F-012</code> (<code>FORMATS.md</code> 4a.2).</p>
+<p><strong>Demonstrates:</strong> <code>F-012</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 4a.2).</p>
 <p><strong>Conforming.</strong> the byte sequence of the table entry alone, e.g. <code>r2/v0/group/frame</code> = <code>72322f76302f67726f75702f6672616d65</code></p>
 <p><strong>Excluded — must be refused.</strong> the same string NUL-terminated = <code>72322f76302f67726f75702f6672616d6500</code>, or with a trailing newline</p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> an implementation that terminates its strings by habit: both sides derive different keys and the failure surfaces as a decryption error, never as a naming error.</p>
 <h3 id="fv-004--a-purpose-string-not-in-the-table-is-not-used">FV-004 — A purpose string not in the table is not used</h3>
-<p><strong>Demonstrates:</strong> <code>F-013</code> (<code>FORMATS.md</code> 4a.4).</p>
+<p><strong>Demonstrates:</strong> <code>F-013</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 4a.4).</p>
 <p><strong>Conforming.</strong> derivation refuses a purpose string absent from the table</p>
 <p><strong>Excluded — must be refused.</strong> <code>r2/v0/group/frames</code> (plural) — one character from a table entry</p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> an implementation that accepts any well-shaped string: a typo becomes a silently divergent key rather than a refusal.</p>
 <h3 id="fv-005--deterministic-encoding-shortest-form-and-key-order">FV-005 — Deterministic encoding: shortest form and key order</h3>
-<p><strong>Demonstrates:</strong> <code>F-014</code> (<code>FORMATS.md</code> 4b.2).</p>
+<p><strong>Demonstrates:</strong> <code>F-014</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 4b.2).</p>
 <p><strong>Conforming.</strong> <code>{1: 1, 2: "two", 10: h'0a'}</code> = <code>a30101026374776f0a410a</code></p>
 <p><strong>Excluded — must be refused.</strong> the same map with key 10 encoded as <code>18 0a</code> (non-shortest head) = <code>a30101026374776f180a410a</code></p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> an encoder that emits a legal but non-shortest head: the map is semantically equal and the SIGNATURE OVER IT DIFFERS, which is the whole reason 4b.2 exists.</p>
 <h3 id="fv-006--deterministic-decoding-refuses-what-encoding-forbids">FV-006 — Deterministic decoding refuses what encoding forbids</h3>
-<p><strong>Demonstrates:</strong> <code>F-015</code> (<code>FORMATS.md</code> 4b.2a).</p>
+<p><strong>Demonstrates:</strong> <code>F-015</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 4b.2a).</p>
 <p><strong>Conforming.</strong> a decoder accepts the bytes of FV-005</p>
 <p><strong>Excluded — must be refused.</strong> a decoder receiving the non-shortest form of FV-005 must REJECT it</p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> a decoder that canonicalises on read: it then verifies a signature over bytes that were never signed, and one logical map acquires two byte forms.</p>
 <h3 id="fv-007--refusal-not-repair">FV-007 — Refusal, not repair</h3>
-<p><strong>Demonstrates:</strong> <code>F-016</code> (<code>FORMATS.md</code> 4b.2b).</p>
+<p><strong>Demonstrates:</strong> <code>F-016</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 4b.2b).</p>
 <p><strong>Conforming.</strong> rejection is reported to the caller</p>
 <p><strong>Excluded — must be refused.</strong> silently re-encoding the input into canonical form and continuing</p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> the repair path — indistinguishable from correct behaviour on every positive vector, and the reason 4b.2b is stated apart from 4b.2a.</p>
 <h3 id="fv-008--duplicate-map-keys-are-refused">FV-008 — Duplicate map keys are refused</h3>
-<p><strong>Demonstrates:</strong> <code>F-017</code> (<code>FORMATS.md</code> 4b.3).</p>
+<p><strong>Demonstrates:</strong> <code>F-017</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 4b.3).</p>
 <p><strong>Conforming.</strong> a map whose keys are distinct</p>
 <p><strong>Excluded — must be refused.</strong> <code>a2016161016162</code> — key 1 present twice</p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> first-wins and last-wins alike: two conformant readers disagree about the same bytes, and neither can tell.</p>
 <h3 id="fv-009--tags-are-refused">FV-009 — Tags are refused</h3>
-<p><strong>Demonstrates:</strong> <code>F-019</code> (<code>FORMATS.md</code> 4b.4).</p>
+<p><strong>Demonstrates:</strong> <code>F-019</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 4b.4).</p>
 <p><strong>Conforming.</strong> a payload containing no CBOR tag</p>
 <p><strong>Excluded — must be refused.</strong> <code>c06a323032362d30382d3032</code> — tag 0 over a text string</p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> a decoder that passes tags through: the tagged and untagged forms carry the same value and different bytes.</p>
 <h3 id="fv-010--nesting-deeper-than-the-stated-limit-is-refused">FV-010 — Nesting deeper than the stated limit is refused</h3>
-<p><strong>Demonstrates:</strong> <code>F-020</code> (<code>FORMATS.md</code> 4b.5).</p>
+<p><strong>Demonstrates:</strong> <code>F-020</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 4b.5).</p>
 <p><strong>Conforming.</strong> a payload nested to the stated limit (at least 8, per 4b.5b)</p>
 <p><strong>Excluded — must be refused.</strong> nine nested arrays = <code>818181818181818180</code> against a stated limit of 8</p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> a decoder with no limit at all — it accepts until it exhausts its stack, which is a denial of service rather than a parse error.</p>
 <h3 id="fv-011--a-value-the-hive-cannot-determine-is-absent-not-zero">FV-011 — A value the hive cannot determine is ABSENT, not zero</h3>
-<p><strong>Demonstrates:</strong> <code>F-034</code> (<code>FORMATS.md</code> 5c.2).</p>
+<p><strong>Demonstrates:</strong> <code>F-034</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 5c.2).</p>
 <p><strong>Conforming.</strong> all three keys known = <code>a30167657370333273330207035820000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f</code></p>
 <p><strong>Excluded — must be refused.</strong> sequence unknown encoded as 0 = <code>a30167657370333273330200035820000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f</code></p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> the placeholder: <code>0</code> reads as THE FIRST PACKAGE EVER to an operator comparing against an artefact, and absence is the only encoding that says <em>this hive cannot state this</em>.</p>
 <h3 id="fv-021--the-development-trust-group-derived-end-to-end">FV-021 — The development trust group, derived end to end</h3>
-<p><strong>Demonstrates:</strong> <code>L5-110 to L5-117</code> (<code>L5-trust-and-identity.md</code> Clause 9.1a-9.1h).</p>
+<p><strong>Demonstrates:</strong> <code>L5-110 to L5-117</code> (<a href="L5-trust-and-identity.html"><code>L5-trust-and-identity.md</code></a> Clause 9.1a-9.1h).</p>
 <p><strong>Conforming.</strong> seed = 57 bytes US-ASCII, no terminator, no trailing newline, every byte in 0x20-0x79 (inside the 0x20-0x7E bound):</p>
 <pre><code>Reality2 development trust group - not for production use</code></pre>
 <p>seed bytes = <code>5265616c6974793220646576656c6f706d656e742074727573742067726f7570202d206e6f7420666f722070726f64756374696f6e20757365</code></p>
@@ -140,7 +140,7 @@ hive half = <code>630dcd29</code> (SHA-256 of the key, bytes 0-3, big-endian; 0 
 <p><strong>What this rejects that a positive vector alone would not:</strong> <strong>the two failure modes are not the same and only one is cheap to catch</strong>: a non-ASCII substitution changes the LENGTH and dies at 9.1h, while a single valid-ASCII character passes every structural check and is caught only by the digest. A vector carrying only the first would leave an implementation that checks length and range looking correct. This is the transcription failure the clause exists to prevent, reintroduced by the clause itself. <strong>Both identities are stated so a reader can check the refusal against a value rather than against a description</strong> — and because on this artefact an absent result and a wrong one look identical in a report. <strong>The length check is the cheap gate</strong>: an em-dash is three bytes in UTF-8, and several editors produce one from a typed hyphen automatically.</p>
 <h2 id="document-fixtures-clause-7">Document fixtures (Clause 7)</h2>
 <h3 id="fv-013--the-baseline-conforming-score-and-the-seam-from-source-to-canonical-bytes">FV-013 — The baseline conforming score, and the seam from source to canonical bytes</h3>
-<p><strong>Demonstrates:</strong> <code>F-077</code> (<code>FORMATS.md</code> 7.8.1).</p>
+<p><strong>Demonstrates:</strong> <code>F-077</code> (<a href="FORMATS.html#c7.8.1"><code>FORMATS.md</code> 7.8.1</a>).</p>
 <p><strong>Document as authored.</strong></p>
 <pre><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
@@ -161,7 +161,7 @@ parts:
 <p><strong>Verdict.</strong> MUST LOAD. <strong>This is the vacuity guard and the baseline</strong>: every negative below is this document with exactly one change, verified by the generator to differ in exactly one place. <strong>It carries <code>unsigned: true</code> (7.9.4b) because a score with neither a signature nor that declaration is refused (7.9.4a)</strong> — a baseline that would itself be refused gives every negative a second reason to fail.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> nothing on its own — but without it every refusal below could be a refusal for a baseline reason rather than for the clause it names.</p>
 <h3 id="fv-014--unknown-field-is-refused">FV-014 — Unknown field is refused</h3>
-<p><strong>Demonstrates:</strong> <code>F-040</code> (<code>FORMATS.md</code> 7.3.1).</p>
+<p><strong>Demonstrates:</strong> <code>F-040</code> (<a href="FORMATS.html#c7.3.1"><code>FORMATS.md</code> 7.3.1</a>).</p>
 <p><strong>Document as authored.</strong></p>
 <pre><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
@@ -181,7 +181,7 @@ colour: &#39;blue&#39;</code></pre>
 <p><strong>Verdict.</strong> MUST BE REFUSED, <strong>attributed to 7.3.1</strong> — one field added to a document that otherwise loads.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> accumulated deployment-local dialect: of ten deployed scores exactly one drifted, and the drifted file becomes the model the next author copies.</p>
 <h3 id="fv-015--unresolvable-versioned-reference-fails-and-fails-loudly">FV-015 — Unresolvable versioned reference fails, and fails loudly</h3>
-<p><strong>Demonstrates:</strong> <code>F-041</code> (<code>FORMATS.md</code> 7.3.2).</p>
+<p><strong>Demonstrates:</strong> <code>F-041</code> (<a href="FORMATS.html#c7.3.2"><code>FORMATS.md</code> 7.3.2</a>).</p>
 <p><strong>Document as authored.</strong></p>
 <pre><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
@@ -198,10 +198,10 @@ parts:
         transitions:
           - event: &#39;read&#39;
   - include: &#39;nz.example.part@9.9.9&#39;</code></pre>
-<p><strong>Verdict.</strong> MUST BE REFUSED WITH AN ERROR, <strong>attributed to 7.3.2</strong>; and 7.3.3 forbids substituting an absent value, so a load that succeeds with an empty part fails <strong>7.3.3</strong> specifically.</p>
+<p><strong>Verdict.</strong> MUST BE REFUSED WITH AN ERROR, <strong>attributed to 7.3.2</strong>; and 7.3.3 forbids substituting an absent value, so a load that succeeds with an empty part fails <strong class="clause" id="c7.3.3">7.3.3</strong> specifically.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> the silent-empty path: a pre-migration consumer once emitted empty values for every migrated entry, caught only by a negative control.</p>
 <h3 id="fv-016--a-part-declared-not-runtime-executable-is-not-loaded">FV-016 — A part declared not runtime-executable is not loaded</h3>
-<p><strong>Demonstrates:</strong> <code>F-081</code> (<code>FORMATS.md</code> 7.8.4).</p>
+<p><strong>Demonstrates:</strong> <code>F-081</code> (<a href="FORMATS.html#c7.8.4"><code>FORMATS.md</code> 7.8.4</a>).</p>
 <p><strong>Document as authored.</strong></p>
 <pre><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
@@ -221,7 +221,7 @@ parts:
 <p><strong>Verdict.</strong> <strong>The score is otherwise the baseline, so it is well-formed by construction</strong>; the RUNTIME MUST NOT LOAD that part, attributed to 7.8.4. A builder may still realise it.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> a runtime that treats every part as loadable: the score parses, the part runs, and a build-time contract is executed as though it were a program.</p>
 <h3 id="fv-017--a-conflicting-registration-is-refused">FV-017 — A conflicting registration is refused</h3>
-<p><strong>Demonstrates:</strong> <code>F-088</code> (<code>FORMATS.md</code> 7.8.8).</p>
+<p><strong>Demonstrates:</strong> <code>F-088</code> (<a href="FORMATS.html#c7.8.8"><code>FORMATS.md</code> 7.8.8</a>).</p>
 <p><strong>Document as authored.</strong></p>
 <pre><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
@@ -243,7 +243,7 @@ registrations:
 <p><strong>Verdict.</strong> MUST BE REFUSED <strong>when a score already present holds <code>/level</code></strong>, attributed to 7.8.8 — and MUST LOAD when no other score holds it. <strong>Both halves are the vector</strong>: one document, two hive states, two verdicts.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> an implementation that refuses on any second registration regardless of conflict, and one that accepts both and lets the later silently win.</p>
 <h3 id="fv-018--an-action-naming-an-undeclared-plugin-is-refused">FV-018 — An action naming an undeclared plugin is refused</h3>
-<p><strong>Demonstrates:</strong> <code>F-102</code> (<code>FORMATS.md</code> 7.10.2).</p>
+<p><strong>Demonstrates:</strong> <code>F-102</code> (<a href="FORMATS.html#c7.10.2"><code>FORMATS.md</code> 7.10.2</a>).</p>
 <p><strong>Document as authored.</strong></p>
 <pre><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
@@ -265,7 +265,7 @@ parts:
 <p><strong>Verdict.</strong> MUST BE REFUSED, <strong>attributed to 7.10.2</strong> — the part declares no <code>plugins</code> entry for the name the action invokes.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> deferring the failure to run time, where the sentant silently discards a result event that never arrives (7.5.6) and the fault presents as a dead automation.</p>
 <h3 id="fv-019--a-part-with-no-automation-is-refused">FV-019 — A part with no automation is refused</h3>
-<p><strong>Demonstrates:</strong> <code>F-043</code> (<code>FORMATS.md</code> 7.4.1).</p>
+<p><strong>Demonstrates:</strong> <code>F-043</code> (<a href="FORMATS.html#c7.4.1"><code>FORMATS.md</code> 7.4.1</a>).</p>
 <p><strong>Document as authored.</strong></p>
 <pre><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
@@ -280,7 +280,7 @@ parts:
 <p><strong>Verdict.</strong> MUST BE REFUSED, <strong>attributed to 7.4.1</strong> — the one field removed is the one under test.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> an implementation that accepts a part with nothing to run: it instantiates a sentant that can never respond, indistinguishable at run time from one whose events are being discarded.</p>
 <h3 id="fv-020--a-merely-absent-signature-field-is-not-the-unsigned-exemption">FV-020 — A merely absent signature field is not the unsigned exemption</h3>
-<p><strong>Demonstrates:</strong> <code>F-098</code> (<code>FORMATS.md</code> 7.9.4a).</p>
+<p><strong>Demonstrates:</strong> <code>F-098</code> (<a href="FORMATS.html#c7.9.4a"><code>FORMATS.md</code> 7.9.4a</a>).</p>
 <p><strong>Document as authored.</strong></p>
 <pre><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;

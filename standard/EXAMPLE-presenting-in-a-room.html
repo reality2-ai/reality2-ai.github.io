@@ -58,7 +58,7 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
 <strong>Date:</strong> 2026-08-04</p>
 <blockquote>
 <p>⚠ <strong>INFORMATIVE.</strong> The deliberate counterpart to
-<code>EXAMPLE-payment-at-point-of-sale.md</code>: the same stack, the same mechanisms, at the
+<a href="EXAMPLE-payment-at-point-of-sale.html"><code>EXAMPLE-payment-at-point-of-sale.md</code></a>: the same stack, the same mechanisms, at the
 <strong>other end of every ladder</strong> — minimal authentication, minimal ceremony, and one
 governing decision most protocols get wrong: <strong>where no mechanism is needed, none is
 imposed.</strong> Open edges are flagged in place.</p>
@@ -90,22 +90,22 @@ purpose selects the grade, and this purpose selects almost none.</p>
 <tr>
 <td>0.1</td>
 <td>Screen beacons: marker, beacon identifier, class hash of <code>ai.reality2.display.screen</code>, production mode</td>
-<td>L2 5.1</td>
+<td><a href="L2-capability-and-discovery.html#c5.1">L2 5.1</a></td>
 </tr>
 <tr>
 <td>0.2</td>
 <td>Phone scans, matches the class — filter 2 exact, or filter 3 by asking for the class string and matching <code>*.display.screen</code></td>
-<td>L2 7.1, 7.2</td>
+<td><a href="L2-capability-and-discovery.html#c7.1">L2 7.1</a>, 7.2</td>
 </tr>
 <tr>
 <td>0.3</td>
 <td>Phone asks what the screen can do — formats, resolution: the capability question</td>
-<td>L2 7.1 step 4, on the unauthenticated rung</td>
+<td><a href="L2-capability-and-discovery.html#c7.1">L2 7.1</a> step 4, on the unauthenticated rung</td>
 </tr>
 </tbody>
 </table></div>
 <h3 id="phase-1--a-low-level-entanglement-conditioned-on-presence">Phase 1 — a low-level entanglement, conditioned on presence</h3>
-<p>P and R entangle on the ruled frame (L5 10.2), and every parameter sits at the bottom of
+<p>P and R entangle on the ruled frame (<a href="L5-trust-and-identity.html#c10.2">L5 10.2</a>), and every parameter sits at the bottom of
 its range:</p>
 <ul>
 <li><strong>level</strong> — display-grade: low. The screen needs to know almost nothing about who sends.</li>
@@ -116,7 +116,7 @@ not a duration. The phone is here, hearably, on the room's own bearer.</li>
 binding the entanglement to <em>this</em> screen rather than the identical one next door.</li>
 </ul>
 <p><strong>When the presenter walks out, the condition fails and the entanglement expires</strong> — the
-sighting fades on the room's bearer (L2 6.3), the condition is no longer met (L5 10.2.3),
+sighting fades on the room's bearer (<a href="L2-capability-and-discovery.html#c6.3">L2 6.3</a>), the condition is no longer met (<a href="L5-trust-and-identity.html#c10.2.3">L5 10.2.3</a>),
 and the keys die. Leaving the room <em>is</em> the teardown; nobody logs out.</p>
 <blockquote>
 <p>⚠ <strong>Two open edges, flagged:</strong> the establishment ceremony's signals are <strong>Q25</strong>, and
@@ -140,7 +140,7 @@ strength is priced by the level, and this level is low.</strong></p>
 <td>2.1</td>
 <td>P→R: the deck, as <strong>chunked transfer</strong></td>
 <td>slide images as manifest-verified pieces, encrypted under the entanglement's key</td>
-<td>the L6 5.3.5 model at the <strong>receipt</strong> grade — the phone wants to know the deck arrived before standing up</td>
+<td>the <a href="L6-management.html#c5.3.5">L6 5.3.5</a> model at the <strong>receipt</strong> grade — the phone wants to know the deck arrived before standing up</td>
 </tr>
 <tr>
 <td>2.2</td>
@@ -152,12 +152,12 @@ strength is priced by the level, and this level is low.</strong></p>
 <td>2.3</td>
 <td>R renders</td>
 <td>—</td>
-<td>the display plugin is hive-shared (L7 6.2.1); the sentant's handler is the only gate that matters here</td>
+<td>the display plugin is hive-shared (<a href="L7-application.html#c6.2.1">L7 6.2.1</a>); the sentant's handler is the only gate that matters here</td>
 </tr>
 </tbody>
 </table></div>
 <p>Even here the payload is encrypted — the deck is not broadcast to the street; an observer
-in radio range sees the envelope only (<strong>L2 11.4</strong>; L5 7.3.4 states the same boundary for a
+in radio range sees the envelope only (<strong><a href="L2-capability-and-discovery.html#c11.4">L2 11.4</a></strong>; <a href="L5-trust-and-identity.html#c7.3.4">L5 7.3.4</a> states the same boundary for a
 <em>carrier</em>, which an observer in range need not be). <strong>Confidentiality costs nothing extra:
 it fell out of the entanglement existing at all.</strong></p>
 <h3 id="phase-3--who-presents-the-room-decides-and-that-is-a-design-position">Phase 3 — who presents? The room decides, and that is a design position</h3>
@@ -187,7 +187,7 @@ consumed it).</li>
 — <strong>and its <code>display.show</code> matches no accepting policy. It is not blocked; it is
 unheeded</strong> (the strata synthesis: the agent can always speak; whether the far side acts is
 what is governed). No error educates the protester about the policy, either — silence
-toward the unentitled is the same posture the diagnostics tier takes (L6 6.2.2).</p>
+toward the unentitled is the same posture the diagnostics tier takes (<a href="L6-management.html#c6.2.2">L6 6.2.2</a>).</p>
 <p><strong>And the lock releases the way everything here releases:</strong> the clerk walks out, their
 proximity condition fails, their entanglement expires, and the screen's policy falls back
 to whatever the room configured for that case.</p>

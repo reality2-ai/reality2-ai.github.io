@@ -89,7 +89,7 @@ single-board computer"</em> stops being checkable the moment single-board comput
 class defined as <em>"provides an allocator, one gigabyte of memory, hosts Layer 7, always
 receptive"</em> can be checked by anyone, today and in ten years. Clause 8 is built on that
 distinction.</p>
-<h2 id="1-scope">1 Scope</h2>
+<span class="clause-anchor" id="c1"></span><h2 id="1-scope">1 Scope</h2>
 <p>This document specifies the facilities a Reality2 platform provides to the layers above it.</p>
 <p>It defines the minimum capability that qualifies hardware as a device, and the relaying
 obligation that every device carries.</p>
@@ -100,75 +100,75 @@ classes those parameters place it in.</p>
 <p>It identifies the facilities that higher layers assume and that Reality2 has not specified.</p>
 <p>It does not specify processors, radio parts, power budgets, enclosures or physical form,
 and it names no product. It does not specify transport bindings, which are Layer 1.</p>
-<h2 id="2-normative-references">2 Normative references</h2>
+<span class="clause-anchor" id="c2"></span><h2 id="2-normative-references">2 Normative references</h2>
 <p>The following document is referred to in the text in such a way that some or all of its
 content constitutes requirements of this document.</p>
 <ul>
-<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<code>01-terminology.md</code>)</li>
+<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<a href="01-terminology.html"><code>01-terminology.md</code></a>)</li>
 </ul>
-<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<span class="clause-anchor" id="c3"></span><h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
 <p>For the purposes of this document, the terms and definitions given in <strong>Reality2 Standard
 — Terminology and core definitions</strong> apply, together with the following.</p>
-<p><strong>3.1
+<p><strong class="clause" id="c3.1">3.1
 platform</strong></p>
 <p>hardware together with the software that adapts it, providing the facilities specified in
 Clause 5 to the layers above</p>
 <p>Note 1 to entry: In the normal case a platform hosts one hive, or one part of a hive
 whose parts run on separate processors. A platform capable of isolating them can host
-several hives at once, each in its own sealed environment (Layer 5, 4.3.5); most
+several hives at once, each in its own sealed environment (<a href="L5-trust-and-identity.html#c4.3.5">Layer 5, 4.3.5</a>); most
 platforms cannot, and nothing obliges any platform to.</p>
-<p><strong>3.2
+<p><strong class="clause" id="c3.2">3.2
 platform adaptation</strong></p>
 <p>part of an implementation that differs between platforms, isolated so that everything above
 it is identical on every platform</p>
 <p>Note 1 to entry: The relationship is that of a device driver to an operating system. The
 layers above a platform adaptation cannot tell which hardware is beneath it, and are not
 written to find out.</p>
-<p><strong>3.3
+<p><strong class="clause" id="c3.3">3.3
 platform declaration</strong></p>
 <p>statement of the parameter values in 8.2 for a particular platform</p>
-<p><strong>3.4
+<p><strong class="clause" id="c3.4">3.4
 capability class</strong></p>
 <p>set of parameter values, identified by a number, that a platform declaration can satisfy</p>
 <p>Note 1 to entry: A class is a threshold, not a category of hardware. Anything meeting the
 values of a class is in that class, whatever it is made of.</p>
-<p><strong>3.5
+<p><strong class="clause" id="c3.5">3.5
 monotonic time source</strong></p>
 <p>time source whose reported value never decreases while the platform remains powered</p>
 <p>Note 1 to entry: A monotonic time source is not required to relate to wall-clock time, to
 any epoch, or to any other platform's time source.</p>
-<p><strong>3.6
+<p><strong class="clause" id="c3.6">3.6
 key-bearing platform</strong></p>
 <p>platform that retains trust-group key material across loss of power</p>
 <p>Note 1 to entry: Being key-bearing and hosting Layer 5 are independent. A platform can hold
 key material placed on it before deployment and use it to validate frames while performing
 no membership operation of its own.</p>
-<p><strong>3.7
+<p><strong class="clause" id="c3.7">3.7
 duty-cycled platform</strong></p>
 <p>platform that is unpowered or unreceptive for scheduled intervals during normal operation</p>
 <p>Note 1 to entry: The complement is an always-on platform, which is receptive whenever it is
 in service.</p>
-<p><strong>3.8
+<p><strong class="clause" id="c3.8">3.8
 wake window</strong></p>
 <p>interval, agreed in advance, during which duty-cycled platforms are simultaneously
 receptive</p>
-<h2 id="4-devices-and-relaying">4 Devices and relaying</h2>
-<h3 id="41-what-counts-as-a-device">4.1 What counts as a device</h3>
-<p><strong>4.1.1</strong> Hardware qualifying as a device shall be able to:</p>
+<span class="clause-anchor" id="c4"></span><h2 id="4-devices-and-relaying">4 Devices and relaying</h2>
+<span class="clause-anchor" id="c4.1"></span><h3 id="41-what-counts-as-a-device">4.1 What counts as a device</h3>
+<p><strong class="clause" id="c4.1.1">4.1.1</strong> Hardware qualifying as a device shall be able to:</p>
 <p>a) receive frames of the Reality2 wire protocol (Layer 4);</p>
 <p>b) validate a received frame's integrity check; and</p>
 <p>c) originate frames, relay frames, or both.</p>
-<p><strong>4.1.2</strong> Hardware that transmits data without processing the Reality2 wire protocol shall
+<p><strong class="clause" id="c4.1.2">4.1.2</strong> Hardware that transmits data without processing the Reality2 wire protocol shall
 not be presented as a device.</p>
 <p>Note 1 to entry: Such hardware attaches to a device as a peripheral. This constrains what
 may be claimed, not what may be built.</p>
 <p><em>Verification: submit a well-formed frame and one with a corrupted integrity check. A
 conforming device accepts the first and rejects the second.</em></p>
-<h3 id="42-relaying-is-the-default-and-stopping-is-a-declaration">4.2 Relaying is the default, and stopping is a declaration</h3>
-<p><strong>4.2.1</strong> A device shall relay frames addressed to others, except as permitted by 4.2.2.</p>
-<p><strong>4.2.2</strong> A device in capability class 1 (8.3) that is power-constrained may cease
+<span class="clause-anchor" id="c4.2"></span><h3 id="42-relaying-is-the-default-and-stopping-is-a-declaration">4.2 Relaying is the default, and stopping is a declaration</h3>
+<p><strong class="clause" id="c4.2.1">4.2.1</strong> A device shall relay frames addressed to others, except as permitted by 4.2.2.</p>
+<p><strong class="clause" id="c4.2.2">4.2.2</strong> A device in capability class 1 (8.3) that is power-constrained may cease
 relaying.</p>
-<p><strong>4.2.3</strong> A device that has ceased relaying shall carry the constrained-origin marking on
+<p><strong class="clause" id="c4.2.3">4.2.3</strong> A device that has ceased relaying shall carry the constrained-origin marking on
 every frame it originates.</p>
 <p>Note 1 to entry: The constrained-origin marking is a flag bit of the wire format, specified
 at Layer 4. <strong>The marking means "this origin will not relay for you" and nothing else</strong> — a
@@ -180,26 +180,26 @@ legitimate; ceasing silently is not.</strong></p>
 <p><em>Verification: transmit a frame addressed to a third party within range of the device
 under test. Either it retransmits, or its own originated frames carry the constrained-
 origin marking.</em></p>
-<h3 id="43-identity">4.3 Identity</h3>
-<p><strong>4.3.1</strong> Every device shall have an identity unique among devices, which persists across
+<span class="clause-anchor" id="c4.3"></span><h3 id="43-identity">4.3 Identity</h3>
+<p><strong class="clause" id="c4.3.1">4.3.1</strong> Every device shall have an identity unique among devices, which persists across
 loss of power.</p>
-<p><strong>4.3.2</strong> A device whose platform does not satisfy 5.5.1 may have its identity generated
+<p><strong class="clause" id="c4.3.2">4.3.2</strong> A device whose platform does not satisfy 5.5.1 may have its identity generated
 elsewhere and installed before deployment.</p>
 <p>Note 1 to entry: 4.3.2 is why 5.5.1 is conditional. A platform without a usable entropy
 source is not excluded from Reality2; it is excluded from <em>manufacturing its own keys</em>, and
 receives them instead.</p>
-<h2 id="5-what-a-platform-provides">5 What a platform provides</h2>
+<span class="clause-anchor" id="c5"></span><h2 id="5-what-a-platform-provides">5 What a platform provides</h2>
 <p><strong>Every facility in this clause is reached across the platform adaptation boundary (3.2).</strong>
 A higher layer obtains it without knowing, and without being able to discover, what
 provides it.</p>
-<h3 id="51-transport-access">5.1 Transport access</h3>
-<p><strong>5.1.1</strong> A platform shall provide at least one Layer 1 transport binding.</p>
-<p><strong>5.1.2</strong> For each binding it provides, a platform shall expose operations to transmit a
+<span class="clause-anchor" id="c5.1"></span><h3 id="51-transport-access">5.1 Transport access</h3>
+<p><strong class="clause" id="c5.1.1">5.1.1</strong> A platform shall provide at least one Layer 1 transport binding.</p>
+<p><strong class="clause" id="c5.1.2">5.1.2</strong> For each binding it provides, a platform shall expose operations to transmit a
 frame, to receive a frame, to configure the binding's parameters, and to place the binding
 into and out of a low-power state.</p>
-<p><strong>5.1.3</strong> A platform having no radio hardware shall provide those operations over its
+<p><strong class="clause" id="c5.1.3">5.1.3</strong> A platform having no radio hardware shall provide those operations over its
 available network transports.</p>
-<p><strong>5.1.4</strong> No layer above shall be required to know which transport technology underlies a
+<p><strong class="clause" id="c5.1.4">5.1.4</strong> No layer above shall be required to know which transport technology underlies a
 given binding.</p>
 <p>Note 1 to entry: A platform providing no binding at all can host no hive, since a hive is
 externally visible by definition and there would be nothing for it to be visible on.</p>
@@ -208,11 +208,11 @@ rather than a special case. The same requirement, differently arranged, would ha
 a standard with a permanent exception in it.</p>
 <p><em>Verification: exercise transmit and receive on each declared binding through the
 abstraction, with no reference in the calling code to the underlying technology.</em></p>
-<h3 id="52-a-monotonic-time-source">5.2 A monotonic time source</h3>
-<p><strong>5.2.1</strong> A platform shall provide a monotonic time source (3.5) with a resolution of one
+<span class="clause-anchor" id="c5.2"></span><h3 id="52-a-monotonic-time-source">5.2 A monotonic time source</h3>
+<p><strong class="clause" id="c5.2.1">5.2.1</strong> A platform shall provide a monotonic time source (3.5) with a resolution of one
 second or finer.</p>
-<p><strong>5.2.2</strong> The monotonic time source shall be readable without network access.</p>
-<p><strong>5.2.3</strong> A platform shall not present its monotonic time source as wall-clock time, and
+<p><strong class="clause" id="c5.2.2">5.2.2</strong> The monotonic time source shall be readable without network access.</p>
+<p><strong class="clause" id="c5.2.3">5.2.3</strong> A platform shall not present its monotonic time source as wall-clock time, and
 shall not require its value to be comparable with any other platform's.</p>
 <p>Note 1 to entry: The layers above use this source for elapsed intervals — how long since a
 neighbour was heard, how stale a path has become. A counter starting at zero on each start
@@ -226,31 +226,31 @@ or is unavailable after power is lost is not specified. <strong>An implementer s
 that an interval spanning a power cycle is measurable.</strong> A count of restarts is not a
 duration. <em>(Clause 10.)</em></p>
 </blockquote>
-<h3 id="53-storage-that-survives-power-loss">5.3 Storage that survives power loss</h3>
-<p><strong>5.3.1</strong> A platform shall provide storage retaining its contents across loss of power,
+<span class="clause-anchor" id="c5.3"></span><h3 id="53-storage-that-survives-power-loss">5.3 Storage that survives power loss</h3>
+<p><strong class="clause" id="c5.3.1">5.3.1</strong> A platform shall provide storage retaining its contents across loss of power,
 sufficient at least for the identity required by 4.3.1.</p>
-<p><strong>5.3.2</strong> A key-bearing platform (3.6) shall retain its trust-group key material in that
+<p><strong class="clause" id="c5.3.2">5.3.2</strong> A key-bearing platform (3.6) shall retain its trust-group key material in that
 storage.</p>
-<p><strong>5.3.3</strong> A platform shall not require network access to read or write that storage.</p>
+<p><strong class="clause" id="c5.3.3">5.3.3</strong> A platform shall not require network access to read or write that storage.</p>
 <p>Note 1 to entry: Membership of a trust group is durable, and re-establishing it requires a
 person. A platform that forgets its key material when power is removed cannot rejoin
 unattended, whatever else it can do.</p>
 <p><em>Verification: write, remove power, restore power, read back.</em></p>
-<h3 id="54-dynamic-memory-where-it-is-needed">5.4 Dynamic memory, where it is needed</h3>
-<p><strong>5.4.1</strong> A platform hosting Layer 5 or above shall provide a dynamic memory allocator.</p>
-<p><strong>5.4.2</strong> A platform hosting no layer above Layer 4 need not provide one.</p>
+<span class="clause-anchor" id="c5.4"></span><h3 id="54-dynamic-memory-where-it-is-needed">5.4 Dynamic memory, where it is needed</h3>
+<p><strong class="clause" id="c5.4.1">5.4.1</strong> A platform hosting Layer 5 or above shall provide a dynamic memory allocator.</p>
+<p><strong class="clause" id="c5.4.2">5.4.2</strong> A platform hosting no layer above Layer 4 need not provide one.</p>
 <p>Note 1 to entry: Layers 1 to 4 are specified so that they can be implemented with static
 allocation and fixed-size buffers alone. <strong>This is a deliberate constraint on those layers,
 not an accident of them being simple</strong> — it is what allows the smallest hardware to carry
 mesh traffic for everyone else.</p>
 <p><em>Verification: exercise a platform through Layers 1 to 4 with dynamic allocation disabled.</em></p>
-<h3 id="55-random-numbers-where-keys-are-made">5.5 Random numbers, where keys are made</h3>
-<p><strong>5.5.1</strong> A platform generating key material shall provide a cryptographically secure
+<span class="clause-anchor" id="c5.5"></span><h3 id="55-random-numbers-where-keys-are-made">5.5 Random numbers, where keys are made</h3>
+<p><strong class="clause" id="c5.5.1">5.5.1</strong> A platform generating key material shall provide a cryptographically secure
 random number generator.</p>
-<p><strong>5.5.2</strong> A platform not providing one shall not generate key material.</p>
-<p><strong>5.5.2a</strong> Key material shall be generated only while the platform's entropy source meets the
+<p><strong class="clause" id="c5.5.2">5.5.2</strong> A platform not providing one shall not generate key material.</p>
+<p><strong class="clause" id="c5.5.2a">5.5.2a</strong> Key material shall be generated only while the platform's entropy source meets the
 conditions under which it is conforming.</p>
-<p><strong>5.5.2b</strong> A platform whose entropy source is conforming only under stated conditions shall
+<p><strong class="clause" id="c5.5.2b">5.5.2b</strong> A platform whose entropy source is conforming only under stated conditions shall
 refuse to generate key material while those conditions are unmet.</p>
 <p>Note 0 to entry: <strong>5.5.2 asks whether a platform <em>can</em> generate conforming key material, and
 on a dominant embedded platform the honest answer is <em>yes, while something else is
@@ -263,7 +263,7 @@ device is weak for its whole life.</strong></p>
 <p>Note 1 to entry: <strong>No conformance test that inspects the result can see this</strong>, which is why
 the obligation is on the <em>moment</em> rather than on the output: <strong>the output of a weak generator
 and a strong one are indistinguishable by inspection</strong>, so a negative control is not
-constructible here at all (<code>01-terminology.md</code> 4.5). <strong>The practical consequence an
+constructible here at all (<a href="01-terminology.html#c4.5"><code>01-terminology.md</code> 4.5</a>). <strong>The practical consequence an
 implementer will not otherwise derive: the radio starts before trust boots.</strong> <em>(Added
 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS213, from an implementation that read 5.5.2
 correctly, answered it correctly, and would still have minted a weak identity.)</em></p>
@@ -273,12 +273,12 @@ enough.</p>
 <p><em>Verification: identify the entropy source behind the generator. A generator seeded from a
 value fixed at build time, from the device identity, or from the monotonic time source
 alone does not satisfy 5.5.1.</em></p>
-<h3 id="56-sensors-and-peripherals">5.6 Sensors and peripherals</h3>
-<p><strong>5.6.1</strong> A platform providing sensors or general-purpose input and output shall expose
+<span class="clause-anchor" id="c5.6"></span><h3 id="56-sensors-and-peripherals">5.6 Sensors and peripherals</h3>
+<p><strong class="clause" id="c5.6.1">5.6.1</strong> A platform providing sensors or general-purpose input and output shall expose
 operations to enumerate them and to read and write them.</p>
-<p><strong>5.6.2</strong> A platform providing none of these shall report them as unsupported, and shall
+<p><strong class="clause" id="c5.6.2">5.6.2</strong> A platform providing none of these shall report them as unsupported, and shall
 not report an error.</p>
-<p><strong>5.6.3</strong> A platform should present sensor values in SI units.</p>
+<p><strong class="clause" id="c5.6.3">5.6.3</strong> A platform should present sensor values in SI units.</p>
 <p>Note 1 to entry: The distinction in 5.6.2 carries weight. <em>Unsupported</em> is a fixed property
 of the platform, which a higher layer can act on once and remember. <em>Error</em> is a passing
 condition, which a higher layer will retry — for as long as it keeps being told to.</p>
@@ -292,16 +292,16 @@ Q38 (found by the provenance audit, 2026-08-01).</p>
 <p>Note 3 to entry: <strong>Note 2's gap has since been measured from the implementing side, and the
 indicator row is the worked example.</strong> Three capability names for one hardware function were
 found in use in one catalogue, <strong>one of them with no provider at all and appearing only in
-requirement position</strong> — an ensemble requiring a capability nothing supplied. <strong><code>FORMATS.md</code>
+requirement position</strong> — an ensemble requiring a capability nothing supplied. <strong><a href="FORMATS.html"><code>FORMATS.md</code></a>
 Clause 6 holds no indicator contract</strong>, so by 6.1 all three names are <em>deployment-local and
 carry no interop claim</em>, however established one of them looks. <strong>The consequence to state
 here is that a hardware function every board image is obliged to carry has no agreed name</strong>,
 and the standard is silent rather than permissive about it — the silence is Q38's, not a
 licence. <em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, on composer-lane measurement.)</em></p>
-<h3 id="57-applying-a-firmware-image">5.7 Applying a firmware image</h3>
-<p><strong>5.7.1</strong> A platform shall provide the means by which a validated firmware image is applied
+<span class="clause-anchor" id="c5.7"></span><h3 id="57-applying-a-firmware-image">5.7 Applying a firmware image</h3>
+<p><strong class="clause" id="c5.7.1">5.7.1</strong> A platform shall provide the means by which a validated firmware image is applied
 to it.</p>
-<p><strong>5.7.2</strong> How an image is applied shall not be visible above the platform adaptation
+<p><strong class="clause" id="c5.7.2">5.7.2</strong> How an image is applied shall not be visible above the platform adaptation
 boundary.</p>
 <p>Note 1 to entry: Only the final act is a platform facility. How an image is carried,
 authorised and validated is specified elsewhere and is identical everywhere. <strong>What differs
@@ -309,30 +309,30 @@ between platforms — writing a partition, replacing files, swapping code in a r
 system — differs entirely below this line.</strong></p>
 <p>Note 2 to entry: Two further physical affordances are required of a device by upper layers
 and are recorded here so a platform designer sees them early: <strong>a local physical action by
-which the claim state is reset</strong> (Layer 5, 4.4 — a device without one can never change
+which the claim state is reset</strong> (<a href="L5-trust-and-identity.html#c4.4">Layer 5, 4.4</a> — a device without one can never change
 owner), and <strong>a recovery facility beneath the stack</strong> by which possession restores a
-working image (Layer 6, 5.5). Both are stated where their authority models live.</p>
-<h3 id="58-nothing-particular-escapes-upward">5.8 Nothing particular escapes upward</h3>
-<p><strong>5.8.1</strong> The behaviour of Layers 1 to 7 shall be identical on every conforming platform.</p>
-<p><strong>5.8.2</strong> A platform shall not require any higher layer to behave differently on account of
+working image (<a href="L6-management.html#c5.5">Layer 6, 5.5</a>). Both are stated where their authority models live.</p>
+<span class="clause-anchor" id="c5.8"></span><h3 id="58-nothing-particular-escapes-upward">5.8 Nothing particular escapes upward</h3>
+<p><strong class="clause" id="c5.8.1">5.8.1</strong> The behaviour of Layers 1 to 7 shall be identical on every conforming platform.</p>
+<p><strong class="clause" id="c5.8.2">5.8.2</strong> A platform shall not require any higher layer to behave differently on account of
 the hardware beneath it.</p>
 <p>Note 1 to entry: A platform difference visible above this boundary is a defect in the
 platform adaptation. It is never a property of Reality2, and it is never a reason for a
 higher layer to acquire a special case.</p>
 <p><em>Verification: a conformance suite for any higher layer passes unmodified on two platforms
 in different capability classes.</em></p>
-<h2 id="6-isolation-at-the-trust-boundary">6 Isolation at the trust boundary</h2>
+<span class="clause-anchor" id="c6"></span><h2 id="6-isolation-at-the-trust-boundary">6 Isolation at the trust boundary</h2>
 <p><strong>The trust boundary lies between Layer 4 and Layer 5.</strong> Where a platform hosts both sides
 of it, the platform is what keeps them apart.</p>
-<p><strong>6.1</strong> Code implementing Layers 1 to 4 shall not have access to:</p>
+<p><strong class="clause" id="c6.1">6.1</strong> Code implementing Layers 1 to 4 shall not have access to:</p>
 <p>a) trust-group private keys;</p>
 <p>b) sentant state; or</p>
 <p>c) management credentials.</p>
-<p><strong>6.2</strong> Data passing from Layer 4 to Layer 5 shall be validated before it is processed.</p>
-<p><strong>6.3</strong> Data passing from Layer 4 to Layer 5 shall carry no trust material.</p>
-<p><strong>6.4</strong> Where the two sides are hosted on separate processors, 6.1 to 6.3 apply to the link
+<p><strong class="clause" id="c6.2">6.2</strong> Data passing from Layer 4 to Layer 5 shall be validated before it is processed.</p>
+<p><strong class="clause" id="c6.3">6.3</strong> Data passing from Layer 4 to Layer 5 shall carry no trust material.</p>
+<p><strong class="clause" id="c6.4">6.4</strong> Where the two sides are hosted on separate processors, 6.1 to 6.3 apply to the link
 between them exactly as within one processor.</p>
-<p><strong>6.5</strong> An implementation should enforce 6.1 by construction — so that below-boundary code
+<p><strong class="clause" id="c6.5">6.5</strong> An implementation should enforce 6.1 by construction — so that below-boundary code
 <em>cannot</em> name the items listed — rather than by a check made while running.</p>
 <p>Note 1 to entry: 6.1 forbids material that conveys <em>trust</em>. It does not forbid
 below-boundary state that is merely secret. A value generated locally at start, never
@@ -345,14 +345,14 @@ was never able to reach anything that would let it. <strong>The property is stru
 what "shared mesh, private data" means in practice.</strong></p>
 <p><em>Verification: enumerate what the below-boundary code depends on. A dependency reaching any
 item in 6.1 a) to c) is non-conforming whether or not it is exercised while running.</em></p>
-<h2 id="7-availability">7 Availability</h2>
-<p><strong>7.1</strong> A platform shall declare itself always-on or duty-cycled (3.7).</p>
-<p><strong>7.2</strong> A duty-cycled platform shall not assume any peer is receptive outside a wake window
+<span class="clause-anchor" id="c7"></span><h2 id="7-availability">7 Availability</h2>
+<p><strong class="clause" id="c7.1">7.1</strong> A platform shall declare itself always-on or duty-cycled (3.7).</p>
+<p><strong class="clause" id="c7.2">7.2</strong> A duty-cycled platform shall not assume any peer is receptive outside a wake window
 (3.8).</p>
-<p><strong>7.3</strong> A duty-cycled platform shall state three intervals: the shortest permitted between
+<p><strong class="clause" id="c7.3">7.3</strong> A duty-cycled platform shall state three intervals: the shortest permitted between
 wake periods, the longest permitted, and the shortest it may adopt without being instructed
 to.</p>
-<p><strong>7.4</strong> A duty-cycled platform shall not adopt an interval shorter than the shortest
+<p><strong class="clause" id="c7.4">7.4</strong> A duty-cycled platform shall not adopt an interval shorter than the shortest
 permitted, whatever instruction it receives.</p>
 <p>Note 1 to entry: The three intervals in 7.3 are different quantities with different owners.
 The first protects the energy source and belongs to whoever deployed the hardware. The
@@ -368,11 +368,11 @@ energy supply is healthy can still be duty-cycled, and a platform running low on
 not thereby duty-cycled.</p>
 <p><em>Verification: instruct the platform to adopt an interval shorter than its stated shortest
 permitted. A conforming platform does not adopt it.</em></p>
-<h2 id="8-declaring-what-a-platform-is">8 Declaring what a platform is</h2>
-<h3 id="81-the-declaration">8.1 The declaration</h3>
-<p><strong>8.1.1</strong> A platform shall publish a platform declaration (3.3).</p>
-<p><strong>8.1.2</strong> A platform declaration shall state a value for every parameter in 8.2.</p>
-<p><strong>8.1.3</strong> A platform declaration shall not identify a class by a product name, a board name
+<span class="clause-anchor" id="c8"></span><h2 id="8-declaring-what-a-platform-is">8 Declaring what a platform is</h2>
+<span class="clause-anchor" id="c8.1"></span><h3 id="81-the-declaration">8.1 The declaration</h3>
+<p><strong class="clause" id="c8.1.1">8.1.1</strong> A platform shall publish a platform declaration (3.3).</p>
+<p><strong class="clause" id="c8.1.2">8.1.2</strong> A platform declaration shall state a value for every parameter in 8.2.</p>
+<p><strong class="clause" id="c8.1.3">8.1.3</strong> A platform declaration shall not identify a class by a product name, a board name
 or a vendor name.</p>
 <p>Note 0 to entry: <strong>The declaration answers one question: what must a platform tell the
 layers above it, and why must they be told rather than assume?</strong> Every parameter is here
@@ -388,8 +388,8 @@ parties each wanting a field.</p>
 changes, and says nothing to anyone who does not have one. <strong>A declaration in parameters
 can be checked by someone holding different hardware entirely</strong> — which is the only kind of
 check this standard can require.</p>
-<h3 id="82-parameters">8.2 Parameters</h3>
-<p><strong>8.2.1</strong> A platform declaration shall state:</p>
+<span class="clause-anchor" id="c8.2"></span><h3 id="82-parameters">8.2 Parameters</h3>
+<p><strong class="clause" id="c8.2.1">8.2.1</strong> A platform declaration shall state:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -442,7 +442,7 @@ check this standard can require.</p>
 <tr>
 <td>P9</td>
 <td>Update slots</td>
-<td>whether the platform provides image slots for the update model of Layer 6, 5.4; where it does, how many and the usable size of each</td>
+<td>whether the platform provides image slots for the update model of <a href="L6-management.html#c5.4">Layer 6, 5.4</a>; where it does, how many and the usable size of each</td>
 </tr>
 <tr>
 <td>P10</td>
@@ -466,7 +466,7 @@ check this standard can require.</p>
 </tr>
 </tbody>
 </table></div>
-<p><strong>8.2.2</strong> An energy or duration figure stated for a platform shall name the parameter
+<p><strong class="clause" id="c8.2.2">8.2.2</strong> An energy or duration figure stated for a platform shall name the parameter
 values it was measured or calculated against.</p>
 <p>Note 1 to entry: P2 separates a hardware capability from a fact about software on purpose.
 <strong>A low-power state the hardware supports and the shipped software never enters contributes
@@ -479,8 +479,8 @@ survive power loss. <em>(Clause 10.)</em></p>
 <p><em>Verification: an energy or duration figure naming no parameter values, and a declaration
 omitting any parameter, are each non-conforming. Neither can be checked by anyone outside
 the organisation that wrote it.</em></p>
-<h3 id="83-capability-classes">8.3 Capability classes</h3>
-<p><strong>8.3.1</strong> A platform whose declaration satisfies the values below is in the corresponding
+<span class="clause-anchor" id="c8.3"></span><h3 id="83-capability-classes">8.3 Capability classes</h3>
+<p><strong class="clause" id="c8.3.1">8.3.1</strong> A platform whose declaration satisfies the values below is in the corresponding
 capability class.</p>
 <div class="table-wrap"><table>
 <thead>
@@ -530,7 +530,7 @@ capability class.</p>
 </tr>
 </tbody>
 </table></div>
-<p><strong>8.3.2</strong> A platform in a capability class shall provide at least the following capacities.</p>
+<p><strong class="clause" id="c8.3.2">8.3.2</strong> A platform in a capability class shall provide at least the following capacities.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -561,9 +561,9 @@ capability class.</p>
 </tr>
 </tbody>
 </table></div>
-<p><strong>8.3.3</strong> A platform satisfying the values of more than one class may declare any of them,
+<p><strong class="clause" id="c8.3.3">8.3.3</strong> A platform satisfying the values of more than one class may declare any of them,
 and shall meet 8.3.2 for the class it declares.</p>
-<p><strong>8.3.4</strong> Where a platform in class 2 runs Layers 1 to 4 and Layers 5 to 7 on separate
+<p><strong class="clause" id="c8.3.4">8.3.4</strong> Where a platform in class 2 runs Layers 1 to 4 and Layers 5 to 7 on separate
 processors, the part running Layers 1 to 4 shall be always-on, and the part running Layers
 5 to 7 may be duty-cycled independently of it.</p>
 <p>Note 1 to entry: The two processors of a class 2 platform are one hive, not two devices,
@@ -578,8 +578,8 @@ not in class 1 because of what it is made of; it is in class 1 because of what i
 Anything meeting class 3's values is in class 3.</p>
 <p><em>Verification: measure the allocated capacity of each structure. A neighbour table below
 the stated minimum is non-conforming even where no deployment has yet filled one.</em></p>
-<h3 id="84-form-of-the-declaration">8.4 Form of the declaration</h3>
-<p><strong>8.4.1</strong> A platform declaration shall be published in a form a third party can read
+<span class="clause-anchor" id="c8.4"></span><h3 id="84-form-of-the-declaration">8.4 Form of the declaration</h3>
+<p><strong class="clause" id="c8.4.1">8.4.1</strong> A platform declaration shall be published in a form a third party can read
 without possessing the platform.</p>
 <p>The following form satisfies 8.1 and 8.2. It is illustrative and not the only permitted
 form.</p>
@@ -612,10 +612,10 @@ express it would leave every such platform looking like every other.</strong></p
 That combination is permitted and is common. It means the intervals are measured from a
 known start while the platform is powered, and that no obligation fixed to an absolute
 point in time can be met by it. <em>(Clause 10.)</em></p>
-<h3 id="85-declaring-what-a-platform-does-not-have">8.5 Declaring what a platform does not have</h3>
-<p><strong>8.5.1</strong> Where a platform does not provide a facility this document requires, its
+<span class="clause-anchor" id="c8.5"></span><h3 id="85-declaring-what-a-platform-does-not-have">8.5 Declaring what a platform does not have</h3>
+<p><strong class="clause" id="c8.5.1">8.5.1</strong> Where a platform does not provide a facility this document requires, its
 declaration shall state the shortfall, naming the facility.</p>
-<p><strong>8.5.2</strong> A declared shortfall shall name the obligations of other parts that the platform
+<p><strong class="clause" id="c8.5.2">8.5.2</strong> A declared shortfall shall name the obligations of other parts that the platform
 therefore cannot meet.</p>
 <p>Note 1 to entry: <strong>Until 8.5 the declaration could describe only what a platform has</strong>, so a
 platform lacking a required facility had no vocabulary for its own shape and was simply
@@ -641,15 +641,15 @@ SS113, SS115, SS135.)</em></p>
 consequences reads as a small omission</strong>, and the reader who needs it is the one deciding
 whether to deliver a persona, an update, or a key to that platform. Naming the obligations
 lost turns a gap in a table into a fact another layer can act on.</p>
-<h3 id="86-the-update-facilities">8.6 The update facilities</h3>
-<p><strong>8.6.1</strong> A platform declaring the capability of Layer 6, 5.4.1 shall provide at least two
+<span class="clause-anchor" id="c8.6"></span><h3 id="86-the-update-facilities">8.6 The update facilities</h3>
+<p><strong class="clause" id="c8.6.1">8.6.1</strong> A platform declaring the capability of <a href="L6-management.html#c5.4.1">Layer 6, 5.4.1</a> shall provide at least two
 image slots, each able to hold a complete image for its target, and persistent storage for
 the records Layer 6 requires that lies outside both.</p>
-<p><strong>8.6.2</strong> A platform whose declaration states no write boundary (P10) shall not claim
-conformance to Layer 6, 4.2.2 <strong>by construction</strong>.</p>
-<p><strong>8.6.3</strong> A hive on a platform that cannot report the absence of a valid image-position
+<p><strong class="clause" id="c8.6.2">8.6.2</strong> A platform whose declaration states no write boundary (P10) shall not claim
+conformance to <a href="L6-management.html#c4.2.2">Layer 6, 4.2.2</a> <strong>by construction</strong>.</p>
+<p><strong class="clause" id="c8.6.3">8.6.3</strong> A hive on a platform that cannot report the absence of a valid image-position
 record (P13) shall not treat that record as evidence that an update was applied, without
-the corroboration Layer 6, 5.4.2b requires.</p>
+the corroboration <a href="L6-management.html#c5.4.2b">Layer 6, 5.4.2b</a> requires.</p>
 <p>Note 1 to entry: <strong>8.6.1 states the floor relationally rather than in bytes</strong>, because an
 image size is a per-platform fact and any figure stated here would be wrong for most
 platforms and unreachable for some. What does not vary is the shape: <strong>two slots, because
@@ -670,7 +670,7 @@ documented behaviour — so the <em>no valid record</em> condition exists for le
 condition would be requiring something it structurally cannot do. <strong>The resolution is not to
 weaken the requirement but to make the platform say so and require a second source</strong>:
 P13 declares it, and 5.4.2b's corroboration of the record against the slots is that second
-source. <code>01-terminology.md</code> 5.4 arriving as a conformance requirement rather than as
+source. <a href="01-terminology.html#c5.4"><code>01-terminology.md</code> 5.4</a> arriving as a conformance requirement rather than as
 advice. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; findings SS61, SS68, SS90, SS113,
 SS115, SS135.)</em></p>
 <p>Note 4 to entry: <strong>What this subclause deliberately does not add.</strong> A seventh parameter is
@@ -679,21 +679,21 @@ covers</em>, after a vendor format was measured whose checksum covers a record's
 <strong>not</strong> its state. It is left out because <strong>no finding demanded it</strong>: it was observed, not
 needed, and a parameter added because it would round out the model is an unproven guard in
 prose. It is named here so its absence is legible as a decision. <em>(<code>LESSONS.md</code> C1.)</em></p>
-<h2 id="9-conformance">9 Conformance</h2>
+<span class="clause-anchor" id="c9"></span><h2 id="9-conformance">9 Conformance</h2>
 <p>Every requirement of this document is demonstrated by conformance evidence of one of
-the three classes of <code>01-terminology.md</code>, 3.10 — behavioural, by construction, or by
+the three classes of <a href="01-terminology.html"><code>01-terminology.md</code></a>, 3.10 — behavioural, by construction, or by
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <code>01-terminology.md</code> 4.2 to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
-<p><strong>9.1</strong> A platform conforms to this document where it:</p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+<p><strong class="clause" id="c9.1">9.1</strong> A platform conforms to this document where it:</p>
 <p>a) meets Clause 4;</p>
 <p>b) provides every facility of Clause 5 that its declaration requires of it;</p>
 <p>c) maintains the isolation of Clause 6 for every trust boundary it hosts;</p>
 <p>d) meets Clause 7 for the availability it declares; and</p>
 <p>e) publishes a declaration under Clause 8 and meets the capacities of the class it
 declares.</p>
-<p><strong>9.2</strong> Every requirement of this document shall be verifiable by a party having no
+<p><strong class="clause" id="c9.2">9.2</strong> Every requirement of this document shall be verifiable by a party having no
 relationship to the implementer.</p>
 <p>Note 1 to entry: 9.2 is not a formality and it removed material from this document while it
 was being written. <strong>A requirement checkable only with the authors' own equipment,
@@ -702,11 +702,11 @@ between people who already know each other, and the reader this standard is writ
 not one of them.</p>
 <p>Note 2 to entry: A declaration that is not published cannot be checked, which is why 8.1.1
 requires publication rather than merely requiring that a declaration exist.</p>
-<h2 id="10-what-is-not-decided-at-this-layer">10 What is not decided at this layer</h2>
+<span class="clause-anchor" id="c10"></span><h2 id="10-what-is-not-decided-at-this-layer">10 What is not decided at this layer</h2>
 <p><strong>This clause states gaps and contains no requirements.</strong> It is here because a gap that is
 recorded can be worked around, and a gap that is left silent is filled by each implementer
 differently and discovered when two of them meet.</p>
-<p><strong>10.1 The execution model.</strong> Reality2 does not specify whether a component invoked by the
+<p><strong class="clause" id="c10.1">10.1 The execution model.</strong> Reality2 does not specify whether a component invoked by the
 runtime may block; whether a deadline or time budget applies to such an invocation; whether
 an invocation may be re-entered; or what becomes of other components while one is running.
 <strong>The absence of a statement decides none of these — it is an absence, not a
@@ -718,20 +718,20 @@ re-entrancy remain open there.</p>
 a bus transaction to finish — cannot be assumed safe to write as a blocking call, and
 cannot be assumed unsafe either. Until this is decided, a platform and the components it
 hosts are joined by a convention nobody has written down.</em></p>
-<p><strong>10.2 Durations that span a power cycle.</strong> No facility here measures elapsed time across a
+<p><strong class="clause" id="c10.2">10.2 Durations that span a power cycle.</strong> No facility here measures elapsed time across a
 loss of power, and P5 exists so a declaration says plainly whether its platform could.
 <strong>An obligation fixed to an absolute point in time cannot be met on a platform declaring
 <code>P5: no</code></strong>, while an obligation counted from a known start can be. Across this standard the
 kinds are now marked at their sites: <strong>every obligation of Layers 0 to 4 is counted from a
 known start</strong>, and the one absolute-time judgement — certificate validity — is named as
-such where it occurs (Layer 5, 6.1). What a <code>P5: no</code> platform does about that one is Layer
+such where it occurs (<a href="L5-trust-and-identity.html#c6.1">Layer 5, 6.1</a>). What a <code>P5: no</code> platform does about that one is Layer
 5's open question, not a labelling gap.</p>
-<p><strong>10.3 Time as something a component can ask for.</strong> Resolved above this layer: at Layer 7,
+<p><strong class="clause" id="c10.3">10.3 Time as something a component can ask for.</strong> Resolved above this layer: at Layer 7,
 anything non-deterministic — time included — reaches a sentant only through a plugin named
 in its definition, <strong>so the plugin binding is the declaration</strong>. What remains here is only
 that this document's monotonic time source (5.2) is a platform facility, not a declarable
 one — which no longer needs to change.</p>
-<p><strong>10.4 Protecting key material at rest.</strong> 5.3.2 obliges a key-bearing platform to retain
+<p><strong class="clause" id="c10.4">10.4 Protecting key material at rest.</strong> 5.3.2 obliges a key-bearing platform to retain
 key material across power loss. Nothing here specifies protecting that material from
 someone holding the hardware. <strong>A platform that is key-bearing, unattended and physically
 exposed is under-specified by this document</strong>, and the silence is not an assurance that

@@ -92,7 +92,7 @@ which bearers, how recently, of what class, with what capabilities. Choosing whi
 carries a given frame is Layer 3's, and it is made from this picture together with the
 bearer profiles of Layer 1. <strong>The layer that gathers evidence and the layer that acts on it
 are kept apart</strong> so that the evidence stays usable for decisions nobody has thought of yet.</p>
-<h2 id="1-scope">1 Scope</h2>
+<span class="clause-anchor" id="c1"></span><h2 id="1-scope">1 Scope</h2>
 <p>This document specifies how a hive announces its presence, its class and its capabilities,
 and how another hive discovers them.</p>
 <p>It specifies the obligation to announce, on which bearers, and what an announcement
@@ -107,22 +107,22 @@ decided.</p>
 belongs to that bearer's binding document. It does not specify which bearer carries a
 given frame, which is Layer 3, and it does not specify membership, authorisation or
 anything that happens above the trust boundary.</p>
-<h2 id="2-normative-references">2 Normative references</h2>
+<span class="clause-anchor" id="c2"></span><h2 id="2-normative-references">2 Normative references</h2>
 <p>The following documents are referred to in the text in such a way that some or all of
 their content constitutes requirements of this document.</p>
 <ul>
-<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<code>01-terminology.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<code>L0-hardware-and-runtime.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 1: Transport</strong> (<code>L1-transport.md</code>)</li>
+<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<a href="01-terminology.html"><code>01-terminology.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<a href="L0-hardware-and-runtime.html"><code>L0-hardware-and-runtime.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 1: Transport</strong> (<a href="L1-transport.html"><code>L1-transport.md</code></a>)</li>
 </ul>
-<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<span class="clause-anchor" id="c3"></span><h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
 <p>For the purposes of this document, the terms and definitions given in the documents listed
 in Clause 2 apply, together with the following.</p>
-<p><strong>3.1
+<p><strong class="clause" id="c3.1">3.1
 beacon</strong></p>
 <p>broadcast announcement of a hive's presence, class and optionally its capabilities,
 addressed to no one and requiring no response</p>
-<p><strong>3.2
+<p><strong class="clause" id="c3.2">3.2
 beacon identifier</strong></p>
 <p>opaque identifier carried in a beacon, stable for the emitting hive and derived from no
 other identifier the hive has</p>
@@ -130,30 +130,30 @@ other identifier the hive has</p>
 carrying nothing an observer can decode and nothing derivable from the hive's identity, its
 device identity, or any trust group. It is a handle, never a credential and never a
 derivation.</p>
-<p><strong>3.3
+<p><strong class="clause" id="c3.3">3.3
 class</strong></p>
-<p><em>(defined in <code>01-terminology.md</code> 3.9)</em></p>
-<p><strong>3.4
+<p><em>(defined in <a href="01-terminology.html#c3.9"><code>01-terminology.md</code> 3.9</a>)</em></p>
+<p><strong class="clause" id="c3.4">3.4
 class hash</strong></p>
 <p>fixed-width hash of a class, carried in a beacon where the class itself would not fit</p>
-<p><strong>3.5
+<p><strong class="clause" id="c3.5">3.5
 capability summary</strong></p>
 <p>compact representation of the events a hive publicly handles, admitting false positives and
 no false negatives</p>
-<p><strong>3.6
+<p><strong class="clause" id="c3.6">3.6
 scanner</strong></p>
 <p>hive receiving and evaluating the beacons of others</p>
-<p><strong>3.7
+<p><strong class="clause" id="c3.7">3.7
 build mode</strong></p>
 <p>identity of the image a device was flashed with: development, whose internals may be
 exposed for inspection, or production, whose internals are not exposable because the
 exposing code is absent from the image</p>
 <p>Note 1 to entry: A build mode is which code was flashed. <strong>It is never a setting</strong> — there
 is no switch, and changing mode means flashing the other image.</p>
-<p><strong>3.8
+<p><strong class="clause" id="c3.8">3.8
 sighting</strong></p>
 <p>record that a named peer was heard on a named bearer at a known time</p>
-<p><strong>3.9
+<p><strong class="clause" id="c3.9">3.9
 duty class</strong></p>
 <p>statement by a hive of whether it is continuously receptive or receptive only at intervals</p>
 <p>Note 1 to entry: The duty class states, hive to hive, the same fact a platform declares as
@@ -161,14 +161,14 @@ its availability at Layer 0 (P8). The Layer 0 declaration is published text, rea
 person; the duty class is the on-air form of it, carried as 5.4b requires. Layer 3 is what
 acts on it — the choice between flooding for a destination and holding a frame until it
 wakes.</p>
-<h2 id="4-announcing-is-not-optional">4 Announcing is not optional</h2>
-<h3 id="41-every-hive-every-bearer-in-service">4.1 Every hive, every bearer in service</h3>
-<p><strong>4.1.1</strong> A hive shall emit a beacon on every bearer in service.</p>
-<p><strong>4.1.2</strong> A hive shall not emit a beacon on a bearer that is absent or disabled.</p>
-<p><strong>4.1.3</strong> A hive shall receive and evaluate beacons on every bearer in service.</p>
-<p><strong>4.1.4</strong> A duty-cycled hive satisfies 4.1.1 and 4.1.3 by beaconing and receiving while it
+<span class="clause-anchor" id="c4"></span><h2 id="4-announcing-is-not-optional">4 Announcing is not optional</h2>
+<span class="clause-anchor" id="c4.1"></span><h3 id="41-every-hive-every-bearer-in-service">4.1 Every hive, every bearer in service</h3>
+<p><strong class="clause" id="c4.1.1">4.1.1</strong> A hive shall emit a beacon on every bearer in service.</p>
+<p><strong class="clause" id="c4.1.2">4.1.2</strong> A hive shall not emit a beacon on a bearer that is absent or disabled.</p>
+<p><strong class="clause" id="c4.1.3">4.1.3</strong> A hive shall receive and evaluate beacons on every bearer in service.</p>
+<p><strong class="clause" id="c4.1.4">4.1.4</strong> A duty-cycled hive satisfies 4.1.1 and 4.1.3 by beaconing and receiving while it
 is receptive, and shall declare its availability as Layer 0 requires.</p>
-<p><strong>4.1.5</strong> A hive shall not declare itself duty-cycled in order to reduce its beaconing
+<p><strong class="clause" id="c4.1.5">4.1.5</strong> A hive shall not declare itself duty-cycled in order to reduce its beaconing
 below what 6.1 or 6.2 requires of it while receptive.</p>
 <p>Note 1 to entry: 4.1.1 is stated of every hive, with no exception for size, role or
 purpose. <strong>Beaconing is a consequence of being on the network, not a feature added to a
@@ -187,10 +187,10 @@ reason</strong> — a hive is not excused from announcing because it <em>could</
 actually is, and its declared intervals are what tell a scanner the difference.</p>
 <p><em>Verification: enumerate the hive's bearers in service and observe a beacon on each while
 the hive is receptive. A bearer carrying traffic but no beacon is non-conforming.</em></p>
-<h3 id="42-nothing-suspends-it">4.2 Nothing suspends it</h3>
-<p><strong>4.2.1</strong> No role, connection state, election outcome or activity shall suspend beacon
+<span class="clause-anchor" id="c4.2"></span><h3 id="42-nothing-suspends-it">4.2 Nothing suspends it</h3>
+<p><strong class="clause" id="c4.2.1">4.2.1</strong> No role, connection state, election outcome or activity shall suspend beacon
 emission or reception on any bearer in service.</p>
-<p><strong>4.2.2</strong> Being asleep under a declared duty cycle (4.1.4), and a bearer being temporarily
+<p><strong class="clause" id="c4.2.2">4.2.2</strong> Being asleep under a declared duty cycle (4.1.4), and a bearer being temporarily
 unable to send, are not suspensions under 4.2.1.</p>
 <p>Note 1 to entry: This is stated because the opposite is a natural implementation. A hive
 opening a connection, or acting as one side of some negotiation, appears to have no reason
@@ -200,18 +200,18 @@ and it does not know who.</p>
 which inverts what a discovering peer needs. <strong>The failure is silent and it is
 intermittent</strong> — the worst combination to diagnose, because the hive is present, working,
 and invisible only sometimes.</p>
-<h3 id="43-a-liveness-message-is-not-a-beacon">4.3 A liveness message is not a beacon</h3>
-<p><strong>4.3.1</strong> A hive shall not substitute any other periodic message for a required beacon.</p>
-<p><strong>4.3.2</strong> A scanner shall not infer a beacon's content from any other message.</p>
+<span class="clause-anchor" id="c4.3"></span><h3 id="43-a-liveness-message-is-not-a-beacon">4.3 A liveness message is not a beacon</h3>
+<p><strong class="clause" id="c4.3.1">4.3.1</strong> A hive shall not substitute any other periodic message for a required beacon.</p>
+<p><strong class="clause" id="c4.3.2">4.3.2</strong> A scanner shall not infer a beacon's content from any other message.</p>
 <p>Note 1 to entry: The two are easily confused because both are periodic and both indicate a
 hive is alive. <strong>They differ in audience and in content:</strong> a beacon is addressed to nobody,
 carries a class, and is meant to be heard by hives that know nothing about the emitter; a
 liveness message is exchanged between hives that already know each other and carries no
 class. Accepting one for the other leaves a hive invisible to everyone except those who
 already found it.</p>
-<h3 id="44-what-a-beacon-is">4.4 What a beacon is</h3>
-<p><strong>4.4.1</strong> A beacon shall be unauthenticated.</p>
-<p><strong>4.4.2</strong> A beacon shall carry the minimal declarations of Clause 5 — and, where the
+<span class="clause-anchor" id="c4.4"></span><h3 id="44-what-a-beacon-is">4.4 What a beacon is</h3>
+<p><strong class="clause" id="c4.4.1">4.4.1</strong> A beacon shall be unauthenticated.</p>
+<p><strong class="clause" id="c4.4.2">4.4.2</strong> A beacon shall carry the minimal declarations of Clause 5 — and, where the
 bearer has room, the optional capability summary of Clause 8 — and nothing else. A
 receiver shall treat a beacon as evidence of presence and of the declarations it
 carries, and of nothing more: never of identity or membership, and a carried capability
@@ -227,16 +227,16 @@ the ones the ask path cannot supply: the build-mode declaration gates every coop
 exchange (5.4a.5), so it must precede any ask; the duty-class declaration says when a
 peer can be asked at all. Everything else is a request away, and the answer to a request
 — not the beacon — is the authoritative form of it.</p>
-<h2 id="5-what-a-beacon-carries">5 What a beacon carries</h2>
-<p><strong>5.1</strong> A beacon shall carry:</p>
+<span class="clause-anchor" id="c5"></span><h2 id="5-what-a-beacon-carries">5 What a beacon carries</h2>
+<p><strong class="clause" id="c5.1">5.1</strong> A beacon shall carry:</p>
 <p>a) the bearer's discovery marker, as required by Layer 1;</p>
 <p>b) a beacon identifier (3.2); and</p>
 <p>c) a class hash (3.4).</p>
-<p><strong>5.2</strong> A beacon may carry a capability summary (3.5). A beacon emitted by a development
+<p><strong class="clause" id="c5.2">5.2</strong> A beacon may carry a capability summary (3.5). A beacon emitted by a development
 device shall carry the build-mode declaration (5.4a); a beacon emitted by a production
 device shall not. A beacon emitted by a hive receptive only at intervals shall carry the
 duty-class declaration (5.4b).</p>
-<p><strong>5.3</strong> A beacon shall not carry:</p>
+<p><strong class="clause" id="c5.3">5.3</strong> A beacon shall not carry:</p>
 <p>a) any identifier of, or value derived from, the hive's trust group; or</p>
 <p>b) any identifier of the hive other than the beacon identifier — not its hive identifier,
 not its device identity, and no value derived from either.</p>
@@ -254,15 +254,15 @@ identity, each trust-group identifier, and their hashes — and compare against 
 identifier. No match, whole or part. A repeat-suppression counter, where a binding document
 provides one, is permitted: the beacon identifier is stable, so a counter links nothing
 that was not already linked.</em></p>
-<h3 id="54-the-beacon-identifier">5.4 The beacon identifier</h3>
-<p><strong>5.4.1</strong> A beacon identifier shall be generated randomly by the hive, or installed with
+<span class="clause-anchor" id="c5.4"></span><h3 id="54-the-beacon-identifier">5.4 The beacon identifier</h3>
+<p><strong class="clause" id="c5.4.1">5.4.1</strong> A beacon identifier shall be generated randomly by the hive, or installed with
 its identity under Layer 0, and shall be independent of every other identifier the hive
 has.</p>
-<p><strong>5.4.2</strong> A beacon identifier shall be stable: a hive shall not change it in normal
-operation. <strong>The one event that replaces it is re-persona</strong> (Layer 5, 5.1.4), because the
+<p><strong class="clause" id="c5.4.2">5.4.2</strong> A beacon identifier shall be stable: a hive shall not change it in normal
+operation. <strong>The one event that replaces it is re-persona</strong> (<a href="L5-trust-and-identity.html#c5.1.4">Layer 5, 5.1.4</a>), because the
 new persona is, observably, a different hive — an identifier that survived the change would
 link the two.</p>
-<p><strong>5.4.3</strong> A hive holding information about a peer may associate the peer's beacon
+<p><strong class="clause" id="c5.4.3">5.4.3</strong> A hive holding information about a peer may associate the peer's beacon
 identifier with that information, and shall obtain the association above the trust
 boundary — never by decoding the identifier.</p>
 <p>Note 1 to entry: What a stranger gets from a stable beacon identifier is stated in Clause
@@ -277,42 +277,42 @@ identifiers. <em>(The ruling and its full reasoning: <code>CLOSED-QUESTIONS.md</
 association between a beacon identifier and a hive when they learn everything else about
 the peer — above the trust boundary, at provisioning or on verified contact. <strong>The
 identifier itself teaches nothing to anyone.</strong></p>
-<h3 id="54a-the-build-mode-declaration">5.4a The build-mode declaration</h3>
-<p><strong>5.4a.1</strong> A hive running a development image shall declare so in every beacon it emits, on
+<span class="clause-anchor" id="c5.4a"></span><h3 id="54a-the-build-mode-declaration">5.4a The build-mode declaration</h3>
+<p><strong class="clause" id="c5.4a.1">5.4a.1</strong> A hive running a development image shall declare so in every beacon it emits, on
 every bearer.</p>
-<p><strong>5.4a.2</strong> A hive running a production image shall not emit the declaration. A production
+<p><strong class="clause" id="c5.4a.2">5.4a.2</strong> A hive running a production image shall not emit the declaration. A production
 beacon shall carry no development-related bytes.</p>
-<p><strong>5.4a.1a</strong> A hive that cannot determine the build mode of the image it is running shall
+<p><strong class="clause" id="c5.4a.1a">5.4a.1a</strong> A hive that cannot determine the build mode of the image it is running shall
 declare development.</p>
-<p>Note 0 to entry: <strong>5.4a.4 fails closed on the scanner side and nothing covered the emitter.</strong>
+<p>Note 0 to entry: <strong class="clause" id="c5.4a.4">5.4a.4 fails closed on the scanner side and nothing covered the emitter.</strong>
 A scanner that cannot read the field treats the mode as unknown; a hive that cannot determine
 its own mode had no rule at all, and the pleasant answer — <em>say nothing, which reads as
 production</em> — is the one an implementer reaches for. <strong>The failure directions are asymmetric:
 a development device that fails to declare is admitted to a production network</strong> (5.4a.5,
-Layer 5, 9.2), a relaxed-trust device inside a production boundary; <strong>the reverse costs the
-device its admission and is loud.</strong> <code>01-terminology.md</code> 5A.2 states the general form —
+<a href="L5-trust-and-identity.html#c9.2">Layer 5, 9.2</a>), a relaxed-trust device inside a production boundary; <strong>the reverse costs the
+device its admission and is loud.</strong> <a href="01-terminology.html"><code>01-terminology.md</code></a> 5A.2 states the general form —
 <em>assert the value that grants least</em> — and this is its instance. <strong>Absence of certainty is
 not absence of development.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS205;
 the gap was found by the core lane. Note that under 5.4a Note 1's construction this condition
 should not arise — only a development image carries the declaring code — so a hive reaching
 it has already lost that structural property and should be read accordingly.)</em></p>
-<p><strong>5.4a.3</strong> A scanner reading a development value shall treat the hive as a development
+<p><strong class="clause" id="c5.4a.3">5.4a.3</strong> A scanner reading a development value shall treat the hive as a development
 device.</p>
-<p><strong>5.4a.3a</strong> A hive running a development image shall not place in service a bearer whose
+<p><strong class="clause" id="c5.4a.3a">5.4a.3a</strong> A hive running a development image shall not place in service a bearer whose
 binding document states that its announcement cannot carry the declaration (Layer 1,
 11.1 j)).</p>
 <p>Note 0a to entry: <strong>The production-value branch of 5.4a.3 was unreachable and has been
 removed.</strong> It let a scanner read <em>a production value where the bearer's announcement layout
 carries one</em> — but <strong>5.4a.2 forbids a production hive to emit the declaration at all</strong>, so no
-conforming production beacon could ever supply that value, and Layer 1, 11.1 j) assigns bytes
+conforming production beacon could ever supply that value, and <a href="L1-transport.html#c11.1">Layer 1, 11.1</a> j) assigns bytes
 only to the development declaration. <strong>A branch no conforming emitter can trigger is not a
 permission; it is a reader waiting for something that will never arrive</strong>, and an implementer
 building it would conclude that absence must mean something else. What remains is the
 asymmetry the design intends: <strong>development declares, production is silent, and 5.4a.4 governs
 what silence may be read as.</strong></p>
-<p>Note 0b to entry: <strong>5.4a.3a closes what a stated inability leaves open.</strong> Layer 1, 11.1 j)
+<p>Note 0b to entry: <strong>5.4a.3a closes what a stated inability leaves open.</strong> <a href="L1-transport.html#c11.1">Layer 1, 11.1</a> j)
 lets a binding document say its announcement <strong>cannot</strong> carry the declaration — honest, and
-<code>01-terminology.md</code> 4.5's form — but <strong>saying so does not satisfy 5.4a.1, which requires the
+<a href="01-terminology.html#c4.5"><code>01-terminology.md</code> 4.5</a>'s form — but <strong>saying so does not satisfy 5.4a.1, which requires the
 declaration on <em>every</em> bearer.</strong> Without 5.4a.3a a conformant binding would be <strong>unusable by
 every development hive while appearing available</strong>, and a development hive using it would be
 non-conformant on that bearer with no clause saying so. <strong>The bearer is not forbidden; it is
@@ -330,14 +330,14 @@ review.)</em></p>
 <p><strong>5.4a.4</strong> A scanner unable to read the field — absent, truncated, or unreachable — shall
 treat the hive's build mode as <strong>unknown</strong>, and shall not present unknown as production or
 as secure, to a person or to any trust decision.</p>
-<p><strong>5.4a.5</strong> <em>(Revoked 2026-08-04 by Roy's ruling, d231. It required a scanner to refuse a
+<p><strong class="clause" id="c5.4a.5">5.4a.5</strong> <em>(Revoked 2026-08-04 by Roy's ruling, d231. It required a scanner to refuse a
 cooperative exchange with a peer whose declared build mode differed from its own; that
 requirement no longer applies. The clause number is retained rather than reused, because it is
 cited from three places in this document and from a requirements register row.)</em></p>
-<p><strong>5.4a.5a</strong> A hive shall participate in the transient network irrespective of its own build
+<p><strong class="clause" id="c5.4a.5a">5.4a.5a</strong> A hive shall participate in the transient network irrespective of its own build
 mode or any peer's, and shall not refuse discovery, neighbour formation, relaying or delivery
 on the ground of a declared build mode.</p>
-<p><strong>5.4a.5b</strong> An implementation shall assume that any party within range of a bearer may be
+<p><strong class="clause" id="c5.4a.5b">5.4a.5b</strong> An implementation shall assume that any party within range of a bearer may be
 recording traffic and metadata, whatever build mode it declares or fails to declare, and shall
 not treat a declared build mode as evidence that a party is not doing so.</p>
 <p>Note 0b to entry: <strong>The bound is <em>in range</em>, not <em>peer</em>, and the widening is the whole point.</strong>
@@ -353,7 +353,7 @@ it</strong> — 5.4a.5 invited a hive to treat a production declaration as assur
 observation, and nothing ever made that true. <strong>5.4a.5b replaces a partition that could not
 hold with an assumption that always does</strong>, which is the only form of this protection a mesh
 can actually offer. <strong>Build mode is now a property of the persona a device uses, not a
-partition of the network</strong> (Layer 5, 9.2 governs the persona and is unaffected). <em>(Added
+partition of the network</strong> (<a href="L5-trust-and-identity.html#c9.2">Layer 5, 9.2</a> governs the persona and is unaffected). <em>(Added
 2026-08-04, <code>PROVISIONAL(standard)</code> as to wording only; the ruling is ratified as d231.)</em></p>
 <p>Note 0a to entry: <strong>This is not a relaxation of the trust boundary and grants nothing.</strong> Note 2
 below already states the operative half — <em>nothing is granted on build mode alone, because
@@ -401,16 +401,16 @@ generally: exactly the metadata any party in range sees.</strong></p>
 device. <strong>It carries no per-device identity</strong>, so it does not conflict with 5.3. It does partition the anonymity set into development and production —
 accepted, because development devices are bench equipment whose visibility is the point.</p>
 <p>*Verification: present a scanner with a beacon declaring development and with a beacon truncated before the field. It reports <strong>development</strong> and <strong>unknown</strong>. <strong>It cannot be asked to report <em>production</em>, and the earlier procedure that required it was wrong twice over</strong> (finding SS215): 5.4a.2 forbids a conforming production hive to emit any declaration, so no such input can be constructed — and <strong>a conforming production beacon and a truncated one are the same observation</strong>, which 5.4a.4 answers with <em>unknown</em> by design. <strong>Scanner operation is shown by the development case</strong>, which is the only verdict a conforming emitter can produce — <strong>and it is the vacuity guard too</strong>: a scanner reporting <em>unknown</em> for the declaring beacon has merely stopped reporting. <strong>The sentence that stood here named a readable production value as the guard, contradicting the sentence before it</strong> — the third correction to this one paragraph, each removing a dependency on a value 5.4a.2 forbids anyone to emit. <em>A retraction is not finished when the clause changes; it is finished when every sentence resting on the retracted thing has been found.</em></p>
-<h3 id="54b-the-duty-class-declaration">5.4b The duty-class declaration</h3>
-<p><strong>5.4b.1</strong> A hive receptive only at intervals shall declare its duty class (3.9) in every
+<span class="clause-anchor" id="c5.4b"></span><h3 id="54b-the-duty-class-declaration">5.4b The duty-class declaration</h3>
+<p><strong class="clause" id="c5.4b.1">5.4b.1</strong> A hive receptive only at intervals shall declare its duty class (3.9) in every
 beacon it emits, on every bearer, together with the longest interval between its receptive
 windows, coarsely stated.</p>
-<p><strong>5.4b.2</strong> A continuously receptive hive need not carry the declaration, and may carry a
+<p><strong class="clause" id="c5.4b.2">5.4b.2</strong> A continuously receptive hive need not carry the declaration, and may carry a
 continuous value where the bearer's announcement layout provides one.</p>
-<p><strong>5.4b.3</strong> A scanner reading an intermittent value shall record the peer's duty class and
+<p><strong class="clause" id="c5.4b.3">5.4b.3</strong> A scanner reading an intermittent value shall record the peer's duty class and
 its stated interval as part of the sighting, and shall provide them upward as Clause 9
 requires.</p>
-<p><strong>5.4b.4</strong> A scanner unable to read the field — absent, truncated, or unreachable — shall
+<p><strong class="clause" id="c5.4b.4">5.4b.4</strong> A scanner unable to read the field — absent, truncated, or unreachable — shall
 not treat the absence as a claim of either class. The peer's duty class is unknown.</p>
 <p>Note 1 to entry: <strong>The field is carried by the hives it protects, and by nobody else.</strong> A
 hive that sleeps is the one that loses when peers transmit at its silent radio: every copy
@@ -431,7 +431,7 @@ exactly the hives the shared mesh asks to relay for groups they do not belong to
 <p>Note 3 to entry: The interval is stated coarsely because the beacon carries what a
 stranger's hold-or-flood decision needs, and no more. <strong>The precise schedule — shortest,
 longest, and preferred intervals — stays in the platform declaration where Layer 0 put
-it</strong> (Layer 0, 7.3); the beacon's single coarse value is what sizes a neighbour's retention
+it</strong> (<a href="L0-hardware-and-runtime.html#c7.3">Layer 0, 7.3</a>); the beacon's single coarse value is what sizes a neighbour's retention
 patience. The bytes are weighed as 7.1 Note 2 weighs everything: the field appears only in
 the beacons of hives that sleep, and costs every other beacon nothing.</p>
 <p>Note 4 to entry: This declaration closes a chain that was open across three layers. Layer 0
@@ -445,20 +445,20 @@ what a shared mesh requires. <em>(The ruling and its reasoning: <code>CLOSED-QUE
 interval, and the same beacon truncated before the field. It reports intermittent with the
 interval for the first and unknown for the second — never continuous for the truncated
 one.</em></p>
-<h3 id="55-the-class-hash">5.5 The class hash</h3>
-<p><strong>5.5.1</strong> A class hash shall be computed from the class exactly as written.</p>
+<span class="clause-anchor" id="c5.5"></span><h3 id="55-the-class-hash">5.5 The class hash</h3>
+<p><strong class="clause" id="c5.5.1">5.5.1</strong> A class hash shall be computed from the class exactly as written.</p>
 <p>Note 0 to entry: <strong>The algorithm is still unspecified</strong> (register finding SS1), and that
 absence is not neutral: an implementer reaching for the cheap obvious choice reaches for
 a short non-cryptographic hash, which is what the deployed implementation did — and the
 attack described at 5.5.2 Note 0 follows from that choice alone. <strong>An unspecified
 algorithm selects its own default, and the default is the weak one.</strong> Until the algorithm
 is pinned, 5.5.3 and 5.5.4 are what stand between a collidable hash and a false label.</p>
-<p><strong>5.5.2</strong> A scanner matching on class shall compute the hash of the class it seeks and
+<p><strong class="clause" id="c5.5.2">5.5.2</strong> A scanner matching on class shall compute the hash of the class it seeks and
 compare, and shall not attempt to recover the class from the hash.</p>
-<p><strong>5.5.3</strong> A scanner that learns a class string — by asking, as 7.2.2 permits — shall not
+<p><strong class="clause" id="c5.5.3">5.5.3</strong> A scanner that learns a class string — by asking, as 7.2.2 permits — shall not
 serve that string as the class of any other hive advertising the same hash. A class
 learned from one hive is that hive's, and nothing else's.</p>
-<p><strong>5.5.4</strong> Where a class string learned from the network is displayed to a person or used
+<p><strong class="clause" id="c5.5.4">5.5.4</strong> Where a class string learned from the network is displayed to a person or used
 as a label, a scanner shall not replace a class string it holds on the strength of a hash
 match alone.</p>
 <p>Note 0 to entry: 5.5.3 and 5.5.4 exist because <strong>the hash is not
@@ -470,7 +470,7 @@ colliding with a well-known class, <strong>pass the hash check honestly</strong>
 device of that class on an operator's screen. No key and no delivery were involved: the
 whole attack is a lie told to a human. <em>(Added 2026-08-02 from a measured finding in the
 android lane; <code>PROVISIONAL(supervisor)</code>.)</em></p>
-<p>Note 3 to entry: <strong>The reasoning of Layer 4, 7.2.1 does not transfer here, and the two
+<p>Note 3 to entry: <strong>The reasoning of <a href="L4-wire.html#c7.2.1">Layer 4, 7.2.1</a> does not transfer here, and the two
 notes must not be read as one policy.</strong> There, a hash match is treated as a match and
 collisions are survived rather than prevented, because <em>wrong delivery is harmless
 delivery</em> — a handler that does not understand an event ignores it. <strong>A wrong label is
@@ -487,19 +487,19 @@ beacon</strong>, and Clause 7 says where that is done instead.</p>
 difference in case, in separator, or in a trailing character produces a different hash,
 which produces no match and no error. <strong>Two hives whose class strings differ by one
 character do not disagree about anything; they never see each other.</strong></p>
-<h2 id="6-cadence">6 Cadence</h2>
-<h3 id="61-bearers-with-a-fixed-cadence">6.1 Bearers with a fixed cadence</h3>
-<p><strong>6.1.1</strong> A hive shall beacon at a stated interval on a bearer whose medium permits a fixed
+<span class="clause-anchor" id="c6"></span><h2 id="6-cadence">6 Cadence</h2>
+<span class="clause-anchor" id="c6.1"></span><h3 id="61-bearers-with-a-fixed-cadence">6.1 Bearers with a fixed cadence</h3>
+<p><strong class="clause" id="c6.1.1">6.1.1</strong> A hive shall beacon at a stated interval on a bearer whose medium permits a fixed
 cadence.</p>
-<p><strong>6.1.2</strong> Such a hive should shorten the interval where it is moving or expects to be
+<p><strong class="clause" id="c6.1.2">6.1.2</strong> Such a hive should shorten the interval where it is moving or expects to be
 discovered, and lengthen it where it is stationary or short of energy.</p>
-<p><strong>6.1.3</strong> A hive shall declare the range of intervals it can adopt.</p>
-<h3 id="62-bearers-governed-by-an-airtime-budget">6.2 Bearers governed by an airtime budget</h3>
-<p><strong>6.2.1</strong> On a bearer declaring itself regulated at Layer 1, a hive shall treat beacons as
+<p><strong class="clause" id="c6.1.3">6.1.3</strong> A hive shall declare the range of intervals it can adopt.</p>
+<span class="clause-anchor" id="c6.2"></span><h3 id="62-bearers-governed-by-an-airtime-budget">6.2 Bearers governed by an airtime budget</h3>
+<p><strong class="clause" id="c6.2.1">6.2.1</strong> On a bearer declaring itself regulated at Layer 1, a hive shall treat beacons as
 the lowest priority traffic.</p>
-<p><strong>6.2.2</strong> Such a hive shall not emit a beacon where the budget is exhausted or where any
+<p><strong class="clause" id="c6.2.2">6.2.2</strong> Such a hive shall not emit a beacon where the budget is exhausted or where any
 other traffic is waiting.</p>
-<p><strong>6.2.3</strong> Such a bearer shall not be given a fixed beacon interval.</p>
+<p><strong class="clause" id="c6.2.3">6.2.3</strong> Such a bearer shall not be given a fixed beacon interval.</p>
 <p>Note 1 to entry: 6.2.3 is a requirement and not an omission. <strong>On a regulated bearer the
 cadence is an outcome, not a setting</strong> — it falls out of what the budget has left after
 everything else, so it lengthens by itself as a deployment gets denser or busier. A fixed
@@ -508,13 +508,13 @@ precisely when a scanner is most likely to be relying on it.</p>
 <p>Note 2 to entry: The consequence for a scanner is that <strong>silence on a regulated bearer
 carries much less information than silence on an unregulated one</strong>, and 6.3 is where that
 is accounted for.</p>
-<h3 id="63-cadence-and-fade">6.3 Cadence and fade</h3>
-<p><strong>6.3.1</strong> The period after which a peer unheard on a bearer is treated as receding shall
+<span class="clause-anchor" id="c6.3"></span><h3 id="63-cadence-and-fade">6.3 Cadence and fade</h3>
+<p><strong class="clause" id="c6.3.1">6.3.1</strong> The period after which a peer unheard on a bearer is treated as receding shall
 exceed the longest interval at which that bearer's beacons can be expected.</p>
-<p><strong>6.3.2</strong> On a regulated bearer (6.2), that period shall exceed the longest interval the
+<p><strong class="clause" id="c6.3.2">6.3.2</strong> On a regulated bearer (6.2), that period shall exceed the longest interval the
 airtime budget can produce under load, and shall not be derived from the interval observed
 while the bearer is idle.</p>
-<p><strong>6.3.3</strong> A hive shall not apply one bearer's fade behaviour to another bearer.</p>
+<p><strong class="clause" id="c6.3.3">6.3.3</strong> A hive shall not apply one bearer's fade behaviour to another bearer.</p>
 <p>Note 1 to entry: <strong>This clause is what the fade rate declared at Layer 1 is set against.</strong>
 Layer 1 requires each bearer to declare how quickly an unheard peer recedes and does not
 say what the value should be, because the value is not a property of the medium — it is a
@@ -531,9 +531,9 @@ field</strong>, and it fails by declaring live peers gone at exactly the moment 
 busiest.</p>
 <p><em>Verification: load a regulated bearer to its budget with higher-priority traffic and
 measure the longest gap between beacons. The declared fade period exceeds it.</em></p>
-<h2 id="7-discovery">7 Discovery</h2>
-<h3 id="71-progressive-filtering">7.1 Progressive filtering</h3>
-<p><strong>7.1.1</strong> A scanner shall evaluate candidates in the following order, and shall not perform
+<span class="clause-anchor" id="c7"></span><h2 id="7-discovery">7 Discovery</h2>
+<span class="clause-anchor" id="c7.1"></span><h3 id="71-progressive-filtering">7.1 Progressive filtering</h3>
+<p><strong class="clause" id="c7.1.1">7.1.1</strong> A scanner shall evaluate candidates in the following order, and shall not perform
 a later step for a candidate that failed an earlier one.</p>
 <div class="table-wrap"><table>
 <thead>
@@ -577,8 +577,8 @@ a later step for a candidate that failed an earlier one.</p>
 </tr>
 </tbody>
 </table></div>
-<p><strong>7.1.2</strong> Steps 1 and 2 shall be answerable from a beacon alone.</p>
-<p><strong>7.1.3</strong> Steps 3 and 4 shall not be required in order to complete steps 1 and 2.</p>
+<p><strong class="clause" id="c7.1.2">7.1.2</strong> Steps 1 and 2 shall be answerable from a beacon alone.</p>
+<p><strong class="clause" id="c7.1.3">7.1.3</strong> Steps 3 and 4 shall not be required in order to complete steps 1 and 2.</p>
 <p>Note 1 to entry: The ordering is by cost, and the costs differ by orders of magnitude.
 Step 1 is a byte comparison against traffic the radio was receiving anyway; step 5 is a
 round trip that changes state on another hive. <strong>A scanner that connects in order to decide
@@ -591,30 +591,30 @@ airtime.</strong> Anything that would grow a beacon is weighed against that, and
 or later if it cannot be afforded.</p>
 <p>Note 3 to entry: Step 5 is the only step that establishes anything. Class and capability are
 <strong>claims</strong>; performing the act is the test. A scanner needing certainty performs it.</p>
-<h3 id="72-where-structure-is-matched">7.2 Where structure is matched</h3>
-<p><strong>7.2.1</strong> Matching a class by any part of it — a family of classes, a supplier, a role
+<span class="clause-anchor" id="c7.2"></span><h3 id="72-where-structure-is-matched">7.2 Where structure is matched</h3>
+<p><strong class="clause" id="c7.2.1">7.2.1</strong> Matching a class by any part of it — a family of classes, a supplier, a role
 shared across suppliers — shall be performed on the class itself and not on a class hash.</p>
-<p><strong>7.2.2</strong> A scanner shall obtain the class by asking, where the bearer provides a means to
+<p><strong class="clause" id="c7.2.2">7.2.2</strong> A scanner shall obtain the class by asking, where the bearer provides a means to
 ask.</p>
 <p>Note 1 to entry: This is step 3, and it exists because 5.5 destroyed the structure. <strong>On a
 bearer with no means to ask, discovery stops at exact match</strong>, and a scanner on such a
 bearer cannot find a class it does not already know the exact name of. <em>(Clause 12.)</em></p>
-<h3 id="73-hives-that-already-know-each-other">7.3 Hives that already know each other</h3>
-<p><strong>7.3.1</strong> A scanner holding an association between a beacon identifier and a peer it
+<span class="clause-anchor" id="c7.3"></span><h3 id="73-hives-that-already-know-each-other">7.3 Hives that already know each other</h3>
+<p><strong class="clause" id="c7.3.1">7.3.1</strong> A scanner holding an association between a beacon identifier and a peer it
 already has information about may skip steps 2 to 4 for that peer.</p>
-<p><strong>7.3.2</strong> For such a peer, a beacon shall be treated as evidence of presence, and not as
+<p><strong class="clause" id="c7.3.2">7.3.2</strong> For such a peer, a beacon shall be treated as evidence of presence, and not as
 new information about class or capability.</p>
 <p>Note 1 to entry: For hives that already know each other, <strong>the beacon's job changes
 entirely</strong>: it stops being discovery and becomes the answer to <em>is this peer still
 here</em>. That is the common case in a settled deployment, and it
 is why beacons keep being emitted long after everyone has found everyone.</p>
-<h2 id="8-capability-summary">8 Capability summary</h2>
-<p><strong>8.1</strong> A capability summary, where carried, shall admit false positives and shall not admit
+<span class="clause-anchor" id="c8"></span><h2 id="8-capability-summary">8 Capability summary</h2>
+<p><strong class="clause" id="c8.1">8.1</strong> A capability summary, where carried, shall admit false positives and shall not admit
 false negatives.</p>
-<p><strong>8.2</strong> A capability summary shall carry the parameters needed to interpret it.</p>
-<p><strong>8.3</strong> A scanner shall treat a positive result as a reason to ask, and shall not treat it
+<p><strong class="clause" id="c8.2">8.2</strong> A capability summary shall carry the parameters needed to interpret it.</p>
+<p><strong class="clause" id="c8.3">8.3</strong> A scanner shall treat a positive result as a reason to ask, and shall not treat it
 as an answer.</p>
-<p><strong>8.4</strong> A hive publishing no public capability shall not carry a capability summary.</p>
+<p><strong class="clause" id="c8.4">8.4</strong> A hive publishing no public capability shall not carry a capability summary.</p>
 <p>Note 1 to entry: The direction of error in 8.1 is the whole design. <strong>A false positive costs
 a query that finds nothing; a false negative loses a hive that was exactly what was wanted,
 and loses it silently.</strong> The summary is therefore built so that <em>absent</em> is certain and
@@ -626,8 +626,8 @@ about</strong>, and the disagreement appears as a hive that is never found rathe
 a summary that answers <em>no</em> to everything, at the cost of the bytes — and on a bearer where
 carrying it forces a larger advertisement format, <strong>the cost is paid by every beacon, for a
 result that was knowable without it.</strong></p>
-<h2 id="9-what-layer-2-provides-upward">9 What Layer 2 provides upward</h2>
-<p><strong>9.1</strong> Layer 2 shall provide, for each peer it has heard:</p>
+<span class="clause-anchor" id="c9"></span><h2 id="9-what-layer-2-provides-upward">9 What Layer 2 provides upward</h2>
+<p><strong class="clause" id="c9.1">9.1</strong> Layer 2 shall provide, for each peer it has heard:</p>
 <p>a) the peer's identity, where resolvable;</p>
 <p>b) each bearer the peer has been heard on;</p>
 <p>c) the time of the most recent sighting on each bearer, on the platform's monotonic time
@@ -635,9 +635,9 @@ source;</p>
 <p>d) the peer's class;</p>
 <p>e) the peer's capability summary, where one was carried; and</p>
 <p>f) the peer's duty class and stated interval, where declared (5.4b).</p>
-<p><strong>9.2</strong> Layer 2 shall record a sighting per bearer, and shall not merge sightings on
+<p><strong class="clause" id="c9.2">9.2</strong> Layer 2 shall record a sighting per bearer, and shall not merge sightings on
 different bearers into one.</p>
-<p><strong>9.3</strong> Layer 2 shall not select a bearer for any purpose.</p>
+<p><strong class="clause" id="c9.3">9.3</strong> Layer 2 shall not select a bearer for any purpose.</p>
 <p>Note 1 to entry: 9.2 is what makes 9.1 c) worth having. <strong>A peer heard on three bearers is
 one peer with three independent freshness values</strong>, and merging them loses exactly the
 information the layers above need — a peer whose long-range bearer is healthy and whose
@@ -650,33 +650,33 @@ that had already chosen would have discarded the alternatives.</p>
 <p>Note 3 to entry: 9.1 c) is measured on the monotonic time source Layer 0 requires, which is
 comparable only with itself. <strong>Two hives cannot compare sightings</strong>, and nothing here asks
 them to.</p>
-<h2 id="10-conformance">10 Conformance</h2>
+<span class="clause-anchor" id="c10"></span><h2 id="10-conformance">10 Conformance</h2>
 <p>Every requirement of this document is demonstrated by conformance evidence of one of
-the three classes of <code>01-terminology.md</code>, 3.10 — behavioural, by construction, or by
+the three classes of <a href="01-terminology.html"><code>01-terminology.md</code></a>, 3.10 — behavioural, by construction, or by
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <code>01-terminology.md</code> 4.2 to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
-<p><strong>10.1</strong> An implementation conforms to this document where it:</p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+<p><strong class="clause" id="c10.1">10.1</strong> An implementation conforms to this document where it:</p>
 <p>a) beacons on every bearer in service and never suspends it (Clause 4);</p>
 <p>b) carries what Clause 5 requires and omits what Clause 5 forbids;</p>
 <p>c) meets Clause 6 for each bearer's cadence, and declares a fade period satisfying 6.3;</p>
 <p>d) filters in the order of 7.1 and answers steps 1 and 2 from a beacon alone;</p>
 <p>e) carries a capability summary meeting Clause 8, or carries none; and</p>
 <p>f) provides what Clause 9 requires, per bearer.</p>
-<p><strong>10.2</strong> Conformance to 5.3 shall be demonstrated by derivation: the candidate
+<p><strong class="clause" id="c10.2">10.2</strong> Conformance to 5.3 shall be demonstrated by derivation: the candidate
 transformations of the hive's other identifiers are computed and compared against the
 beacon identifier, whole and in part.</p>
 <p>Note 1 to entry: 10.2 names the method because observation cannot reach what 5.3 forbids:
 <strong>an embedded identifier looks exactly like a random one from outside.</strong> Only recomputing
 the candidate derivations distinguishes an opaque identifier from one that silently
 carries the identity it was supposed to keep off the air.</p>
-<h2 id="11-security-and-privacy-considerations">11 Security and privacy considerations</h2>
-<p><strong>11.1</strong> A beacon is public. Anything in it is available to anyone in range, indefinitely,
+<span class="clause-anchor" id="c11"></span><h2 id="11-security-and-privacy-considerations">11 Security and privacy considerations</h2>
+<p><strong class="clause" id="c11.1">11.1</strong> A beacon is public. Anything in it is available to anyone in range, indefinitely,
 without any relationship to the emitter.</p>
-<p><strong>11.2</strong> A beacon is forgeable. An observer can emit beacons resembling any it has heard,
+<p><strong class="clause" id="c11.2">11.2</strong> A beacon is forgeable. An observer can emit beacons resembling any it has heard,
 and no receiver can distinguish them at this layer.</p>
-<p><strong>11.3</strong> A beacon identifier is stable, and a passive observer within range can therefore
+<p><strong class="clause" id="c11.3">11.3</strong> A beacon identifier is stable, and a passive observer within range can therefore
 recognise the same hive across time and, with receivers in more than one place, across
 places. <strong>This standard accepts that, deliberately</strong>: what the identifier never yields is
 who the hive is, what it belongs to, or any identifier usable elsewhere — and the
@@ -691,12 +691,12 @@ class is public</strong>, so an observer learns what kinds of device are present
 where they can identify none of them. And <strong>a hive's pattern of transmission is visible</strong>
 whatever the beacons contain — when it is present, how often it speaks, when it stops.
 Rotation addresses identity, not activity.</p>
-<p><strong>11.4</strong> This standard offers no confidentiality of traffic metadata against any party within
+<p><strong class="clause" id="c11.4">11.4</strong> This standard offers no confidentiality of traffic metadata against any party within
 range of a bearer. An implementation shall not assume, nor represent to a person, that a
 peer's declared build mode, its group membership, or its absence from any relationship limits
 what it can observe.</p>
 <p>Note 0 to entry: <strong>11.4 generalises what 11.1 to 11.3 already state about beacons, and what
-Layer 5, 7.3.4 Note 2 states about a carrier, to the party neither of them names: a listener
+<a href="L5-trust-and-identity.html#c7.3.4">Layer 5, 7.3.4</a> Note 2 states about a carrier, to the party neither of them names: a listener
 in range that never relays, never declares and never joins.</strong> <strong>The grounding is the medium,
 not anyone's honesty.</strong> On a wired network the set of parties is the set on the cable; <strong>on a
 shared radio medium anyone in range is a party, whether anyone knows them or not</strong> — so
@@ -708,13 +708,13 @@ range and say nothing at all</strong>, and nothing declares it, nothing admits i
 refuse it.)</em> <strong>This is why the protection this standard does offer is stated as opacity and
 non-aggregation (11.3) rather than as confidentiality.</strong> <em>(Added 2026-08-04,
 <code>PROVISIONAL(standard)</code>, applying d231.)</em></p>
-<h2 id="12-what-is-not-decided-at-this-layer">12 What is not decided at this layer</h2>
+<span class="clause-anchor" id="c12"></span><h2 id="12-what-is-not-decided-at-this-layer">12 What is not decided at this layer</h2>
 <p><strong>This clause states gaps and contains no requirements.</strong></p>
-<p><strong>12.1 Matching a class by structure on a bearer with no means to ask.</strong> 7.2 puts structural
+<p><strong class="clause" id="c12.1">12.1 Matching a class by structure on a bearer with no means to ask.</strong> 7.2 puts structural
 matching after a query. <strong>On a bearer that provides no query, the step does not exist</strong> — a
 scanner can match a class it knows exactly and nothing else. Whether such a means should be
 added, and what it would cost in airtime, is undecided.</p>
-<p><strong>12.2 How a scanner behaves when it hears many candidates at once.</strong> Nothing here bounds
+<p><strong class="clause" id="c12.2">12.2 How a scanner behaves when it hears many candidates at once.</strong> Nothing here bounds
 how many peers a scanner tracks, states what it does when it can track no more, or says
 which sighting it discards. <strong>Two implementations in a dense deployment will therefore
 diverge in which peers they know about</strong>, without either being non-conforming.</p>

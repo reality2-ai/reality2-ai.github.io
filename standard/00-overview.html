@@ -81,15 +81,15 @@ infrastructure anywhere that everyone can rely on.</p>
 <p>This standard is the document set from which an implementer who cannot ask its authors a
 question can build a conformant implementation of Reality2 <strong>transient networking</strong> and
 <strong>trust groups</strong>, and have it interoperate with every other conformant implementation.</p>
-<h2 id="1-scope">1 Scope</h2>
+<span class="clause-anchor" id="c1"></span><h2 id="1-scope">1 Scope</h2>
 <p>This document describes the premise shared by every part of the Reality2 Standard, the
 layered structure of the document set, the trust boundary that divides it, the parties
 that communicate at each layer, and a reading order.</p>
 <p>It contains no requirements, no recommendations and no permissions.</p>
 <p>It applies to readers of every other part of the Reality2 Standard.</p>
-<h2 id="2-normative-references">2 Normative references</h2>
+<span class="clause-anchor" id="c2"></span><h2 id="2-normative-references">2 Normative references</h2>
 <p><strong>There are no normative references in this document.</strong></p>
-<h2 id="3-the-core-premise">3 The core premise</h2>
+<span class="clause-anchor" id="c3"></span><h2 id="3-the-core-premise">3 The core premise</h2>
 <p><strong>Everything here is built on a highly lossy and movable network where nothing can be
 assumed.</strong> Every mechanism in this standard is shaped by that sentence, and it is the
 test any proposed mechanism has to pass: <em>does this still work when frames are lost,
@@ -114,7 +114,7 @@ application data, not a network signal, and the sender's "received, may now be
 replaced" tag is its own storage decision, made on that receipt.</li>
 <li><strong>Time is a local ruler, not a shared fact</strong>, below the trust boundary entirely.</li>
 </ul>
-<h2 id="4-the-epistemology-the-premise-demands">4 The epistemology the premise demands</h2>
+<span class="clause-anchor" id="c4"></span><h2 id="4-the-epistemology-the-premise-demands">4 The epistemology the premise demands</h2>
 <p>On a network where nothing can be assumed, <strong>nothing is ever proven — things are only
 un-refuted so far.</strong> The reasoning discipline this forces is called the <strong>Thurisaz
 technique</strong>: confidence is earned by <em>surviving attempts to refute</em>, updated
@@ -181,8 +181,8 @@ boundary itself, <em>proof</em>: the frame's integrity tag verifies under a held
 not — and where an act needs more than the gate, a member's signature likewise verifies
 or does not. <strong>Confidence never
 substitutes for the gate, and the gate never claims what only observation can</strong> — passing
-the gate is a floor, not a character reference (Layer 5, 7.2).</p>
-<h2 id="5-the-stack--one-document-per-layer">5 The stack — one document per layer</h2>
+the gate is a floor, not a character reference (<a href="L5-trust-and-identity.html#c7.2">Layer 5, 7.2</a>).</p>
+<span class="clause-anchor" id="c5"></span><h2 id="5-the-stack--one-document-per-layer">5 The stack — one document per layer</h2>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -193,32 +193,32 @@ the gate is a floor, not a character reference (Layer 5, 7.2).</p>
 </thead>
 <tbody>
 <tr>
-<td><code>01-terminology.md</code></td>
+<td><a href="01-terminology.html"><code>01-terminology.md</code></a></td>
 <td>—</td>
 <td>Terms used across all parts</td>
 </tr>
 <tr>
-<td><code>L0-hardware-and-runtime.md</code></td>
+<td><a href="L0-hardware-and-runtime.html"><code>L0-hardware-and-runtime.md</code></a></td>
 <td><strong>L0 Hardware &amp; Runtime</strong></td>
 <td>What a platform provides to every layer above</td>
 </tr>
 <tr>
-<td><code>L1-transport.md</code></td>
+<td><a href="L1-transport.html"><code>L1-transport.md</code></a></td>
 <td><strong>L1 Transport</strong></td>
 <td>The bearer contract, the registry, the profile</td>
 </tr>
 <tr>
-<td><code>L2-capability-and-discovery.md</code></td>
+<td><a href="L2-capability-and-discovery.html"><code>L2-capability-and-discovery.md</code></a></td>
 <td><strong>L2 Capability &amp; Discovery</strong></td>
 <td>Beacons, class, capability — per bearer</td>
 </tr>
 <tr>
-<td><code>L3-routing.md</code></td>
+<td><a href="L3-routing.html"><code>L3-routing.md</code></a></td>
 <td><strong>L3 Routing</strong></td>
 <td>Neighbour table, relay, duplicates, bearer choice, custody</td>
 </tr>
 <tr>
-<td><code>L4-wire.md</code></td>
+<td><a href="L4-wire.html"><code>L4-wire.md</code></a></td>
 <td><strong>L4 Wire Protocol</strong></td>
 <td>The frame, two tiers, addressing, the authenticated span</td>
 </tr>
@@ -228,17 +228,17 @@ the gate is a floor, not a character reference (Layer 5, 7.2).</p>
 <td></td>
 </tr>
 <tr>
-<td><code>L5-trust-and-identity.md</code></td>
+<td><a href="L5-trust-and-identity.html"><code>L5-trust-and-identity.md</code></a></td>
 <td><strong>L5 Trust &amp; Identity</strong></td>
 <td>The trust group, claim state, certificates, the delivery gate, entanglement</td>
 </tr>
 <tr>
-<td><code>L6-management.md</code></td>
+<td><a href="L6-management.html"><code>L6-management.md</code></a></td>
 <td><strong>L6 Management</strong></td>
 <td>Authority, updates, recovery, diagnostics, surfaces</td>
 </tr>
 <tr>
-<td><code>L7-application.md</code></td>
+<td><a href="L7-application.html"><code>L7-application.md</code></a></td>
 <td><strong>L7 Application</strong></td>
 <td>Sentants, events, plugins, ensembles</td>
 </tr>
@@ -256,14 +256,14 @@ hives it has never met, belonging to groups it cannot join, carrying ciphertext 
 cannot read. Everything L5 and above is authenticated, and every consequential act is
 gated there.</li>
 </ul>
-<h3 id="51-what-the-network-sends-is-frames">5.1 What the network sends is frames</h3>
+<span class="clause-anchor" id="c5.1"></span><h3 id="51-what-the-network-sends-is-frames">5.1 What the network sends is frames</h3>
 <p>A frame might be an event with a payload, or a chunk of a larger transfer — a firmware
 image assembling over days, a sound recording moving upstream. <strong>From the network's point
 of view there is no difference, only what to do with it at the other end</strong>: the type
 field says how to treat a frame, never what it means. There is no second carriage path;
 anything large is divided at its source by the endpoint that knows what the payload
-means, and no layer fragments (Layer 4, 6.2).</p>
-<h2 id="6-who-communicates-with-whom--a-different-answer-at-every-layer">6 Who communicates with whom — a different answer at every layer</h2>
+means, and no layer fragments (<a href="L4-wire.html#c6.2">Layer 4, 6.2</a>).</p>
+<span class="clause-anchor" id="c6"></span><h2 id="6-who-communicates-with-whom--a-different-answer-at-every-layer">6 Who communicates with whom — a different answer at every layer</h2>
 <p>Most confusion about this system comes from asking "what talks to what?" without naming
 the layer. <strong>A sentant never talks to a bearer; a group never talks to a neighbour.</strong> The
 parties, layer by layer:</p>
@@ -318,7 +318,7 @@ parties, layer by layer:</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="61-one-message-three-answers-at-once">6.1 One message, three answers at once</h3>
+<span class="clause-anchor" id="c6.1"></span><h3 id="61-one-message-three-answers-at-once">6.1 One message, three answers at once</h3>
 <p>Asked "is communication sentant-to-sentant, group-to-group, or hive-to-hive?", the
 answer is all three, because they answer different questions:</p>
 <blockquote>
@@ -333,7 +333,7 @@ what its community's relationships set is whether the far side <em>acts</em>. To
 it is a social one: your agents can talk with theirs to the degree your communities
 trust each other — a human truth, not a protocol detail, and the reason the
 intelligent-agents metaphor survives the security model instead of fighting it.</p>
-<h3 id="62-groups-and-the-ladder-between-them">6.2 Groups, and the ladder between them</h3>
+<span class="clause-anchor" id="c6.2"></span><h3 id="62-groups-and-the-ladder-between-them">6.2 Groups, and the ladder between them</h3>
 <p>A trust group is a flat group of hives sharing a cryptographic identity — sovereign,
 with no hierarchy inside it and no authority above it. Between groups there is a
 <strong>ladder</strong>: traffic between two hives is <em>same-group</em>, <em>entangled</em> — the groups hold a
@@ -341,7 +341,7 @@ conditional agreement, scoped and levelled, standing exactly as long as its cond
 are met — or <em>unauthenticated</em>, which still exists and still carries. <strong>The mesh is not
 a rung of this ladder</strong>: entanglement is a relationship between trust groups; the mesh
 is a relationship between devices, and every device is in it (Layer 5, Clause 10).</p>
-<h2 id="7-reading-order">7 Reading order</h2>
+<span class="clause-anchor" id="c7"></span><h2 id="7-reading-order">7 Reading order</h2>
 <p><strong>Terminology first, then bottom-up.</strong> Each part states what it assumes of the part
 below, so the stack reads in layer order: L0 through L4 for the mesh, L5 through L7 for
 what trust adds. Every part carries its own conformance clause saying who conforms and
@@ -351,7 +351,7 @@ permission.</strong></p>
 <p>A minimal relaying device is an implementation of L0–L4: that floor is what makes every
 device a citizen of the shared mesh. Membership, delivery, management and applications
 build on it in order.</p>
-<h2 id="8-the-worked-examples">8 The worked examples</h2>
+<span class="clause-anchor" id="c8"></span><h2 id="8-the-worked-examples">8 The worked examples</h2>
 <p>Four informative examples close the set. Each is a full trace through the same stack —
 <strong>no example uses a mechanism the others lack; they set the same dials to different
 values, and the purpose chooses the values.</strong></p>
@@ -364,19 +364,19 @@ values, and the purpose chooses the values.</strong></p>
 </thead>
 <tbody>
 <tr>
-<td><code>EXAMPLE-payment-at-point-of-sale.md</code></td>
+<td><a href="EXAMPLE-payment-at-point-of-sale.html"><code>EXAMPLE-payment-at-point-of-sale.md</code></a></td>
 <td>high stakes, minutes-long entanglement, laddered person-authentication, receipt-with-release</td>
 </tr>
 <tr>
-<td><code>EXAMPLE-presenting-in-a-room.md</code></td>
+<td><a href="EXAMPLE-presenting-in-a-room.html"><code>EXAMPLE-presenting-in-a-room.md</code></a></td>
 <td>near-zero stakes, proximity-conditioned entanglement, contention left to the room — by design</td>
 </tr>
 <tr>
-<td><code>EXAMPLE-a-night-at-the-stadium.md</code></td>
+<td><a href="EXAMPLE-a-night-at-the-stadium.html"><code>EXAMPLE-a-night-at-the-stadium.md</code></a></td>
 <td>the whole stack under load, layer by layer; presence as attested history</td>
 </tr>
 <tr>
-<td><code>EXAMPLE-earthgrid-and-the-insights-store.md</code></td>
+<td><a href="EXAMPLE-earthgrid-and-the-insights-store.html"><code>EXAMPLE-earthgrid-and-the-insights-store.md</code></a></td>
 <td>years-long entanglements, three parties, trust as a graded decaying quantity — and breach without revocation</td>
 </tr>
 </tbody>

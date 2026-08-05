@@ -65,11 +65,11 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
 <p>A person who stewards more than one trust group — a household's groups, a community's
 earthgrid, a fleet of deployments — holds something Layer 5 names but does not specify:
 <strong>custody of keys for provisioning others, distinct from membership in anything</strong>
-(Layer 5, 4.3 Note 2). This document specifies the instrument of that custody: the
+(<a href="L5-trust-and-identity.html#c4.3">Layer 5, 4.3</a> Note 2). This document specifies the instrument of that custody: the
 management wallet.</p>
 <p>Two commitments shape it:</p>
 <p><strong>Custody is not membership, and the wallet keeps them apart.</strong> The wallet's host hive
-has exactly one persona, in exactly one group, like every hive (Layer 5, 4.3.2). The
+has exactly one persona, in exactly one group, like every hive (<a href="L5-trust-and-identity.html#c4.3.2">Layer 5, 4.3.2</a>). The
 group secrets the wallet holds are cargo, never identity — held for the moments custody
 exists for, and exercised as nothing else.</p>
 <p><strong>The wallet stores while the owner is absent; it acts only while the owner is
@@ -81,7 +81,7 @@ attestation claims.</strong> The worked examples speak informally of a person's 
 payment tokens and presence claims — those are application data, stored however
 applications store things. The management wallet holds <em>key custody</em>. Same word in the
 street; different thing in this standard.</p>
-<h2 id="1-scope">1 Scope</h2>
+<span class="clause-anchor" id="c1"></span><h2 id="1-scope">1 Scope</h2>
 <p>This document specifies the management wallet: what it may hold, the separation of
 custody from membership, the conditions under which held material may be exercised, how
 custody is granted and transferred, what its loss costs, and when a custody relationship
@@ -91,50 +91,50 @@ decided.</p>
 <p>It does not specify byte formats, which belong to the formats companion. It does not
 specify storage of application data — value tokens, attestations, claims — which is not
 custody and not this document's subject.</p>
-<h2 id="2-normative-references">2 Normative references</h2>
+<span class="clause-anchor" id="c2"></span><h2 id="2-normative-references">2 Normative references</h2>
 <p>The following documents are referred to in the text in such a way that some or all of
 their content constitutes requirements of this document.</p>
 <ul>
-<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<code>01-terminology.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<code>L0-hardware-and-runtime.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 5: Trust and identity</strong> (<code>L5-trust-and-identity.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 5 companion: Entanglement</strong> (<code>L5A-entanglement.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 5 companion: The enrolment ceremony</strong> (<code>L5B-enrolment.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 6: Management</strong> (<code>L6-management.md</code>)</li>
+<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<a href="01-terminology.html"><code>01-terminology.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<a href="L0-hardware-and-runtime.html"><code>L0-hardware-and-runtime.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 5: Trust and identity</strong> (<a href="L5-trust-and-identity.html"><code>L5-trust-and-identity.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 5 companion: Entanglement</strong> (<a href="L5A-entanglement.html"><code>L5A-entanglement.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 5 companion: The enrolment ceremony</strong> (<a href="L5B-enrolment.html"><code>L5B-enrolment.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 6: Management</strong> (<a href="L6-management.html"><code>L6-management.md</code></a>)</li>
 </ul>
-<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<span class="clause-anchor" id="c3"></span><h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
 <p>For the purposes of this document, the terms and definitions given in the documents
 listed in Clause 2 apply, together with the following.</p>
-<p><strong>3.1
+<p><strong class="clause" id="c3.1">3.1
 management wallet</strong></p>
 <p>facility on a hive holding custody of key material for trust groups its owner manages</p>
-<p><strong>3.2
+<p><strong class="clause" id="c3.2">3.2
 custody</strong></p>
 <p>holding of a group's secret key material for the purpose of managing that group, as
 distinct from membership in it</p>
 <p>Note 1 to entry: Layer 3 uses <em>custody</em> for a different thing at a different scale — a
-relay holding a <strong>frame</strong> for later forwarding (Layer 3, 3.8). In this document custody
+relay holding a <strong>frame</strong> for later forwarding (<a href="L3-routing.html#c3.8">Layer 3, 3.8</a>). In this document custody
 is always of <strong>key material</strong>; where the two could be confused, say <em>key custody</em> and
 <em>frame custody</em>.</p>
-<p><strong>3.3
+<p><strong class="clause" id="c3.3">3.3
 owner</strong></p>
 <p>person whose authority every exercise of a wallet's custody evidences</p>
-<p><strong>3.4
+<p><strong class="clause" id="c3.4">3.4
 custodian</strong></p>
 <p>wallet, or the person owning it, holding custody of a given group's secret</p>
-<h2 id="4-custody-is-not-membership">4 Custody is not membership</h2>
-<p><strong>4.1</strong> A wallet's host hive shall have exactly one persona, in exactly one group
-(Layer 5, 4.3.2); the groups whose material the wallet holds shall not be among its
+<span class="clause-anchor" id="c4"></span><h2 id="4-custody-is-not-membership">4 Custody is not membership</h2>
+<p><strong class="clause" id="c4.1">4.1</strong> A wallet's host hive shall have exactly one persona, in exactly one group
+(<a href="L5-trust-and-identity.html#c4.3.2">Layer 5, 4.3.2</a>); the groups whose material the wallet holds shall not be among its
 memberships by virtue of that holding.</p>
-<p><strong>4.2</strong> A wallet shall not use held material to participate in a held group: not to
+<p><strong class="clause" id="c4.2">4.2</strong> A wallet shall not use held material to participate in a held group: not to
 beacon as it, answer as it, originate or tag its frames, or pass its delivery gate as a
 member.</p>
-<p><strong>4.3</strong> Held material shall be exercised only for the management acts custody exists
-for: issuing certificates at enrolment (<code>L5B-enrolment.md</code>), rotation, recovery, the
+<p><strong class="clause" id="c4.3">4.3</strong> Held material shall be exercised only for the management acts custody exists
+for: issuing certificates at enrolment (<a href="L5B-enrolment.html"><code>L5B-enrolment.md</code></a>), rotation, recovery, the
 issuing of invitations, and the activation of dormant personas (5.1 e). <strong>Activation is
 not the wallet participating</strong>: the sealed hive that wakes acts as itself (5.1a, 6.5),
 and 4.2 binds the wallet, not it.</p>
-<p><strong>4.4</strong> The custody rules of Layer 5, 5.3 apply to every key a wallet holds: most
+<p><strong class="clause" id="c4.4">4.4</strong> The custody rules of <a href="L5-trust-and-identity.html#c5.3">Layer 5, 5.3</a> apply to every key a wallet holds: most
 protected facility, no implicit copies, erased when released, redacted from every
 diagnostic.</p>
 <p>Note 1 to entry: 4.2 is the clause that keeps the wallet from becoming what Layer 5
@@ -147,45 +147,45 @@ Membership is exercised on the mesh — beacons, frames, gate passages — conti
 observably. <strong>Custody is exercised in ceremonies</strong> — rare, local, owner-present. An
 implementation that finds itself using wallet material on the data path has crossed the
 line 4.2 draws.</p>
-<h2 id="5-what-a-wallet-may-hold">5 What a wallet may hold</h2>
-<p><strong>5.1</strong> A wallet may hold:</p>
+<span class="clause-anchor" id="c5"></span><h2 id="5-what-a-wallet-may-hold">5 What a wallet may hold</h2>
+<p><strong class="clause" id="c5.1">5.1</strong> A wallet may hold:</p>
 <p>a) group secret key material, for each group whose custodian its owner is;</p>
 <p>b) invitations — issued and not yet consumed, and received and not yet exercised
-(<code>L5B-enrolment.md</code>, Clause 5);</p>
+(<a href="L5B-enrolment.html"><code>L5B-enrolment.md</code></a>, Clause 5);</p>
 <p>c) recovery material — shares or equivalents by which a group's secret can be
 reconstituted, where a group has split its custody (8.3); and</p>
 <p>d) the records custody requires: agreement artefacts the owner signed
-(<code>L5A-entanglement.md</code>), certificates issued, rotation history for the groups held; and</p>
+(<a href="L5A-entanglement.html"><code>L5A-entanglement.md</code></a>), certificates issued, rotation history for the groups held; and</p>
 <p>e) <strong>dormant personas</strong> — complete hive personas, each sealed in its own isolated
 environment, held for activation as hives on the wallet's host or elsewhere.</p>
-<p><strong>5.1a</strong> A dormant persona shall stay sealed: the wallet holds and activates the sealed
+<p><strong class="clause" id="c5.1a">5.1a</strong> A dormant persona shall stay sealed: the wallet holds and activates the sealed
 environment, and shall not extract, read or exercise the persona's key material itself.
 An activated persona runs as an ordinary hive — one persona, one group, its own beacon —
-under Layer 5, 4.3.5 where co-hosted, and its member secret never leaves its sandbox
-(Layer 5, 5.3.3 is satisfied because the sandbox <em>is</em> the hive).</p>
-<p><strong>5.1b</strong> On a platform capable of one hive at a time, activation of a dormant persona
+under <a href="L5-trust-and-identity.html#c4.3.5">Layer 5, 4.3.5</a> where co-hosted, and its member secret never leaves its sandbox
+(<a href="L5-trust-and-identity.html#c5.3.3">Layer 5, 5.3.3</a> is satisfied because the sandbox <em>is</em> the hive).</p>
+<p><strong class="clause" id="c5.1b">5.1b</strong> On a platform capable of one hive at a time, activation of a dormant persona
 shall deactivate the running one first: personas swap; they do not stack.</p>
-<p><strong>5.2</strong> A wallet shall enumerate what it holds to its owner, and to no one else.</p>
-<p><strong>5.3</strong> A wallet shall hold nothing whose exercise it cannot gate under Clause 6.</p>
+<p><strong class="clause" id="c5.2">5.2</strong> A wallet shall enumerate what it holds to its owner, and to no one else.</p>
+<p><strong class="clause" id="c5.3">5.3</strong> A wallet shall hold nothing whose exercise it cannot gate under Clause 6.</p>
 <p>Note 1 to entry: 5.2's second half is a privacy commitment with teeth: <strong>the list of
 groups a person manages is a map of their responsibilities</strong> — which communities, which
 deployments, which households. No protocol surface, no diagnostic tier, no entangled
 peer is owed that map. The wallet's inventory is between the wallet and its owner.</p>
-<h2 id="6-holding-and-acting">6 Holding and acting</h2>
-<p><strong>6.1</strong> A wallet shall associate every operation class it supports with a required
+<span class="clause-anchor" id="c6"></span><h2 id="6-holding-and-acting">6 Holding and acting</h2>
+<p><strong class="clause" id="c6.1">6.1</strong> A wallet shall associate every operation class it supports with a required
 person-authentication level of its owner, and shall refuse the operation when the
 owner's current attested level is below it. <em>(The scale is ruled 0–7 and its normative
 home is the person-authentication companion — 12.4; the ruling record is
 <code>CLOSED-QUESTIONS.md</code> C6, informative.)</em></p>
-<p><strong>6.2</strong> Unattended — the owner absent or below every stated level — a wallet shall
+<p><strong class="clause" id="c6.2">6.2</strong> Unattended — the owner absent or below every stated level — a wallet shall
 store, and shall exercise nothing.</p>
-<p><strong>6.3</strong> Custody transfer (Clause 7) and custodian revocation shall require the highest
+<p><strong class="clause" id="c6.3">6.3</strong> Custody transfer (Clause 7) and custodian revocation shall require the highest
 level the wallet supports, including a fresh momentary confirmation; they shall not
 proceed on standing presence alone.</p>
-<p><strong>6.4</strong> An enrolment the wallet provisions shall additionally satisfy the ceremony's
-own requirements (<code>L5B-enrolment.md</code>, 6.3, 6.4) — the wallet's owner gate does not
+<p><strong class="clause" id="c6.4">6.4</strong> An enrolment the wallet provisions shall additionally satisfy the ceremony's
+own requirements (<a href="L5B-enrolment.html"><code>L5B-enrolment.md</code></a>, 6.3, 6.4) — the wallet's owner gate does not
 substitute for the ceremony's person.</p>
-<p><strong>6.5</strong> Activation and deactivation of a dormant persona (5.1 e) are operation classes
+<p><strong class="clause" id="c6.5">6.5</strong> Activation and deactivation of a dormant persona (5.1 e) are operation classes
 under 6.1. Once activated, the running hive is not the wallet's: it acts as itself, and
 nothing it does is gated here.</p>
 <p>Note 1 to entry: This clause is where the wallet's answer to <em>"what may it do without
@@ -199,36 +199,36 @@ left the anchors to the companion.</p>
 <p>Note 2 to entry: The asymmetry of 6.2 is the design: <strong>a stolen, powered, unattended
 wallet is a vault, not an agent.</strong> What its thief holds is Clause 8's problem — real,
 priced there — but nothing about possession alone makes the wallet <em>do</em> anything.</p>
-<h2 id="7-granting-and-transferring-custody">7 Granting and transferring custody</h2>
-<p><strong>7.1</strong> Custody shall be granted only by a ceremony at the key-custody grade
-(<code>L5B-enrolment.md</code>, 6.3.1): anchored, with a person confirming at the invitation's
+<span class="clause-anchor" id="c7"></span><h2 id="7-granting-and-transferring-custody">7 Granting and transferring custody</h2>
+<p><strong class="clause" id="c7.1">7.1</strong> Custody shall be granted only by a ceremony at the key-custody grade
+(<a href="L5B-enrolment.html"><code>L5B-enrolment.md</code></a>, 6.3.1): anchored, with a person confirming at the invitation's
 stated level.</p>
-<p><strong>7.2</strong> Custody, once held, cannot be taken back — it is outlived: <strong>removing a
+<p><strong class="clause" id="c7.2">7.2</strong> Custody, once held, cannot be taken back — it is outlived: <strong>removing a
 custodian shall be effected by rotating the group's keys without them</strong> (Layer 5,
 Clause 8), after which what they hold opens nothing current.</p>
-<p><strong>7.3</strong> A transfer of custody shall be a grant to the new custodian (7.1) followed by a
+<p><strong class="clause" id="c7.3">7.3</strong> A transfer of custody shall be a grant to the new custodian (7.1) followed by a
 rotation past the old (7.2), where the old custodian is to lose custody; and a grant
 alone, where custody is to be shared.</p>
-<p><strong>7.4</strong> A backup of a wallet is a custodian: it shall be granted custody as 7.1
+<p><strong class="clause" id="c7.4">7.4</strong> A backup of a wallet is a custodian: it shall be granted custody as 7.1
 requires, counted as a custodian thereafter, and rotated past like any other when
 retired.</p>
 <p>Note 1 to entry: 7.2 is the honest mechanics of symmetric material: <strong>a secret shown
 cannot be unshown.</strong> A protocol that claimed to "revoke custody" by deleting a copy it
 does not control would be a phantom gate. Rotation is the only real revocation this
 architecture has, and it already exists — so custody removal costs one rotation, which
-is exactly what eviction of a member key-holder already costs (Layer 5, 8.1).</p>
+is exactly what eviction of a member key-holder already costs (<a href="L5-trust-and-identity.html#c8.1">Layer 5, 8.1</a>).</p>
 <p>Note 2 to entry: 7.4 closes the quiet hole. A "backup" that were exempt from custody
 accounting would be an unenumerated custodian — the exposure of Clause 8 with none of
 the bookkeeping. Naming it a custodian makes the copy visible to the one party entitled
 to the map (5.2): the owner deciding how exposed their groups are.</p>
-<h2 id="8-loss-compromise-and-splitting">8 Loss, compromise, and splitting</h2>
-<p><strong>8.1</strong> A wallet's capture shall be treated as the simultaneous exposure of every group
+<span class="clause-anchor" id="c8"></span><h2 id="8-loss-compromise-and-splitting">8 Loss, compromise, and splitting</h2>
+<p><strong class="clause" id="c8.1">8.1</strong> A wallet's capture shall be treated as the simultaneous exposure of every group
 whose secret it holds: <strong>the response is rotation of every held group</strong> (Layer 5,
 Clause 8), at the zero-grace severity of a compromise.</p>
-<p><strong>8.2</strong> A wallet's owner shall be able to enumerate, from outside the lost wallet, which
+<p><strong class="clause" id="c8.2">8.2</strong> A wallet's owner shall be able to enumerate, from outside the lost wallet, which
 groups require that rotation — the inventory of 5.2 shall be recoverable by the owner
 without the wallet.</p>
-<p><strong>8.3</strong> A group may split its custody so that no single wallet holds material sufficient
+<p><strong class="clause" id="c8.3">8.3</strong> A group may split its custody so that no single wallet holds material sufficient
 to exercise it alone; the threshold and scheme are the group's choice, and the formats
 companion's to encode.</p>
 <p>Note 1 to entry: The wallet is, by construction, <strong>the highest-value capture in this
@@ -236,13 +236,13 @@ architecture</strong> — a single object whose loss is many groups' compromise 
 document does not soften that; it prices it. 8.2 makes the recovery <em>actionable</em> (an
 owner who cannot list what was lost cannot rotate what was lost); 8.3 offers the one
 real mitigation, which is not holding the whole secret anywhere; and Layer 0's
-protection-at-rest gap (L0 10.4) is nowhere more load-bearing than here.</p>
-<h2 id="9-custody-or-grant--which-relationship-to-use">9 Custody or grant — which relationship to use</h2>
-<p><strong>9.1</strong> Where another party is to manage a group's devices in a bounded way, the
-relationship should be a management-bearing entanglement (<code>L5A-entanglement.md</code>,
+protection-at-rest gap (<a href="L0-hardware-and-runtime.html#c10.4">L0 10.4</a>) is nowhere more load-bearing than here.</p>
+<span class="clause-anchor" id="c9"></span><h2 id="9-custody-or-grant--which-relationship-to-use">9 Custody or grant — which relationship to use</h2>
+<p><strong class="clause" id="c9.1">9.1</strong> Where another party is to manage a group's devices in a bounded way, the
+relationship should be a management-bearing entanglement (<a href="L5A-entanglement.html"><code>L5A-entanglement.md</code></a>,
 Clause 9) — enumerated operations, member-attributed acts, revocable at will — and not
 a grant of custody.</p>
-<p><strong>9.2</strong> Custody should be held only where stewardship is intended: the holder stands in
+<p><strong class="clause" id="c9.2">9.2</strong> Custody should be held only where stewardship is intended: the holder stands in
 for the group's own continuity, not for a bounded task.</p>
 <p>Note 1 to entry: The two mechanisms bracket delegation honestly. <strong>A grant is bounded
 power, revocable by a policy change; custody is total power, revocable only by
@@ -250,14 +250,14 @@ rotation.</strong> A community that hands its earthgrid's secret to a contractor
 a steward it can only rotate away from; the same contractor under a management-bearing
 entanglement is a named group, doing named things, attributable per act, severable in
 one decision. The default belongs at the bounded end.</p>
-<h2 id="10-conformance">10 Conformance</h2>
+<span class="clause-anchor" id="c10"></span><h2 id="10-conformance">10 Conformance</h2>
 <p>Every requirement of this document is demonstrated by conformance evidence of one of
-the three classes of <code>01-terminology.md</code>, 3.10 — behavioural, by construction, or by
+the three classes of <a href="01-terminology.html"><code>01-terminology.md</code></a>, 3.10 — behavioural, by construction, or by
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <code>01-terminology.md</code> 4.2 to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
-<p><strong>10.1</strong> An implementation conforms to this document where it:</p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+<p><strong class="clause" id="c10.1">10.1</strong> An implementation conforms to this document where it:</p>
 <p>a) keeps custody out of membership: one persona, no participation as any held group
 (Clause 4);</p>
 <p>b) holds only what Clause 5 permits and enumerates it to the owner alone;</p>
@@ -267,42 +267,42 @@ and demands the fresh high-level confirmation for transfer and revocation (Claus
 counts backups as custodians (Clause 7); and</p>
 <p>e) supports the capture response of Clause 8, including the owner's out-of-wallet
 inventory.</p>
-<p><strong>10.2</strong> Conformance to 6.2 shall be demonstrated by the negative case: a wallet with
+<p><strong class="clause" id="c10.2">10.2</strong> Conformance to 6.2 shall be demonstrated by the negative case: a wallet with
 its owner absent, presented with each supported operation, exercises none — and the
 vacuity guard is the positive case, the same operations succeeding with the owner
 attested at level.</p>
-<p><strong>10.3</strong> Conformance to 4.2 shall be demonstrated by observing the wallet's host on the
+<p><strong class="clause" id="c10.3">10.3</strong> Conformance to 4.2 shall be demonstrated by observing the wallet's host on the
 mesh: it presents exactly one persona, and no traffic of any held group originates from
 it outside a ceremony.</p>
-<h2 id="11-security-considerations">11 Security considerations</h2>
-<p><strong>11.1</strong> The wallet concentrates what the architecture elsewhere distributes. Clause 8
+<span class="clause-anchor" id="c11"></span><h2 id="11-security-considerations">11 Security considerations</h2>
+<p><strong class="clause" id="c11.1">11.1</strong> The wallet concentrates what the architecture elsewhere distributes. Clause 8
 prices the capture; 8.3 is the only structural reduction. A deployment that cannot
 tolerate single-point custody splits it or does not create it.</p>
-<p><strong>11.2</strong> The owner is the gate, so the owner is the target: coercion of a present owner
+<p><strong class="clause" id="c11.2">11.2</strong> The owner is the gate, so the owner is the target: coercion of a present owner
 defeats every level the wallet can state. That residual is social, not protocol — named
 here so nobody believes a level solves it. Duress-shaped mitigations are application
 territory.</p>
-<p><strong>11.3</strong> The inventory is surveillance-grade metadata (5.2 Note 1). Implementations
-carry the redaction discipline of Layer 5, 5.3.4 to the inventory as much as to the
+<p><strong class="clause" id="c11.3">11.3</strong> The inventory is surveillance-grade metadata (5.2 Note 1). Implementations
+carry the redaction discipline of <a href="L5-trust-and-identity.html#c5.3.4">Layer 5, 5.3.4</a> to the inventory as much as to the
 keys.</p>
-<p><strong>11.4</strong> A wallet's owner-binding rides the person-authentication scale, and inherits
+<p><strong class="clause" id="c11.4">11.4</strong> A wallet's owner-binding rides the person-authentication scale, and inherits
 its honesty: standing presence is probabilistic. 6.3's fresh-confirmation floor for the
 irreversible acts exists because a decaying standing level is exactly what a thief
 walks in behind.</p>
-<h2 id="12-what-is-not-decided-at-this-layer">12 What is not decided at this layer</h2>
+<span class="clause-anchor" id="c12"></span><h2 id="12-what-is-not-decided-at-this-layer">12 What is not decided at this layer</h2>
 <p><strong>This clause states gaps and contains no requirements.</strong></p>
-<p><strong>12.1 Byte formats.</strong> The wallet's records, the inventory, recovery shares, the
+<p><strong class="clause" id="c12.1">12.1 Byte formats.</strong> The wallet's records, the inventory, recovery shares, the
 out-of-wallet inventory copy — owed to the formats companion.</p>
-<p><strong>12.2 The splitting scheme.</strong> 8.3 permits split custody and fixes nothing about the
+<p><strong class="clause" id="c12.2">12.2 The splitting scheme.</strong> 8.3 permits split custody and fixes nothing about the
 threshold scheme — owed with the formats companion, and the corpus's share-based
 recovery drafts are input.</p>
-<p><strong>12.3 Succession.</strong> A steward dies; the community's groups have to outlive them. Split
+<p><strong class="clause" id="c12.3">12.3 Succession.</strong> A steward dies; the community's groups have to outlive them. Split
 custody (8.3) is the structural answer available today; whether the standard owes a
 named succession mechanism — dormant shares, time-locked recovery, social recovery —
 is undecided, and it is the most human-shaped gap in this document.</p>
-<p><strong>12.4 Per-operation level anchors.</strong> 6.1 requires stated levels and pins none; the
+<p><strong class="clause" id="c12.4">12.4 Per-operation level anchors.</strong> 6.1 requires stated levels and pins none; the
 anchors land with the person-authentication companion (C6 residuals).</p>
-<p><strong>12.5 Wallet-to-wallet protocol.</strong> 7.3's transfer decomposes into existing ceremonies;
+<p><strong class="clause" id="c12.5">12.5 Wallet-to-wallet protocol.</strong> 7.3's transfer decomposes into existing ceremonies;
 whether a dedicated wallet-to-wallet transfer exchange exists — one act instead of
 grant-plus-rotation — is undecided.</p>
 <h2 id="bibliography">Bibliography</h2>

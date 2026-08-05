@@ -169,22 +169,22 @@ relationship, priced by the amount ladder below.</p>
 <tr>
 <td>0.1</td>
 <td>PoS beacons on BLE: marker, beacon identifier, class hash (<code>commerce.pos.terminal</code>), production build mode</td>
-<td>L2 5.1; broadcast, addressed to no one</td>
+<td><a href="L2-capability-and-discovery.html#c5.1">L2 5.1</a>; broadcast, addressed to no one</td>
 </tr>
 <tr>
 <td>0.2</td>
 <td>Phone scans: filter 1 (is it R2), filter 2 (class hash match), build-mode check — production/production, else cooperation is refused</td>
-<td>L2 7.1, 5.4a.5</td>
+<td><a href="L2-capability-and-discovery.html#c7.1">L2 7.1</a>, 5.4a.5</td>
 </tr>
 <tr>
 <td>0.3</td>
 <td>Both form neighbour entries — <strong>link axis only</strong>; nothing is verified, nothing is trusted</td>
-<td>L3 4.2</td>
+<td><a href="L3-routing.html#c4.2">L3 4.2</a></td>
 </tr>
 </tbody>
 </table></div>
 <h3 id="phase-1--first-contact-on-the-unauthenticated-rung">Phase 1 — first contact, on the unauthenticated rung</h3>
-<p>No shared group, no entanglement: strangers — and strangers are legal (L5 10.1).</p>
+<p>No shared group, no entanglement: strangers — and strangers are legal (<a href="L5-trust-and-identity.html#c10.1">L5 10.1</a>).</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -197,7 +197,7 @@ relationship, priced by the amount ladder below.</p>
 <tr>
 <td>1.1</td>
 <td>PoS sentant → public event <code>commerce.pos.invite</code>: <strong>an invitation and a transaction reference only</strong></td>
-<td>cleartext, claims nothing; the sentant firewall is the only gate (L7 9.1)</td>
+<td>cleartext, claims nothing; the sentant firewall is the only gate (<a href="L7-application.html#c9.1">L7 9.1</a>)</td>
 </tr>
 </tbody>
 </table></div>
@@ -208,7 +208,7 @@ broadcasts the user's shopping to the street. Amounts move only inside Phase 3's
 encryption.</p>
 </blockquote>
 <h3 id="phase-2--a-short-lived-entanglement--register-territory-q25">Phase 2 — a short-lived entanglement ⚠ <em>register territory (Q25)</em></h3>
-<p>The two groups establish an entanglement on the ruled frame (L5 10.2): <strong>scope</strong> = this
+<p>The two groups establish an entanglement on the ruled frame (<a href="L5-trust-and-identity.html#c10.2">L5 10.2</a>): <strong>scope</strong> = this
 transaction's events, both directions · <strong>entanglement level</strong> = payment-grade ·
 <strong>lifetime</strong> = minutes, a condition · <strong>conditions</strong> including the timeout, both sides
 remaining in production mode, <strong>and the amount ladder</strong>:</p>
@@ -247,8 +247,8 @@ runs on the ruled frame (conditions, level, lifetime, severance/demotion); the c
 document owes the bytes.</p>
 </blockquote>
 <h3 id="phase-3--the-payment-inside-the-entanglement">Phase 3 — the payment, inside the entanglement</h3>
-<p>Every frame now: entanglement-tagged (gate path L5 7.1.2 c), payload encrypted under the
-entanglement's key (L5 7.3) — no key negotiation; <strong>the classification names the key</strong>.</p>
+<p>Every frame now: entanglement-tagged (gate path <a href="L5-trust-and-identity.html#c7.1.2">L5 7.1.2</a> c), payload encrypted under the
+entanglement's key (<a href="L5-trust-and-identity.html#c7.3">L5 7.3</a>) — no key negotiation; <strong>the classification names the key</strong>.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -269,13 +269,13 @@ entanglement's key (L5 7.3) — no key negotiation; <strong>the classification n
 <td>3.2</td>
 <td><em>(phone-local)</em> wallet → screen → the user</td>
 <td>the confirm affordance the amount demands: tap at $50, fingerprint at $150</td>
-<td>never framed, never on air (L7 5.1.2)</td>
+<td>never framed, never on air (<a href="L7-application.html#c5.1.2">L7 5.1.2</a>)</td>
 </tr>
 <tr>
 <td>3.3</td>
 <td>P→M <code>commerce.pay.transfer</code></td>
 <td><strong>the signed token</strong> — P's wallet key over <em>"token T to group M, transaction X"</em> — <strong>plus the signed attestation of the current person-authentication level</strong></td>
-<td>the entanglement authenticates the <em>channel</em>; <strong>the token signature authorises the <em>payment</em></strong> (L5 7.2.3: the gate is a floor, never the authorisation)</td>
+<td>the entanglement authenticates the <em>channel</em>; <strong>the token signature authorises the <em>payment</em></strong> (<a href="L5-trust-and-identity.html#c7.2.3">L5 7.2.3</a>: the gate is a floor, never the authorisation)</td>
 </tr>
 <tr>
 <td>3.4</td>
@@ -293,8 +293,8 @@ entanglement's key (L5 7.3) — no key negotiation; <strong>the classification n
 </table></div>
 <p><strong>Where the security actually lives, stated plainly:</strong> the delivery gate proved the frames
 are M's and P's — and deliberately <strong>not</strong> which member sent them, nor that they are fresh
-(L5 7.2.2). Payment is member-attributable, non-idempotent and freshness-critical — the
-exact class L5 7.2.3 assigns evidence-beyond-the-gate. <strong>The token system supplies that
+(<a href="L5-trust-and-identity.html#c7.2.2">L5 7.2.2</a>). Payment is member-attributable, non-idempotent and freshness-critical — the
+exact class <a href="L5-trust-and-identity.html#c7.2.3">L5 7.2.3</a> assigns evidence-beyond-the-gate. <strong>The token system supplies that
 evidence</strong> (the wallet's signature, the transaction id), and the level attestation rides
 the same signature. The network carries a payment protocol; it does not do payments.</p>
 <h3 id="phase-4--teardown">Phase 4 — teardown</h3>
@@ -304,7 +304,7 @@ clean: a transfer without a receipt is tokens never marked spent.</p>
 <h2 id="what-an-observer-saw">What an observer saw</h2>
 <p>Single-hop BLE: nearly nothing. If relayed: <strong>the envelope only</strong> — that traffic happened,
 when, how much of it, and the event <em>hashes</em> (<code>commerce.pay.*</code> is recognisable in flight —
-the accepted metadata bound of L5 7.3.4). Amounts, tokens, levels: never.</p>
+the accepted metadata bound of <a href="L5-trust-and-identity.html#c7.3.4">L5 7.3.4</a>). Amounts, tokens, levels: never.</p>
 <h2 id="where-the-tokens-come-from-and-where-they-go">Where the tokens come from, and where they go</h2>
 <p><strong>The lifecycle is cash, deliberately</strong> (Roy, 2026-07-31). The user converted dollars into
 tokens beforehand — the wallet's equivalent of withdrawing cash — and the merchant will
@@ -376,7 +376,7 @@ system's discretion, an online check — a choice the token design makes, not th
 </tr>
 <tr>
 <td>Member-attributable evidence — here supplied by the token system's own signatures, which is the intended layering</td>
-<td><strong>Q24 ruled</strong> — L5 7.4 (<a href="CLOSED-QUESTIONS.md">C7</a>); the attestation now has its native shape</td>
+<td><strong>Q24 ruled</strong> — <a href="L5-trust-and-identity.html#c7.4">L5 7.4</a> (<a href="CLOSED-QUESTIONS.md">C7</a>); the attestation now has its native shape</td>
 </tr>
 <tr>
 <td><em>Confirm affordance</em> — given operational shape here (a graded act raising momentary confidence), still owed its definition</td>

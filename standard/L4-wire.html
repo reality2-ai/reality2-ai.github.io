@@ -94,7 +94,7 @@ the origin and checked by the destination; every hive in between forwards it opa
 <strong>No relay adds trust and no relay can remove it undetected</strong> — and what the tag covers is
 chosen field by field, because the covered fields are the immutable ones and the mutable
 ones are exactly what relays exist to change.</p>
-<h2 id="1-scope">1 Scope</h2>
+<span class="clause-anchor" id="c1"></span><h2 id="1-scope">1 Scope</h2>
 <p>This document specifies the frame format carried by every bearer: the header, the two
 tiers, the message types, the addressing model, the identifier hashing, the payload
 encoding, and the end-to-end integrity envelope.</p>
@@ -105,39 +105,39 @@ vectors, and identifies what is not decided.</p>
 <p>It does not specify how frames are delimited on any medium, which is each bearer's binding
 document. It does not specify routing policy, which is Layer 3, or key material and its
 derivation, which is Layer 5.</p>
-<h2 id="2-normative-references">2 Normative references</h2>
+<span class="clause-anchor" id="c2"></span><h2 id="2-normative-references">2 Normative references</h2>
 <p>The following documents are referred to in the text in such a way that some or all of
 their content constitutes requirements of this document.</p>
 <ul>
-<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<code>01-terminology.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<code>L0-hardware-and-runtime.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 1: Transport</strong> (<code>L1-transport.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 3: Routing</strong> (<code>L3-routing.md</code>)</li>
+<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<a href="01-terminology.html"><code>01-terminology.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<a href="L0-hardware-and-runtime.html"><code>L0-hardware-and-runtime.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 1: Transport</strong> (<a href="L1-transport.html"><code>L1-transport.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 3: Routing</strong> (<a href="L3-routing.html"><code>L3-routing.md</code></a>)</li>
 </ul>
-<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<span class="clause-anchor" id="c3"></span><h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
 <p>For the purposes of this document, the terms and definitions given in the documents listed
 in Clause 2 apply, together with the following.</p>
-<p><strong>3.1
+<p><strong class="clause" id="c3.1">3.1
 frame</strong></p>
 <p>unit of data exchanged at this layer: one header, optional route, optional payload,
 optional integrity tag</p>
-<p><strong>3.2
+<p><strong class="clause" id="c3.2">3.2
 tier</strong></p>
 <p>one of the two frame encodings, compact or extended</p>
-<p><strong>3.3
+<p><strong class="clause" id="c3.3">3.3
 authenticated span</strong></p>
 <p>fields of a frame covered by its integrity tag</p>
-<p><strong>3.4
+<p><strong class="clause" id="c3.4">3.4
 route record</strong></p>
 <p>ordered list carried in a frame of the hives it has passed through, beginning with its
 origin</p>
-<p><strong>3.5
+<p><strong class="clause" id="c3.5">3.5
 identifier hash</strong></p>
 <p>32-bit value derived from a name by the hash of Clause 7, standing in for the name on the
 wire</p>
-<h2 id="4-the-frame">4 The frame</h2>
-<h3 id="41-every-frame-begins-the-same-way">4.1 Every frame begins the same way</h3>
-<p><strong>4.1.1</strong> Byte 0 of every frame shall be, from most significant bit to least:</p>
+<span class="clause-anchor" id="c4"></span><h2 id="4-the-frame">4 The frame</h2>
+<span class="clause-anchor" id="c4.1"></span><h3 id="41-every-frame-begins-the-same-way">4.1 Every frame begins the same way</h3>
+<p><strong class="clause" id="c4.1.1">4.1.1</strong> Byte 0 of every frame shall be, from most significant bit to least:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -164,11 +164,11 @@ wire</p>
 </tr>
 </tbody>
 </table></div>
-<p><strong>4.1.2</strong> Byte 1 of every frame shall be: hop limit in bits 7–4, replication budget in bits
+<p><strong class="clause" id="c4.1.2">4.1.2</strong> Byte 1 of every frame shall be: hop limit in bits 7–4, replication budget in bits
 3–0.</p>
-<p><strong>4.1.2a</strong> Budget values 0 to 14 are bounded budgets under Layer 3's halving. <strong>Value 15
-denotes flooding</strong> (Layer 3, 5.5.5): it shall be forwarded unchanged, and the frame's
-bounds are the hop limit, duplicate suppression, and the limits of Layer 3, 5.7.</p>
+<p><strong class="clause" id="c4.1.2a">4.1.2a</strong> Budget values 0 to 14 are bounded budgets under Layer 3's halving. <strong>Value 15
+denotes flooding</strong> (<a href="L3-routing.html#c5.5.5">Layer 3, 5.5.5</a>): it shall be forwarded unchanged, and the frame's
+bounds are the hop limit, duplicate suppression, and the limits of <a href="L3-routing.html#c5.7">Layer 3, 5.7</a>.</p>
 <p>Note 1a to entry: A flooding frame is the one deliberate case of an undiminished budget,
 and it is safe for exactly the reasons Layer 3 states: <strong>the hop limit bounds its depth,
 the duplicate cache bounds its breadth, and the rate limits bound its origin.</strong> The cost
@@ -176,15 +176,15 @@ of the sentinel is that the largest bounded budget is 14 — a copy count no dep
 approached. Before this value was assigned, Layer 3's flood denotation had <strong>no wire form
 at all</strong>: every value 0–15 was already meaningful under halving, so the assignment
 removes one budget from the arithmetic rather than inventing a wider field.</p>
-<p><strong>4.1.3</strong> A hive receiving a frame whose version it does not implement shall discard it
+<p><strong class="clause" id="c4.1.3">4.1.3</strong> A hive receiving a frame whose version it does not implement shall discard it
 without parsing further.</p>
 <p>Note 1 to entry: The version field is two bits and is also the <strong>algorithm epoch</strong>: a
 version names not only a layout but the integrity algorithm and key derivation in force
 (Clause 10). <strong>Two bits is four versions ever</strong>, which is deliberate — versions are for
 incompatible changes, and incompatible changes to a wire format are meant to be nearly
 impossible to justify.</p>
-<h3 id="42-the-compact-tier">4.2 The compact tier</h3>
-<p><strong>4.2.1</strong> A compact frame shall be laid out as:</p>
+<span class="clause-anchor" id="c4.2"></span><h3 id="42-the-compact-tier">4.2 The compact tier</h3>
+<p><strong class="clause" id="c4.2.1">4.2.1</strong> A compact frame shall be laid out as:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -241,10 +241,10 @@ impossible to justify.</p>
 </tr>
 </tbody>
 </table></div>
-<p><strong>4.2.2</strong> The compact flags shall be: bit 2, route record present; bit 1, integrity tag
+<p><strong class="clause" id="c4.2.2">4.2.2</strong> The compact flags shall be: bit 2, route record present; bit 1, integrity tag
 present; bit 0, constrained-origin marking.</p>
-<p><strong>4.2.3</strong> All multi-byte fields shall be big-endian.</p>
-<p><strong>4.2.4</strong> A compact frame shall carry no payload length field, and a bearer carrying
+<p><strong class="clause" id="c4.2.3">4.2.3</strong> All multi-byte fields shall be big-endian.</p>
+<p><strong class="clause" id="c4.2.4">4.2.4</strong> A compact frame shall carry no payload length field, and a bearer carrying
 compact frames shall provide frame boundaries.</p>
 <p>Note 1 to entry: 4.2.4 is a stated dependency on Layer 1, not an omission. <strong>The length
 that would delimit the payload is exactly the length the bearer already knows</strong> — a radio
@@ -255,8 +255,8 @@ frames cannot be concatenated without external framing, and that is accepted.</p
 ceased relaying marks every frame it originates. <strong>The bit means "the origin will not relay
 for you", never "the origin is small"</strong> — a fully capable hive that happens to run on a
 microcontroller does not set it.</p>
-<h3 id="43-the-extended-tier">4.3 The extended tier</h3>
-<p><strong>4.3.1</strong> An extended frame shall be laid out as:</p>
+<span class="clause-anchor" id="c4.3"></span><h3 id="43-the-extended-tier">4.3 The extended tier</h3>
+<p><strong class="clause" id="c4.3.1">4.3.1</strong> An extended frame shall be laid out as:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -318,8 +318,8 @@ microcontroller does not set it.</p>
 </tr>
 </tbody>
 </table></div>
-<p><strong>4.3.2</strong> The extended flags shall be as 4.2.2.</p>
-<p><strong>4.3.3</strong> A hive shall reject as malformed an extended frame whose actual remaining length
+<p><strong class="clause" id="c4.3.2">4.3.2</strong> The extended flags shall be as 4.2.2.</p>
+<p><strong class="clause" id="c4.3.3">4.3.3</strong> A hive shall reject as malformed an extended frame whose actual remaining length
 disagrees with its payload length field. <strong>The payload length field counts the payload
 alone</strong> — never the route record, never the integrity tag: after the fixed fields and the
 route record its count byte declares, the bytes remaining shall be exactly the payload
@@ -328,18 +328,18 @@ length plus, where the integrity flag is set, the 32 tag bytes.</p>
 width, and self-framing.</strong> Everything else — byte 0, the hop and budget nibbles, the flag
 meanings, the hash — is identical, which is what makes a frame's meaning preserved across a
 tier boundary even though its bytes are not.</p>
-<h3 id="44-what-a-relay-may-change">4.4 What a relay may change</h3>
-<p><strong>4.4.1</strong> A relay shall decrement the hop limit, shall adjust the replication budget as
+<span class="clause-anchor" id="c4.4"></span><h3 id="44-what-a-relay-may-change">4.4 What a relay may change</h3>
+<p><strong class="clause" id="c4.4.1">4.4.1</strong> A relay shall decrement the hop limit, shall adjust the replication budget as
 Layer 3 requires, and shall append its own identity to the route record.</p>
-<p><strong>4.4.2</strong> A relay shall change nothing else. In particular it shall not alter the message
+<p><strong class="clause" id="c4.4.2">4.4.2</strong> A relay shall change nothing else. In particular it shall not alter the message
 identifier, the event identifier hash, the target, the first entry of the route record, the
 payload, or the integrity tag.</p>
 <p>Note 1 to entry: 4.4.1 lists everything, and the list is short by design. <strong>The mutable
 fields are exactly the fields outside the authenticated span</strong> (10.2), so a relay never has
 to choose between doing its job and preserving the tag — the fields it may touch were left
 out of the tag on purpose.</p>
-<h2 id="5-message-types">5 Message types</h2>
-<p><strong>5.1</strong> The type field shall carry one of:</p>
+<span class="clause-anchor" id="c5"></span><h2 id="5-message-types">5 Message types</h2>
+<p><strong class="clause" id="c5.1">5.1</strong> The type field shall carry one of:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -386,12 +386,12 @@ out of the tag on purpose.</p>
 </tr>
 </tbody>
 </table></div>
-<p><strong>5.2</strong> Every type shall be fire-and-forget at this layer. Where delivery has to be more
+<p><strong class="clause" id="c5.2">5.2</strong> Every type shall be fire-and-forget at this layer. Where delivery has to be more
 probable than one transmission makes it, the sender shall retransmit the same frame,
 unchanged, and the receiver's duplicate handling shall make retransmission harmless.</p>
-<p><strong>5.3</strong> A GROUP_MGMT payload shall not be parsed at this layer, and a GROUP_MGMT frame
+<p><strong class="clause" id="c5.3">5.3</strong> A GROUP_MGMT payload shall not be parsed at this layer, and a GROUP_MGMT frame
 shall be compact on every bearer.</p>
-<p><strong>5.4</strong> A REPLY shall carry the message identifier of the request it answers, with the top
+<p><strong class="clause" id="c5.4">5.4</strong> A REPLY shall carry the message identifier of the request it answers, with the top
 bit set; a request shall be originated with the top bit clear.</p>
 <p>Note 1 to entry: 5.2 is the delivery model of the whole protocol stated once: <strong>there are
 no acknowledgements at this layer, on any type.</strong> Reliability, where needed, is idempotent
@@ -413,15 +413,15 @@ fact that exists only at the endpoints</strong>, where the event identifier sele
 the payload and the handler decides what the payload is. Nothing in this standard gives the
 network a reason to know the difference, and nothing above should be built as though it
 did.</p>
-<h2 id="6-addressing">6 Addressing</h2>
-<h3 id="61-the-model">6.1 The model</h3>
-<p><strong>6.1.1</strong> A frame shall be addressed to all hives, to one group, or to one hive. No smaller
+<span class="clause-anchor" id="c6"></span><h2 id="6-addressing">6 Addressing</h2>
+<span class="clause-anchor" id="c6.1"></span><h3 id="61-the-model">6.1 The model</h3>
+<p><strong class="clause" id="c6.1.1">6.1.1</strong> A frame shall be addressed to all hives, to one group, or to one hive. No smaller
 unit shall be addressable on the wire.</p>
-<p><strong>6.1.2</strong> The compact target shall be four bytes: zero for broadcast, otherwise the
+<p><strong class="clause" id="c6.1.2">6.1.2</strong> The compact target shall be four bytes: zero for broadcast, otherwise the
 identifier hash of a group or of a hive.</p>
-<p><strong>6.1.3</strong> The extended target shall be eight bytes: a group half and a hive half, each four
+<p><strong class="clause" id="c6.1.3">6.1.3</strong> The extended target shall be eight bytes: a group half and a hive half, each four
 bytes, zero meaning <em>any</em>.</p>
-<p><strong>6.1.4</strong> The all-ones value shall be reserved in both tiers and never assigned.</p>
+<p><strong class="clause" id="c6.1.4">6.1.4</strong> The all-ones value shall be reserved in both tiers and never assigned.</p>
 <p>Note 1 to entry: What is deliberately absent here is any addressing of the things a hive
 contains. <strong>The wire stops at the hive</strong> — where a message goes once it arrives is the
 receiving hive's own affair, invisible to the network and different on every
@@ -431,23 +431,23 @@ can be addressed around the hive that hosts it.</p>
 frame does not say which. <strong>The receiver resolves it against what it knows</strong> — its own hive
 identity, its group memberships — and ambiguity between a group and a hive hash is a
 collision, handled as Clause 7 handles all collisions.</p>
-<h3 id="62-no-fragmentation">6.2 No fragmentation</h3>
-<p><strong>6.2.1</strong> No layer of this standard shall fragment a frame, and no frame shall reference
+<span class="clause-anchor" id="c6.2"></span><h3 id="62-no-fragmentation">6.2 No fragmentation</h3>
+<p><strong class="clause" id="c6.2.1">6.2.1</strong> No layer of this standard shall fragment a frame, and no frame shall reference
 another frame as its continuation.</p>
-<p><strong>6.2.2</strong> A payload too large for one frame shall be divided at its source, above this
+<p><strong class="clause" id="c6.2.2">6.2.2</strong> A payload too large for one frame shall be divided at its source, above this
 layer, by the endpoint that knows what the payload means, into payloads each carried by an
 ordinary, independent frame.</p>
 <p>Note 1 to entry: This is the frame principle's carriage rule. <strong>The network never holds
 half a thing</strong>: every frame is complete, routable and droppable on its own, and assembly —
 where a purpose needs it — is an endpoint affair under an endpoint contract, with the
-chunked-transfer model (Layer 6, 5.3.5) as its worked form. A fragmentation layer would
+chunked-transfer model (<a href="L6-management.html#c5.3.5">Layer 6, 5.3.5</a>) as its worked form. A fragmentation layer would
 reintroduce everything the core premise forbids: state in the middle, loss that cascades,
 and a frame whose meaning depends on another frame arriving.</p>
-<h2 id="7-names-on-the-wire">7 Names on the wire</h2>
-<h3 id="71-one-hash-stated-exactly">7.1 One hash, stated exactly</h3>
-<p><strong>7.1.1</strong> Every identifier hash shall be FNV-1a, 32-bit: offset basis <code>0x811C9DC5</code>,
+<span class="clause-anchor" id="c7"></span><h2 id="7-names-on-the-wire">7 Names on the wire</h2>
+<span class="clause-anchor" id="c7.1"></span><h3 id="71-one-hash-stated-exactly">7.1 One hash, stated exactly</h3>
+<p><strong class="clause" id="c7.1.1">7.1.1</strong> Every identifier hash shall be FNV-1a, 32-bit: offset basis <code>0x811C9DC5</code>,
 prime <code>0x01000193</code>, applied byte-wise — exclusive-or, then multiply modulo 2³².</p>
-<p><strong>7.1.2</strong> Before hashing, a name shall be UTF-8, stripped of leading and trailing
+<p><strong class="clause" id="c7.1.2">7.1.2</strong> Before hashing, a name shall be UTF-8, stripped of leading and trailing
 whitespace — internal whitespace preserved — and case-folded by exactly the following
 mapping, and by no other. <strong>Whitespace, for the trim and for nothing else, is exactly
 this closed set</strong>: U+0009–U+000D, U+0020, U+0085, U+00A0, U+1680, U+2000–U+200A,
@@ -473,12 +473,12 @@ from this clause alone, on the smallest device, forever. A name in a script outs
 fold is a valid name whose case is significant, which is stated rather than implied.
 <em>(Ruled 2026-08-01, superseding both an underspecified "lowercased" here and the
 deployed ASCII-only fold — migration M8.)</em></p>
-<p><strong>7.1.3</strong> Hash <code>0x00000000</code> shall mean <em>no event</em> and shall be the event field's value for
+<p><strong class="clause" id="c7.1.3">7.1.3</strong> Hash <code>0x00000000</code> shall mean <em>no event</em> and shall be the event field's value for
 HEARTBEAT and GROUP_MGMT; hash <code>0xFFFFFFFF</code> shall never be used.</p>
-<p><strong>7.1.4</strong> 7.1.2 governs the hashing of <strong>names</strong> — event names, class strings, and any
+<p><strong class="clause" id="c7.1.4">7.1.4</strong> 7.1.2 governs the hashing of <strong>names</strong> — event names, class strings, and any
 other human-authored text standing behind an identifier hash. <strong>The wire identity of a
 hive or a group is not a name</strong>: it derives from identity material (the persona's member
-identity and the group's identity, Layer 5, 4.2 and 5.1), by a derivation the formats
+identity and the group's identity, <a href="L5-trust-and-identity.html#c4.2">Layer 5, 4.2</a> and 5.1), by a derivation the formats
 companion pins, and no case fold or whitespace rule applies to it.</p>
 <p>Note 1 to entry: The boundary matters because the two derivations fail differently. A
 name is typed by people, so its hash forgives the variations people produce; identity
@@ -493,31 +493,31 @@ no error — they get silence.</strong> The sender hashes what it wrote, the rec
 expected, the values differ by a stray capital or a trailing space, and the frame arrives
 and matches nothing. Normalisation makes the obvious variations of a name hash alike; it
 cannot make two different names hash alike, and does not try.</p>
-<h3 id="72-collisions-are-survived-not-prevented">7.2 Collisions are survived, not prevented</h3>
-<p><strong>7.2.1</strong> A hive shall treat a hash match as a match, and shall not attempt to detect
+<span class="clause-anchor" id="c7.2"></span><h3 id="72-collisions-are-survived-not-prevented">7.2 Collisions are survived, not prevented</h3>
+<p><strong class="clause" id="c7.2.1">7.2.1</strong> A hive shall treat a hash match as a match, and shall not attempt to detect
 collisions on the wire.</p>
-<p><strong>7.2.2</strong> Whatever acts on a delivered event shall tolerate parameters that do not fit what
+<p><strong class="clause" id="c7.2.2">7.2.2</strong> Whatever acts on a delivered event shall tolerate parameters that do not fit what
 it expected.</p>
 <p>Note 1 to entry: A 32-bit hash over a deployment's names collides rarely and eventually.
 <strong>When it does, an event is delivered somewhere unintended, and the design's answer is that
 this is survivable rather than impossible</strong> — the receiving handler ignores what it
 does not understand, and fire-and-forget means nothing waited on the outcome. This is also
 the answer for the group-or-hive ambiguity of 6.1.2: wrong delivery is harmless delivery.</p>
-<h2 id="8-the-route-record">8 The route record</h2>
-<p><strong>8.1</strong> The origin of a frame of type EVENT, REPLY, CAPABILITY or HEARTBEAT shall write its
+<span class="clause-anchor" id="c8"></span><h2 id="8-the-route-record">8 The route record</h2>
+<p><strong class="clause" id="c8.1">8.1</strong> The origin of a frame of type EVENT, REPLY, CAPABILITY or HEARTBEAT shall write its
 own identity as the first entry of the route record before first transmission.</p>
-<p><strong>8.2</strong> Each relay shall append its identity to the route record, to a maximum of eight
+<p><strong class="clause" id="c8.2">8.2</strong> Each relay shall append its identity to the route record, to a maximum of eight
 entries; a relay finding the record full shall forward without appending.</p>
-<p><strong>8.3</strong> A hive receiving a frame of a type listed in 8.1 with no route record — the route
+<p><strong class="clause" id="c8.3">8.3</strong> A hive receiving a frame of a type listed in 8.1 with no route record — the route
 flag clear, or a route record of count zero, which is origin-less — shall drop it, and
 shall not supply an origin on its behalf. <em>(Count-zero equivalence ruled 2026-08-01,
 consistent with 10.1.4: a record with no entry zero carries no origin.)</em></p>
-<p><strong>8.4</strong> On the wire, a route record shall be one count byte followed by exactly that many
+<p><strong class="clause" id="c8.4">8.4</strong> On the wire, a route record shall be one count byte followed by exactly that many
 entries. The count shall be 0 to 8; a receiver shall reject as malformed a frame whose
 count exceeds 8 or whose remaining length cannot contain the counted entries. An entry
 shall be: at the compact tier, the four-byte identifier hash of a hive; at the extended
 tier, eight bytes — the hive's group half and hive half as Clause 6 lays them out.</p>
-<p><strong>8.5</strong> The count byte is mutable at every hop — appending an entry increments it — and
+<p><strong class="clause" id="c8.5">8.5</strong> The count byte is mutable at every hop — appending an entry increments it — and
 shall be outside the authenticated span; the first entry remains inside it (10.2).</p>
 <p>Note 0 to entry: The count byte is what makes a compact frame decodable at all. <strong>The
 compact tier has no payload length field (4.2.4), so a count-less route record and the
@@ -532,12 +532,12 @@ parts could hardly be more different in what depends on them.</p>
 <p>Note 2 to entry: GROUP_MGMT is the one type absent from 8.1, and its absence is why 8.3
 cannot be stated as <em>all frames</em>. Its carriage is one hop, its origin is established by the
 means Layer 5 specifies, and a relay never forwards it as-is.</p>
-<h2 id="9-tiers-and-bearers">9 Tiers and bearers</h2>
-<h3 id="91-the-bearer-decides-the-tier">9.1 The bearer decides the tier</h3>
-<p><strong>9.1.1</strong> A hive shall parse an ordinary frame at the tier its arrival bearer declares (the
+<span class="clause-anchor" id="c9"></span><h2 id="9-tiers-and-bearers">9 Tiers and bearers</h2>
+<span class="clause-anchor" id="c9.1"></span><h3 id="91-the-bearer-decides-the-tier">9.1 The bearer decides the tier</h3>
+<p><strong class="clause" id="c9.1.1">9.1.1</strong> A hive shall parse an ordinary frame at the tier its arrival bearer declares (the
 wire tier of the bearer's Layer 1 profile).</p>
-<p><strong>9.1.2</strong> A frame of type GROUP_MGMT shall be parsed as compact on every bearer.</p>
-<p><strong>9.1.3</strong> A bearer shall carry ordinary frames of one tier only.</p>
+<p><strong class="clause" id="c9.1.2">9.1.2</strong> A frame of type GROUP_MGMT shall be parsed as compact on every bearer.</p>
+<p><strong class="clause" id="c9.1.3">9.1.3</strong> A bearer shall carry ordinary frames of one tier only.</p>
 <p>Note 1 to entry: There is nothing in the bytes to decide it with, and that is deliberate:
 <strong>a tier discriminator in the frame would spend a bit of every frame ever sent to solve a
 problem that assigning tiers to bearers solves for free.</strong> The cost is 9.1.3, and the
@@ -557,21 +557,21 @@ property, and it is the load-bearing reason the tier discipline lives above the
 parser: where the compact tier is in use, nothing below the bearer assignment can save
 the frame.</strong> The one exception, 9.1.2, is safe because the type field is in the same
 place at both tiers — readable before the tier is known.</p>
-<h3 id="92-crossing-between-tiers">9.2 Crossing between tiers</h3>
-<p><strong>9.2.1</strong> An unsigned frame forwarded from a bearer of one tier to a bearer of the other
+<span class="clause-anchor" id="c9.2"></span><h3 id="92-crossing-between-tiers">9.2 Crossing between tiers</h3>
+<p><strong class="clause" id="c9.2.1">9.2.1</strong> An unsigned frame forwarded from a bearer of one tier to a bearer of the other
 shall be re-encoded at the destination tier, preserving every field's value.</p>
-<p><strong>9.2.2</strong> A compact message identifier crossing to extended shall be zero-extended; an
+<p><strong class="clause" id="c9.2.2">9.2.2</strong> A compact message identifier crossing to extended shall be zero-extended; an
 extended identifier crossing to compact shall not be truncated — a frame whose identifier
 does not fit the destination tier shall not cross.</p>
-<p><strong>9.2.3</strong> A frame bearing an integrity tag shall not cross a tier boundary.</p>
-<p><strong>9.2.4</strong> A route record entry crossing from the compact tier to the extended tier shall
+<p><strong class="clause" id="c9.2.3">9.2.3</strong> A frame bearing an integrity tag shall not cross a tier boundary.</p>
+<p><strong class="clause" id="c9.2.4">9.2.4</strong> A route record entry crossing from the compact tier to the extended tier shall
 be widened by zero-extension at the low side: the four compact bytes become the hive
 half, and the group half shall be zero.</p>
 <p>Note 1 to entry: The direction is deliberate and matches 9.2.2's identifier rule: <strong>a
 value widens by gaining zero high bytes, never by shifting.</strong> A deployed transcoder that
 widened high-side (<code>entry &lt;&lt; 16</code>) is superseded — migration M10 — and the divergence is
 intentional, recorded in the cross-check's intentional-divergence series.</p>
-<p><strong>9.2.5</strong> An extended target with both halves nonzero shall not cross to the compact
+<p><strong class="clause" id="c9.2.5">9.2.5</strong> An extended target with both halves nonzero shall not cross to the compact
 tier; one with exactly one half nonzero crosses as that half. A non-broadcast compact
 target shall not cross to the extended tier — which half it names cannot be known. A
 route record entry whose group half is zero crosses to compact as its hive half; one
@@ -597,21 +597,21 @@ authenticated traffic to unauthenticated silently, downgrading exactly the frame
 bothered to sign. <strong>Refusing the crossing is the only option that neither spreads keys nor
 strips protection</strong> — the cost is that signed traffic is planned end-to-end within one
 tier, and that cost is accepted and visible.</p>
-<h2 id="10-end-to-end-integrity">10 End-to-end integrity</h2>
-<h3 id="101-what-the-tag-is">10.1 What the tag is</h3>
-<p><strong>10.1.1</strong> Where the integrity flag is set, the frame shall end with an HMAC-SHA256 tag:
+<span class="clause-anchor" id="c10"></span><h2 id="10-end-to-end-integrity">10 End-to-end integrity</h2>
+<span class="clause-anchor" id="c10.1"></span><h3 id="101-what-the-tag-is">10.1 What the tag is</h3>
+<p><strong class="clause" id="c10.1.1">10.1.1</strong> Where the integrity flag is set, the frame shall end with an HMAC-SHA256 tag:
 the first 8 bytes of the output at the compact tier, the full 32 at the extended tier.</p>
-<p><strong>10.1.2</strong> The tag shall be computed by the origin and verified by the destination.
+<p><strong class="clause" id="c10.1.2">10.1.2</strong> The tag shall be computed by the origin and verified by the destination.
 A relay shall forward it unchanged and shall not be expected to verify it.</p>
-<p><strong>10.1.3</strong> Verification shall compare in constant time, and a frame failing verification
+<p><strong class="clause" id="c10.1.3">10.1.3</strong> Verification shall compare in constant time, and a frame failing verification
 shall be discarded.</p>
 <p>Note 1 to entry: <strong>"Failing verification" means failing under every key the receiver is
 entitled to try</strong>, and which keys those are is Layer 5's (10.3). A receiver holding an
-entanglement tries its keys after its own group's key fails (Layer 5, 7.1.2 c) — so
+entanglement tries its keys after its own group's key fails (<a href="L5-trust-and-identity.html#c7.1.2">Layer 5, 7.1.2</a> c) — so
 discarding at the first failure would silently deliver no crossings at all, while
 looking correct to anyone reading this clause alone. <em>(Added 2026-08-02: an implementer
 reading Layer 4 in isolation reached the wrong reading.)</em></p>
-<p><strong>10.1.4</strong> A frame bearing an integrity tag shall carry a route record with at least one
+<p><strong class="clause" id="c10.1.4">10.1.4</strong> A frame bearing an integrity tag shall carry a route record with at least one
 entry — the span (10.2.1) requires the origin, and a record of count zero has no entry
 zero to authenticate. A frame of a type listed in 8.1 with the integrity flag set and
 no route record, or a route record of count zero, shall be rejected as malformed. A
@@ -624,19 +624,19 @@ type that carries no route record — settles its authenticity above this layer.
 <p>Note 2 to entry: <strong>The forward reference in 10.1.4 is currently unsatisfied, and it is
 recorded here rather than left for a reader to discover.</strong> Layer 5 names no means: the type
 does not appear in that document at all. <strong>Note 2 to 8.3 forwards a second property — the
-frame's <em>origin</em> — and Layer 5, 7.2.2 states in terms that passing its gate does NOT establish
+frame's <em>origin</em> — and <a href="L5-trust-and-identity.html#c7.2.2">Layer 5, 7.2.2</a> states in terms that passing its gate does NOT establish
 which member sent a frame.</strong> So one forward names a means that does not exist and the other
 names a property that layer declines to give. <strong>Until it is answered, a receiver has no stated
-obligation before acting on an untagged GROUP_MGMT frame</strong>, and Layer 5, 10.1.2 permits such a
+obligation before acting on an untagged GROUP_MGMT frame</strong>, and <a href="L5-trust-and-identity.html#c10.1.2">Layer 5, 10.1.2</a> permits such a
 frame to be delivered as unauthenticated. <em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, finding
 SS274, on core-lane measurement; the gap is Layer 5's to close and is stated in its 13.11.)</em></p>
-<h3 id="102-the-authenticated-span">10.2 The authenticated span</h3>
-<p><strong>10.2.1</strong> The tag shall be computed over, in order: the type value as one zero-padded
+<span class="clause-anchor" id="c10.2"></span><h3 id="102-the-authenticated-span">10.2 The authenticated span</h3>
+<p><strong class="clause" id="c10.2.1">10.2.1</strong> The tag shall be computed over, in order: the type value as one zero-padded
 byte; the message identifier at tier-native width; the origin (route record entry zero) at
 tier-native width; the event identifier hash; the target; the payload.</p>
-<p><strong>10.2.2</strong> The hop limit, the replication budget, and every route record entry after the
+<p><strong class="clause" id="c10.2.2">10.2.2</strong> The hop limit, the replication budget, and every route record entry after the
 first shall not be covered.</p>
-<p><strong>10.2.3</strong> The version and flag bits of byte 0 shall not be covered; the type bits shall be
+<p><strong class="clause" id="c10.2.3">10.2.3</strong> The version and flag bits of byte 0 shall not be covered; the type bits shall be
 covered as 10.2.1 states.</p>
 <p>Note 1 to entry: The span is chosen by one rule: <strong>a field is covered if and only if no
 relay ever changes it.</strong> The hop limit and budget are what relays exist to decrement; the
@@ -650,18 +650,18 @@ the duplicate cache again as new: a replay needing no key. With the origin outsi
 same attack via the other half of the key. <strong>Covering both makes the key unforgeable by a
 non-member</strong> — which is the whole of what covering it buys. <strong>Against a member it buys
 nothing</strong>: the tag is computed under the group key, so any member can produce a valid tag
-over any origin, and Layer 5, 7.2.2 states that passage establishes which <em>group</em> and never
+over any origin, and <a href="L5-trust-and-identity.html#c7.2.2">Layer 5, 7.2.2</a> states that passage establishes which <em>group</em> and never
 which <em>member</em>. Layer 3's keying on <code>(origin, message identifier)</code> is therefore sound
-against outsiders and forgeable within the group; Layer 3, 5.3.4 and 10.5 carry the
+against outsiders and forgeable within the group; <a href="L3-routing.html#c5.3.4">Layer 3, 5.3.4</a> and 10.5 carry the
 consequence. <em>(Scope corrected 2026-08-02, <code>PROVISIONAL(supervisor)</code>. The note previously
 said the key was "safe to rely on" without naming against whom — a claim wider than its
 evidence, reached by naming the two attacks the span defeats and then generalising past
 them. Found by an implementer asking whether attribution inside a group is authenticated at
 all.)</em></p>
 <p>Note 2a to entry: <strong>10.2.1 defines the span; it does not say who computes it, and on a
-conforming implementation that is not the party that verifies the tag.</strong> Layer 0, 6.1 keeps
+conforming implementation that is not the party that verifies the tag.</strong> <a href="L0-hardware-and-runtime.html#c6.1">Layer 0, 6.1</a> keeps
 trust material out of Layer 1–4 code, so the span is computed here and the tag is verified
-at Layer 5 — <strong>an agreement across a boundary this standard requires.</strong> Layer 5, 7.1.3a
+at Layer 5 — <strong>an agreement across a boundary this standard requires.</strong> <a href="L5-trust-and-identity.html#c7.1.3a">Layer 5, 7.1.3a</a>
 states what that seam must carry, because <strong>a verifier fed a byte sequence has no way to
 tell it is not the span</strong>, and a short span yields a tag that verifies while protecting
 nothing it omitted.</p>
@@ -671,35 +671,35 @@ What a replay is never permitted to do is refresh anyone's liveness: presence is
 established by
 freshness evidence above this layer, and a captured frame replayed on schedule does not
 keep a dead hive alive.</p>
-<h3 id="103-keys-are-not-this-layers">10.3 Keys are not this layer's</h3>
-<p><strong>10.3.1</strong> The keys the tag is computed with, their derivation, and the decision of which
+<span class="clause-anchor" id="c10.3"></span><h3 id="103-keys-are-not-this-layers">10.3 Keys are not this layer's</h3>
+<p><strong class="clause" id="c10.3.1">10.3.1</strong> The keys the tag is computed with, their derivation, and the decision of which
 key a receiver tries, shall be specified at Layer 5.</p>
-<p><strong>10.3.2</strong> A frame may verify under the receiver's own group key or under a key shared
+<p><strong class="clause" id="c10.3.2">10.3.2</strong> A frame may verify under the receiver's own group key or under a key shared
 between groups. Nothing in the frame states which; <strong>the receiver shall establish it by
 attempting verification</strong>, own-group first.</p>
 <p>Note 1 to entry: There is no bit saying which key signed the frame because there are no
 bits left in byte 0 — and because a receiver holding several candidate keys can try them,
 whereas a wire flag claiming a key would still have to be checked by trying it. <strong>The flag
 would add a byte and remove nothing.</strong></p>
-<h2 id="11-payloads">11 Payloads</h2>
-<p><strong>11.1</strong> An ordinary payload shall be CBOR, definite-length only.</p>
-<p><strong>11.2</strong> An implementation shall accept and generate: unsigned and negative integers, byte
+<span class="clause-anchor" id="c11"></span><h2 id="11-payloads">11 Payloads</h2>
+<p><strong class="clause" id="c11.1">11.1</strong> An ordinary payload shall be CBOR, definite-length only.</p>
+<p><strong class="clause" id="c11.2">11.2</strong> An implementation shall accept and generate: unsigned and negative integers, byte
 strings, text strings, arrays, maps, false, true, null, and IEEE 754 floats.</p>
-<p><strong>11.3</strong> A payload may be empty.</p>
-<p><strong>11.4</strong> A receiver shall ignore map keys it does not recognise, and shall not treat their
+<p><strong class="clause" id="c11.3">11.3</strong> A payload may be empty.</p>
+<p><strong class="clause" id="c11.4">11.4</strong> A receiver shall ignore map keys it does not recognise, and shall not treat their
 presence as an error.</p>
 <p>Note 1 to entry: 11.4 is the extension model. <strong>New fields are added by adding keys, old
 receivers skip them, and nothing is versioned</strong> — which works only as long as 11.4 is
 honoured universally, and is why it is a requirement on receivers rather than advice to
 senders.</p>
-<h2 id="12-conformance">12 Conformance</h2>
+<span class="clause-anchor" id="c12"></span><h2 id="12-conformance">12 Conformance</h2>
 <p>Every requirement of this document is demonstrated by conformance evidence of one of
-the three classes of <code>01-terminology.md</code>, 3.10 — behavioural, by construction, or by
+the three classes of <a href="01-terminology.html"><code>01-terminology.md</code></a>, 3.10 — behavioural, by construction, or by
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <code>01-terminology.md</code> 4.2 to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
-<p><strong>12.1</strong> An implementation conforms to this document where it:</p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+<p><strong class="clause" id="c12.1">12.1</strong> An implementation conforms to this document where it:</p>
 <p>a) encodes and parses both tiers exactly as Clause 4 lays them out;</p>
 <p>b) generates only the types of Clause 5 and handles each as stated;</p>
 <p>c) hashes names exactly as Clause 7 states, normalisation included;</p>
@@ -710,7 +710,7 @@ the crossings 9.2 refuses;</p>
 <p>f) computes, forwards and verifies the integrity tag exactly as Clause 10 states, over
 exactly that span; and</p>
 <p>g) encodes payloads as Clause 11 states and ignores unknown keys.</p>
-<p><strong>12.2</strong> Conformance shall be demonstrated against byte-exact test vectors covering: each
+<p><strong class="clause" id="c12.2">12.2</strong> Conformance shall be demonstrated against byte-exact test vectors covering: each
 tier's layout; each message type; frames with and without route record and tag; the route
 record at zero, one and full count, demonstrating an unambiguous payload boundary at the
 compact tier; the authenticated span, including a vector that fails verification for each
@@ -721,7 +721,7 @@ necessary: <strong>an implementation that authenticates a mutable field — the 
 passes every required-to-fail vector and cannot relay</strong>, because the first decrement
 invalidates its own tag. Only the byte-identical pair on each uncovered field catches
 the span drawn too wide; the required-to-fail vectors catch it drawn too narrow.</p>
-<p><strong>12.3</strong> The vectors shall be part of this standard. <strong>They do not yet exist</strong> — 14.4
+<p><strong class="clause" id="c12.3">12.3</strong> The vectors shall be part of this standard. <strong>They do not yet exist</strong> — 14.4
 records the debt, and until they land, conformance to this document cannot be
 demonstrated as 12.2 requires.</p>
 <p>Note 1 to entry: 12.2's mutation vectors are the ones that matter most and the ones most
@@ -732,34 +732,34 @@ interoperate with itself indefinitely.</p>
 <p>Note 2 to entry: 12.3 is the reason prose disagreements about this layer are settleable.
 <strong>Where the text and a vector disagree, one of them is wrong in public</strong>, and the
 disagreement is a defect report rather than two implementations.</p>
-<h2 id="13-security-considerations">13 Security considerations</h2>
-<p><strong>13.1</strong> Everything in a frame except the payload's meaning is visible to every hive within
+<span class="clause-anchor" id="c13"></span><h2 id="13-security-considerations">13 Security considerations</h2>
+<p><strong class="clause" id="c13.1">13.1</strong> Everything in a frame except the payload's meaning is visible to every hive within
 radio range, member or not. <strong>The wire format hides nothing and is not designed to.</strong></p>
-<p><strong>13.2</strong> The integrity tag authenticates the span to holders of the key. It provides no
+<p><strong class="clause" id="c13.2">13.2</strong> The integrity tag authenticates the span to holders of the key. It provides no
 confidentiality — <strong>an unencrypted payload under a valid tag is authentic and public.</strong>
 Encryption of payloads is established above this layer.</p>
-<p><strong>13.3</strong> An unsigned frame is exactly as trustworthy as its transport, which is to say not
+<p><strong class="clause" id="c13.3">13.3</strong> An unsigned frame is exactly as trustworthy as its transport, which is to say not
 at all. <strong>Nothing at this layer distinguishes a forged unsigned frame from a genuine one</strong>,
 and every protection against acting on forgeries lives above the trust boundary.</p>
-<p><strong>13.4</strong> The truncated compact tag trades security margin for airtime deliberately.
+<p><strong class="clause" id="c13.4">13.4</strong> The truncated compact tag trades security margin for airtime deliberately.
 64 bits against forgery, with a short duplicate window and idempotent effects behind it, is
 the accepted position; deployments needing more use the extended tier end-to-end.</p>
-<h2 id="14-what-is-not-decided-at-this-layer">14 What is not decided at this layer</h2>
+<span class="clause-anchor" id="c14"></span><h2 id="14-what-is-not-decided-at-this-layer">14 What is not decided at this layer</h2>
 <p><strong>This clause states gaps and contains no requirements.</strong></p>
-<p><strong>14.1 A hive bridging bearers of both tiers.</strong> 9.2 states what happens to a frame at a
+<p><strong class="clause" id="c14.1">14.1 A hive bridging bearers of both tiers.</strong> 9.2 states what happens to a frame at a
 tier boundary, and today no specified platform carries both tiers at once. <strong>A hive that
 did would need the crossing rules of 9.2 applied inside one device</strong>, and how its two sides
 share one duplicate cache and one neighbour table is unspecified.</p>
-<p><strong>14.2 Anti-replay for non-idempotent traffic — settled above this layer (2026-08-01).</strong>
+<p><strong class="clause" id="c14.2">14.2 Anti-replay for non-idempotent traffic — settled above this layer (2026-08-01).</strong>
 10.2 Note 3 accepts replay of identical frames on the grounds that events are idempotent.
 The traffic that is not idempotent is exactly the traffic requiring member-attributable
-evidence, and that evidence now carries its own freshness token (Layer 5, 7.4.3) — the
+evidence, and that evidence now carries its own freshness token (<a href="L5-trust-and-identity.html#c7.4.3">Layer 5, 7.4.3</a>) — the
 resolution landed as evidence content, not as a frame field, so this layer's format is
 unchanged. <em>(<code>CLOSED-QUESTIONS.md</code> C7.)</em></p>
-<p><strong>14.3 The two reserved type codes and the reserved type 1.</strong> Three of eight type values
+<p><strong class="clause" id="c14.3">14.3 The two reserved type codes and the reserved type 1.</strong> Three of eight type values
 are unassigned. <strong>The assignment authority is this document</strong> — an implementation that
 invents a type has forked the protocol.</p>
-<p><strong>14.4 The vector set.</strong> 12.2 and 12.3 require byte-exact vectors as part of this
+<p><strong class="clause" id="c14.4">14.4 The vector set.</strong> 12.2 and 12.3 require byte-exact vectors as part of this
 standard, and none exist yet. Until they land, two implementations can each believe
 themselves conformant with no way to prove it to each other — the debt is recorded on
 the register, and producing the set is formats-companion work.</p>

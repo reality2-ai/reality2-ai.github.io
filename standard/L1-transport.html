@@ -91,7 +91,7 @@ address it happens to know them by. This is the single rule in this document mos
 to be got wrong, and 4.5 explains why the failure is silent.</p>
 <p><strong>Adding a bearer changes nothing above Layer 1.</strong> If supporting a new medium requires an
 edit to routing or to the wire format, the contract has been broken rather than extended.</p>
-<h2 id="1-scope">1 Scope</h2>
+<span class="clause-anchor" id="c1"></span><h2 id="1-scope">1 Scope</h2>
 <p>This document specifies the contract that every Reality2 transport bearer satisfies,
 whatever medium it uses.</p>
 <p>It specifies what a bearer reports to the layers above it, and what those layers may ask of
@@ -105,73 +105,73 @@ specifying an individual bearer contains.</p>
 procedures, socket options and their like belong to the binding documents described in
 Clause 11. It does not specify frame contents, which are Layer 4, or the choice of which
 bearer carries a given frame, which is Layer 3.</p>
-<h2 id="2-normative-references">2 Normative references</h2>
+<span class="clause-anchor" id="c2"></span><h2 id="2-normative-references">2 Normative references</h2>
 <p>The following documents are referred to in the text in such a way that some or all of their
 content constitutes requirements of this document.</p>
 <ul>
-<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<code>01-terminology.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<code>L0-hardware-and-runtime.md</code>)</li>
+<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<a href="01-terminology.html"><code>01-terminology.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<a href="L0-hardware-and-runtime.html"><code>L0-hardware-and-runtime.md</code></a>)</li>
 </ul>
-<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<span class="clause-anchor" id="c3"></span><h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
 <p>For the purposes of this document, the terms and definitions given in the documents listed
 in Clause 2 apply, together with the following.</p>
-<p><strong>3.1
+<p><strong class="clause" id="c3.1">3.1
 bearer</strong></p>
 <p>means of carrying frames between hives over one medium, satisfying the contract in Clause 4</p>
 <p>Note 1 to entry: A hive commonly runs several bearers at once. They do not coordinate with
 one another at this layer.</p>
-<p><strong>3.2
+<p><strong class="clause" id="c3.2">3.2
 binding</strong></p>
 <p>part of an implementation that adapts frames to one medium</p>
 <p>Note 1 to entry: A bearer is the contract; a binding is one realisation of it. Two bindings
 for the same medium can differ entirely in construction and remain interchangeable above
 Layer 1.</p>
-<p><strong>3.3
+<p><strong class="clause" id="c3.3">3.3
 transport unit</strong></p>
 <p>quantity of data the medium delivers or fails to deliver as a whole</p>
 <p>Note 1 to entry: A radio frame, a datagram and a length-delimited segment of a stream are
 each a transport unit.</p>
-<p><strong>3.4
+<p><strong class="clause" id="c3.4">3.4
 bearer ordinal</strong></p>
 <p>number identifying a bearer, appearing on the wire and in the neighbour table</p>
-<p><strong>3.5
+<p><strong class="clause" id="c3.5">3.5
 bearer profile</strong></p>
 <p>set of parameter values a bearer declares, as specified in Clause 7</p>
-<p><strong>3.5a
+<p><strong class="clause" id="c3.5a">3.5a
 bearer in service</strong></p>
 <p>bearer a hive provides and has not disabled, whatever state (5.2) it is currently in</p>
 <p>Note 1 to entry: A bearer in service can be temporarily unable to carry frames. <strong>Being in
 service is a fact about the hive's configuration; state is a fact about the moment.</strong> The
 layers above use the first to decide what a hive is, and the second to decide what it can do
 now.</p>
-<p><strong>3.6
+<p><strong class="clause" id="c3.6">3.6
 canonical hive identifier</strong></p>
 <p>identifier of a hive that is the same whichever bearer it is observed on</p>
-<p><strong>3.7
+<p><strong class="clause" id="c3.7">3.7
 maximum transport unit payload</strong></p>
 <p>largest frame a bearer can carry in one transport unit at a given moment</p>
-<p><strong>3.8
+<p><strong class="clause" id="c3.8">3.8
 broadcast</strong></p>
 <p>send directed at every hive that can hear it, rather than at a named one</p>
-<h2 id="4-the-bearer-contract">4 The bearer contract</h2>
-<p><strong>4.1</strong> A bearer shall satisfy every requirement in this clause. A means of carrying frames
+<span class="clause-anchor" id="c4"></span><h2 id="4-the-bearer-contract">4 The bearer contract</h2>
+<p><strong class="clause" id="c4.1">4.1</strong> A bearer shall satisfy every requirement in this clause. A means of carrying frames
 that does not is not a bearer, and shall not be presented as one.</p>
-<h3 id="42-frames-are-carried-unaltered">4.2 Frames are carried unaltered</h3>
-<p><strong>4.2.1</strong> A bearer shall deliver upward exactly the bytes that were handed down at the
+<span class="clause-anchor" id="c4.2"></span><h3 id="42-frames-are-carried-unaltered">4.2 Frames are carried unaltered</h3>
+<p><strong class="clause" id="c4.2.1">4.2.1</strong> A bearer shall deliver upward exactly the bytes that were handed down at the
 peer, unaltered.</p>
-<p><strong>4.2.2</strong> A bearer may wrap a frame for its medium — a length prefix, a header, a radio
+<p><strong class="clause" id="c4.2.2">4.2.2</strong> A bearer may wrap a frame for its medium — a length prefix, a header, a radio
 preamble — and shall remove that wrapping before delivering the frame upward.</p>
-<p><strong>4.2.3</strong> A bearer shall not interpret the contents of a frame.</p>
+<p><strong class="clause" id="c4.2.3">4.2.3</strong> A bearer shall not interpret the contents of a frame.</p>
 <p>Note 1 to entry: 4.2.3 constrains the implementer, not the hardware. A bearer that reads a
 frame to make a decision has bound itself to a format specified at another layer and
 maintained by other people. <strong>The next change to that format will not be accompanied by a
 warning to anyone working on bearers.</strong></p>
 <p><em>Verification: transmit frames of every permitted length, including the largest the bearer
 declares and a single byte, and compare the delivered bytes with the bytes sent.</em></p>
-<h3 id="43-one-frame-per-transport-unit">4.3 One frame per transport unit</h3>
-<p><strong>4.3.1</strong> Where a medium provides transport unit boundaries, a bearer shall carry exactly
+<span class="clause-anchor" id="c4.3"></span><h3 id="43-one-frame-per-transport-unit">4.3 One frame per transport unit</h3>
+<p><strong class="clause" id="c4.3.1">4.3.1</strong> Where a medium provides transport unit boundaries, a bearer shall carry exactly
 one frame per transport unit.</p>
-<p><strong>4.3.2</strong> Where a medium provides a byte stream and no boundaries, a bearer shall delimit
+<p><strong class="clause" id="c4.3.2">4.3.2</strong> Where a medium provides a byte stream and no boundaries, a bearer shall delimit
 frames, and shall reject a claimed length exceeding its declared maximum without consuming
 further input as though it were payload.</p>
 <p>Note 1 to entry: 4.3.2's second half is the whole of the rule. <strong>A delimiter that trusts a
@@ -179,11 +179,11 @@ length field will follow a corrupt one into the next frame and every frame after
 a stream bearer that has lost delimitation does not recover on its own.</p>
 <p><em>Verification: supply a stream containing a length field larger than the declared maximum,
 followed by a valid frame. A conforming bearer rejects the first and delivers the second.</em></p>
-<h3 id="44-delivery-is-not-promised">4.4 Delivery is not promised</h3>
-<p><strong>4.4.1</strong> A bearer shall not be required to deliver a frame.</p>
-<p><strong>4.4.2</strong> A bearer shall not acknowledge a frame at this layer, and shall not retransmit one
+<span class="clause-anchor" id="c4.4"></span><h3 id="44-delivery-is-not-promised">4.4 Delivery is not promised</h3>
+<p><strong class="clause" id="c4.4.1">4.4.1</strong> A bearer shall not be required to deliver a frame.</p>
+<p><strong class="clause" id="c4.4.2">4.4.2</strong> A bearer shall not acknowledge a frame at this layer, and shall not retransmit one
 on its own initiative.</p>
-<p><strong>4.4.3</strong> A bearer whose medium performs its own acknowledgement or retransmission shall not
+<p><strong class="clause" id="c4.4.3">4.4.3</strong> A bearer whose medium performs its own acknowledgement or retransmission shall not
 expose either upward.</p>
 <p>Note 1 to entry: 4.4.3 is not a preference for unreliability. <strong>A bearer that is reliable
 where others are not produces a mesh whose behaviour depends on which medium a frame
@@ -192,17 +192,17 @@ retransmits internally may do so; what it may not do is let anything above notic
 <p>Note 2 to entry: Where delivery has to be assured, that is done above this layer and
 end-to-end, by a party that can tell whether the thing it wanted actually happened. <strong>A
 bearer only ever knows that it transmitted.</strong></p>
-<p><strong>4.4.4</strong> A bearer may refuse peers or connections to protect its own resources — on a
+<p><strong class="clause" id="c4.4.4">4.4.4</strong> A bearer may refuse peers or connections to protect its own resources — on a
 medium crossing networks belonging to others, for example. No layer shall treat such
 refusal or acceptance as authenticating anything: frame integrity and trust are
 established above Layer 4, end to end, and a bearer that screens its peers has protected
 its own resources, never the frames it carries.</p>
-<h3 id="45-peers-are-reported-by-their-canonical-hive-identifier">4.5 Peers are reported by their canonical hive identifier</h3>
-<p><strong>4.5.1</strong> When a bearer delivers a frame upward, it shall report the sender's canonical hive
+<span class="clause-anchor" id="c4.5"></span><h3 id="45-peers-are-reported-by-their-canonical-hive-identifier">4.5 Peers are reported by their canonical hive identifier</h3>
+<p><strong class="clause" id="c4.5.1">4.5.1</strong> When a bearer delivers a frame upward, it shall report the sender's canonical hive
 identifier (3.6).</p>
-<p><strong>4.5.2</strong> A bearer shall not report an identifier derived from a medium address where the
+<p><strong class="clause" id="c4.5.2">4.5.2</strong> A bearer shall not report an identifier derived from a medium address where the
 canonical identifier is known.</p>
-<p><strong>4.5.3</strong> Where no canonical identifier is yet known for a medium address, a bearer may
+<p><strong class="clause" id="c4.5.3">4.5.3</strong> Where no canonical identifier is yet known for a medium address, a bearer may
 report one derived from that address, and shall replace it with the canonical identifier as
 soon as one becomes known for that address.</p>
 <p>Note 1 to entry: <strong>This is the rule in this document most likely to be implemented wrongly,
@@ -218,37 +218,37 @@ on a third of the evidence. <strong>The system does not fail; it performs worse 
 for a reason that is invisible from any layer that could detect it.</strong></p>
 <p><em>Verification: bring up one hive reachable on two bearers at once. It appears in the
 neighbour table as one entry carrying two bearers, never as two entries.</em></p>
-<h3 id="46-broadcast-and-addressed-send">4.6 Broadcast and addressed send</h3>
-<p><strong>4.6.1</strong> A bearer shall support sending a frame to one named hive.</p>
-<p><strong>4.6.2</strong> A bearer shall support broadcast (3.8).</p>
+<span class="clause-anchor" id="c4.6"></span><h3 id="46-broadcast-and-addressed-send">4.6 Broadcast and addressed send</h3>
+<p><strong class="clause" id="c4.6.1">4.6.1</strong> A bearer shall support sending a frame to one named hive.</p>
+<p><strong class="clause" id="c4.6.2">4.6.2</strong> A bearer shall support broadcast (3.8).</p>
 <p>Note 1 to entry: A bearer whose medium has no native broadcast satisfies 4.6.2 by sending to
 each peer it knows of. That is more expensive and is permitted; <strong>being unable to broadcast
 at all is not</strong>, because the layers above use broadcast to find peers they do not yet know.</p>
 <h3 id="47-the-discovery-marker-belongs-to-the-medium">4.7 The discovery marker belongs to the medium</h3>
-<p><strong>4.7.1</strong> A bearer shall carry a marker in its medium framing by which a receiver can
+<p><strong class="clause" id="c4.7.1">4.7.1</strong> A bearer shall carry a marker in its medium framing by which a receiver can
 distinguish Reality2 traffic from other traffic on the same medium.</p>
-<p><strong>4.7.2</strong> The marker shall not be placed inside the frame.</p>
+<p><strong class="clause" id="c4.7.2">4.7.2</strong> The marker shall not be placed inside the frame.</p>
 <p>Note 1 to entry: This is the whole of Layer 1's part in discovery. <strong>What is advertised, and
 what a receiver does with it, is Layer 2.</strong> The marker only answers <em>is this ours?</em> — cheaply,
 before anything is parsed, on a medium that carries other people's traffic too.</p>
 <p>Note 2 to entry: 4.7.2 follows from 4.2.1. A marker inside the frame would be bytes the
 bearer added, and there are none.</p>
-<h3 id="48-no-bearer-is-privileged">4.8 No bearer is privileged</h3>
-<p><strong>4.8.1</strong> Supporting an additional bearer shall not require any change at Layer 3 or above.</p>
+<span class="clause-anchor" id="c4.8"></span><h3 id="48-no-bearer-is-privileged">4.8 No bearer is privileged</h3>
+<p><strong class="clause" id="c4.8.1">4.8.1</strong> Supporting an additional bearer shall not require any change at Layer 3 or above.</p>
 <p>Note 1 to entry: 4.8.1 is testable in the only way that matters: <strong>add a bearer and see what
 else has to change.</strong> If routing or the wire format has to be edited, the contract has been
 broken rather than extended, and the correct response is to find which requirement in this
 clause the new bearer does not satisfy.</p>
-<h3 id="49-provision-is-not-policy">4.9 Provision is not policy</h3>
-<p><strong>4.9.1</strong> A <strong>deployable image</strong> — a production image (Layer 6, 6.2.1), as distinct
+<span class="clause-anchor" id="c4.9"></span><h3 id="49-provision-is-not-policy">4.9 Provision is not policy</h3>
+<p><strong class="clause" id="c4.9.1">4.9.1</strong> A <strong>deployable image</strong> — a production image (<a href="L6-management.html#c6.2.1">Layer 6, 6.2.1</a>), as distinct
 from a development image — shall include a binding for every bearer the target
 hardware provides; only a bearer whose hardware is absent from the target may be
 omitted.</p>
-<p><strong>4.9.2</strong> Frugality shall be exercised at runtime — by disabling a bearer — and never by
+<p><strong class="clause" id="c4.9.2">4.9.2</strong> Frugality shall be exercised at runtime — by disabling a bearer — and never by
 omitting its binding at build time.</p>
-<p><strong>4.9.3</strong> Disabling a bearer to save power shall remove power from its radio where the
+<p><strong class="clause" id="c4.9.3">4.9.3</strong> Disabling a bearer to save power shall remove power from its radio where the
 hardware permits.</p>
-<p><strong>4.9.4</strong> 4.9.1 obliges bindings for the bearers the target <strong>hardware</strong> provides. A
+<p><strong class="clause" id="c4.9.4">4.9.4</strong> 4.9.1 obliges bindings for the bearers the target <strong>hardware</strong> provides. A
 bearer not carried by a radio of its own is not obliged by this clause — whether it
 rides an operating system's networking, or an IP stack linked into the image itself.</p>
 <p>Note 0 to entry: <strong>The test is a radio of its own, and nothing else.</strong> The earlier
@@ -267,12 +267,12 @@ do; what the deployment wants is set at runtime, visibly and reversibly.</strong
 this document.)</em></p>
 <p>Note 2 to entry: <strong>Development images are exempt</strong> (4.9.1), because bringing a board
 up one bearer at a time is how a board is brought up at all — and a development image
-announces itself as one (Layer 2, 5.4a), so nothing it omits can be mistaken for a
+announces itself as one (<a href="L2-capability-and-discovery.html#c5.4a">Layer 2, 5.4a</a>), so nothing it omits can be mistaken for a
 production device's capability. The boundary 4.9.4 draws is the same one: the clause
 is about <strong>hardware a deployment paid for and cannot use</strong>, not about every transport
 a platform could conceivably speak. <em>(Both scopes ruled 2026-08-01.)</em></p>
-<h2 id="5-what-a-bearer-reports-upward">5 What a bearer reports upward</h2>
-<p><strong>5.1</strong> A bearer shall report the following, and shall keep each current.</p>
+<span class="clause-anchor" id="c5"></span><h2 id="5-what-a-bearer-reports-upward">5 What a bearer reports upward</h2>
+<p><strong class="clause" id="c5.1">5.1</strong> A bearer shall report the following, and shall keep each current.</p>
 <p>Note 1 to entry: <em>Addressable</em> is what this bearer can send to — an open connection, an entry
 in its own address table, a peer within range. <strong>It is not the same question as which peers
 have been heard announcing themselves, which is Layer 2's and is answered separately.</strong> A
@@ -309,8 +309,8 @@ that reports one in place of the other has answered a question nobody asked.</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="52-state">5.2 State</h3>
-<p><strong>5.2.0</strong> A bearer state is a property of <strong>(hive, bearer)</strong>, not of the device. Where
+<span class="clause-anchor" id="c5.2"></span><h3 id="52-state">5.2 State</h3>
+<p><strong class="clause" id="c5.2.0">5.2.0</strong> A bearer state is a property of <strong>(hive, bearer)</strong>, not of the device. Where
 one physical medium carries the bearers of more than one hive, each hive holds its own
 state for it, and those states are independent. A conformance claim about a bearer
 shall be scoped to the hive making it.</p>
@@ -324,7 +324,7 @@ neither being wrong. The consequence is that <strong>which profile a hive runs i
 conformance-relevant rather than an installation detail.</strong> <em>(Added 2026-08-02 from a
 measured platform finding and an implementer's model statement, which agreed;
 <code>PROVISIONAL(supervisor)</code>.)</em></p>
-<p><strong>5.2.1</strong> A bearer shall report one of the following states.</p>
+<p><strong class="clause" id="c5.2.1">5.2.1</strong> A bearer shall report one of the following states.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -351,7 +351,7 @@ measured platform finding and an implementer's model statement, which agreed;
 </tr>
 </tbody>
 </table></div>
-<p><strong>5.2.2</strong> A bearer that cannot send shall report <em>unavailable</em> or <em>failed</em> rather than
+<p><strong class="clause" id="c5.2.2">5.2.2</strong> A bearer that cannot send shall report <em>unavailable</em> or <em>failed</em> rather than
 accepting a frame and discarding it.</p>
 <p>Note 0 to entry: <strong>On a medium that completes transmission asynchronously</strong> — a radio
 whose driver signals completion by callback after the send call returns — acceptance
@@ -372,10 +372,10 @@ help. <strong>It is stated as a requirement because the two look identical from 
 to opposite responses</strong> — one is waited out, the other is acted on.</p>
 <p><em>Verification: exhaust the bearer's peer capacity and read its state; it reports
 <em>restricted</em>, not <em>available</em> and not <em>failed</em>.</em></p>
-<h3 id="53-link-quality">5.3 Link quality</h3>
-<p><strong>5.3.1</strong> A bearer shall report, for each peer it can reach, a quality value between 0 and
+<span class="clause-anchor" id="c5.3"></span><h3 id="53-link-quality">5.3 Link quality</h3>
+<p><strong class="clause" id="c5.3.1">5.3.1</strong> A bearer shall report, for each peer it can reach, a quality value between 0 and
 1 inclusive, where 0 is unusable and 1 is as good as that bearer gets.</p>
-<p><strong>5.3.2</strong> A bearer should report the medium-specific measurements the quality value was
+<p><strong class="clause" id="c5.3.2">5.3.2</strong> A bearer should report the medium-specific measurements the quality value was
 derived from, where it has them.</p>
 <p>Note 1 to entry: <strong>Some platforms supply reception-side evidence only.</strong> A radio driver
 may be unable to report a transmission's outcome without blocking, and blocking a send
@@ -383,7 +383,7 @@ to obtain that evidence is already forbidden by 4.4.3 — the completion signal 
 medium's own acknowledgement. Quality derived from reception alone is therefore
 conformant; what is not conformant is waiting on that signal to improve it. <em>(Added
 2026-08-01 from bring-up evidence on a synchronous radio API.)</em></p>
-<p><strong>5.3.3</strong> A bearer shall report quality 0, or report the peer as unreachable, for a peer it
+<p><strong class="clause" id="c5.3.3">5.3.3</strong> A bearer shall report quality 0, or report the peer as unreachable, for a peer it
 can no longer reach.</p>
 <p>Note 1 to entry: The normalised value is required and the raw measurements are not, because
 <strong>the layers above compare bearers with one another</strong>. A signal strength in dBm and a
@@ -393,19 +393,19 @@ the value is used to make.</p>
 <p>Note 2 to entry: Two bearers reporting the same quality value are not claiming the same
 physical conditions. <strong>Each value is relative to what that bearer can achieve</strong>, which is
 what makes them comparable at all.</p>
-<h2 id="6-what-may-be-asked-of-a-bearer">6 What may be asked of a bearer</h2>
-<p><strong>6.1</strong> A bearer shall accept a request to send one frame to one target, where the target is
+<span class="clause-anchor" id="c6"></span><h2 id="6-what-may-be-asked-of-a-bearer">6 What may be asked of a bearer</h2>
+<p><strong class="clause" id="c6.1">6.1</strong> A bearer shall accept a request to send one frame to one target, where the target is
 a canonical hive identifier (3.6) or the broadcast target.</p>
-<p><strong>6.2</strong> A bearer shall not require the layers above it to know anything about its medium in
+<p><strong class="clause" id="c6.2">6.2</strong> A bearer shall not require the layers above it to know anything about its medium in
 order to make that request.</p>
-<p><strong>6.3</strong> A bearer shall reject a frame larger than its currently declared maximum transport
+<p><strong class="clause" id="c6.3">6.3</strong> A bearer shall reject a frame larger than its currently declared maximum transport
 unit payload, and shall not fragment it.</p>
 <p>Note 1 to entry: 6.3 assigns fragmentation to whoever knows what the frame means. <strong>A bearer
 splitting a frame it is required by 4.2.3 not to read would be dividing something whose
 structure it cannot see</strong>, and reassembly would then be a second place where the format is
 known.</p>
-<h2 id="7-the-bearer-profile">7 The bearer profile</h2>
-<p><strong>7.1</strong> A bearer shall declare a profile stating a value for each of the following.</p>
+<span class="clause-anchor" id="c7"></span><h2 id="7-the-bearer-profile">7 The bearer profile</h2>
+<p><strong class="clause" id="c7.1">7.1</strong> A bearer shall declare a profile stating a value for each of the following.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -457,7 +457,7 @@ known.</p>
 </tr>
 </tbody>
 </table></div>
-<p><strong>7.2</strong> A bearer profile shall be readable by the layers above without knowledge of the
+<p><strong class="clause" id="c7.2">7.2</strong> A bearer profile shall be readable by the layers above without knowledge of the
 medium.</p>
 <p>Note 1 to entry: B5 is why silence means different things on different media. <strong>A bearer
 that speaks every few seconds and a bearer that speaks every few minutes cannot share one
@@ -478,15 +478,15 @@ is wrong: the class says how far the medium <em>can</em> carry, and the only gro
 reaching a given destination is the addressable-peers report (5.1), which Layer 3's
 viability rule consumes. <strong>Reach class filters candidates for destinations not yet
 located; addressability decides delivery.</strong></p>
-<h2 id="8-the-bearer-registry">8 The bearer registry</h2>
-<h3 id="81-what-binds">8.1 What binds</h3>
-<p><strong>8.1.1</strong> The bearer ordinal and its bit are normative. <strong>The name is a label.</strong></p>
-<p><strong>8.1.2</strong> An implementation shall interoperate with an implementation using a different
+<span class="clause-anchor" id="c8"></span><h2 id="8-the-bearer-registry">8 The bearer registry</h2>
+<span class="clause-anchor" id="c8.1"></span><h3 id="81-what-binds">8.1 What binds</h3>
+<p><strong class="clause" id="c8.1.1">8.1.1</strong> The bearer ordinal and its bit are normative. <strong>The name is a label.</strong></p>
+<p><strong class="clause" id="c8.1.2">8.1.2</strong> An implementation shall interoperate with an implementation using a different
 label for the same ordinal.</p>
 <p>Note 1 to entry: Names change and ordinals cannot. Anything comparing bearers across two
 implementations compares ordinals.</p>
-<h3 id="82-registry">8.2 Registry</h3>
-<p><strong>8.2.1</strong> The bearer ordinals are as follows.</p>
+<span class="clause-anchor" id="c8.2"></span><h3 id="82-registry">8.2 Registry</h3>
+<p><strong class="clause" id="c8.2.1">8.2.1</strong> The bearer ordinals are as follows.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -565,11 +565,11 @@ implementations compares ordinals.</p>
 </tr>
 </tbody>
 </table></div>
-<p><strong>8.2.2</strong> The bearer-set field is seven bits wide: the mask <code>0x7F</code>. The set of assignable
+<p><strong class="clause" id="c8.2.2">8.2.2</strong> The bearer-set field is seven bits wide: the mask <code>0x7F</code>. The set of assignable
 bearers is <code>0x7D</code> while ordinal 1 remains reserved (8.3.1) — a mask consumer accepting
 bit <code>0x02</code> as live has accepted a bearer that cannot exist. <em>(Reworded 2026-08-01: the
 earlier "set of all bearers is <code>0x7F</code>" contradicted 8.3.1.)</em></p>
-<p><strong>8.2.3</strong> A bearer shall not use an ordinal not in this registry.</p>
+<p><strong class="clause" id="c8.2.3">8.2.3</strong> A bearer shall not use an ordinal not in this registry.</p>
 <p>Note 1 to entry: <code>usb</code> has relative cost 0 because a hive on the far end of that link is
 powered through it. Cost here is energy spent by the sender, not difficulty.</p>
 <p>Note 2 to entry: <code>wifi-mesh</code> carries the compact tier although it uses the same radio band
@@ -579,14 +579,14 @@ cases is shared beyond the frequency.</p>
 <p>Note 3 to entry: Ordinal 3 is a reliable ordered stream over IP. More than one medium
 presents itself that way — a socket carrying length-delimited frames, and a message-oriented
 protocol layered on such a socket — and 8.2.4 permits both to use the ordinal.</p>
-<p><strong>8.2.4</strong> More than one binding may use the same ordinal, provided the bindings are
+<p><strong class="clause" id="c8.2.4">8.2.4</strong> More than one binding may use the same ordinal, provided the bindings are
 indistinguishable above Layer 1.</p>
 <p>Note 1 to entry: <em>Indistinguishable</em> is the whole condition, and it is stronger than
 <em>similar</em>. Two bindings sharing an ordinal have the same reach, the same wire tier, the same
 delivery properties and the same profile; <strong>what differs is only how bytes reach the
 medium.</strong> Where any of those differ, the bindings are different bearers and 8.4 applies.</p>
-<h3 id="83-reserved-ordinals">8.3 Reserved ordinals</h3>
-<p><strong>8.3.1</strong> Ordinal 1 and bit <code>0x02</code> are reserved. They shall not be assigned to a bearer.</p>
+<span class="clause-anchor" id="c8.3"></span><h3 id="83-reserved-ordinals">8.3 Reserved ordinals</h3>
+<p><strong class="clause" id="c8.3.1">8.3.1</strong> Ordinal 1 and bit <code>0x02</code> are reserved. They shall not be assigned to a bearer.</p>
 <p>Note 1 to entry: An ordinal is reserved rather than freed because the bit positions above
 it would otherwise move, and every implementation that had stored a bearer set would be
 holding a wrong one. <strong>Reservation costs one bit and reassignment costs correctness.</strong></p>
@@ -606,20 +606,20 @@ of a radio — so <strong>the WiFi-ness of the link underneath a socket is invis
 Layer 1</strong>, exactly as the ethernet-ness of a wired one is. An implementation carrying a
 legacy assignment of ordinal 1 is carrying a retired bearer, and a future bearer never
 takes the ordinal: it takes the lowest unassigned one (8.4.1).</p>
-<h3 id="84-adding-a-bearer">8.4 Adding a bearer</h3>
-<p><strong>8.4.1</strong> A new bearer shall be given the lowest unassigned ordinal.</p>
-<p><strong>8.4.2</strong> A new bearer shall satisfy Clause 4 in full before it is assigned an ordinal.</p>
-<p><strong>8.4.3</strong> Where more than seven bearers are needed, the width of the bearer set shall be
+<span class="clause-anchor" id="c8.4"></span><h3 id="84-adding-a-bearer">8.4 Adding a bearer</h3>
+<p><strong class="clause" id="c8.4.1">8.4.1</strong> A new bearer shall be given the lowest unassigned ordinal.</p>
+<p><strong class="clause" id="c8.4.2">8.4.2</strong> A new bearer shall satisfy Clause 4 in full before it is assigned an ordinal.</p>
+<p><strong class="clause" id="c8.4.3">8.4.3</strong> Where more than seven bearers are needed, the width of the bearer set shall be
 extended at Layer 4, and ordinals shall not be reused to avoid doing so.</p>
 <p>Note 1 to entry: 8.4.3 states the one thing that cannot be allowed when the registry fills.
 <strong>Reusing an ordinal makes every stored bearer set silently wrong</strong> rather than merely full,
 and nothing distinguishes an old value from a new one.</p>
-<h2 id="9-regulated-media">9 Regulated media</h2>
-<p><strong>9.1</strong> A bearer whose medium is subject to a transmission duty cycle or airtime budget
+<span class="clause-anchor" id="c9"></span><h2 id="9-regulated-media">9 Regulated media</h2>
+<p><strong class="clause" id="c9.1">9.1</strong> A bearer whose medium is subject to a transmission duty cycle or airtime budget
 shall declare so in its profile (B8).</p>
-<p><strong>9.2</strong> Such a bearer shall report <em>unavailable</em> when its budget is exhausted, and shall not
+<p><strong class="clause" id="c9.2">9.2</strong> Such a bearer shall report <em>unavailable</em> when its budget is exhausted, and shall not
 accept frames it cannot lawfully transmit.</p>
-<p><strong>9.3</strong> Such a bearer shall not exceed its budget in order to send a frame, whatever the
+<p><strong class="clause" id="c9.3">9.3</strong> Such a bearer shall not exceed its budget in order to send a frame, whatever the
 frame is.</p>
 <p>Note 1 to entry: 9.3 has no exception for urgency, and the omission is deliberate.
 <strong>A budget with an exception for important traffic is a budget that is exceeded whenever
@@ -629,14 +629,14 @@ standard cannot grant relief from it.</p>
 <p>Note 2 to entry: 9.2 makes exhaustion visible as a state rather than as unexplained loss.
 The layers above can then choose another bearer or wait, which they cannot do if the frame
 was simply dropped.</p>
-<h2 id="10-bearers-that-hold-connections">10 Bearers that hold connections</h2>
-<p><strong>10.1</strong> A bearer whose medium requires a connection before frames can be carried shall
+<span class="clause-anchor" id="c10"></span><h2 id="10-bearers-that-hold-connections">10 Bearers that hold connections</h2>
+<p><strong class="clause" id="c10.1">10.1</strong> A bearer whose medium requires a connection before frames can be carried shall
 maintain that connection, and shall not require the layers above to know it exists.</p>
-<p><strong>10.2</strong> Such a bearer shall treat a peer as unreachable after a period of silence, and
+<p><strong class="clause" id="c10.2">10.2</strong> Such a bearer shall treat a peer as unreachable after a period of silence, and
 shall declare that period in its profile.</p>
-<p><strong>10.3</strong> The silence period shall be at least three times the interval at which the bearer
+<p><strong class="clause" id="c10.3">10.3</strong> The silence period shall be at least three times the interval at which the bearer
 expects to hear from a peer.</p>
-<p><strong>10.4</strong> Such a bearer should reattempt a lost connection with an interval that increases up
+<p><strong class="clause" id="c10.4">10.4</strong> Such a bearer should reattempt a lost connection with an interval that increases up
 to a stated maximum, and should continue reattempting for as long as the bearer is in
 service.</p>
 <p>Note 1 to entry: The factor of three in 10.3 is a floor, not a recommendation. <strong>One missed
@@ -646,8 +646,8 @@ operation, and each such declaration costs a reconnection.</p>
 <p>Note 2 to entry: 10.4's continuing indefinitely is deliberate. A hive that gives up on a
 peer permanently is a hive that has to be restarted by a person when the peer returns, and
 <strong>the peers in this system are expected to come and go</strong>.</p>
-<h2 id="11-what-a-binding-document-specifies">11 What a binding document specifies</h2>
-<p><strong>11.1</strong> A document specifying an individual binding shall state:</p>
+<span class="clause-anchor" id="c11"></span><h2 id="11-what-a-binding-document-specifies">11 What a binding document specifies</h2>
+<p><strong class="clause" id="c11.1">11.1</strong> A document specifying an individual binding shall state:</p>
 <p>a) the ordinal it uses, from the registry in 8.2, and where it shares that ordinal with
 another binding (8.2.4), which properties make the two indistinguishable above Layer 1;</p>
 <p>b) how a frame is placed in a transport unit, and how transport units are delimited where
@@ -660,22 +660,22 @@ medium framing;</p>
 <p>g) the conditions producing each of the four states in 5.2;</p>
 <p>h) its duty cycle or airtime budget, where 9.1 applies; and</p>
 <p>i) its connection lifecycle and silence period, where Clause 10 applies; and</p>
-<p>j) the build-mode declaration required by Layer 2, 5.4a.1, exactly, as bytes and as their
+<p>j) the build-mode declaration required by <a href="L2-capability-and-discovery.html#c5.4a.1">Layer 2, 5.4a.1</a>, exactly, as bytes and as their
 position in the medium framing — or, where the medium's announcement cannot carry it, that
 it cannot.</p>
-<p>Note 0 to entry: <strong>j) closes a deferral with no destination.</strong> Layer 2, 5.4a.1 obliges a
+<p>Note 0 to entry: <strong>j) closes a deferral with no destination.</strong> <a href="L2-capability-and-discovery.html#c5.4a.1">Layer 2, 5.4a.1</a> obliges a
 development hive to declare its mode <strong>in every beacon on every bearer</strong>, and Layer 2's own
 scope defers byte layout to the binding document — but until j) <strong>nothing obliged a binding
 document to carry the field</strong>, and 5.4a.3 reads <em>where the bearer's announcement layout
 carries one</em> as though that were a property of the medium rather than of the binding. <strong>So
 two conformant implementations could not interoperate on a flag one of them was never
-required to encode</strong>, for a declaration that controls admission (Layer 5, 9.2). <strong>The second
+required to encode</strong>, for a declaration that controls admission (<a href="L5-trust-and-identity.html#c9.2">Layer 5, 9.2</a>). <strong>The second
 half of j) is the honest case rather than a loophole:</strong> where an announcement genuinely has
 no room, saying so is what lets a scanner apply 5.4a.4's <em>unknown</em> deliberately instead of
-by accident, and it is <code>01-terminology.md</code> 4.5's form — where the requirement cannot be met,
+by accident, and it is <a href="01-terminology.html#c4.5"><code>01-terminology.md</code> 4.5</a>'s form — where the requirement cannot be met,
 say so and name what prevents it. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding
 SS206.)</em></p>
-<p><strong>11.1a</strong> Where a medium has roles a device adopts — an initiator and a responder, a
+<p><strong class="clause" id="c11.1a">11.1a</strong> Where a medium has roles a device adopts — an initiator and a responder, a
 central and a peripheral — the binding document shall state the role-concurrency
 obligation: which roles a conforming device supports at once, or the yield rule by
 which two devices in the same role resolve it.</p>
@@ -685,7 +685,7 @@ initiator-side connect attempts and refused inbound connections while busy initi
 their mutual connect never completed and the bearer was dead across the bench. Nothing
 was wrong with either device by any test either could run on itself.
 <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, on bench evidence.)</em></p>
-<p><strong>11.2</strong> A binding document shall not restate a requirement of this document.</p>
+<p><strong class="clause" id="c11.2">11.2</strong> A binding document shall not restate a requirement of this document.</p>
 <p>Note 1 to entry: 11.2 is what keeps the bindings interchangeable. <strong>A requirement restated
 in seven binding documents is seven requirements</strong>, and they will not stay identical — the
 first one edited becomes the one that differs, and nothing indicates which of the seven was
@@ -694,14 +694,14 @@ meant to govern.</p>
 byte. A marker described in prose is a marker two implementers will spell differently, and
 <strong>two hives whose markers differ do not fail to connect — they never see each other at
 all.</strong></p>
-<h2 id="12-conformance">12 Conformance</h2>
+<span class="clause-anchor" id="c12"></span><h2 id="12-conformance">12 Conformance</h2>
 <p>Every requirement of this document is demonstrated by conformance evidence of one of
-the three classes of <code>01-terminology.md</code>, 3.10 — behavioural, by construction, or by
+the three classes of <a href="01-terminology.html"><code>01-terminology.md</code></a>, 3.10 — behavioural, by construction, or by
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <code>01-terminology.md</code> 4.2 to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
-<p><strong>12.1</strong> A bearer conforms to this document where it:</p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+<p><strong class="clause" id="c12.1">12.1</strong> A bearer conforms to this document where it:</p>
 <p>a) satisfies every requirement of Clause 4;</p>
 <p>b) reports everything required by Clause 5, keeping each current;</p>
 <p>c) accepts what Clause 6 requires and rejects what Clause 6 forbids;</p>
@@ -710,11 +710,11 @@ behavioural test is. <strong>Behavioural evidence for any requirement of this do
 <p>f) meets Clause 9 where its medium is regulated, and Clause 10 where it holds connections;
 and</p>
 <p>g) is specified by a binding document meeting Clause 11.</p>
-<p><strong>12.2</strong> An implementation of Layer 1 conforms where every bearer it provides conforms, and
+<p><strong class="clause" id="c12.2">12.2</strong> An implementation of Layer 1 conforms where every bearer it provides conforms, and
 where 4.8.1 holds of it.</p>
-<p><strong>12.3</strong> Conformance shall be demonstrable with two implementations of one bearer built
+<p><strong class="clause" id="c12.3">12.3</strong> Conformance shall be demonstrable with two implementations of one bearer built
 independently from its binding document.</p>
-<p><strong>12.4</strong> Conformance to 11.1a shall be demonstrated by a role-asymmetric pairing test:
+<p><strong class="clause" id="c12.4">12.4</strong> Conformance to 11.1a shall be demonstrated by a role-asymmetric pairing test:
 two devices of the <strong>same</strong> implementation, both attempting to reach the other, complete
 a connection.</p>
 <p>Note 1 to entry: 12.3 and 12.4 catch different failures, and 12.3 cannot catch 12.4's.
@@ -727,13 +727,13 @@ The failure that motivated this is invisible to every test a device can run on i
 implementation tested against itself will agree with itself about anything it left
 unstated — <strong>including the discovery marker, which is where two independent implementations
 most often discover they were never going to meet.</strong></p>
-<h2 id="13-what-is-not-decided-at-this-layer">13 What is not decided at this layer</h2>
+<span class="clause-anchor" id="c13"></span><h2 id="13-what-is-not-decided-at-this-layer">13 What is not decided at this layer</h2>
 <p><strong>This clause states gaps and contains no requirements.</strong></p>
-<p><strong>13.1 What a hive does with a bearer that reports <em>failed</em>.</strong> 5.2 requires the state to be
+<p><strong class="clause" id="c13.1">13.1 What a hive does with a bearer that reports <em>failed</em>.</strong> 5.2 requires the state to be
 reported and distinguishes it from <em>unavailable</em> by whether waiting helps. <strong>What constitutes
 the intervention, whether it can be automatic, and whether a hive may retire a bearer that
 keeps failing, are unspecified.</strong></p>
-<p><strong>13.2 <em>Medium framing</em> is used normatively and defined nowhere — and it decides B2.</strong> 4.7.1
+<p><strong class="clause" id="c13.2">13.2 <em>Medium framing</em> is used normatively and defined nowhere — and it decides B2.</strong> 4.7.1
 places the discovery marker <em>in its medium framing</em>, 4.7.2 forbids it <em>inside the frame</em>, and
 11.1 c) and j) require a binding document to state a position <em>in the medium framing</em>. <strong>The
 term appears in this document three times, in requirements, and Clause 3 does not define it.</strong>
@@ -753,7 +753,7 @@ second reading</strong>, because wrapping a bearer adds itself always has room. 
 cannot carry a field is a fact about the medium, which is what makes that branch honest.</strong></p>
 <p><strong>Consequence, and it is live:</strong> a bearer whose medium exposes no framing outside the payload
 is required by 4.7.1 to carry a marker and forbidden by 4.7.2 from the only place it could put
-one. <strong>4.7 offers no <em>cannot carry it</em> branch, which is what 11.1 c) inherits.</strong>
+one. <strong class="clause" id="c4.7">4.7 offers no <em>cannot carry it</em> branch, which is what 11.1 c) inherits.</strong>
 <em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, finding SS272; reached for by hive, whose
 measured wrapping on an ESP-NOW binding is zero bytes today and becomes the marker's length
 under the second reading.)</em></p>

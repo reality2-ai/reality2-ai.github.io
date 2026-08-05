@@ -66,25 +66,25 @@ code against it and swap on ruling, exactly as the Layer 4 vector set was built.
 <strong>Where this document conflicts with a ratified part, the part is right.</strong></p>
 </blockquote>
 <hr />
-<h2 id="1-scope">1 Scope</h2>
+<span class="clause-anchor" id="c1"></span><h2 id="1-scope">1 Scope</h2>
 <p>This document pins the byte-level formats the layer parts reference but do not state:
-identity material and its wire derivations (Layer 4, 6.1.3 and 7.1.4); the payload
-cipher and its envelope (Layer 5, 7.3); the update package (Layer 6, Clause 4); the
+identity material and its wire derivations (<a href="L4-wire.html#c6.1.3">Layer 4, 6.1.3</a> and 7.1.4); the payload
+cipher and its envelope (<a href="L5-trust-and-identity.html#c7.3">Layer 5, 7.3</a>); the update package (Layer 6, Clause 4); the
 capability-contract registry and its first three contracts (Layer 7); and the
-definition and score formats (Layer 7, 10.2). The Layer 4 conformance vector set
-(<code>TEST-VECTORS-L4.md</code>) is part of this companion and is already ratified in substance.</p>
-<h2 id="2-normative-references">2 Normative references</h2>
-<p><code>01-terminology.md</code>, <code>L4-wire.md</code>, <code>L5-trust-and-identity.md</code>, <code>L6-management.md</code>,
-<code>L7-application.md</code>, <code>TEST-VECTORS-L4.md</code>.</p>
-<h2 id="3-identity-material-and-wire-identity-settles-ss23-ss26">3 Identity material and wire identity (settles SS23, SS26)</h2>
-<p><strong>3.1</strong> The identity material of a member, a hive, or a group shall be an Ed25519 key
+definition and score formats (<a href="L7-application.html#c10.2">Layer 7, 10.2</a>). The Layer 4 conformance vector set
+(<a href="TEST-VECTORS-L4.html"><code>TEST-VECTORS-L4.md</code></a>) is part of this companion and is already ratified in substance.</p>
+<span class="clause-anchor" id="c2"></span><h2 id="2-normative-references">2 Normative references</h2>
+<p><a href="01-terminology.html"><code>01-terminology.md</code></a>, <a href="L4-wire.html"><code>L4-wire.md</code></a>, <a href="L5-trust-and-identity.html"><code>L5-trust-and-identity.md</code></a>, <a href="L6-management.html"><code>L6-management.md</code></a>,
+<a href="L7-application.html"><code>L7-application.md</code></a>, <a href="TEST-VECTORS-L4.html"><code>TEST-VECTORS-L4.md</code></a>.</p>
+<span class="clause-anchor" id="c3"></span><h2 id="3-identity-material-and-wire-identity-settles-ss23-ss26">3 Identity material and wire identity (settles SS23, SS26)</h2>
+<p><strong class="clause" id="c3.1">3.1</strong> The identity material of a member, a hive, or a group shall be an Ed25519 key
 pair; the identity is the 32-byte public key. <code>PROVISIONAL(SS23)</code> — algorithm choice;
 Ed25519 fits no_std targets and L5's signature uses.</p>
-<p><strong>3.1a</strong> A verifier shall reject a small-order or non-canonical Ed25519 public key.</p>
-<p><strong>3.1b</strong> A verifier shall reject a non-canonical Ed25519 signature encoding. <code>PROVISIONAL(SS114)</code>.</p>
+<p><strong class="clause" id="c3.1a">3.1a</strong> A verifier shall reject a small-order or non-canonical Ed25519 public key.</p>
+<p><strong class="clause" id="c3.1b">3.1b</strong> A verifier shall reject a non-canonical Ed25519 signature encoding. <code>PROVISIONAL(SS114)</code>.</p>
 <p>Note 1 to entry: The reason is that <strong>this standard treats a signature as an identity for
-a decision</strong>, in at least two places — Layer 6, 5.2.3 reasons about <em>the</em> package that was
-signed, and Layer 5, 7.4.3a advances a high-water mark on <em>a</em> verified signature. Under
+a decision</strong>, in at least two places — <a href="L6-management.html#c5.2.3">Layer 6, 5.2.3</a> reasons about <em>the</em> package that was
+signed, and <a href="L5-trust-and-identity.html#c7.4.3a">Layer 5, 7.4.3a</a> advances a high-water mark on <em>a</em> verified signature. Under
 permissive verification one message has <strong>several valid signatures</strong>, so one authorisation
 can appear as two: the replay this standard refuses everywhere else, arriving through the
 verifier instead of through the wire.</p>
@@ -95,45 +95,45 @@ platforms will each decide differently, and interop will look fine until it does
 strictness belongs here <strong>with a vector</strong> rather than in any one implementation's
 judgement. The vector is owed. <em>(Recorded this way at the reporting lane's insistence,
 which is the counterweight working: a reason offered as a reason.)</em></p>
-<p><strong>3.2</strong> Identity material shall be generated from the platform's cryptographically
-secure random number generator (Layer 0, 5.5.1) at first provisioning, and never from
-a name, a serial number, or any operator-supplied string (Layer 4, 7.1.4).</p>
-<p><strong>3.3</strong> The extended wire identity of a hive (Layer 4, 6.1.3) shall be derived as:</p>
+<p><strong class="clause" id="c3.2">3.2</strong> Identity material shall be generated from the platform's cryptographically
+secure random number generator (<a href="L0-hardware-and-runtime.html#c5.5.1">Layer 0, 5.5.1</a>) at first provisioning, and never from
+a name, a serial number, or any operator-supplied string (<a href="L4-wire.html#c7.1.4">Layer 4, 7.1.4</a>).</p>
+<p><strong class="clause" id="c3.3">3.3</strong> The extended wire identity of a hive (<a href="L4-wire.html#c6.1.3">Layer 4, 6.1.3</a>) shall be derived as:</p>
 <ul>
 <li><strong>hive half</strong> = bytes 0–3 of SHA-256 of the hive's identity public key;</li>
 <li><strong>group half</strong> = bytes 0–3 of SHA-256 of the group's identity public key;</li>
 </ul>
 <p>each taken big-endian. <code>PROVISIONAL(SS23)</code> — hash and truncation choice.</p>
-<p><strong>3.4</strong> The compact wire identity of a hive shall be its <strong>hive half</strong> alone — the
+<p><strong class="clause" id="c3.4">3.4</strong> The compact wire identity of a hive shall be its <strong>hive half</strong> alone — the
 4-byte projection of 3.3, as adopted provisionally by the core implementation
 (r2-core D-007, endorsed D-013).</p>
-<p><strong>3.5</strong> Where a derived half equals <code>0x00000000</code> or <code>0xFFFFFFFF</code> (reserved: Layer 4,
+<p><strong class="clause" id="c3.5">3.5</strong> Where a derived half equals <code>0x00000000</code> or <code>0xFFFFFFFF</code> (reserved: Layer 4,
 6.1.4 and 7.1.3), the derivation shall be repeated with the byte <code>0x01</code> appended to
 the hashed input, iterating until a non-reserved value results. <code>PROVISIONAL(SS23)</code>.</p>
-<p><strong>3.6</strong> Uniqueness is not guaranteed and shall not be assumed; collisions of wire
-identity are survived as Layer 4, 7.2 survives all hash collisions. The identity
+<p><strong class="clause" id="c3.6">3.6</strong> Uniqueness is not guaranteed and shall not be assumed; collisions of wire
+identity are survived as <a href="L4-wire.html#c7.2">Layer 4, 7.2</a> survives all hash collisions. The identity
 itself (the public key) is what is unique with overwhelming probability, and every
 consequential act verifies against it above the trust boundary.</p>
-<h2 id="4-payload-cipher-and-envelope-settles-ss35">4 Payload cipher and envelope (settles SS35)</h2>
-<p><strong>4.1</strong> The payload cipher for every encrypted level of Layer 5, 7.3 shall be
+<span class="clause-anchor" id="c4"></span><h2 id="4-payload-cipher-and-envelope-settles-ss35">4 Payload cipher and envelope (settles SS35)</h2>
+<p><strong class="clause" id="c4.1">4.1</strong> The payload cipher for every encrypted level of <a href="L5-trust-and-identity.html#c7.3">Layer 5, 7.3</a> shall be
 <strong>XChaCha20-Poly1305</strong> (256-bit key, 24-byte nonce, 16-byte tag).
 <code>PROVISIONAL(SS35)</code> — chosen over ChaCha20-Poly1305 because the 24-byte random nonce
 removes the nonce-uniqueness bookkeeping a 16-bit compact message identifier cannot
 provide, at the cost of frame bytes; and over AES-GCM for constant-time software
 implementation on targets without AES hardware.</p>
-<p><strong>4.2</strong> An encrypted payload shall be the envelope: <code>nonce (24 bytes) || ciphertext || tag (16 bytes)</code>, nonce freshly drawn from the CSPRNG per frame. The 40-byte overhead
+<p><strong class="clause" id="c4.2">4.2</strong> An encrypted payload shall be the envelope: <code>nonce (24 bytes) || ciphertext || tag (16 bytes)</code>, nonce freshly drawn from the CSPRNG per frame. The 40-byte overhead
 is accepted; deployments for which it dominates use public-by-design events (L5,
 7.3.1) or the extended tier.</p>
-<p><strong>4.3</strong> The associated data of the AEAD shall be the frame's authenticated span as
-Layer 4, 10.2.1 defines it, excluding the payload itself. <code>PROVISIONAL(SS35)</code> — binds
+<p><strong class="clause" id="c4.3">4.3</strong> The associated data of the AEAD shall be the frame's authenticated span as
+<a href="L4-wire.html#c10.2.1">Layer 4, 10.2.1</a> defines it, excluding the payload itself. <code>PROVISIONAL(SS35)</code> — binds
 ciphertext to origin, identifier, and target without double-covering the payload.</p>
-<p><strong>4.4</strong> Per Layer 5, 7.3.3, no cipher identifier is carried: the Layer 4 version bits
+<p><strong class="clause" id="c4.4">4.4</strong> Per <a href="L5-trust-and-identity.html#c7.3.3">Layer 5, 7.3.3</a>, no cipher identifier is carried: the Layer 4 version bits
 are the algorithm epoch (L4, 4.1.3 Note 1), and this suite is the suite of version 0.</p>
-<p><strong>4.5</strong> Key derivation, rotation, and distribution remain Layer 5's (5.2.2 and Clause
+<p><strong class="clause" id="c4.5">4.5</strong> Key derivation, rotation, and distribution remain Layer 5's (5.2.2 and Clause
 6); this document names only the cipher those keys drive, and the purpose strings that
 separate them (Clause 4a).</p>
 <h2 id="4a-key-derivation-purpose-strings-settles-ss39">4a Key-derivation purpose strings (settles SS39)</h2>
-<p><strong>4a.1</strong> Layer 5, 5.2.1 fixes the derivation (HKDF-SHA256, 32-byte output, secret as
+<p><strong>4a.1</strong> <a href="L5-trust-and-identity.html#c5.2.1">Layer 5, 5.2.1</a> fixes the derivation (HKDF-SHA256, 32-byte output, secret as
 input keying material, public binding as salt, purpose string as info) and 5.2.3
 forbids two derivations sharing a purpose string — but states no values, so two
 conformant implementations derive different keys and get silence. The values are fixed
@@ -178,14 +178,14 @@ terminator and no padding:</p>
 <p><strong>4a.3</strong> The <code>v0</code> field is the Layer 4 version — the algorithm epoch (L4, 4.1.3
 Note 1) — and a new epoch takes a new set of strings, never a reused one.</p>
 <p><strong>4a.4</strong> A purpose string not in this table shall not be used with the derivation of
-Layer 5, 5.2.1. A new derivation is added by adding a row here, under a name that
+<a href="L5-trust-and-identity.html#c5.2.1">Layer 5, 5.2.1</a>. A new derivation is added by adding a row here, under a name that
 states its use.</p>
 <p>Note 1 to entry: The strings read as paths on purpose. <strong>A purpose string is a
 namespace, and the failure it prevents is silent</strong>: two derivations sharing one string
 yield the same key for different jobs, which no test detects and no party observes
 until the compromise of one exposes the other.</p>
 <h2 id="4b-the-cbor-profile-settles-a-gap-found-implementing-l4-clause-11">4b The CBOR profile (settles a gap found implementing L4 Clause 11)</h2>
-<p><strong>4b.1</strong> Layer 4, 11.1 requires definite-length CBOR and 11.2 fixes the type set. This
+<p><strong>4b.1</strong> <a href="L4-wire.html#c11.1">Layer 4, 11.1</a> requires definite-length CBOR and 11.2 fixes the type set. This
 clause pins what those leave open, because two of the gaps are signature-affecting and
 one is a remote crash on a constrained device. <code>PROVISIONAL(SS95)</code>.</p>
 <p><strong>4b.2</strong> <em>Deterministic encoding.</em> Where any clause of this standard requires a
@@ -216,7 +216,7 @@ with the same key.</p>
 <p><strong>4b.3a</strong> A decoder shall not resolve a duplicate-key conflict by taking the first entry,
 the last entry, or either.</p>
 <p><strong>4b.4</strong> <em>Tags.</em> A decoder shall reject a payload containing a tag (CBOR major type 6).
-Layer 4, 11.2's list is exhaustive for this standard, not a floor.</p>
+<a href="L4-wire.html#c11.2">Layer 4, 11.2</a>'s list is exhaustive for this standard, not a floor.</p>
 <p><strong>4b.5</strong> <em>Nesting depth.</em> A decoder shall reject a payload nested more deeply than its
 stated limit.</p>
 <p><strong>4b.5a</strong> A decoder shall state its nesting limit.</p>
@@ -234,15 +234,15 @@ updated by half the fleet.</p>
 exploitable.</strong> Two entries for one key, a signer that reads the first and a verifier
 that reads the last, and one signed document means two different things to the two
 parties — the classic CBOR attack. Rejection is the only rule with no exploitable side,
-which is the reasoning of <code>01-terminology.md</code> 5.1 applied to a parser.</p>
+which is the reasoning of <a href="01-terminology.html#c5.1"><code>01-terminology.md</code> 5.1</a> applied to a parser.</p>
 <p>Note 3 to entry: 4b.5 exists because this standard's own target devices make it a
 security matter rather than a robustness one: <strong>a recursive-descent decoder on a
 microcontroller with a few hundred kilobytes of memory is a remote crash without a depth
 limit</strong>, and the attacker's cost is a few bytes of nesting. A limit belongs in the
 profile rather than in each implementer's judgement, because an implementer who omits it
 has written something that looks correct.</p>
-<h2 id="5-update-package-settles-ss37">5 Update package (settles SS37)</h2>
-<p><strong>5.1</strong> An update package shall be one definite-length CBOR map with integer keys:</p>
+<span class="clause-anchor" id="c5"></span><h2 id="5-update-package-settles-ss37">5 Update package (settles SS37)</h2>
+<p><strong class="clause" id="c5.1">5.1</strong> An update package shall be one definite-length CBOR map with integer keys:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -296,14 +296,14 @@ has written something that looks correct.</p>
 </table></div>
 <p><code>PROVISIONAL(SS37)</code> — the envelope; keys 1–5, 7 and 8 are structural, key 6's interior
 awaits the health-check contract.</p>
-<p><strong>5.1a</strong> Key 8 shall state the <strong>content class</strong> the package delivers, from the classes
-Layer 6, 5.1.1 requires: <code>1</code> the stack, <code>2</code> modules alongside it, <code>3</code> declarative
+<p><strong class="clause" id="c5.1a">5.1a</strong> Key 8 shall state the <strong>content class</strong> the package delivers, from the classes
+<a href="L6-management.html#c5.1.1">Layer 6, 5.1.1</a> requires: <code>1</code> the stack, <code>2</code> modules alongside it, <code>3</code> declarative
 definitions, <code>4</code> parameters, and <code>0</code> <strong>the whole image</strong>, where the platform collapses the
-classes into one image (Layer 6, 5.1.2). <code>PROVISIONAL(supervisor)</code> — the key number and the
+classes into one image (<a href="L6-management.html#c5.1.2">Layer 6, 5.1.2</a>). <code>PROVISIONAL(supervisor)</code> — the key number and the
 enumeration; the classes themselves are the part's.</p>
-<p><strong>5.1b</strong> A package stating no content class shall be <strong>rejected</strong>, never treated as
+<p><strong class="clause" id="c5.1b">5.1b</strong> A package stating no content class shall be <strong>rejected</strong>, never treated as
 carrying the whole image.</p>
-<p>Note 1 to entry: Layer 6, 5.1.1 makes the four classes <strong>independently deliverable</strong>, and
+<p>Note 1 to entry: <a href="L6-management.html#c5.1.1">Layer 6, 5.1.1</a> makes the four classes <strong>independently deliverable</strong>, and
 their costs differ — a parameter change touches a running value, a stack change reboots the
 device (5.1.1 Note 1). <strong>Before 5.1a the map could not say which one it carried</strong>, so a
 receiver could not decide what an update would cost it, and a hive that separates the
@@ -313,16 +313,16 @@ row and produced a classification that never crosses a wire.</strong> <em>(<code
 <p>Note 2 to entry: The default in 5.1b is restrictive for the same reason as 5.2a and 5.2b:
 <strong><code>0</code> is the widest class in the enumeration</strong>, so reading an absent key as <code>0</code> would let a
 package that names nothing be treated as authorised to replace everything. The polarity
-rule of <code>01-terminology.md</code> 5.1 decides it, and an absent key is exactly where a fold
+rule of <a href="01-terminology.html#c5.1"><code>01-terminology.md</code> 5.1</a> decides it, and an absent key is exactly where a fold
 selects the permissive branch by accident.</p>
-<p><strong>5.2</strong> Each entry of key 7 shall be <code>[signer identity (32-byte public key), Ed25519 signature]</code> over the deterministic CBOR encoding (4b.2) of the map containing <strong>every key
+<p><strong class="clause" id="c5.2">5.2</strong> Each entry of key 7 shall be <code>[signer identity (32-byte public key), Ed25519 signature]</code> over the deterministic CBOR encoding (4b.2) of the map containing <strong>every key
 except key 7</strong>.</p>
-<p><strong>5.2c</strong> A package shall be accepted only where a signature verifies under an update
+<p><strong class="clause" id="c5.2c">5.2c</strong> A package shall be accepted only where a signature verifies under an update
 authority the receiving hive recognises (L6, 4.1.2).</p>
-<p><strong>5.2a</strong> A package whose key 7 is absent or empty shall be rejected.</p>
-<p><strong>5.2d</strong> A package none of whose signatures verifies shall be rejected. <strong>An empty
+<p><strong class="clause" id="c5.2a">5.2a</strong> A package whose key 7 is absent or empty shall be rejected.</p>
+<p><strong class="clause" id="c5.2d">5.2d</strong> A package none of whose signatures verifies shall be rejected. <strong>An empty
 signature list is not a satisfied requirement.</strong></p>
-<p><strong>5.2b</strong> A self-test specification (key 6) that is absent or states no check shall be
+<p><strong class="clause" id="c5.2b">5.2b</strong> A self-test specification (key 6) that is absent or states no check shall be
 treated as a self-test that <strong>did not pass</strong>, never as one that passed vacuously.</p>
 <p>Note 0 to entry: 5.2 said <em>keys 1–6 only</em> until 2026-08-02, which was correct while the
 map ended at key 6 and <strong>silently wrong the moment a key was added</strong>: key 8 selects what a
@@ -335,13 +335,13 @@ clothes each time. A verifier written as <em>every signature verifies</em> retur
 no signatures</strong>; a health gate written as <em>every check passed</em> returns <strong>true for no
 checks</strong>. In both cases the code is natural, the test suite is green, and the result is
 that <strong>the least verified package in existence is the one that passes most easily.</strong> The
-polarity rule of <code>01-terminology.md</code> 5.1 decides it — absent evidence selects the
+polarity rule of <a href="01-terminology.html#c5.1"><code>01-terminology.md</code> 5.1</a> decides it — absent evidence selects the
 restrictive branch — but a fold over an empty collection quietly selects the permissive
 one, so the clauses say it outright. <em>(Added 2026-08-02 after the same shape was found
 in a deployed flashing path; <code>PROVISIONAL(supervisor)</code>.)</em></p>
-<p><strong>5.3</strong> A package is carried as chunks under the Layer 6, 5.3.5 chunked-transfer
+<p><strong class="clause" id="c5.3">5.3</strong> A package is carried as chunks under the <a href="L6-management.html#c5.3.5">Layer 6, 5.3.5</a> chunked-transfer
 model; the package format is independent of its carriage.</p>
-<p><strong>5.4</strong> The <strong>sequence record</strong> a hive keeps per target (Layer 6, 5.2.3a) shall be:</p>
+<p><strong class="clause" id="c5.4">5.4</strong> The <strong>sequence record</strong> a hive keeps per target (<a href="L6-management.html#c5.2.3a">Layer 6, 5.2.3a</a>) shall be:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -384,23 +384,23 @@ model; the package format is independent of its carriage.</p>
 </tbody>
 </table></div>
 <p><code>PROVISIONAL(SS53)</code> — widths and the CRC choice.</p>
-<p><strong>5.4a</strong> The record shall carry <strong>two</strong> sequences, not one: the sequence of the image the
+<p><strong class="clause" id="c5.4a">5.4a</strong> The record shall carry <strong>two</strong> sequences, not one: the sequence of the image the
 hive is <strong>running</strong>, and the sequence of an image <strong>staged and not yet committed</strong>, each
-with an explicit presence flag. <strong>The floor of Layer 6, 5.2.3 is the running sequence
+with an explicit presence flag. <strong>The floor of <a href="L6-management.html#c5.2.3">Layer 6, 5.2.3</a> is the running sequence
 alone</strong>; a pending sequence is never a floor. Record format version 1.
 <code>PROVISIONAL(SS109)</code> — the shape, from an implementation that reached it by building the
 full cycle.</p>
 <p>Note 1 to entry: One number cannot distinguish <em>staged n</em> from <em>running n</em>, and the
-difference is the brick of L6 5.2.3c Note 1 — a device that reverts beneath its own floor.
+difference is the brick of <a href="L6-management.html#c5.2.3c">L6 5.2.3c</a> Note 1 — a device that reverts beneath its own floor.
 <strong>Absence is not zero in either field:</strong> a record that has only ever staged reads as <em>no
 running sequence</em>, not as <em>floor zero</em>, which is 5.5's three-way distinction applied
 within the record rather than to it.</p>
-<p><strong>5.5</strong> A record whose magic, version or CRC does not verify is <strong>unreadable</strong>, and
-Layer 6, 5.2.3b applies: no value from it is a sequence floor. A hive shall be able to
+<p><strong class="clause" id="c5.5">5.5</strong> A record whose magic, version or CRC does not verify is <strong>unreadable</strong>, and
+<a href="L6-management.html#c5.2.3b">Layer 6, 5.2.3b</a> applies: no value from it is a sequence floor. A hive shall be able to
 report the distinction between <em>no record</em>, <em>unreadable record</em>, and <em>sequence n</em> —
 the three are different facts and the middle one is the dangerous one to lose.</p>
-<h2 id="5a-revocation-entry-settles-a-gap-found-implementing-l5-62">5a Revocation entry (settles a gap found implementing L5 6.2)</h2>
-<p><strong>5a.1</strong> The bytes a revocation entry's signature (Layer 5, 6.2.2) covers shall be, in
+<h2 id="5a-revocation-entry-settles-a-gap-found-implementing-l5-62">5a Revocation entry (settles a gap found implementing <a href="L5-trust-and-identity.html#c6.2">L5 6.2</a>)</h2>
+<p><strong>5a.1</strong> The bytes a revocation entry's signature (<a href="L5-trust-and-identity.html#c6.2.2">Layer 5, 6.2.2</a>) covers shall be, in
 order: <strong>subject</strong> (32 bytes, the revoked certificate's member public key) ||
 <strong>epoch</strong> (8 bytes, unsigned, big-endian) || <strong>sequence</strong> (8 bytes, unsigned,
 big-endian) || <strong>reason</strong> (1 byte: 0 compromise, 1 eviction, 2 retirement,
@@ -410,7 +410,7 @@ big-endian) || <strong>reason</strong> (1 byte: 0 compromise, 1 eviction, 2 reti
 <p>Note 1 to entry: Excluding the advisory time is deliberate twice over: signing an
 operator's clock would let that clock change an entry's identity, and 6.2.2 already bars
 any decision from reading it — a field nothing may act on has no business inside a
-signature. <strong>Covering the reason is equally deliberate</strong>: Layer 5, 8.2 grades the grace
+signature. <strong>Covering the reason is equally deliberate</strong>: <a href="L5-trust-and-identity.html#c8.2">Layer 5, 8.2</a> grades the grace
 period by reason, so a substitutable reason would let a compromise eviction — which
 carries zero grace — be downgraded to one that does not.</p>
 <p>Note 2 to entry: Without this clause every implementation invents the byte order, which
@@ -419,8 +419,8 @@ each other's revocations, so <strong>an evicted member stays a member on half th
 permanently</strong>, and 6.2.1's never-pruned set means nothing ever corrects it. <em>(Layout
 proposed by the core lane while fixing the 6.2.2b defect, and offered as a starting
 point rather than a claim.)</em></p>
-<h2 id="5b-persona-disposition-record-a-conforming-construction-for-l6-553a">5b Persona disposition record (a conforming construction for L6 5.5.3a)</h2>
-<p><strong>5b.1</strong> <strong>This clause is informative.</strong> Layer 6, 5.5.3a states the properties a persona
+<h2 id="5b-persona-disposition-record-a-conforming-construction-for-l6-553a">5b Persona disposition record (a conforming construction for <a href="L6-management.html#c5.5.3a">L6 5.5.3a</a>)</h2>
+<p><strong>5b.1</strong> <strong>This clause is informative.</strong> <a href="L6-management.html#c5.5.3a">Layer 6, 5.5.3a</a> states the properties a persona
 disposition must have; a platform whose durable storage offers an atomic transition of its
 own may satisfy them by other means. Nothing in 5b is a conformance requirement, and an
 implementation is not less conformant for choosing a different construction.</p>
@@ -428,13 +428,13 @@ implementation is not less conformant for choosing a different construction.</p>
 <strong>generation</strong> (unsigned, monotonically increasing), the <strong>disposition</strong> it records, and a
 <strong>validating field</strong> over everything before it. A reader takes the complete record of
 highest generation as selected; a record whose validating field does not check is not
-complete and is not a candidate. Where neither record is complete, Layer 6, 5.5.4 applies
+complete and is not a candidate. Where neither record is complete, <a href="L6-management.html#c5.5.4">Layer 6, 5.5.4</a> applies
 and the device is nobody's.</p>
 <p><strong>5b.3</strong> A writer targets <strong>whichever record is not currently selected</strong>, writes it with a
 generation one above the selected one, and writes its validating field last. The selected
 disposition therefore changes at the instant the validating field completes — <strong>the
 transition is the completion of the checksum, not the start of the write</strong> — so there is no
-instant at which a partial state is the selected one, which is the property Layer 6, 5.5.3
+instant at which a partial state is the selected one, which is the property <a href="L6-management.html#c5.5.3">Layer 6, 5.5.3</a>
 requires.</p>
 <p>Note 1 to entry: <strong>The construction is testable by walking every prefix of the write</strong> —
 truncate the write at each byte offset in turn and assert that a complete disposition is
@@ -445,14 +445,14 @@ point, not a claim, on the same footing as 5a.)</em></p>
 <p><strong>5b.4</strong> An implementation of this construction should state its acceptance conditions in
 full — each condition, in order, at the point where the record is parsed — and should state
 <strong>which fields the validating field covers</strong> and which conditions are checked separately on
-top of it. Layer 6, 5.5.1 guarantees a second reader written independently (5.5.3a Note 3),
-and <code>01-terminology.md</code> 5.4b is what makes the two comparable.</p>
+top of it. <a href="L6-management.html#c5.5.1">Layer 6, 5.5.1</a> guarantees a second reader written independently (5.5.3a Note 3),
+and <a href="01-terminology.html#c5.4b"><code>01-terminology.md</code> 5.4b</a> is what makes the two comparable.</p>
 <p>Note 2 to entry: <strong>Nothing here says where the records live</strong>, and deliberately so — erase
-granularity, wear levelling and partition layout are platform facts, and Layer 6, 5.5.1
+granularity, wear levelling and partition layout are platform facts, and <a href="L6-management.html#c5.5.1">Layer 6, 5.5.1</a>
 requires the recovery layer and the stack to share no code, <strong>not</strong> to share no storage.
 What they must agree on is this record's layout, which is why it is written down.</p>
 <h2 id="5c-firmware-identity-settles-ss133--core-1">5c Firmware identity (settles SS133 / <code>CORE-1</code>)</h2>
-<p><strong>5c.1</strong> The firmware identity of Layer 6, 6.1.3 shall be one definite-length CBOR map with
+<p><strong>5c.1</strong> The firmware identity of <a href="L6-management.html#c6.1.3">Layer 6, 6.1.3</a> shall be one definite-length CBOR map with
 integer keys:</p>
 <div class="table-wrap"><table>
 <thead>
@@ -488,19 +488,19 @@ as zero, as an empty string, or as any other placeholder.</p>
 <strong>directly comparable with the package an operator holds</strong> — which is the only question a
 firmware identity is asked. A free-text version banner answers a different question and
 answers it differently on every platform.</p>
-<p>Note 2 to entry: 5c.2 is <code>01-terminology.md</code> 5.3 at a public reporting surface, and the
+<p>Note 2 to entry: 5c.2 is <a href="01-terminology.html#c5.3"><code>01-terminology.md</code> 5.3</a> at a public reporting surface, and the
 harm of the alternative is concrete: a hive whose image position is unreadable (Layer 6,
 5.4.2 Note 0) cannot state a sequence, and <strong>a substituted 0 reads as <em>the first package
 ever</em></strong> — an operator comparing it against their own record concludes the device is
 catastrophically behind, and the repair they attempt is the wrong one. <strong>Absent is a fact;
 zero is a lie with a plausible interpretation.</strong></p>
-<h2 id="6-capability-contract-registry-settles-ss36-ss38-frames-q32s-home">6 Capability-contract registry (settles SS36, SS38; frames Q32's home)</h2>
-<p><strong>6.1</strong> A capability contract names, for one capability identifier: the descriptor a
+<span class="clause-anchor" id="c6"></span><h2 id="6-capability-contract-registry-settles-ss36-ss38-frames-q32s-home">6 Capability-contract registry (settles SS36, SS38; frames Q32's home)</h2>
+<p><strong class="clause" id="c6.1">6.1</strong> A capability contract names, for one capability identifier: the descriptor a
 provider publishes, the events it consumes and emits with their parameter schemas
 (CBOR, L4 Clause 11), and the semantics an implementer cannot infer from the schema.
 A contract shall state all three; a capability identifier without a contract in this
 registry is deployment-local and carries no interop claim.</p>
-<p><strong>6.1b</strong> Each entry of this registry shall state all three parts of 6.1 — descriptor,
+<p><strong class="clause" id="c6.1b">6.1b</strong> Each entry of this registry shall state all three parts of 6.1 — descriptor,
 events with their schemas, and the semantics not inferable from the schema — or state
 explicitly that a part is deployment-local and why.</p>
 <p>Note 1 to entry: 6.1b is a check on this registry rather than on an implementation,
@@ -509,7 +509,7 @@ named its descriptor only obliquely, while 6.2 next door named a full core set. 
 was found by an implementer binding the contract, not by anyone reading it</strong> — which is
 the argument for stating the check rather than trusting the pattern.
 <em>(Added 2026-08-02 on composer-lane evidence.)</em></p>
-<p><strong>6.1a Registering a contract claims the name.</strong> A contract's entry claims its
+<p><strong class="clause" id="c6.1a">6.1a Registering a contract claims the name.</strong> A contract's entry claims its
 identifier and the meaning stated for it, and <strong>two contracts shall not claim
 semantically distinct meanings under one term</strong>. Where two uses of a term differ in
 meaning, they take different terms, however natural the shared word.</p>
@@ -525,7 +525,7 @@ named for <em>presence</em> meaning a human detected by radar. They hash distinc
 nothing breaks today; an operator or an agent searching the term finds both and cannot
 tell which is which. <strong>Cheap to state now, unfixable in the field later.</strong>
 <em>(Added 2026-08-02 on composer-lane evidence.)</em></p>
-<p><strong>6.2 Display</strong> — <code>ai.reality2.cap.display</code>. <code>PROVISIONAL(SS36)</code>, corrected to the
+<p><strong class="clause" id="c6.2">6.2 Display</strong> — <code>ai.reality2.cap.display</code>. <code>PROVISIONAL(SS36)</code>, corrected to the
 composer-lane catalogue truth (review 2026-08-01): the descriptor core set is
 <code>{kind, width, height, colour, text_rows}</code> — <code>width</code>/<code>height</code> are <strong>pixel</strong>
 dimensions and <code>text_rows</code> is a <strong>separate</strong> capacity axis (a 160×80 colour panel
@@ -537,7 +537,7 @@ driver-local). The load-bearing semantic the contract states: <strong>the severi
 adaptation rule</strong> — semantic severity in, presentation out: colour on colour
 panels, glyph/prefix on mono, top-N on row-limited displays. Reference instance:
 DFR1195 = ST7735S (inferred), 160×80, RGB565.</p>
-<p><strong>6.3 Presence/occupancy</strong> — <code>ai.reality2.cap.presence</code>. <code>PROVISIONAL(SS38)</code>.
+<p><strong class="clause" id="c6.3">6.3 Presence/occupancy</strong> — <code>ai.reality2.cap.presence</code>. <code>PROVISIONAL(SS38)</code>.
 <strong>Descriptor core set:</strong> <code>{range_max, decay}</code> — <code>range_max</code> the sensing envelope in
 metres, <code>decay</code> in seconds (below); optionally <code>field_of_view</code> in degrees, and
 <code>multi_subject</code> stating whether the provider can distinguish more than one subject.
@@ -581,7 +581,7 @@ remain right for a presence sensor <strong>on the argument above and on no obser
 first implementer to bind a real presence part should expect to correct them.
 <em>(Corrected 2026-08-02 on the supervisor's hardware brief and the composer lane's own
 retraction; findings SS159, SS164.)</em></p>
-<p><strong>6.4 Scalar environment</strong> — <code>ai.reality2.cap.env.scalar</code> is the existing catalogue
+<p><strong class="clause" id="c6.4">6.4 Scalar environment</strong> — <code>ai.reality2.cap.env.scalar</code> is the existing catalogue
 form for single-value sensors and is registered as-is: <code>{value: float, unit: tstr}</code>.
 <code>PROVISIONAL(SS38)</code>.</p>
 <p>Note 1 to entry: <strong>The mandatory <code>unit</code> is load-bearing and there is now a measured instance
@@ -596,9 +596,9 @@ value.</strong></p>
 to a surface, not occupancy — see 6.3 Note 3 — so a level or distance ensemble is
 <code>env.scalar</code>, and the presence contract's binding is still owed by whichever part first
 provides one.</p>
-<h2 id="7-definition-and-score-formats-settles-q32">7 Definition and score formats (settles Q32)</h2>
-<p><strong>7.1</strong> The <strong>definition format</strong> (a sentant's behaviour as data, Layer 7) and the <strong>score
-format</strong> (an ensemble's parts and their conversation, Layer 7, 7.2) are specified in this
+<span class="clause-anchor" id="c7"></span><h2 id="7-definition-and-score-formats-settles-q32">7 Definition and score formats (settles Q32)</h2>
+<p><strong class="clause" id="c7.1">7.1</strong> The <strong>definition format</strong> (a sentant's behaviour as data, Layer 7) and the <strong>score
+format</strong> (an ensemble's parts and their conversation, <a href="L7-application.html#c7.2">Layer 7, 7.2</a>) are specified in this
 clause. <code>PROVISIONAL(supervisor)</code> throughout: distilled 2026-08-02 from the imported corpus
 of 7.2, with every departure from that corpus named at the clause that departs.</p>
 <p>Note 0 to 7.2: <strong>Every <code>R2-*</code> document cited anywhere in this companion is SUPERSEDED
@@ -609,7 +609,7 @@ provenance; do not build from them. <strong><code>imports/README.md</code> names
 this lane</strong> — d007 for core, and d017 verbatim for every platform target. <em>(Written after a peer
 lane found that a ruling phrased about DIRECTORIES made it search directories and miss the
 sibling class entirely: <strong>a ruling's noun shapes the search that applies it.</strong>)</em></p>
-<p><strong>7.2</strong> The substance is imported rather than reinvented: corpus <code>R2-DEF.md</code> at spec
+<p><strong class="clause" id="c7.2">7.2</strong> The substance is imported rather than reinvented: corpus <code>R2-DEF.md</code> at spec
 DEF 0.14 is held verbatim at <code>imports/R2-DEF-0.14.md</code> (provenance verified 2026-08-01:
 r2-specifications commit <code>3932727</code>, 1811 lines, sha256 prefix <code>8ecb5df83b24864f</code>;
 recomputed on every run of the requirements gate since 2026-08-02 — <code>PROVENANCE.md</code>
@@ -620,68 +620,68 @@ examples, deprecations, rationale and open questions. This clause carries <stron
 the examples stay in the import. Where the import states a behaviour without stating who is
 obliged, this clause names the party — and where it states two things in one sentence, they
 are two requirements here.</p>
-<h3 id="73-two-rules-the-deployed-history-proves-load-bearing">7.3 Two rules the deployed history proves load-bearing</h3>
+<span class="clause-anchor" id="c7.3"></span><h3 id="73-two-rules-the-deployed-history-proves-load-bearing">7.3 Two rules the deployed history proves load-bearing</h3>
 <p><em>(composer lane, d013 evidence.)</em></p>
-<p><strong>7.3.1</strong> A definition or score validator shall reject a document carrying a field no schema
+<p><strong class="clause" id="c7.3.1">7.3.1</strong> A definition or score validator shall reject a document carrying a field no schema
 defines.</p>
-<p><strong>7.3.2</strong> A consumer meeting an unresolvable or unrecognised versioned reference
+<p><strong class="clause" id="c7.3.2">7.3.2</strong> A consumer meeting an unresolvable or unrecognised versioned reference
 (<code>name@ver</code>) shall fail with an error.</p>
-<p><strong>7.3.3</strong> Such a consumer shall not substitute an absent value.</p>
+<p><strong class="clause" id="c7.3.3">7.3.3</strong> Such a consumer shall not substitute an absent value.</p>
 <p>Note 1 to entry: Of ten deployed scores exactly one drifted, carrying fields no schema
 defines. <strong>A validator without rejection accumulates deployment-local dialect silently</strong> —
 and the drifted file becomes the model the next author copies. Note 2 to entry: a
 pre-migration consumer once silently emitted empty values for every migrated entry, caught
 only by a negative control; <strong>every ref-shape migration pairs with a nothing-emitted-empty
-regression gate</strong> (<code>01-terminology.md</code> 4.2).</p>
-<h3 id="74-the-definition-document">7.4 The definition document</h3>
-<p><strong>7.4.1</strong> A sentant definition shall carry a <code>name</code> and a <code>description</code>, each a non-empty
+regression gate</strong> (<a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a>).</p>
+<span class="clause-anchor" id="c7.4"></span><h3 id="74-the-definition-document">7.4 The definition document</h3>
+<p><strong class="clause" id="c7.4.1">7.4.1</strong> A sentant definition shall carry a <code>name</code> and a <code>description</code>, each a non-empty
 string, and at least one automation.</p>
-<p><strong>7.4.2</strong> A sentant definition shall carry a <code>class</code>: a non-empty UTF-8 string declaring the
-sentant's type convention, in the reverse-DNS form Layer 2, 5.5 hashes.</p>
+<p><strong class="clause" id="c7.4.2">7.4.2</strong> A sentant definition shall carry a <code>class</code>: a non-empty UTF-8 string declaring the
+sentant's type convention, in the reverse-DNS form <a href="L2-capability-and-discovery.html#c5.5">Layer 2, 5.5</a> hashes.</p>
 <p>Note 1 to entry: <strong>This was drafted as a <em>should</em> and the part it serves says <em>shall</em>.</strong>
-Layer 7, 4.2.1 requires a definition to carry <em>automations, class, public events, plugin
+<a href="L7-application.html#c4.2.1">Layer 7, 4.2.1</a> requires a definition to carry <em>automations, class, public events, plugin
 bindings and initial vars</em>; the imported corpus marks class RECOMMENDED and keeps
 class-less definitions valid, and <strong>this clause followed the import over the part it is a
 companion to.</strong> Where a companion and a part disagree, <strong>the part is right</strong> — and the
 practical consequence is not cosmetic: Layer 2's discovery and 5.5's class hash have nothing
 to name for a class-less sentant. <em>(Corrected 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding
 SS209, raised by an independent review.)</em></p>
-<p><strong>7.4.2a</strong> A sentant definition shall carry a <code>public_events</code> array, each entry the name of
+<p><strong class="clause" id="c7.4.2a">7.4.2a</strong> A sentant definition shall carry a <code>public_events</code> array, each entry the name of
 an event the sentant declares as its accepted external interface.</p>
-<p><strong>7.4.2b</strong> A sentant definition shall carry a <code>plugins</code> array, each entry the name of a
+<p><strong class="clause" id="c7.4.2b">7.4.2b</strong> A sentant definition shall carry a <code>plugins</code> array, each entry the name of a
 plugin the definition binds.</p>
 <p>Note 2 to entry: <strong>7.4.2a and 7.4.2b close an omission that made a Layer 7 requirement
-unwritable.</strong> Layer 7, 4.2.1 obliges a definition to carry <em>automations, class, <strong>public
+unwritable.</strong> <a href="L7-application.html#c4.2.1">Layer 7, 4.2.1</a> obliges a definition to carry <em>automations, class, <strong>public
 events</strong>, <strong>plugin bindings</strong> and initial vars</em>; <strong>this clause set provided no obligation and
 no key for either</strong>, and 7.3.1 rejects a field no schema defines — <strong>so an author who wrote
 one was refused, and one who did not was conformant with a document Layer 7 forbids.</strong>
-<strong>Layer 7, 5.2.1 — which makes a sentant's public events its declared
+<strong><a href="L7-application.html#c5.2.1">Layer 7, 5.2.1</a> — which makes a sentant's public events its declared
 external contract and requires its hive to advertise exactly those — had no source document at
 all</strong>, and Layer 2's
 advertisement had nothing to carry. <strong>An empty array is a declaration of no public events and
-is not the same as the key being absent</strong> (<code>01-terminology.md</code> 5.1). <em>The sharpest part of the
+is not the same as the key being absent</strong> (<a href="01-terminology.html#c5.1"><code>01-terminology.md</code> 5.1</a>). <em>The sharpest part of the
 finding: Note 1 above quotes that list of five and acts on one of them.</em> <em>(Added 2026-08-02,
 <code>PROVISIONAL(supervisor)</code>; findings F2 and F3 of the Clause 7 pass, D-137.)</em></p>
-<p><strong>7.4.3</strong> A definition's <code>data</code> map, where present, shall have string keys.</p>
-<p><strong>7.4.3a</strong> The values of that map shall be strings, numbers, booleans, arrays, or maps of
+<p><strong class="clause" id="c7.4.3">7.4.3</strong> A definition's <code>data</code> map, where present, shall have string keys.</p>
+<p><strong class="clause" id="c7.4.3a">7.4.3a</strong> The values of that map shall be strings, numbers, booleans, arrays, or maps of
 the same.</p>
-<p><strong>7.4.3b</strong> A hive shall initialise a sentant's variables from its <code>data</code> map at instantiation.</p>
-<p>Note 1a to entry: <strong>7.4.3b names what <code>data</code> IS.</strong> Layer 7, 4.2.1 obliges a definition to
-carry <strong>initial vars</strong> and Layer 7, 3.2 defines <em>vars</em>; this clause set carried a <code>data</code> map
+<p><strong class="clause" id="c7.4.3b">7.4.3b</strong> A hive shall initialise a sentant's variables from its <code>data</code> map at instantiation.</p>
+<p>Note 1a to entry: <strong>7.4.3b names what <code>data</code> IS.</strong> <a href="L7-application.html#c4.2.1">Layer 7, 4.2.1</a> obliges a definition to
+carry <strong>initial vars</strong> and <a href="L7-application.html#c3.2">Layer 7, 3.2</a> defines <em>vars</em>; this clause set carried a <code>data</code> map
 and <strong>never said the two were the same thing</strong>, so Layer 7's requirement had no carrier and
 7.7.1a resolved templates against <em>the sentant's variables</em> — <strong>a term bound to no field in
 this document.</strong> The imported corpus states the binding twice; <strong>the field came across and the
 sentence that made it usable did not</strong>, which is the distillation mechanism registered as
 SS233. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; finding F4, D-137.)</em></p>
-<p><strong>7.4.4</strong> A definition shall declare its storage disposition as exactly one of <strong>volatile</strong>
+<p><strong class="clause" id="c7.4.4">7.4.4</strong> A definition shall declare its storage disposition as exactly one of <strong>volatile</strong>
 (neither definition nor state survives a <strong>restart</strong>), <strong>durable</strong> (the definition survives a
 restart; the sentant starts fresh), or <strong>durable-state</strong> (both survive a restart; the sentant
 resumes from its last snapshot), and a definition stating none is volatile.</p>
-<p><strong>7.4.4a</strong> A hive shall not retain a definition or state declared <strong>volatile</strong> across a
+<p><strong class="clause" id="c7.4.4a">7.4.4a</strong> A hive shall not retain a definition or state declared <strong>volatile</strong> across a
 restart, whatever the platform's storage makes possible.</p>
-<p><strong>7.4.5</strong> A hive performing a sentant declared <code>durable-state</code> shall tolerate the loss of
+<p><strong class="clause" id="c7.4.5">7.4.5</strong> A hive performing a sentant declared <code>durable-state</code> shall tolerate the loss of
 state written since its last snapshot.</p>
-<p>Note 0 to entry: <strong>This clause said <em>power cycle</em> where Layer 7, 4.2.2 says <em>restart</em>, and
+<p>Note 0 to entry: <strong>This clause said <em>power cycle</em> where <a href="L7-application.html#c4.2.2">Layer 7, 4.2.2</a> says <em>restart</em>, and
 the difference is not a synonym.</strong> A <strong>warm restart</strong> is a restart and not a power cycle, so
 the earlier wording <strong>permitted a volatile definition to survive one</strong> — by omission, not by
 statement. <strong>The part carries no warm-or-cold qualifier and the companion's silence cannot
@@ -694,7 +694,7 @@ still there. <em>(This note carried that as an obligation until the gate
 refused it — a requirement in a note is invisible to every register, SS222 — and the word for
 it is avoided here because the denominator counts the token wherever it appears, including in
 a sentence about the token.)</em> <em>(Corrected 2026-08-02, <code>PROVISIONAL(supervisor)</code>, on the first of the sixteen
-findings held at D-127; ruled by the supervisor against L7 4.2.2 read byte-exact.)</em></p>
+findings held at D-127; ruled by the supervisor against <a href="L7-application.html#c4.2.2">L7 4.2.2</a> read byte-exact.)</em></p>
 <p>Note 1 to entry: <strong>Storage disposition and eviction are different questions and the words
 sound alike.</strong> Storage is about surviving a <strong>restart</strong>; eviction is about surviving
 <strong>inactivity</strong> (Layer 7's lifecycle). The combination <em>durable</em> plus evictable is the one
@@ -702,27 +702,27 @@ constrained devices want: many definitions on flash, instantiated only when an e
 for them, with the hive acting as a lazy loader. Note 2 to entry: 7.4.5 is stated because
 snapshots are periodic and a hard power cut lands between them — <strong>an author needing exact
 recovery checkpoints explicitly, by event</strong>, and a clause that implied otherwise would be
-promising what no platform delivers (<code>01-terminology.md</code> 5.4).</p>
-<h3 id="75-automations">7.5 Automations</h3>
-<p><strong>7.5.1</strong> An automation shall carry a <code>name</code> unique within its sentant, and an array of
+promising what no platform delivers (<a href="01-terminology.html#c5.4"><code>01-terminology.md</code> 5.4</a>).</p>
+<span class="clause-anchor" id="c7.5"></span><h3 id="75-automations">7.5 Automations</h3>
+<p><strong class="clause" id="c7.5.1">7.5.1</strong> An automation shall carry a <code>name</code> unique within its sentant, and an array of
 transitions.</p>
-<p><strong>7.5.2</strong> A transition shall name the <code>event</code> it matches.</p>
-<p><strong>7.5.2a</strong> The wildcard shall be the string <code>*</code>.</p>
-<p><strong>7.5.2b</strong> The initial marker shall be the string <code>start</code>.</p>
-<p><strong>7.5.3</strong> A loader shall take an automation's set of states to be the union of the <code>from</code> and
+<p><strong class="clause" id="c7.5.2">7.5.2</strong> A transition shall name the <code>event</code> it matches.</p>
+<p><strong class="clause" id="c7.5.2a">7.5.2a</strong> The wildcard shall be the string <code>*</code>.</p>
+<p><strong class="clause" id="c7.5.2b">7.5.2b</strong> The initial marker shall be the string <code>start</code>.</p>
+<p><strong class="clause" id="c7.5.3">7.5.3</strong> A loader shall take an automation's set of states to be the union of the <code>from</code> and
 <code>to</code> values of its transitions, excluding the wildcard and the initial marker.</p>
-<p><strong>7.5.3a</strong> A <code>from</code> or <code>to</code> value of <code>*</code> shall have the same effect as omitting it.</p>
-<p><strong>7.5.4</strong> A loader shall take the initial state to be the <code>to</code> value of a transition whose
+<p><strong class="clause" id="c7.5.3a">7.5.3a</strong> A <code>from</code> or <code>to</code> value of <code>*</code> shall have the same effect as omitting it.</p>
+<p><strong class="clause" id="c7.5.4">7.5.4</strong> A loader shall take the initial state to be the <code>to</code> value of a transition whose
 <code>from</code> is the initial marker, and where no such transition exists, the first state named in
 definition order.</p>
-<p><strong>7.5.5</strong> A transition stating no <code>from</code> shall match in any state.</p>
-<p><strong>7.5.5a</strong> A transition stating no <code>to</code> shall leave the automation in the state it was
+<p><strong class="clause" id="c7.5.5">7.5.5</strong> A transition stating no <code>from</code> shall match in any state.</p>
+<p><strong class="clause" id="c7.5.5a">7.5.5a</strong> A transition stating no <code>to</code> shall leave the automation in the state it was
 in.</p>
-<p><strong>7.5.6</strong> A hive receiving an event for which the current state has no matching transition
+<p><strong class="clause" id="c7.5.6">7.5.6</strong> A hive receiving an event for which the current state has no matching transition
 shall discard it, without error and without queueing, whatever the event's source.</p>
-<p><strong>7.5.7</strong> A hive shall hold at most one pending delayed event per event name per sentant.</p>
-<p><strong>7.5.7a</strong> A later delayed send of that event name shall replace the pending one.</p>
-<p><strong>7.5.8</strong> A hive shall not carry a pending delayed event across a restart.</p>
+<p><strong class="clause" id="c7.5.7">7.5.7</strong> A hive shall hold at most one pending delayed event per event name per sentant.</p>
+<p><strong class="clause" id="c7.5.7a">7.5.7a</strong> A later delayed send of that event name shall replace the pending one.</p>
+<p><strong class="clause" id="c7.5.8">7.5.8</strong> A hive shall not carry a pending delayed event across a restart.</p>
 <p>Note 0 to entry: <strong>7.5.2a and 7.5.3a pin two values this clause set named and never stated.</strong>
 7.5.3 excluded <em>the wildcard</em> and <em>the initial marker</em> from a state set, and 7.5.4 took the
 initial state from a transition whose <code>from</code> <strong>is the initial marker</strong> — <strong>and no clause said
@@ -739,31 +739,31 @@ sets up a transition to observe it</strong>. Stated here because an implementer 
 event and no rule would reasonably invent a dead-letter queue, and two hives would then
 disagree about whether an event was delivered. Note 2 to entry: 7.5.7 gives cancellation
 without a cancel verb — replace the timer, or move to a state that discards the event when it
-fires. Note 3 to entry: 7.5.8 is what Layer 0, 5.2 already implies for any interval spanning a
+fires. Note 3 to entry: 7.5.8 is what <a href="L0-hardware-and-runtime.html#c5.2">Layer 0, 5.2</a> already implies for any interval spanning a
 power cycle; it is repeated here because the alternative reading — a timer restored at boot —
 fires an event whose originating state no longer exists.</p>
-<h3 id="76-actions">7.6 Actions</h3>
-<p><strong>7.6.1</strong> An action shall name exactly one of a <code>command</code> from the set <strong>send</strong>, <strong>set</strong>,
+<span class="clause-anchor" id="c7.6"></span><h3 id="76-actions">7.6 Actions</h3>
+<p><strong class="clause" id="c7.6.1">7.6.1</strong> An action shall name exactly one of a <code>command</code> from the set <strong>send</strong>, <strong>set</strong>,
 <strong>debug</strong>, <strong>test</strong>, or a <code>plugin</code> with the command to invoke on it.</p>
-<p><strong>7.6.2</strong> A hive shall execute a transition's actions in the order written, passing to each
+<p><strong class="clause" id="c7.6.2">7.6.2</strong> A hive shall execute a transition's actions in the order written, passing to each
 action the accumulated parameter map, so that a value set by an earlier action is visible to
 a later one.</p>
-<p><strong>7.6.3</strong> A <code>send</code> action shall name the <code>event</code> to send, and where it names no target the
+<p><strong class="clause" id="c7.6.3">7.6.3</strong> A <code>send</code> action shall name the <code>event</code> to send, and where it names no target the
 event goes to the sending sentant.</p>
-<p><strong>7.6.4</strong> A <code>set</code> action shall name the <code>key</code> it writes.</p>
-<p><strong>7.6.4a</strong> A <code>set</code> action stating no value shall clear that variable.</p>
-<p><strong>7.6.5</strong> A <code>test</code> action shall name the <code>condition</code> it evaluates.</p>
-<p><strong>7.6.5a</strong> A <code>test</code> action shall execute its <code>true</code> branch where the condition holds and its
+<p><strong class="clause" id="c7.6.4">7.6.4</strong> A <code>set</code> action shall name the <code>key</code> it writes.</p>
+<p><strong class="clause" id="c7.6.4a">7.6.4a</strong> A <code>set</code> action stating no value shall clear that variable.</p>
+<p><strong class="clause" id="c7.6.5">7.6.5</strong> A <code>test</code> action shall name the <code>condition</code> it evaluates.</p>
+<p><strong class="clause" id="c7.6.5a">7.6.5a</strong> A <code>test</code> action shall execute its <code>true</code> branch where the condition holds and its
 <code>false</code> branch where it does not.</p>
-<p><strong>7.6.6</strong> A plugin invocation shall be delivered to the plugin as an event.</p>
-<p><strong>7.6.6a</strong> A plugin invocation shall not appear on the wire.</p>
-<p><strong>7.6.6b</strong> A plugin invocation shall not be observable by another sentant.</p>
-<p><strong>7.6.7</strong> A plugin invocation shall return no value to the action pipeline.</p>
-<p><strong>7.6.7a</strong> A plugin reporting a result shall do so by sending an event to the invoking
+<p><strong class="clause" id="c7.6.6">7.6.6</strong> A plugin invocation shall be delivered to the plugin as an event.</p>
+<p><strong class="clause" id="c7.6.6a">7.6.6a</strong> A plugin invocation shall not appear on the wire.</p>
+<p><strong class="clause" id="c7.6.6b">7.6.6b</strong> A plugin invocation shall not be observable by another sentant.</p>
+<p><strong class="clause" id="c7.6.7">7.6.7</strong> A plugin invocation shall return no value to the action pipeline.</p>
+<p><strong class="clause" id="c7.6.7a">7.6.7a</strong> A plugin reporting a result shall do so by sending an event to the invoking
 sentant, handled by a transition of its own.</p>
-<p><strong>7.6.8</strong> A definition shall not state where a plugin runs or how it is implemented.</p>
-<p><strong>7.6.9</strong> A hive shall not terminate a sentant because an action failed at run time.</p>
-<p><strong>7.6.9a</strong> A hive shall skip a failed action and perform the state change the transition
+<p><strong class="clause" id="c7.6.8">7.6.8</strong> A definition shall not state where a plugin runs or how it is implemented.</p>
+<p><strong class="clause" id="c7.6.9">7.6.9</strong> A hive shall not terminate a sentant because an action failed at run time.</p>
+<p><strong class="clause" id="c7.6.9a">7.6.9a</strong> A hive shall skip a failed action and perform the state change the transition
 states.</p>
 <p>Note 1 to entry: <strong>7.6.6 was drafted the wrong way round and Layer 7 decides it.</strong> Layer 7,
 6.1.1 requires a plugin to interact with its hive and with sentants <strong>through events alone</strong>;
@@ -780,14 +780,14 @@ transition that consumes it, and expresses <em>and if it never comes</em> with a
 (7.5.7). A clause promising a return value would oblige every hive to block a state machine
 on a remote service. Note 3 to entry: 7.6.9 keeps a definition error from taking a device
 down; it is deliberately <strong>not</strong> silence — Layer 7's reporting obligations still apply, and
-<code>01-terminology.md</code> 5.3 governs the case where the hive cannot tell whether the action ran.</p>
-<h3 id="77-parameter-templating">7.7 Parameter templating</h3>
-<p><strong>7.7.1</strong> A template expression shall be written <code>{{</code> … <code>}}</code>.</p>
-<p><strong>7.7.1a</strong> A template expression shall name its source as one of <code>params</code> (the incoming
+<a href="01-terminology.html#c5.3"><code>01-terminology.md</code> 5.3</a> governs the case where the hive cannot tell whether the action ran.</p>
+<span class="clause-anchor" id="c7.7"></span><h3 id="77-parameter-templating">7.7 Parameter templating</h3>
+<p><strong class="clause" id="c7.7.1">7.7.1</strong> A template expression shall be written <code>{{</code> … <code>}}</code>.</p>
+<p><strong class="clause" id="c7.7.1a">7.7.1a</strong> A template expression shall name its source as one of <code>params</code> (the incoming
 event's parameters), <code>vars</code> (the sentant's variables), <code>event</code> (the triggering event's name),
 or <code>sender</code> (the sender's name).</p>
-<p><strong>7.7.2</strong> A template expression shall resolve nested values by dot notation.</p>
-<p><strong>7.7.3</strong> An implementation of this standard shall not accept the legacy <code>__name__</code>
+<p><strong class="clause" id="c7.7.2">7.7.2</strong> A template expression shall resolve nested values by dot notation.</p>
+<p><strong class="clause" id="c7.7.3">7.7.3</strong> An implementation of this standard shall not accept the legacy <code>__name__</code>
 substitution form.</p>
 <p>Note 0 to entry: <strong>7.7.1a listed four sources and required none of them to be named</strong>, so a
 bare <code>{{x}}</code> was permitted to resolve by searching them in some order — <strong>which is exactly the
@@ -813,20 +813,20 @@ semantic, not mechanical: each occurrence needs a decision about which source it
 a converter can find them but cannot resolve them. <em>Stated because a departure that
 under-states its cost is a departure nobody budgets for.</em> <em>(<code>PROVISIONAL(supervisor)</code>; a ruling that reverses this restores a rule nobody
 has yet implemented, which is the cheap direction.)</em></p>
-<h3 id="78-the-score-document">7.8 The score document</h3>
-<p><strong>7.8.1</strong> A score shall carry a <code>name</code>, a <code>description</code>, a <code>version</code> naming the version of
+<span class="clause-anchor" id="c7.8"></span><h3 id="78-the-score-document">7.8 The score document</h3>
+<p><strong class="clause" id="c7.8.1">7.8.1</strong> A score shall carry a <code>name</code>, a <code>description</code>, a <code>version</code> naming the version of
 its content, a <code>schema version</code> naming the version of this clause it targets, and at least
 one part.</p>
-<p><strong>7.8.1b</strong> A score shall carry a <code>class</code>, in the same reverse-DNS form as 7.4.2.</p>
-<p>Note 1 to entry: Layer 7, 7.1.3 requires an ensemble to have <strong>a name, a class and a
+<p><strong class="clause" id="c7.8.1b">7.8.1b</strong> A score shall carry a <code>class</code>, in the same reverse-DNS form as 7.4.2.</p>
+<p>Note 1 to entry: <a href="L7-application.html#c7.1.3">Layer 7, 7.1.3</a> requires an ensemble to have <strong>a name, a class and a
 version</strong>, and this clause carried name and version and not class. <strong>The score is the
 document by which an ensemble is authored and distributed</strong>, so a score that cannot state
 the ensemble's class cannot express what Layer 7 requires the ensemble to have. <em>(Added
 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS209.)</em></p>
-<p><strong>7.8.1a</strong> The keys of a score shall be spelled exactly: <code>name</code>, <code>description</code>, <code>class</code>,
+<p><strong class="clause" id="c7.8.1a">7.8.1a</strong> The keys of a score shall be spelled exactly: <code>name</code>, <code>description</code>, <code>class</code>,
 <code>version</code>, <code>schema_version</code>, <code>parts</code>, and — where present — <code>plugins</code>, <code>registrations</code>, <code>capabilities</code>,
 <code>trust_group</code>, <code>required_transports</code>, <code>compile_target</code>, <code>signatures</code>, <code>unsigned</code>.</p>
-<p><strong>7.8.1e</strong> The keys of a part shall be spelled exactly: <code>name</code>, <code>description</code>, <code>class</code>,
+<p><strong class="clause" id="c7.8.1e">7.8.1e</strong> The keys of a part shall be spelled exactly: <code>name</code>, <code>description</code>, <code>class</code>,
 <code>storage</code>, <code>data</code>, <code>plugins</code>, <code>public_events</code>, <code>automations</code>, <code>include</code>, <code>runtime_executable</code>.</p>
 <p>Note 1 to entry: <strong>7.3.1 rejects a field no schema defines, so an unpinned spelling is not a
 stylistic question — it is an interoperability failure with a refusal at the end of it.</strong> Two
@@ -847,37 +847,37 @@ documents themselves — <strong>so it is a migration rather than an edit, and o
 entries lanes may be flashing against.</strong> <em>The renaming is not reopened by this; what is
 recorded is that the cost sits with the holder of the catalogue rather than with the importer.</em> <em>(Added 2026-08-02,
 <code>PROVISIONAL(supervisor)</code>, finding SS208, raised by an independent review of this clause.)</em></p>
-<p><strong>7.8.2</strong> A score's part shall be either an inline definition or a reference to a definition
+<p><strong class="clause" id="c7.8.2">7.8.2</strong> A score's part shall be either an inline definition or a reference to a definition
 document.</p>
-<p><strong>7.8.2a</strong> A part given by reference shall be validated as though written inline.</p>
-<p><strong>7.8.2b</strong> A part given by reference shall carry the key <code>include</code>, whose value is a versioned
+<p><strong class="clause" id="c7.8.2a">7.8.2a</strong> A part given by reference shall be validated as though written inline.</p>
+<p><strong class="clause" id="c7.8.2b">7.8.2b</strong> A part given by reference shall carry the key <code>include</code>, whose value is a versioned
 reference of the form <code>name@version</code>.</p>
 <p>Note 0 to entry: <strong><code>include</code> was admitted as a part key and defined nowhere.</strong> 7.8.2 said a
 part is <em>either an inline definition or a reference to a definition document</em> <strong>without naming
 the key or its syntax</strong>, while 7.3.1 rejects a field no schema defines — <strong>so the schema named
 a field it did not define.</strong> The <code>name@version</code> form is the one 7.3.2 already refuses to
 resolve loosely. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; finding F16, D-138.)</em></p>
-<p><strong>7.8.3</strong> A score shall declare each part's <code>runtime executable</code> disposition, and a part
+<p><strong class="clause" id="c7.8.3">7.8.3</strong> A score shall declare each part's <code>runtime executable</code> disposition, and a part
 stating none is runtime-executable.</p>
-<p><strong>7.8.4</strong> A hive shall not load a part declared not runtime-executable.</p>
-<p><strong>7.8.5</strong> Plugin names shall be unique within a score.</p>
-<p><strong>7.8.5a</strong> A hive shall namespace an ensemble-owned plugin by its score's name.</p>
-<p><strong>7.8.6</strong> A score's <code>registrations</code> map shall key each entry by the name of the hive-shared
+<p><strong class="clause" id="c7.8.4">7.8.4</strong> A hive shall not load a part declared not runtime-executable.</p>
+<p><strong class="clause" id="c7.8.5">7.8.5</strong> Plugin names shall be unique within a score.</p>
+<p><strong class="clause" id="c7.8.5a">7.8.5a</strong> A hive shall namespace an ensemble-owned plugin by its score's name.</p>
+<p><strong class="clause" id="c7.8.6">7.8.6</strong> A score's <code>registrations</code> map shall key each entry by the name of the hive-shared
 plugin it registers with.</p>
-<p><strong>7.8.6a</strong> The value of such an entry shall be that plugin's own registration payload.</p>
-<p><strong>7.8.7</strong> A hive loading a score shall register each entry of 7.8.6 with the named plugin
+<p><strong class="clause" id="c7.8.6a">7.8.6a</strong> The value of such an entry shall be that plugin's own registration payload.</p>
+<p><strong class="clause" id="c7.8.7">7.8.7</strong> A hive loading a score shall register each entry of 7.8.6 with the named plugin
 for as long as the score is present.</p>
-<p><strong>7.8.7a</strong> A hive shall unregister those entries when the score is unloaded.</p>
-<p><strong>7.8.8</strong> A hive shall refuse a registration that conflicts with one already held by another
+<p><strong class="clause" id="c7.8.7a">7.8.7a</strong> A hive shall unregister those entries when the score is unloaded.</p>
+<p><strong class="clause" id="c7.8.8">7.8.8</strong> A hive shall refuse a registration that conflicts with one already held by another
 score.</p>
-<p><strong>7.8.9</strong> A score's <code>capabilities</code> map, where present, shall state the events its parts emit
+<p><strong class="clause" id="c7.8.9">7.8.9</strong> A score's <code>capabilities</code> map, where present, shall state the events its parts emit
 and consume.</p>
-<p><strong>7.8.9a</strong> A hive shall aggregate those events into what Layer 2, Clause 8 advertises.</p>
-<p><strong>7.8.10</strong> A score's <code>trust group</code> constraints, where present, shall be satisfied by the
+<p><strong class="clause" id="c7.8.9a">7.8.9a</strong> A hive shall aggregate those events into what Layer 2, Clause 8 advertises.</p>
+<p><strong class="clause" id="c7.8.10">7.8.10</strong> A score's <code>trust group</code> constraints, where present, shall be satisfied by the
 hive's trust-group context before the score is loaded.</p>
-<p><strong>7.8.11</strong> A score's <code>required transports</code>, where present, shall name transports that are to
+<p><strong class="clause" id="c7.8.11">7.8.11</strong> A score's <code>required transports</code>, where present, shall name transports that are to
 be in service before the score is performed.</p>
-<p><strong>7.8.12</strong> An implementation shall not depend on the order in which a score's fields are
+<p><strong class="clause" id="c7.8.12">7.8.12</strong> An implementation shall not depend on the order in which a score's fields are
 written.</p>
 <p>Note 1 to entry: <strong>7.8.3 and 7.8.4 exist because a score may govern a build.</strong> A part that is
 a <strong>contract for a builder to realise</strong> and a part that is <strong>runtime-loadable</strong> are different
@@ -887,23 +887,23 @@ declared</strong>, which is the direction that fails safe — a build contract l
 worse outcome than a loadable part left unbuilt. Note 2 to entry: 7.8.8's conflicts are the
 measured ones — two scores claiming the same route prefix, or declaring types that collide in
 a stitched schema. Note 3 to entry: <strong>7.8.9 is the score's half of Layer 2's advertisement</strong>;
-a score that lies here does not gain reach, because Layer 2, 5.5.3 already refuses a class
+a score that lies here does not gain reach, because <a href="L2-capability-and-discovery.html#c5.5.3">Layer 2, 5.5.3</a> already refuses a class
 string learned from a hive that is not its own.</p>
-<h3 id="79-signing-a-score">7.9 Signing a score</h3>
-<p><strong>7.8.1c</strong> A score shall be written in YAML 1.2, JSON, or TOML.</p>
-<p><strong>7.8.1d</strong> A loader shall map a score's scalars to the CBOR types of Clause 4b before any
+<span class="clause-anchor" id="c7.9"></span><h3 id="79-signing-a-score">7.9 Signing a score</h3>
+<p><strong class="clause" id="c7.8.1c">7.8.1c</strong> A score shall be written in YAML 1.2, JSON, or TOML.</p>
+<p><strong class="clause" id="c7.8.1d">7.8.1d</strong> A loader shall map a score's scalars to the CBOR types of Clause 4b before any
 signature is computed or verified.</p>
-<p><strong>7.9.1</strong> A score distributed across a trust group shall carry at least one signature by a
+<p><strong class="clause" id="c7.9.1">7.9.1</strong> A score distributed across a trust group shall carry at least one signature by a
 key-holding member of that group.</p>
-<p><strong>7.9.2</strong> A signature shall be computed over the canonical serialisation of the score with
+<p><strong class="clause" id="c7.9.2">7.9.2</strong> A signature shall be computed over the canonical serialisation of the score with
 the signature field and its value excluded.</p>
-<p><strong>7.9.3</strong> The canonical serialisation of 7.9.2 shall be the deterministic encoding of
+<p><strong class="clause" id="c7.9.3">7.9.3</strong> The canonical serialisation of 7.9.2 shall be the deterministic encoding of
 Clause 4b over the score's parsed content.</p>
-<p><strong>7.9.4</strong> A hive shall not load an unsigned score unless that score carries an explicit
+<p><strong class="clause" id="c7.9.4">7.9.4</strong> A hive shall not load an unsigned score unless that score carries an explicit
 declaration that it is unsigned.</p>
-<p><strong>7.9.4a</strong> A hive shall reject a score whose signature field is merely absent.</p>
-<p><strong>7.9.4b</strong> The declaration of 7.9.4 shall be the key <code>unsigned</code> with the value true.</p>
-<p><strong>7.9.1a</strong> Each entry of <code>signatures</code> shall carry exactly the keys <code>signer</code>, <code>algorithm</code>,
+<p><strong class="clause" id="c7.9.4a">7.9.4a</strong> A hive shall reject a score whose signature field is merely absent.</p>
+<p><strong class="clause" id="c7.9.4b">7.9.4b</strong> The declaration of 7.9.4 shall be the key <code>unsigned</code> with the value true.</p>
+<p><strong class="clause" id="c7.9.1a">7.9.1a</strong> Each entry of <code>signatures</code> shall carry exactly the keys <code>signer</code>, <code>algorithm</code>,
 <code>signature</code>, and <code>signed_at</code>.</p>
 <p>Note 0a to entry: <strong>Without 7.8.1c and 7.9.1a, <em>one semantic signature</em> was a claim two
 implementations could not both keep.</strong> Signing the <strong>parsed content</strong> means the parse decides
@@ -916,11 +916,11 @@ author wrote. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, findi
 any field no schema defines, so <em>an explicit declaration that the score is unsigned</em> named no
 field an author could write: <strong>declaring it made the document invalid, and not declaring it
 made the score unloadable.</strong> The clause required something the format could not express — the
-defect <code>01-terminology.md</code> 4.5 exists to prevent, arriving in a clause written the same day
+defect <a href="01-terminology.html#c4.5"><code>01-terminology.md</code> 4.5</a> exists to prevent, arriving in a clause written the same day
 by the lane that wrote 4.5. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS208,
 raised by an independent review.)</em></p>
-<p><strong>7.9.5</strong> A hive shall not redistribute an unsigned score over a trust-group channel.</p>
-<p><strong>7.9.5a</strong> A hive shall treat an unsigned score received from a remote peer as a protocol
+<p><strong class="clause" id="c7.9.5">7.9.5</strong> A hive shall not redistribute an unsigned score over a trust-group channel.</p>
+<p><strong class="clause" id="c7.9.5a">7.9.5a</strong> A hive shall treat an unsigned score received from a remote peer as a protocol
 error.</p>
 <p>Note 1 to entry: <strong>7.9.3 is the second deliberate departure from the imported corpus.</strong> That
 corpus signs a hash over the YAML source text with the signature key elided. <strong>A signature
@@ -930,37 +930,37 @@ The corpus anticipates the move and requires that a publishing toolchain be able
 this clause makes the destination normative now rather than leaving two methods in the field.
 <strong>The cost is real and stated:</strong> an implementation must parse before it can verify, so a
 malformed document is rejected by the parser rather than by the verifier — which
-<code>01-terminology.md</code> 5.1 already requires of it.</p>
+<a href="01-terminology.html#c5.1"><code>01-terminology.md</code> 5.1</a> already requires of it.</p>
 <p>Note 2 to entry: <strong>7.9.4 is a correction to the imported corpus and the most important rule
 in this clause.</strong> That corpus permits a local development score to be loaded unsigned —
 <strong>with no way for a hive to know a score is local-development except that it has no
 signature.</strong> A stripped, truncated or corrupt score is then <strong>indistinguishable from a
 local-development one and loads</strong>: the gate fails open <strong>on precisely the input class it
 should be hardest on</strong>. Under 7.9.4 <strong>the exemption is earned by a declaration, never by an
-absence</strong> — which is <code>01-terminology.md</code> 5.1 (an absent value selects the more restrictive
-behaviour) reaching a signature check. <em>Falsifier, per <code>01-terminology.md</code> 4.2: strip the
+absence</strong> — which is <a href="01-terminology.html#c5.1"><code>01-terminology.md</code> 5.1</a> (an absent value selects the more restrictive
+behaviour) reaching a signature check. <em>Falsifier, per <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a>: strip the
 signature field from a valid score and it must be rejected, not loaded as local-dev; add the
 declaration and it must load; and a properly signed score must still load, or the falsifier
 proves only that loading is broken.</em></p>
 <p>Note 3 to entry: 7.9.5 bounds the blast radius of 7.9.4 and is worth reading beside it — the
 mesh path was already closed, so the fail-open the correction closes was <strong>confined to
 locally-loaded scores.</strong></p>
-<h3 id="710-validating-a-document">7.10 Validating a document</h3>
-<p><strong>7.10.1</strong> A loader shall reject a definition or score that fails any obligation of 7.4 to
+<span class="clause-anchor" id="c7.10"></span><h3 id="710-validating-a-document">7.10 Validating a document</h3>
+<p><strong class="clause" id="c7.10.1">7.10.1</strong> A loader shall reject a definition or score that fails any obligation of 7.4 to
 7.9, naming the obligation it failed.</p>
-<p><strong>7.10.2</strong> A loader shall reject an action naming a plugin the document does not declare.</p>
-<p><strong>7.10.3</strong> A builder realising a score shall verify that what it built matches what the score
+<p><strong class="clause" id="c7.10.2">7.10.2</strong> A loader shall reject an action naming a plugin the document does not declare.</p>
+<p><strong class="clause" id="c7.10.3">7.10.3</strong> A builder realising a score shall verify that what it built matches what the score
 declared.</p>
-<p><strong>7.10.4</strong> A converter producing a score from a swarm document shall carry each sentant across
+<p><strong class="clause" id="c7.10.4">7.10.4</strong> A converter producing a score from a swarm document shall carry each sentant across
 as one part, in the order the swarm wrote them.</p>
-<p><strong>7.10.5</strong> Such a converter shall supply values for <code>class</code>, <code>version</code> and <code>schema_version</code>.</p>
-<p><strong>7.10.6</strong> Such a converter shall mark the result <code>unsigned</code> where it does not sign it.</p>
+<p><strong class="clause" id="c7.10.5">7.10.5</strong> Such a converter shall supply values for <code>class</code>, <code>version</code> and <code>schema_version</code>.</p>
+<p><strong class="clause" id="c7.10.6">7.10.6</strong> Such a converter shall mark the result <code>unsigned</code> where it does not sign it.</p>
 <p>Note 1 to entry: <strong>The load-time and run-time halves are different in kind and this clause
 only governs the first.</strong> Template resolution, target resolution, plugin availability and
 expression typing cannot be decided from the document — they are the run-time errors of
 7.6.9. <strong>What can be decided from the document alone must be</strong>, because the alternative is a
 device that accepts a definition and fails in the field at a moment nobody chose. Note 2 to
-entry: 7.10.3 is the build-time form of <code>01-terminology.md</code> 5.4 — <em>the record agrees with the
+entry: 7.10.3 is the build-time form of <a href="01-terminology.html#c5.4"><code>01-terminology.md</code> 5.4</a> — <em>the record agrees with the
 world</em> — for the case where the score is the record and the built artefact is the world.</p>
 <p>Note 3 to entry: <strong>What this clause does not carry forward from the import, stated so the
 silence is legible.</strong> The <strong>swarm</strong> document — a bare grouping of definitions with no
@@ -977,19 +977,19 @@ signature field. The corpus's error identifiers are not
 carried: 7.10.1 obliges an implementation to name <strong>the obligation</strong>, and a shared identifier
 vocabulary is a separate question (<code>OPEN-QUESTIONS.md</code> SS152). <em>(Both <code>PROVISIONAL(supervisor)</code>,
 2026-08-02.)</em></p>
-<h2 id="8-conformance">8 Conformance</h2>
-<p><strong>8.1</strong> The vector discipline of Layer 4, 12.2 applies to every format here: each
+<span class="clause-anchor" id="c8"></span><h2 id="8-conformance">8 Conformance</h2>
+<p><strong class="clause" id="c8.1">8.1</strong> The vector discipline of <a href="L4-wire.html#c12.2">Layer 4, 12.2</a> applies to every format here: each
 section, when ratified, carries byte-exact vectors including required-to-fail cases.
 The identity derivation (Clause 3) and cipher envelope (Clause 4) vectors land with
 ratification of their provisional choices; a <code>tools/</code> generator accompanies them.</p>
-<p><strong>8.2</strong> Until ratification, an implementation building against a <code>PROVISIONAL</code> choice
+<p><strong class="clause" id="c8.2">8.2</strong> Until ratification, an implementation building against a <code>PROVISIONAL</code> choice
 shall mirror the mark (as r2-core mirrors vector provisionals in test comments) so
 the swap on ruling is one site, not an archaeology.</p>
-<h2 id="9-what-is-not-decided">9 What is not decided</h2>
+<span class="clause-anchor" id="c9"></span><h2 id="9-what-is-not-decided">9 What is not decided</h2>
 <p>The self-test specification interior (5.1 key 6); the definition/score content
 (Clause 7, pending import); signature scheme agility across version epochs; and the
 compact projection's collision posture beyond 3.6.</p>
-<p><strong>9.1 A score cannot state the capabilities it requires.</strong> 7.8.1a pins the score's keys
+<p><strong class="clause" id="c9.1">9.1 A score cannot state the capabilities it requires.</strong> 7.8.1a pins the score's keys
 <strong>exactly</strong>, and the list carries <code>capabilities</code> — which 7.8.9 defines as the events its parts
 <strong>emit and consume</strong>, aggregated into what Layer 2 advertises — <strong>and <code>required_transports</code>,
 which 7.8.11 defines as what must be in service before the score is performed.</strong> <strong>So the

@@ -85,6 +85,14 @@ a.doc:hover { text-decoration: none; border-color: rgba(212,168,83,0.25); transf
 .doc-label { display: block; font-weight: 600; font-size: 16px; color: var(--accent); margin-bottom: 2px; }
 .doc-desc { display: block; font-size: 14.5px; color: var(--text-dim); line-height: 1.6; }
 
+/* Clause anchors: a reference can land on the exact clause it names. */
+strong.clause { scroll-margin-top: 90px; }
+strong.clause:target {
+    background: var(--accent-glow); outline: 2px solid var(--accent);
+    outline-offset: 3px; border-radius: 3px;
+}
+a[href*="#c"] code { color: inherit; }
+
 footer {
     padding: 48px 24px; text-align: center; border-top: 1px solid var(--hair);
     font-size: 13px; color: var(--text-faint); max-width: 780px; margin: 0 auto;

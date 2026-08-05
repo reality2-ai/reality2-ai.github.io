@@ -71,7 +71,7 @@ subject the reader brought — composer, 2026-08-03.)</em>
 outside it</strong> — updating what it runs, adjusting what it is configured to do, asking it what
 state it is in. Everything here is somebody reaching into a device, which is why this layer
 is shaped almost entirely by one question: <strong>who may, and how would the device know?</strong></p>
-<p>The answers are inherited, not invented. The delivery gate is the floor (Layer 5, 7.2), and
+<p>The answers are inherited, not invented. The delivery gate is the floor (<a href="L5-trust-and-identity.html#c7.2">Layer 5, 7.2</a>), and
 management is precisely the traffic for which the floor is not enough — updating firmware
 and changing configuration are <strong>member-attributable, consequential operations</strong>, the class
 Layer 5 already says needs evidence beyond the gate. So this layer's mechanisms are largely
@@ -93,7 +93,7 @@ the hardware never hands anyone the persona.</p>
 <p><strong>Observation is tiered by build mode.</strong> Any device answers <em>what are you and are you
 alive</em>. Only a development device can answer <em>show me your insides</em> — not by policy but by
 construction, because the production image does not contain the code that would answer.</p>
-<h2 id="1-scope">1 Scope</h2>
+<span class="clause-anchor" id="c1"></span><h2 id="1-scope">1 Scope</h2>
 <p>This document specifies the authority model for management operations: who may update,
 configure and inspect a hive, and what evidence each operation requires.</p>
 <p>It specifies the update model: the classes of updatable content, the package and its
@@ -107,46 +107,46 @@ device answers, and how both are gated.</p>
 decided.</p>
 <p>It does not specify the applications being managed, which are Layer 7, or any particular
 management user interface, protocol binding or tool.</p>
-<h2 id="2-normative-references">2 Normative references</h2>
+<span class="clause-anchor" id="c2"></span><h2 id="2-normative-references">2 Normative references</h2>
 <p>The following documents are referred to in the text in such a way that some or all of
 their content constitutes requirements of this document.</p>
 <ul>
-<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<code>01-terminology.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<code>L0-hardware-and-runtime.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 2: Capability and discovery</strong> (<code>L2-capability-and-discovery.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 4: Wire protocol</strong> (<code>L4-wire.md</code>)</li>
-<li><strong>Reality2 Standard — Layer 5: Trust and identity</strong> (<code>L5-trust-and-identity.md</code>)</li>
+<li><strong>Reality2 Standard — Terminology and core definitions</strong> (<a href="01-terminology.html"><code>01-terminology.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 0: Hardware and runtime</strong> (<a href="L0-hardware-and-runtime.html"><code>L0-hardware-and-runtime.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 2: Capability and discovery</strong> (<a href="L2-capability-and-discovery.html"><code>L2-capability-and-discovery.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 4: Wire protocol</strong> (<a href="L4-wire.html"><code>L4-wire.md</code></a>)</li>
+<li><strong>Reality2 Standard — Layer 5: Trust and identity</strong> (<a href="L5-trust-and-identity.html"><code>L5-trust-and-identity.md</code></a>)</li>
 </ul>
-<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<span class="clause-anchor" id="c3"></span><h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
 <p>For the purposes of this document, the terms and definitions given in the documents listed
 in Clause 2 apply, together with the following.</p>
-<p><strong>3.1
+<p><strong class="clause" id="c3.1">3.1
 update authority</strong></p>
 <p>member appointed by its trust group to sign update packages for that group</p>
-<p><strong>3.2
+<p><strong class="clause" id="c3.2">3.2
 update package</strong></p>
 <p>signed unit of updatable content: a header naming what it is for and what it contains, a
 payload, and the authority's signature</p>
-<p><strong>3.3
+<p><strong class="clause" id="c3.3">3.3
 sequence</strong></p>
 <p>monotonically increasing number carried by an update package, per target, by which older
 packages are refused</p>
-<p><strong>3.4
+<p><strong class="clause" id="c3.4">3.4
 health check</strong></p>
 <p>test an updated hive applies to itself before committing to the update</p>
-<p><strong>3.5
+<p><strong class="clause" id="c3.5">3.5
 recovery layer</strong></p>
 <p>resident facility beneath the stack, requiring nothing from the stack, by which physical
 possession restores a device to a working image</p>
-<p><strong>3.6
+<p><strong class="clause" id="c3.6">3.6
 management surface</strong></p>
 <p>any interface by which a party outside a hive reads its state or changes its behaviour</p>
-<h2 id="4-authority">4 Authority</h2>
-<h3 id="41-who-may-manage">4.1 Who may manage</h3>
-<p><strong>4.1.1</strong> A management operation shall be accepted only from a party presenting evidence the
+<span class="clause-anchor" id="c4"></span><h2 id="4-authority">4 Authority</h2>
+<span class="clause-anchor" id="c4.1"></span><h3 id="41-who-may-manage">4.1 Who may manage</h3>
+<p><strong class="clause" id="c4.1.1">4.1.1</strong> A management operation shall be accepted only from a party presenting evidence the
 operation's class requires, and the delivery gate alone shall not authorise any management
 operation.</p>
-<p><strong>4.1.1a</strong> The evidence each operation class requires shall be:</p>
+<p><strong class="clause" id="c4.1.1a">4.1.1a</strong> The evidence each operation class requires shall be:</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -165,7 +165,7 @@ operation.</p>
 </tr>
 <tr>
 <td><strong>configure</strong> — parameters and declarative definitions</td>
-<td>member-attributable evidence (Layer 5, 7.4)</td>
+<td>member-attributable evidence (<a href="L5-trust-and-identity.html#c7.4">Layer 5, 7.4</a>)</td>
 </tr>
 <tr>
 <td><strong>update</strong> — any content class of 5.1</td>
@@ -181,7 +181,7 @@ operation.</p>
 </tr>
 <tr>
 <td><strong>cross-group management</strong></td>
-<td>entanglement at grade 3, with member-attributable evidence per act (<code>L5A-entanglement.md</code>, 9.1 and 9.2)</td>
+<td>entanglement at grade 3, with member-attributable evidence per act (<a href="L5A-entanglement.html"><code>L5A-entanglement.md</code></a>, 9.1 and 9.2)</td>
 </tr>
 </tbody>
 </table></div>
@@ -193,20 +193,20 @@ from the rest, which is why 4.2.3 and <code>L5A</code> 9.1 state them as their o
 rather than as high settings of a dial. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>:
 4.1.1 and 7.2 both bound to "the evidence the operation's class requires" and no table
 existed anywhere.)</em></p>
-<p><strong>4.1.2</strong> Update packages shall be accepted only under a valid signature of an update
+<p><strong class="clause" id="c4.1.2">4.1.2</strong> Update packages shall be accepted only under a valid signature of an update
 authority (3.1) of the receiving hive's group, or of a group whose entanglement with the
 receiving group carries management scope at the required grade.</p>
 <p>Note 1 to entry: <strong>The required grade is grade 3</strong> — an entanglement whose scope
 includes management operations is at that grade, names the managing group, the managed
 surface and the operations granted explicitly and exhaustively, and every management
 crossing carries member-attributable evidence regardless of the entanglement's other
-terms (<code>L5A-entanglement.md</code>, 9.1 and 9.2). The channel keys alone never authorise a
+terms (<a href="L5A-entanglement.html"><code>L5A-entanglement.md</code></a>, 9.1 and 9.2). The channel keys alone never authorise a
 management operation. <em>(Cross-reference made explicit 2026-08-01.)</em></p>
-<p><strong>4.1.3</strong> A group shall be able to enumerate its current update authorities on demand,
+<p><strong class="clause" id="c4.1.3">4.1.3</strong> A group shall be able to enumerate its current update authorities on demand,
 from a signed, versioned artefact, without network access to any issuer — and a holder
 list without its version shall be rejected as indistinguishable from an arbitrarily old
 one.</p>
-<p><strong>4.1.4</strong> Appointing and revoking an update authority shall be group acts, recorded as
+<p><strong class="clause" id="c4.1.4">4.1.4</strong> Appointing and revoking an update authority shall be group acts, recorded as
 certificate role and revocation at Layer 5.</p>
 <p>Note 1 to entry: 4.1.1 is Layer 5's floor rule applied to the traffic that most needs it.
 <strong>Every operation in this document is member-attributable and consequential</strong> — the class
@@ -215,12 +215,12 @@ for which passage of the gate was explicitly declared insufficient.</p>
 who was removed; <strong>nothing that cannot list who currently holds authority can notice that
 the list is wrong</strong> — and a permission model that has to phone home to find out is not one a
 mesh that is mostly offline can use.</p>
-<h3 id="42-the-two-authorities-and-the-line-between-them">4.2 The two authorities, and the line between them</h3>
-<p><strong>4.2.1</strong> A remote management operation may change what a hive runs and how it is
+<span class="clause-anchor" id="c4.2"></span><h3 id="42-the-two-authorities-and-the-line-between-them">4.2 The two authorities, and the line between them</h3>
+<p><strong class="clause" id="c4.2.1">4.2.1</strong> A remote management operation may change what a hive runs and how it is
 configured. <strong>It shall not alter the hive's persona, its membership, or its claim state.</strong></p>
-<p><strong>4.2.2</strong> An update shall not write the persona's storage, and an implementation's update
+<p><strong class="clause" id="c4.2.2">4.2.2</strong> An update shall not write the persona's storage, and an implementation's update
 path shall be constructed so that it cannot — not merely instructed that it may not.</p>
-<p><strong>4.2.3</strong> Membership mutation shall require physical possession, as Layer 5, 4.4 requires
+<p><strong class="clause" id="c4.2.3">4.2.3</strong> Membership mutation shall require physical possession, as <a href="L5-trust-and-identity.html#c4.4">Layer 5, 4.4</a> requires
 for the claim state.</p>
 <p>Note 1 to entry: The reason this is a security rule rather than tidiness: compromising the
 update authority already lets an attacker push code the group authorised — that is the
@@ -228,33 +228,33 @@ accepted blast radius of appointing one. <strong>What has to remain impossible r
 the device between groups</strong>: an update path that <em>could</em> write persona would let a
 compromised authority steal devices into a group nobody's hands ever touched. 4.2.2's
 by-construction demand is the difference between a rule and a property.</p>
-<h2 id="5-the-update-model">5 The update model</h2>
-<h3 id="51-what-is-updatable">5.1 What is updatable</h3>
-<p><strong>5.1.1</strong> A hive's updatable content shall be classed as: the stack (the runtime itself),
+<span class="clause-anchor" id="c5"></span><h2 id="5-the-update-model">5 The update model</h2>
+<span class="clause-anchor" id="c5.1"></span><h3 id="51-what-is-updatable">5.1 What is updatable</h3>
+<p><strong class="clause" id="c5.1.1">5.1.1</strong> A hive's updatable content shall be classed as: the stack (the runtime itself),
 modules alongside it, declarative definitions, and parameters — each independently
 deliverable where the platform separates them.</p>
-<p><strong>5.1.2</strong> On a platform where these classes collapse into one image, an update of any class
+<p><strong class="clause" id="c5.1.2">5.1.2</strong> On a platform where these classes collapse into one image, an update of any class
 is an update of the image, and the model is unchanged.</p>
 <p>Note 1 to entry: The classes exist because their costs differ — a parameter change touches
 a running value, a stack change reboots the device — and <strong>a platform that cannot separate
 them pays the largest cost for every change.</strong> That is a platform property, declared at
 Layer 0, not a protocol difference.</p>
-<h3 id="52-the-package">5.2 The package</h3>
-<p><strong>5.2.1</strong> A package shall carry: what it targets (a class of devices, a group, or one
+<span class="clause-anchor" id="c5.2"></span><h3 id="52-the-package">5.2 The package</h3>
+<p><strong class="clause" id="c5.2.1">5.2.1</strong> A package shall carry: what it targets (a class of devices, a group, or one
 hive), its content class (5.1), its sequence (3.3), a digest of its payload, and the
 authority's signature over all of it.</p>
-<p><strong>5.2.2</strong> A hive shall verify the signature and the digest before applying, and equally
+<p><strong class="clause" id="c5.2.2">5.2.2</strong> A hive shall verify the signature and the digest before applying, and equally
 before advertising or serving the package to anyone else.</p>
-<p><strong>5.2.3</strong> A hive shall refuse a package whose sequence is not strictly greater than the
+<p><strong class="clause" id="c5.2.3">5.2.3</strong> A hive shall refuse a package whose sequence is not strictly greater than the
 sequence it currently runs for that target — for application, for advertisement, and for
 serving alike.</p>
-<p><strong>5.2.3a</strong> The record a hive keeps of that sequence shall carry a validity
+<p><strong class="clause" id="c5.2.3a">5.2.3a</strong> The record a hive keeps of that sequence shall carry a validity
 discriminator — a magic value, a checksum, or another proof that the record was
 written by this mechanism — and a hive shall verify it before reading the sequence.</p>
-<p><strong>5.2.3b</strong> A hive that cannot read a valid sequence record for a target shall not
+<p><strong class="clause" id="c5.2.3b">5.2.3b</strong> A hive that cannot read a valid sequence record for a target shall not
 treat any value as that target's sequence floor, and shall report the record as
 unreadable rather than refusing packages against it.</p>
-<p><strong>5.2.3c</strong> A hive shall set a target's recorded sequence only to the sequence of a
+<p><strong class="clause" id="c5.2.3c">5.2.3c</strong> A hive shall set a target's recorded sequence only to the sequence of a
 package it has verified under 5.2.2 and applied. It shall not set that record to a
 chosen value, and shall provide no means by which a caller may.</p>
 <p>Note 1 to entry: <strong>The record follows the running image, and never leads it.</strong> <em>Applied</em>
@@ -289,7 +289,7 @@ sector leaves a real record and foreign bytes <strong>coexisting</strong>, so re
 cannot be inferred from erased-sector signatures. Only a discriminator written by the
 mechanism itself distinguishes <em>my record</em> from <em>bytes that happen to be here</em>.
 <em>(Ruled 2026-08-01 on evidence from the pre-standard deployment.)</em></p>
-<p><strong>5.2.4</strong> A hive shall not reveal, to a party whose package's signature has not been
+<p><strong class="clause" id="c5.2.4">5.2.4</strong> A hive shall not reveal, to a party whose package's signature has not been
 verified, whether the package would have been accepted on any other ground — not by an
 error, and not by a distinguishable behaviour.</p>
 <p>Note 1 to entry: 5.2.2's second half is what bounds an epidemic to authentic packages:
@@ -303,15 +303,15 @@ matters on platforms that have none.</p>
 arrives observably faster than a signature check has told an unauthenticated party
 something about the device. <strong>Silence toward the unverified is uniform: no reason, no
 differential timing.</strong></p>
-<h3 id="53-delivery--ordinary-frames-epidemic-spread-pulled-by-the-needy">5.3 Delivery — ordinary frames, epidemic spread, pulled by the needy</h3>
-<p><strong>5.3.1</strong> Update delivery shall use ordinary frames and the ordinary mesh; no delivery
+<span class="clause-anchor" id="c5.3"></span><h3 id="53-delivery--ordinary-frames-epidemic-spread-pulled-by-the-needy">5.3 Delivery — ordinary frames, epidemic spread, pulled by the needy</h3>
+<p><strong class="clause" id="c5.3.1">5.3.1</strong> Update delivery shall use ordinary frames and the ordinary mesh; no delivery
 mechanism of this clause shall require a new capability at Layers 1 to 4.</p>
-<p><strong>5.3.2</strong> A hive holding a verified package should advertise its availability — a small
+<p><strong class="clause" id="c5.3.2">5.3.2</strong> A hive holding a verified package should advertise its availability — a small
 frame naming the package, its target, its sequence and its size — and the advertisement
 shall never carry the payload.</p>
-<p><strong>5.3.3</strong> A hive that needs an advertised package shall pull it; a package shall not be
+<p><strong class="clause" id="c5.3.3">5.3.3</strong> A hive that needs an advertised package shall pull it; a package shall not be
 pushed unrequested into the mesh.</p>
-<p><strong>5.3.4</strong> A hive that does not need a package it has verified should re-advertise it, and
+<p><strong class="clause" id="c5.3.4">5.3.4</strong> A hive that does not need a package it has verified should re-advertise it, and
 may serve it, so that the package spreads to needing devices beyond the origin's reach.</p>
 <p>Note 0 to entry: <strong>5.2.2 and 5.3.5 together require a hive to read a held image back out
 of its own storage</strong> — verification before serving, and any holder answering a pull, cannot
@@ -321,7 +321,7 @@ it</strong>, so the platform capability is assumed silently. An implementer shou
 it; the platform declaration of Layer 0 is where it would be stated. <em>(Noted 2026-08-02
 from an implementation that added the capability to its platform seam on exactly this
 reasoning.)</em></p>
-<p><strong>5.3.5</strong> A pulling hive may retrieve a package in pieces, from any holder, over any
+<p><strong class="clause" id="c5.3.5">5.3.5</strong> A pulling hive may retrieve a package in pieces, from any holder, over any
 interval its bearers' budgets dictate; it shall reassemble, verify the whole as 5.2.2
 requires, and only then apply. It may request specifically the pieces it lacks, and a
 holder receiving such a request should resend those pieces.</p>
@@ -336,15 +336,15 @@ acknowledgement exists anywhere beneath it.</p>
 the largest thing this standard moves; <strong>the decision to spend that bandwidth belongs to
 the device that needs it</strong>, which alone knows its version, its storage and its budget.</p>
 <h3 id="54-applying-and-surviving-the-application">5.4 Applying, and surviving the application</h3>
-<p><strong>5.4.1</strong> A platform able to stage an update alongside the running image shall apply by
+<p><strong class="clause" id="c5.4.1">5.4.1</strong> A platform able to stage an update alongside the running image shall apply by
 staging, switching, and keeping the prior image until the update is committed.</p>
-<p><strong>5.4.1c</strong> A hive shall determine the image it is executing from the platform's report of
+<p><strong class="clause" id="c5.4.1c">5.4.1c</strong> A hive shall determine the image it is executing from the platform's report of
 the image it <strong>booted</strong>, never from a record of the image that was <strong>configured</strong> to boot.
 A hive shall not erase or overwrite the image it is executing.</p>
 <p>Note 1 to entry: <strong>The two answers differ exactly after a fallback — which is to say after a
 revert, which is when this protection matters most.</strong> A bootloader that cannot start the
 configured image starts another, and a record naming the configured one is then <strong>correct
-about the configuration and wrong about the world</strong> (<code>01-terminology.md</code> 5.4). A guard keyed
+about the configuration and wrong about the world</strong> (<a href="01-terminology.html#c5.4"><code>01-terminology.md</code> 5.4</a>). A guard keyed
 on the configured image therefore protects the wrong slot <strong>precisely in the situation
 5.4.3 exists to survive</strong>, and permits erasing the executing image — a damage path, not a
 diagnostic one.</p>
@@ -355,7 +355,7 @@ fell back</em>, and names the call that answers the other question. <strong>The 
 in the file being used, and the guard was built on the wrong call anyway</strong> — which is why
 this is stated as a requirement rather than left to the platform's documentation.
 <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS172.)</em></p>
-<p><strong>5.4.1a</strong> A platform declaring the capability of 5.4.1 shall verify at boot that the
+<p><strong class="clause" id="c5.4.1a">5.4.1a</strong> A platform declaring the capability of 5.4.1 shall verify at boot that the
 storage slots that capability requires are present, and shall declare itself
 update-incapable where they are not.</p>
 <p>Note 0 to entry: <strong>A platform's own assertion about its configuration is not evidence of
@@ -373,9 +373,9 @@ is implementable on such platforms, but <strong>a package's payload is not porta
 them</strong>: an image is built for a platform, and the platform declaration (Layer 0,
 Clause 8) is where that requirement is visible. Nothing in this standard assumes a
 raw binary. <em>(Added 2026-08-01 from bring-up evidence on the reference platform.)</em></p>
-<p><strong>5.4.2</strong> An updated hive shall run its health checks (3.4) within a bounded window, and
+<p><strong class="clause" id="c5.4.2">5.4.2</strong> An updated hive shall run its health checks (3.4) within a bounded window, and
 shall commit the update only when they pass.</p>
-<p><strong>5.4.1b</strong> At most one target shall hold a pending update across any one reboot. A hive
+<p><strong class="clause" id="c5.4.1b">5.4.1b</strong> At most one target shall hold a pending update across any one reboot. A hive
 holding a pending update for one target shall refuse to stage an update for another until
 that one is committed or reverted. <strong>A hive refusing on this ground should report the
 refusal</strong>, distinguishably from any other reason it might not have taken the update.</p>
@@ -413,7 +413,7 @@ over-enforcing a rule written to prevent one. An implementation should have a co
 fails on that alone. <em>(An implementation of this clause reported exactly such a test:
 refusal from staging, staged and health-window states; permission from idle, unknown
 position, committed and reverted.)</em></p>
-<p><strong>5.4.2a</strong> A hive whose image position is unreadable shall accept and stage an update, and
+<p><strong class="clause" id="c5.4.2a">5.4.2a</strong> A hive whose image position is unreadable shall accept and stage an update, and
 shall not commit one.</p>
 <p>Note -1 to entry: 5.4.2a exists because Note 0's silence was read as refusal, and refusal
 is the wrong half. <strong>Staging commits to nothing</strong> — it writes the slot the hive is not
@@ -451,7 +451,7 @@ state</strong>, on such a platform, and an implementer or operator reaching for 
 succeed: the erase works, and the <strong>next boot destroys the state it produced</strong>. This is
 recorded here because it is a procedure people invent independently — it reads as the
 obvious way to get a clean device — and it silently produces the opposite of what it claims.</p>
-<p><strong>5.4.2b</strong> A hive shall verify at boot that its recorded image position agrees with the
+<p><strong class="clause" id="c5.4.2b">5.4.2b</strong> A hive shall verify at boot that its recorded image position agrees with the
 slots it names — that a slot recorded as holding a pending image holds one — and shall
 treat a disagreement as a position of its own: opening no health window, committing
 nothing, and reporting the disagreement. Such a hive shall accept and stage an update.</p>
@@ -473,7 +473,7 @@ misdirected authorisation (5.4.1b Note 1).</p>
 is stated at all.</strong> A validity discriminator — 5.2.3b's magic value, a checksum — protects
 a record <strong>against corruption, not against being false</strong>. It establishes that the mechanism
 that owns the record wrote these bytes; it establishes nothing about whether the bytes
-still describe the world. <strong>No checksum catches a true-looking lie.</strong> <code>01-terminology.md</code>
+still describe the world. <strong>No checksum catches a true-looking lie.</strong> <a href="01-terminology.html"><code>01-terminology.md</code></a>
 5.4 states the general obligation this clause instances.</p>
 <p>Note 4 to entry: <strong>Staging is the repair.</strong> A hive in this position accepts and stages for
 the reason 5.4.2a gives — unreadable must not refuse, and neither must inconsistent — and a
@@ -483,26 +483,26 @@ protect. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>. The treatm
 window and report</em> follows 5.4.2 Note 0's own reasoning. What was missing was <strong>the ability
 to say it</strong> — a platform that can see the disagreement was obliged to state a falsehood,
 because <em>pending</em> was the only word this clause gave it.)</em></p>
-<p><strong>5.4.3</strong> An updated hive whose health checks fail, or that fails to boot the new image,
+<p><strong class="clause" id="c5.4.3">5.4.3</strong> An updated hive whose health checks fail, or that fails to boot the new image,
 shall revert to the prior image without external help.</p>
-<p><strong>5.4.4</strong> A hive that reverted should report the reversion and its reason when next able,
+<p><strong class="clause" id="c5.4.4">5.4.4</strong> A hive that reverted should report the reversion and its reason when next able,
 and the reason should be <strong>distinguishable from the adjacent ones</strong> — in particular, <em>the
 health checks did not pass</em> and <em>the health checks could not be run</em> are different facts.</p>
 <p>Note 1 to entry: <strong>A diagnostic that names the wrong cause is worse than none, because it
 is acted on.</strong> Reporting a failed check where the check never ran sends the reader hunting
 a defect in the new image while the actual fault is that the check could not execute — and
 on the unattended devices this standard cares most about, <strong>nobody is present to notice by
-hand.</strong> This is <code>01-terminology.md</code> 5.3 applied to a report rather than to a decision: the
+hand.</strong> This is <a href="01-terminology.html#c5.3"><code>01-terminology.md</code> 5.3</a> applied to a report rather than to a decision: the
 third answer must remain distinguishable <strong>to whoever acts on it</strong>, even where it changes
 no behaviour. <em>(Added 2026-08-02; <code>PROVISIONAL(supervisor)</code>.)</em></p>
-<p><strong>5.4.5</strong> Applying an update shall preserve the persona (4.2) and the device's claim state,
+<p><strong class="clause" id="c5.4.5">5.4.5</strong> Applying an update shall preserve the persona (4.2) and the device's claim state,
 across success, failure and reversion alike.</p>
 <p>Note 1 to entry: 5.4.3's <em>without external help</em> is the load-bearing phrase. The devices
 this standard cares most about are exactly the ones nobody can reach when an update goes
 wrong — <strong>a rollback that needs a hand on the device is, for them, a brick with
 paperwork.</strong></p>
 <h3 id="55-the-recovery-layer">5.5 The recovery layer</h3>
-<p><strong>5.5.1</strong> A device shall have a recovery layer (3.5): resident, independent of the stack,
+<p><strong class="clause" id="c5.5.1">5.5.1</strong> A device shall have a recovery layer (3.5): resident, independent of the stack,
 by which physical possession restores a working image when nothing else can.</p>
 <p>Note 1 to entry: <strong>The independence required here bounds who may implement this clause,
 and the obvious implementation route is the one it forbids.</strong> A recovery layer that linked
@@ -515,38 +515,38 @@ terms, and 5.5.3's crash safety is a property <strong>of the format</strong> rat
 particular writer — which is what lets the stack rely on it without linking the thing that
 wrote it. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, from an implementation that
 stopped before writing a recovery layer on exactly this reading.)</em></p>
-<p><strong>5.5.2</strong> The recovery layer shall not be reachable by any remote path, and shall not be
+<p><strong class="clause" id="c5.5.2">5.5.2</strong> The recovery layer shall not be reachable by any remote path, and shall not be
 able to authorise or apply a mesh-delivered update.</p>
-<p><strong>5.5.3</strong> A recovery re-image shall erase the device's persona as part of the recovery
+<p><strong class="clause" id="c5.5.3">5.5.3</strong> A recovery re-image shall erase the device's persona as part of the recovery
 write, returning the device to a group of itself — and the erasure shall be crash-safe:
 interrupted recovery leaves either the complete prior persona or a complete fresh state,
 never a partial one.</p>
 <p>Note 1 to entry: <strong>A recovery re-image does not, by itself, make the device claimable.</strong>
 The recovered device holds a fresh, closed group of itself; becoming OPEN still requires
-the distinct local reset action of Layer 5, 4.4. Un-bricking and un-claiming are two
+the distinct local reset action of <a href="L5-trust-and-identity.html#c4.4">Layer 5, 4.4</a>. Un-bricking and un-claiming are two
 physical acts, deliberately not one.</p>
 <p>Note 2 to entry: 5.5.3 is what stops the un-brick path being a sovereignty bypass. A
 recovery write bypasses every authority this layer defines — that is its purpose — so <strong>a
 recovered device comes back as nobody's</strong>: flashing a stolen device rescues the
 hardware and erases exactly the membership the thief wanted. The physical path may
 un-brick the device; it may never hand over the persona.</p>
-<p><strong>5.5.3a</strong> A device's persona disposition shall be determinable at boot from durable
+<p><strong class="clause" id="c5.5.3a">5.5.3a</strong> A device's persona disposition shall be determinable at boot from durable
 storage alone, and shall be <strong>self-validating</strong> — that is, a complete record is
 distinguishable from an incomplete one by reading that storage and nothing else. A transition from one disposition to another shall be effected such that <strong>at
 every instant one complete disposition is selected</strong> — the prior one before the transition,
 the new one after it.</p>
-<p>Note 1 to entry: <strong>5.5.3's crash safety is not achievable by intent, and this clause is
+<p>Note 1 to entry: <strong class="clause" id="c5.5">5.5.3's crash safety is not achievable by intent, and this clause is
 what makes it achievable.</strong> No writer can promise power will not be lost mid-write; it can
 only arrange that <strong>no partial state is ever the selected one.</strong> The usual construction —
 two generation-numbered self-validating records, the writer targeting whichever is <em>not</em>
 currently selected — has that property because <strong>the transition is the completion of the
 validating field, not the start of the write.</strong> A platform whose durable storage offers an
 atomic transition of its own may satisfy this clause without two records; the construction
-is given in full, informatively, at <code>FORMATS.md</code> 5b.</p>
+is given in full, informatively, at <a href="FORMATS.html"><code>FORMATS.md</code></a> 5b.</p>
 <p>Note 2 to entry: <strong>This clause is the seam of 5.5.1.</strong> The recovery layer writes this state
 and the stack reads it, and by 5.5.1 Note 1 they may share nothing else — so the format
 carries what a shared component would otherwise have carried, and it has to be <strong>written
-down</strong> for the reason <code>FORMATS.md</code> 5a Note 2 gives about revocations: what is not written
+down</strong> for the reason <a href="FORMATS.html"><code>FORMATS.md</code></a> 5a Note 2 gives about revocations: what is not written
 down is invented separately by each implementer, and here the two inventors sit on opposite
 sides of a boundary that exists so that neither can call the other. <em>(Added 2026-08-02,
 <code>PROVISIONAL(supervisor)</code>; construction contributed by the core lane, which tested it by
@@ -556,11 +556,11 @@ walking <strong>every prefix</strong> of the write and asserting a complete stat
 implements its own reader against this layout and <strong>cannot share the stack's code</strong> — which
 means the two validity predicates are <strong>guaranteed</strong> to be written separately, by different
 people, from this document alone. For this record, therefore,
-<code>01-terminology.md</code> 5.4a and 5.4b are <strong>not an edge case but its normal condition</strong>: each
+<a href="01-terminology.html#c5.4a"><code>01-terminology.md</code> 5.4a</a> and 5.4b are <strong>not an edge case but its normal condition</strong>: each
 side states the conditions under which it accepts the record, and each compares against the
 other's. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS147 — raised by an
 implementation that found the second reader by reading 5.5.1 rather than by meeting it.)</em></p>
-<p><strong>5.5.4</strong> Where no complete persona disposition can be read — <strong>for any cause, including
+<p><strong class="clause" id="c5.5.4">5.5.4</strong> Where no complete persona disposition can be read — <strong>for any cause, including
 damage arising outside recovery</strong> — the device shall treat itself as holding a fresh
 persona: a closed group of itself, as after a recovery re-image. The device should report
 that condition distinguishably from a persona it was never given.</p>
@@ -572,42 +572,42 @@ close. Read as <em>fresh</em>, the device loses its group: a denial of service a
 owner, but <strong>an attacker gains nothing</strong>, since a recovered device is nobody's already.
 <strong>One reading loses a membership; the other hands one over</strong>, and that is the whole of the
 argument.</p>
-<p>Note 2 to entry: This is <code>01-terminology.md</code> 5.1 <strong>with its tie-break made explicit, and
+<p>Note 2 to entry: This is <a href="01-terminology.html#c5.1"><code>01-terminology.md</code> 5.1</a> <strong>with its tie-break made explicit, and
 the tie-break is needed here because both readings look restrictive from somewhere</strong>:
 <em>present</em> keeps the device locked to its group and refuses any new claim; <em>fresh</em> refuses
 to exercise a membership the device cannot prove. They are restrictive on different axes,
-and 5.1 alone chooses neither. <code>01-terminology.md</code> 5.1 Note 5 states the rule that
+and 5.1 alone chooses neither. <a href="01-terminology.html#c5.1"><code>01-terminology.md</code> 5.1</a> Note 5 states the rule that
 separates them — <strong>ask which reading grants an authority, not which looks more locked
 down.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, from a lane that ruled on it alone
 and said so rather than shipping the judgement silently.)</em></p>
 <p>Note 3 to entry: The behavioural fold here is deliberate and the diagnostic one is not. <strong>A
 device that never held a persona is nobody's as a matter of fact, not as a fallback</strong> — a
 definite answer reached by a different route — and although the stack cannot distinguish
-the two, whoever investigates a device can and must. That is <code>01-terminology.md</code> 5.3's test
+the two, whoever investigates a device can and must. That is <a href="01-terminology.html#c5.3"><code>01-terminology.md</code> 5.3</a>'s test
 applied correctly: <em>indistinguishable to the machinery</em> and <em>indistinguishable to whoever
 acts on it</em> are different questions, and only the second one forbids the fold.</p>
-<h2 id="6-diagnostics">6 Diagnostics</h2>
-<h3 id="61-the-public-tier--every-device">6.1 The public tier — every device</h3>
-<p><strong>6.1.1</strong> Every hive shall answer, to any asker, its identity-and-health summary: what it
+<span class="clause-anchor" id="c6"></span><h2 id="6-diagnostics">6 Diagnostics</h2>
+<span class="clause-anchor" id="c6.1"></span><h3 id="61-the-public-tier--every-device">6.1 The public tier — every device</h3>
+<p><strong class="clause" id="c6.1.1">6.1.1</strong> Every hive shall answer, to any asker, its identity-and-health summary: what it
 is (its class), its build mode as Layer 2 declares it, whether it is alive, and its
 firmware identity.</p>
-<p><strong>6.1.2</strong> The public tier shall contain no relationship data: nothing about who the hive
+<p><strong class="clause" id="c6.1.2">6.1.2</strong> The public tier shall contain no relationship data: nothing about who the hive
 talks to, relays for, or has seen.</p>
-<p><strong>6.1.3</strong> The firmware identity of 6.1.1 shall be the identity of the running image's
+<p><strong class="clause" id="c6.1.3">6.1.3</strong> The firmware identity of 6.1.1 shall be the identity of the running image's
 update package — its target class, its per-target sequence, and the digest of its image
-bytes — in the shape <code>FORMATS.md</code> 5c gives. A hive that cannot determine one of the three
+bytes — in the shape <a href="FORMATS.html"><code>FORMATS.md</code></a> 5c gives. A hive that cannot determine one of the three
 shall report that it cannot, and shall not report a substitute value.</p>
 <p>Note 1 to entry: <strong>Without a shape, <em>firmware identity</em> is a string every implementation
 invents</strong>, and the thing an operator needs to do with it — decide whether a device is
 running the package in their hand — needs the two values that package is keyed by, not a
 version banner. The three fields are exactly the package's keys 2, 3 and 5, so <strong>the answer
 is comparable with the artefact it describes</strong> and discloses nothing an update authority did
-not publish. The third sentence is <code>01-terminology.md</code> 5.3 at a reporting surface: a hive
+not publish. The third sentence is <a href="01-terminology.html#c5.3"><code>01-terminology.md</code> 5.3</a> at a reporting surface: a hive
 whose position is unreadable (5.4.2 Note 0) genuinely cannot state a sequence, and a
 substituted zero would read as <em>the first package ever</em>. <em>(Added 2026-08-02,
 <code>PROVISIONAL(supervisor)</code>, on finding SS133 — raised as <code>CORE-1</code>.)</em></p>
-<h3 id="62-the-internal-tier--development-devices-only">6.2 The internal tier — development devices only</h3>
-<p><strong>6.2.1</strong> Internal state — routing tables, neighbour data, event flow, telemetry — shall
+<span class="clause-anchor" id="c6.2"></span><h3 id="62-the-internal-tier--development-devices-only">6.2 The internal tier — development devices only</h3>
+<p><strong class="clause" id="c6.2.1">6.2.1</strong> Internal state — routing tables, neighbour data, event flow, telemetry — shall
 be answerable only by a development-mode device, and the code that answers shall be absent
 from a production image, not disabled in it.</p>
 <p>Note 0 to entry: <strong>The four words <em>absent from a production image, not disabled in it</em>
@@ -622,9 +622,9 @@ claim it did</strong> — the wording is unambiguous either way, and an implemen
 this way, unprompted, is the evidence it is readable. <em>(Note added 2026-08-02,
 <code>PROVISIONAL(supervisor)</code>, at the request of a lane confirming its reading; the clause
 itself is unchanged.)</em></p>
-<p><strong>6.2.2</strong> An internal-tier query shall be answered only for a verified member of the
+<p><strong class="clause" id="c6.2.2">6.2.2</strong> An internal-tier query shall be answered only for a verified member of the
 hive's own group; any other asker shall receive nothing — <strong>no response, no error</strong>.</p>
-<p><strong>6.2.3</strong> Internal-tier data shall not be forwarded to any unauthenticated party, and
+<p><strong class="clause" id="c6.2.3">6.2.3</strong> Internal-tier data shall not be forwarded to any unauthenticated party, and
 shall not be aggregated across devices except under the same operator authority that may
 query it.</p>
 <p>Note 1 to entry: 6.2.2's silence is deliberate on both counts. Dev-ness itself is public
@@ -634,8 +634,8 @@ asker gets zero bytes, not even an error to time.</p>
 <p>Note 2 to entry: 6.1.2 and 6.2.3 are the same rule at two tiers — <strong>the aggregation of
 who-talks-to-whom is the harm</strong> this standard's privacy position names, and no diagnostic
 convenience overrides it.</p>
-<h2 id="7-management-surfaces">7 Management surfaces</h2>
-<p><strong>7.1</strong> A hive may expose a management surface (3.6) — an API for query and configuration —
+<span class="clause-anchor" id="c7"></span><h2 id="7-management-surfaces">7 Management surfaces</h2>
+<p><strong class="clause" id="c7.1">7.1</strong> A hive may expose a management surface (3.6) — an API for query and configuration —
 and every such surface shall enforce the authority model of Clause 4: no unauthenticated
 remote surface shall exist in a production image, <strong>with exactly one carve-out: the
 public tier of 6.1</strong>, which is read-only, answers only the identity-and-health summary
@@ -646,22 +646,22 @@ it is a diagnostics answer, not a management surface — anything that reads mor
 writes anything, is under Clause 4 authority without exception. <em>(Carve-out made
 explicit 2026-08-01, resolving a conflict between 6.1.1's "any asker" and this clause
 as previously worded.)</em></p>
-<p><strong>7.2</strong> A management surface reachable beyond the device itself shall authenticate its
+<p><strong class="clause" id="c7.2">7.2</strong> A management surface reachable beyond the device itself shall authenticate its
 callers as members, and shall scope what each caller may do by the same evidence classes
 as any other management operation.</p>
-<p><strong>7.3</strong> A bench or commissioning tool holding local, physical access to devices is an
+<p><strong class="clause" id="c7.3">7.3</strong> A bench or commissioning tool holding local, physical access to devices is an
 operator-authority surface; it shall not be reachable as a remote service.</p>
 <p>Note 1 to entry: The protocol binding of a surface — query language, transport, encoding —
 is deliberately unspecified. <strong>What is specified is who gets an answer</strong>, and that no
 image ships a surface whose default is anyone.</p>
-<h2 id="8-conformance">8 Conformance</h2>
+<span class="clause-anchor" id="c8"></span><h2 id="8-conformance">8 Conformance</h2>
 <p>Every requirement of this document is demonstrated by conformance evidence of one of
-the three classes of <code>01-terminology.md</code>, 3.10 — behavioural, by construction, or by
+the three classes of <a href="01-terminology.html"><code>01-terminology.md</code></a>, 3.10 — behavioural, by construction, or by
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <code>01-terminology.md</code> 4.2 to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
-<p><strong>8.1</strong> An implementation conforms to this document where it:</p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+<p><strong class="clause" id="c8.1">8.1</strong> An implementation conforms to this document where it:</p>
 <p>a) accepts management operations only with the evidence Clause 4 requires, and can
 enumerate its authorities as 4.1.3 requires;</p>
 <p>b) preserves persona and claim state across every update outcome (4.2, 5.4.5);</p>
@@ -671,47 +671,47 @@ and reveals nothing to the unverified (5.2);</p>
 <p>e) applies with self-reversion (5.4) and carries a conforming recovery layer (5.5); and</p>
 <p>f) tiers its diagnostics as Clause 6 requires, with the internal tier structurally absent
 from production images.</p>
-<p><strong>8.2</strong> Conformance to 5.4.3 shall be demonstrated by deliberately applying an update
+<p><strong class="clause" id="c8.2">8.2</strong> Conformance to 5.4.3 shall be demonstrated by deliberately applying an update
 whose health checks fail: the device reverts unaided, and its persona is intact after
 reversion.</p>
-<h2 id="9-security-considerations">9 Security considerations</h2>
-<p><strong>9.1</strong> The update authority's compromise is bounded by design: <strong>code the group's process
+<span class="clause-anchor" id="c9"></span><h2 id="9-security-considerations">9 Security considerations</h2>
+<p><strong class="clause" id="c9.1">9.1</strong> The update authority's compromise is bounded by design: <strong>code the group's process
 authorised can be pushed; the device cannot be re-homed</strong> (4.2). The residual is real —
 authorised-but-malicious code — and is bounded by the group's own appointment and
 revocation of authorities, which is why 4.1.3's enumeration exists.</p>
-<p><strong>9.2</strong> Sequence monotonicity (5.2.3) prevents downgrade by replay of genuinely signed
+<p><strong class="clause" id="c9.2">9.2</strong> Sequence monotonicity (5.2.3) prevents downgrade by replay of genuinely signed
 packages, without requiring any clock.</p>
-<p><strong>9.3</strong> The recovery layer is a deliberate hole in every remote authority, guarded
+<p><strong class="clause" id="c9.3">9.3</strong> The recovery layer is a deliberate hole in every remote authority, guarded
 physically (5.5.2) and stripped of membership value (5.5.3).</p>
-<p><strong>9.4</strong> The confirmation-oracle discipline (5.2.4) and diagnostic silence (6.2.2) are one
+<p><strong class="clause" id="c9.4">9.4</strong> The confirmation-oracle discipline (5.2.4) and diagnostic silence (6.2.2) are one
 posture: <strong>an unauthenticated party learns nothing from a hive's refusals</strong> — not
 existence, not eligibility, not timing.</p>
-<h2 id="10-what-is-not-decided-at-this-layer">10 What is not decided at this layer</h2>
+<span class="clause-anchor" id="c10"></span><h2 id="10-what-is-not-decided-at-this-layer">10 What is not decided at this layer</h2>
 <p><strong>This clause states gaps and contains no requirements.</strong></p>
-<p><strong>10.1 The chunked-transfer profile.</strong> 5.3.5 states the model; the piece naming, the
+<p><strong class="clause" id="c10.1">10.1 The chunked-transfer profile.</strong> 5.3.5 states the model; the piece naming, the
 missing-pieces request encoding, piece size relative to bearer budgets, and whether the
 mechanism is one generic facility shared with application bulk transfer (a sensor's image
 or sound recording travelling the same way, in the other direction) are owed to a
 companion part. The direction of travel is decided — <strong>one mechanism, direction-agnostic,
 firmware as one profile of it</strong> — the bytes are not.</p>
-<p><strong>10.2 The authority-enumeration artefact.</strong> 4.1.3 states the required properties (signed,
+<p><strong class="clause" id="c10.2">10.2 The authority-enumeration artefact.</strong> 4.1.3 states the required properties (signed,
 versioned, offline-verifiable, staleness-detectable); its encoding and distribution shape
 are undecided.</p>
-<p><strong>10.3 Health-check content and window.</strong> 5.4.2 bounds neither what a health check tests
+<p><strong class="clause" id="c10.3">10.3 Health-check content and window.</strong> 5.4.2 bounds neither what a health check tests
 nor how long the window is, and a check that tests too little commits bad updates while a
 window too short reverts good ones on slow platforms.</p>
-<p><strong>10.4 Reversion reporting.</strong> 5.4.4 is a <em>should</em> with no format: what a reversion report
+<p><strong class="clause" id="c10.4">10.4 Reversion reporting.</strong> 5.4.4 is a <em>should</em> with no format: what a reversion report
 carries, and to whom it goes, is unspecified.</p>
-<p><strong>10.5 Configuration and parameters as managed state.</strong> This document specifies parameter
+<p><strong class="clause" id="c10.5">10.5 Configuration and parameters as managed state.</strong> This document specifies parameter
 delivery as an update class and says nothing about reading configuration back, drift
 between declared and actual configuration, or who may see a hive's current settings
 beyond the public tier.</p>
-<p><strong>10.6 Management across entanglement in detail.</strong> 4.1.2 admits management-scoped entanglement at a
+<p><strong class="clause" id="c10.6">10.6 Management across entanglement in detail.</strong> 4.1.2 admits management-scoped entanglement at a
 required grade; the levels themselves, and what operations each level licenses, are the
 entanglement companion's (Layer 5, Q25).</p>
-<p><strong>10.7 The certificate role 4.1.4 requires does not exist.</strong> 4.1.4 makes appointing and
+<p><strong class="clause" id="c10.7">10.7 The certificate role 4.1.4 requires does not exist.</strong> 4.1.4 makes appointing and
 revoking an update authority group acts <em>recorded as certificate role and revocation at Layer
-5</em>. <strong>Revocation has a home — Layer 5, 6.2 — and the role does not.</strong> Layer 5, 6.1.1 binds the
+5</em>. <strong>Revocation has a home — <a href="L5-trust-and-identity.html#c6.2">Layer 5, 6.2</a> — and the role does not.</strong> <a href="L5-trust-and-identity.html#c6.1.1">Layer 5, 6.1.1</a> binds the
 member keypair's public half to the group and 6.1.3 adds the key epoch; <strong>there is no role
 field on a certificate anywhere in this standard</strong>, and the term <em>update authority</em> appears in
 no Layer 5 document nor in the formats companion. <strong>The nearest thing is a different axis:</strong>
@@ -722,7 +722,7 @@ read as satisfied. <strong>And the requirement is stated twice in this document 
 authority-appointment row of 4.1.1a's table — so a repair at one leaves the other standing.</strong>
 <em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, finding SS278, raised from an implementation that
 had already assigned a role byte to fill the hole.)</em></p>
-<p><strong>10.8 Ordering verification against <em>apply</em> rather than against the commit.</strong> 5.3.5 requires a
+<p><strong class="clause" id="c10.8">10.8 Ordering verification against <em>apply</em> rather than against the commit.</strong> 5.3.5 requires a
 pulling hive to reassemble, verify the whole, and <strong>only then apply</strong>; 5.4.1 requires a
 platform to <strong>apply by staging</strong>, so staging is the first step of applying rather than a step
 before it. <strong>On the reference platform of Layer 0, Clause 8 — two update slots of 1600 kB on a
@@ -734,9 +734,9 @@ success — <strong>and Note 0 to 5.3 already assumes exactly that read-back cap
 the same memory limit from the serving side and stopped one consequence short of this one.
 <strong>What is owed is an ordering stated against the commit rather than against <em>apply</em>.</strong> <em>(Added
 2026-08-04, <code>PROVISIONAL(standard)</code>, finding SS279.)</em></p>
-<p><strong>10.9 No precondition on stored energy before a firmware write.</strong> Nothing in this document,
+<p><strong class="clause" id="c10.9">10.9 No precondition on stored energy before a firmware write.</strong> Nothing in this document,
 the formats companion or Layer 0 requires a device to hold any charge before it erases or
-writes a staging slot: <em>battery</em> and <em>charge</em> appear in none of the three. <strong>5.4.1's
+writes a staging slot: <em>battery</em> and <em>charge</em> appear in none of the three. <strong class="clause" id="c5.4">5.4.1's
 keep-the-prior-image rule protects against a bad image, not against loss of power mid-write</strong>,
 and a device that browns out part-way through erasing a slot is not saved by an image it can no
 longer reach a bootloader to select. <strong>The standard's own device model makes this the expected

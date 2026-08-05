@@ -80,7 +80,7 @@ the crowd <em>is</em> the network</strong>, and the venue's fixed hives are just
 never leave and never sleep.</p>
 <h2 id="layer-by-layer">Layer by layer</h2>
 <h3 id="layer-0--what-is-actually-in-the-bowl">Layer 0 — what is actually in the bowl</h3>
-<p>Every platform in the stadium published its declaration long before tonight (L0 8.2):</p>
+<p>Every platform in the stadium published its declaration long before tonight (<a href="L0-hardware-and-runtime.html#c8.2">L0 8.2</a>):</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -112,26 +112,26 @@ long sleep intervals are about to matter three layers up.</p>
 <h3 id="layer-1--the-bearers-in-service">Layer 1 — the bearers in service</h3>
 <p>Phones and kiosks share a short-range high-rate bearer; the venue's fixed hives add a
 long-range regulated bearer as a backbone for their own telemetry. Each bearer is <em>in
-service</em> or it is nothing (L1 3.5a): a fan whose phone has its short-range radio on is on
+service</em> or it is nothing (<a href="L1-transport.html#c3.5a">L1 3.5a</a>): a fan whose phone has its short-range radio on is on
 that bearer's network, full stop. <strong>The regulated backbone matters for what it forbids</strong>:
 its airtime budget is a hard ceiling, and everything the venue does tonight is planned so
 that nothing time-critical depends on it.</p>
 <p>One tier discipline, decided here and honoured everywhere above: <strong>signed traffic is
-planned end-to-end within one tier</strong> (L4 9.2.3) — so everything person-to-venue tonight
+planned end-to-end within one tier</strong> (<a href="L4-wire.html#c9.2.3">L4 9.2.3</a>) — so everything person-to-venue tonight
 lives on the crowd's own tier, and the backbone never carries a frame that would have to
 cross to reach a fan.</p>
 <h3 id="layer-2--discovery-in-a-beacon-storm">Layer 2 — discovery in a beacon storm</h3>
 <p>Forty thousand beacons in one bowl, and the layer is built for exactly this:</p>
 <ul>
-<li><strong>Step 1 of the progressive filter is free</strong> (L2 7.1): almost everything a fan's scanner
+<li><strong>Step 1 of the progressive filter is free</strong> (<a href="L2-capability-and-discovery.html#c7.1">L2 7.1</a>): almost everything a fan's scanner
 hears is another fan, and the class hash — checked before any connection, before any
 cost — discards them in one comparison. The scanner is looking for
 <code>ai.reality2.vendor.kiosk</code>, and the crowd is noise it never spends a query on.</li>
-<li><strong>Cadence is an outcome, not a setting</strong> (L2 6.2, 6.3): on anything regulated, beacons
+<li><strong>Cadence is an outcome, not a setting</strong> (<a href="L2-capability-and-discovery.html#c6.2">L2 6.2</a>, 6.3): on anything regulated, beacons
 are the lowest-priority traffic, so the busier the air the rarer the announcements — and
 every fade period was set against the loaded interval, not the bench one, which is why
 peers are not declared dead at half-time when the air is thickest.</li>
-<li><strong>The watch declares its duty class in its beacon</strong> (L2 5.4b): receptive only at
+<li><strong>The watch declares its duty class in its beacon</strong> (<a href="L2-capability-and-discovery.html#c5.4b">L2 5.4b</a>): receptive only at
 intervals, with a coarse longest-interval value. Every stranger's phone within range —
 none of them entangled with the fan, none of them able to verify anything — now knows to
 hold rather than transmit at a silent radio. <strong>This value could not have arrived any
@@ -140,7 +140,7 @@ is exactly what a stranger cannot get.</li>
 </ul>
 <blockquote>
 <p>⚠ <strong>Open edge, flagged:</strong> nothing bounds how many peers a scanner tracks or which
-sighting it discards when full (<strong>Q15</strong>, L2 12.2). Tonight is the case that question
+sighting it discards when full (<strong>Q15</strong>, <a href="L2-capability-and-discovery.html#c12.2">L2 12.2</a>). Tonight is the case that question
 exists for: two conformant phones in row 40 will know about different subsets of the
 crowd, and neither is wrong.</p>
 </blockquote>
@@ -148,9 +148,9 @@ crowd, and neither is wrong.</p>
 <ul>
 <li><strong>Every fan's phone forwards frames for strangers</strong>, ciphertext it cannot read, for
 groups it cannot join. The bounds that make this survivable are the ones that need no
-identity: hop limit, replication budget, payload size (L3 10.4 Note 1) — deliberately
+identity: hop limit, replication budget, payload size (<a href="L3-routing.html#c10.4">L3 10.4</a> Note 1) — deliberately
 crude, and the reason a hive that believes nothing it hears is still safe in a crowd.</li>
-<li><strong>Duplicate suppression is doing more work here than anywhere else</strong> (L3 5.3): in a
+<li><strong>Duplicate suppression is doing more work here than anywhere else</strong> (<a href="L3-routing.html#c5.3">L3 5.3</a>): in a
 dense mesh every frame arrives many times by many paths, and the cache is what keeps
 density from becoming amplification.</li>
 <li><strong>The fan moves and nothing breaks.</strong> Seat, concourse, queue, seat again — the physical
@@ -158,16 +158,16 @@ substrate under P changes completely in minutes, and the logical destination doe
 change at all. Neighbour tables converge on wherever P is hearable now; frames for P
 flow toward the current truth, not the remembered one.</li>
 <li><strong>The watch's frames wait.</strong> Its neighbours — strangers included — hold rather than
-flood (L3 7.3.3), on the duty class its beacon declared, with retention patience sized
-by the declared interval (L3 7.4.3).</li>
+flood (<a href="L3-routing.html#c7.3.3">L3 7.3.3</a>), on the duty class its beacon declared, with retention patience sized
+by the declared interval (<a href="L3-routing.html#c7.4.3">L3 7.4.3</a>).</li>
 </ul>
 <h3 id="layer-4--the-frames-themselves">Layer 4 — the frames themselves</h3>
-<p>Everything tonight is frames, indistinguishable to the network (frame principle, L4 5.1
+<p>Everything tonight is frames, indistinguishable to the network (frame principle, <a href="L4-wire.html#c5.1">L4 5.1</a>
 Note 4): a beacon, an order, a payment, a picked-up notification, a sticker attestation —
 the type field says how to treat, never what it means. Signed frames stay on the tier they
-were born on (L4 9.2.3); the venue planned for that at Layer 1.</p>
+were born on (<a href="L4-wire.html#c9.2.3">L4 9.2.3</a>); the venue planned for that at Layer 1.</p>
 <h3 id="layer-5--three-kinds-of-relationship-all-live-at-once">Layer 5 — three kinds of relationship, all live at once</h3>
-<p>The whole ladder is on display in one place (L5 10.1):</p>
+<p>The whole ladder is on display in one place (<a href="L5-trust-and-identity.html#c10.1">L5 10.1</a>):</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -203,17 +203,17 @@ snack-sized purchase, tokens from the wallet P carries, no central authority in 
 loop. <strong>Its lifetime is the order</strong>: scope is this order's events, and the standing
 condition is <em>an order exists that is not yet fulfilled</em>.</li>
 <li><strong>The delivery gate never sleeps</strong>: every event under either entanglement is classified,
-and the classification names the key (L5 7.3). An observer in row 41 — in radio range of
+and the classification names the key (<a href="L5-trust-and-identity.html#c7.3">L5 7.3</a>). An observer in row 41 — in radio range of
 everything — sees envelopes.</li>
 </ul>
 <h3 id="layer-6--the-venues-fleet-invisible-tonight">Layer 6 — the venue's fleet, invisible tonight</h3>
-<p>Two hundred venue hives get their firmware as chunked transfers (L6 5.3.5) — <strong>overnight,
+<p>Two hundred venue hives get their firmware as chunked transfers (<a href="L6-management.html#c5.3.5">L6 5.3.5</a>) — <strong>overnight,
 on the quiet air, never during a match</strong>, because the update model tolerates taking days
 and the airtime budget tonight is spoken for. Diagnostics stay silent toward strangers
-(L6 6.2.2): forty thousand devices probe nothing, learn nothing.</p>
+(<a href="L6-management.html#c6.2.2">L6 6.2.2</a>): forty thousand devices probe nothing, learn nothing.</p>
 <h3 id="layer-7--the-sentants-and-the-snack">Layer 7 — the sentants, and the snack</h3>
 <p>The order, as events between sentants, each at the assurance grade its purpose warrants
-(L7 5.3):</p>
+(<a href="L7-application.html#c5.3">L7 5.3</a>):</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -272,12 +272,12 @@ never held.</p>
 <p>Two honest costs, named:</p>
 <ul>
 <li><strong>Re-persona forfeits the sticker rights.</strong> The claim names the persona, and re-persona
-is, observably, a different hive (L5 5.1.4) — deliberately unlinkable to the old one.
+is, observably, a different hive (<a href="L5-trust-and-identity.html#c5.1.4">L5 5.1.4</a>) — deliberately unlinkable to the old one.
 The fresh start is genuinely fresh, in both directions.</li>
 <li><strong>The claim is only as good as its issuer's signature discipline.</strong> V's group signature
 authenticates <em>an insider of V</em> — which insider, and whether kiosk firmware could mint
 attendance claims, is exactly the member-attributable evidence question (<strong>Q24, since
-ruled</strong>: the attestation is a certificate-carrying member signature, L5 7.4, so a claim
+ruled</strong>: the attestation is a certificate-carrying member signature, <a href="L5-trust-and-identity.html#c7.4">L5 7.4</a>, so a claim
 now names its issuing member key), and a venue that cares will want its attestation
 authority narrower than <em>any member</em> — a policy it can enforce on evidence that exists.</li>
 </ul>
@@ -349,7 +349,7 @@ dials; it did not add any.</p>
 </tr>
 <tr>
 <td>Whose signature covers the presence attestation</td>
-<td><strong>Q24 ruled</strong> — the certificate-carrying member signature, L5 7.4 (<a href="CLOSED-QUESTIONS.md">C7</a>)</td>
+<td><strong>Q24 ruled</strong> — the certificate-carrying member signature, <a href="L5-trust-and-identity.html#c7.4">L5 7.4</a> (<a href="CLOSED-QUESTIONS.md">C7</a>)</td>
 </tr>
 <tr>
 <td>Proximity as an entanglement condition, at scale and against spoofing</td>
