@@ -41,7 +41,9 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="links" id="nav-menu">
-        <a href="/standard/">The standard</a>
+        <a href="/standard/">Contents</a>
+        <a href="/standard/glossary.html">Glossary</a>
+        <a href="/standard/clauses.html">Clauses</a>
         <a href="/about.html">About</a>
         <a href="/how.html">How it works</a>
         <a href="https://github.com/reality2-ai">GitHub</a>
@@ -156,7 +158,7 @@ duty class</strong></p>
 its availability at Layer 0. <strong>It travels in the beacon</strong> (<a href="L2-capability-and-discovery.html#c5.4b">Layer 2, 5.4b</a>): declared by
 hives receptive only at intervals, absent from everyone else's beacons, unauthenticated
 because its forgery is conservative (7.3 Note 3), and unknown where unheard. <em>(This was
-the open gap 11.2 until 2026-07-31; the closure is <code>CLOSED-QUESTIONS.md</code> C5.)</em></p>
+the open gap 11.2 until 2026-07-31, when a ruling closed it.)</em></p>
 <span class="clause-anchor" id="c4"></span><h2 id="4-the-neighbour-table">4 The neighbour table</h2>
 <span class="clause-anchor" id="c4.1"></span><h3 id="41-one-peer-one-entry">4.1 One peer, one entry</h3>
 <p><strong class="clause" id="c4.1.1">4.1.1</strong> A hive shall keep one neighbour table entry per peer, keyed on the peer's canonical
@@ -639,7 +641,7 @@ values never were owed.</strong> What this gap recorded as undecided was the <em
 and 4.4.5 now pins it: the provisional ceiling is below the forwarding threshold, so
 unverified evidence can never cross into forwarding on any conformant implementation.
 The two values themselves are the deployment's, and divergence in them is quality, not
-conformance. <em>(<code>CLOSED-QUESTIONS.md</code> C10.)</em></p>
+conformance. <em>(Settled by ruling.)</em></p>
 <p><strong class="clause" id="c11.6">11.6 Build-mode carriage, and the only-connector exception, have no expression at this
 layer.</strong> Layer 2 states the development/production boundary and its one exception — a
 development hive may carry a production network's traffic where it is the only connector
@@ -656,8 +658,8 @@ this clause recorded as broken is closed one layer below where it was found: <st
 carries the duty class</strong> (<a href="L2-capability-and-discovery.html#c5.4b">Layer 2, 5.4b</a>), declared by the hives that sleep and absent from
 everyone else's, so a hive relaying for a group it does not belong to learns hold-or-flood
 from the air, below the trust boundary. 7.3 now turns on a value that arrives; where none
-has, the duty class is unknown and 7.3.2 applies, which is what it did before. <em>(The ruling
-and its reasoning: <code>CLOSED-QUESTIONS.md</code> C5.)</em></p>
+has, the duty class is unknown and 7.3.2 applies, which is what it did before. <em>(Settled by
+ruling, 2026-07-31.)</em></p>
 <p><strong class="clause" id="c11.3">11.3 What a hive does with its own frames before they are first transmitted.</strong> Clause 7
 governs frames received from others. <strong>A frame a hive originates while it has no viable bearer
 is not covered by any clause here</strong> — whether it is queued, dropped, or subject to the same
@@ -684,7 +686,10 @@ chosen once, by whoever wrote the library, for every deployment at once.</p>
 
 </article>
 <footer>
-    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
+    <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
+    <a href="/">reality2.ai</a></p>
+    <p class="stamp">Corpus revision <span class="mono">032faf1</span>, dated 2026-08-05. Rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the revision, not the date — the text moves.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>

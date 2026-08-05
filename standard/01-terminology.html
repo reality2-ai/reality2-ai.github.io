@@ -41,7 +41,9 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="links" id="nav-menu">
-        <a href="/standard/">The standard</a>
+        <a href="/standard/">Contents</a>
+        <a href="/standard/glossary.html">Glossary</a>
+        <a href="/standard/clauses.html">Clauses</a>
         <a href="/about.html">About</a>
         <a href="/how.html">How it works</a>
         <a href="https://github.com/reality2-ai">GitHub</a>
@@ -61,12 +63,11 @@ marked <code>PROVISIONAL(...)</code> at its own clause.</strong> <em>(Subject st
 a question the reader may not be asking, and a claim with an unstated subject will be given the
 subject the reader brought — composer, 2026-08-03.)</em>
 <strong>Date:</strong> 2026-08-04
-<strong>Drafting rules:</strong> ISO, <em>How to write standards</em> (2016) and ISO/IEC Directives Part 2,
-as recorded in <code>.claude/skills/writing-a-standard/SKILL.md</code>.</p>
+<strong>Drafting rules:</strong> ISO, <em>How to write standards</em> (2016) and ISO/IEC Directives Part 2.</p>
 <blockquote>
 <p><strong>Verbal forms.</strong> This document uses the <strong>ISO verbal forms</strong> — <em>shall</em> for a
 requirement, <em>should</em> for a recommendation, <em>may</em> for a permission, <em>can</em> for possibility
-and capability. <em>(Register settled by Roy, 2026-07-31; see <code>README.md</code>.)</em></p>
+and capability. <em>(Register settled by Roy, 2026-07-31.)</em></p>
 <p><strong>The status of a <em>Note to entry</em> is NOT stated anywhere in this corpus, and it is being
 relied on in both directions.</strong> There are <strong>530 notes</strong> across the thirteen parts, several
 of which change what an implementer does while using no verbal form at all — so counting
@@ -483,7 +484,7 @@ checksum covers the record's <strong>sequence</strong> and not its <strong>state
 lands on a defined value passes validation intact — the record is <em>valid</em> and its most
 consequential field is unchecked. <strong>Ask what the discriminator covers, not whether one is
 present</strong>; the answer is usually narrower than the word <em>checksum</em> suggests. <em>(Both notes
-added 2026-08-02 from a measured platform finding, <code>OPEN-QUESTIONS.md</code> SS135.)</em></p>
+added 2026-08-02 from a measured platform finding.)</em></p>
 <p>Note 2 to entry: <strong>The test that follows from 5.4 is one question, and it is not the
 question a validator answers.</strong> Not <em>is this artefact well-formed</em> but:</p>
 <blockquote>
@@ -499,8 +500,8 @@ the world: certificate epoch currency, where a claimed epoch is checked against 
 known epoch (<a href="L5-trust-and-identity.html#c6.1.3">Layer 5, 6.1.3</a>). <strong>It was handled because the standard said to.</strong> Everywhere
 the standard was silent, the artefact was trusted — reported not as carelessness but
 because <strong>a validated structure feels settled.</strong> A rule that must survive that feeling
-belongs in the normative text. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, with the
-sweep's four nil results recorded at <code>OPEN-QUESTIONS.md</code> SS126.)</em></p>
+belongs in the normative text. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the sweep
+behind it returned four nil results.)</em></p>
 <p><strong class="clause" id="c5.4a">5.4a</strong> Where a durable record is read by more than one party whose actions depend on it,
 an implementation shall accept that record only under the <strong>strictest</strong> validity predicate
 applied by any of those parties.</p>
@@ -544,7 +545,7 @@ Neither party can detect a divergence from its own side, so an implementer who h
 compared its predicate against the other reader's <strong>has not satisfied 5.4a, however
 carefully it validated the bytes it read.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>,
 finding SS147.)</em></p>
-<h2 id="5a-one-origin-many-surfaces">5A One origin, many surfaces</h2>
+<span class="clause-anchor" id="c5A"></span><h2 id="5a-one-origin-many-surfaces">5A One origin, many surfaces</h2>
 <p><strong>5A.1</strong> Where an implementation asserts the same fact about its own state on more than one
 surface, every surface shall derive that assertion from <strong>one origin</strong>.</p>
 <p>Note 1 to entry: <strong>This is the opposite of the rule that governs a check, and the difference
@@ -658,7 +659,10 @@ drafting of ISO and IEC documents</em></li>
 
 </article>
 <footer>
-    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
+    <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
+    <a href="/">reality2.ai</a></p>
+    <p class="stamp">Corpus revision <span class="mono">032faf1</span>, dated 2026-08-05. Rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the revision, not the date — the text moves.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>

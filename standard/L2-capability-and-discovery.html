@@ -41,7 +41,9 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="links" id="nav-menu">
-        <a href="/standard/">The standard</a>
+        <a href="/standard/">Contents</a>
+        <a href="/standard/glossary.html">Glossary</a>
+        <a href="/standard/clauses.html">Clauses</a>
         <a href="/about.html">About</a>
         <a href="/how.html">How it works</a>
         <a href="https://github.com/reality2-ai">GitHub</a>
@@ -272,7 +274,8 @@ transmits data, observed across time by a passive stranger — at the price of a
 absolute-time dependency on exactly the platforms least able to hold one.</strong> Where that case
 matters, the mitigation is operational, not cryptographic: an observer's cost is physical
 presence, and the privacy position of this standard is refusing aggregation, not churning
-identifiers. <em>(The ruling and its full reasoning: <code>CLOSED-QUESTIONS.md</code> C1.)</em></p>
+identifiers. <em>(Settled by ruling; the ruling record is editing history and not part of this
+standard.)</em></p>
 <p>Note 2 to entry: 5.4.3 is the resolution model, and it is a table lookup. Members learn the
 association between a beacon identifier and a hive when they learn everything else about
 the peer — above the trust boundary, at provisioning or on verified contact. <strong>The
@@ -440,7 +443,7 @@ transmitted; nothing carried the same fact hive to hive, so a hive relaying for 
 does not belong to could never learn it, and fell back to flooding for exactly the
 destinations most likely to be asleep. <strong>With the beacon carrying it, the value arrives
 below the trust boundary, from the air, with no relationship to the emitter</strong> — which is
-what a shared mesh requires. <em>(The ruling and its reasoning: <code>CLOSED-QUESTIONS.md</code> C5.)</em></p>
+what a shared mesh requires. <em>(Settled by ruling, 2026-07-31.)</em></p>
 <p><em>Verification: present a scanner with a beacon declaring an intermittent duty class and an
 interval, and the same beacon truncated before the field. It reports intermittent with the
 interval for the first and unknown for the second — never continuous for the truncated
@@ -727,7 +730,10 @@ diverge in which peers they know about</strong>, without either being non-confor
 
 </article>
 <footer>
-    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
+    <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
+    <a href="/">reality2.ai</a></p>
+    <p class="stamp">Corpus revision <span class="mono">032faf1</span>, dated 2026-08-05. Rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the revision, not the date — the text moves.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>

@@ -41,7 +41,9 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="links" id="nav-menu">
-        <a href="/standard/">The standard</a>
+        <a href="/standard/">Contents</a>
+        <a href="/standard/glossary.html">Glossary</a>
+        <a href="/standard/clauses.html">Clauses</a>
         <a href="/about.html">About</a>
         <a href="/how.html">How it works</a>
         <a href="https://github.com/reality2-ai">GitHub</a>
@@ -71,8 +73,9 @@ code against it and swap on ruling, exactly as the Layer 4 vector set was built.
 identity material and its wire derivations (<a href="L4-wire.html#c6.1.3">Layer 4, 6.1.3</a> and 7.1.4); the payload
 cipher and its envelope (<a href="L5-trust-and-identity.html#c7.3">Layer 5, 7.3</a>); the update package (Layer 6, Clause 4); the
 capability-contract registry and its first three contracts (Layer 7); and the
-definition and score formats (<a href="L7-application.html#c10.2">Layer 7, 10.2</a>). The Layer 4 conformance vector set
-(<a href="TEST-VECTORS-L4.html"><code>TEST-VECTORS-L4.md</code></a>) is part of this companion and is already ratified in substance.</p>
+definition and score formats (<a href="L7-application.html#c10.2">Layer 7, 10.2</a>). The Layer 4 conformance vector set is <strong>a
+separate normative companion, <a href="TEST-VECTORS-L4.html"><code>TEST-VECTORS-L4.md</code></a>, cited in Clause 2</strong> — ratified in
+substance, and <strong>published with this document rather than contained in it.</strong></p>
 <span class="clause-anchor" id="c2"></span><h2 id="2-normative-references">2 Normative references</h2>
 <p><a href="01-terminology.html"><code>01-terminology.md</code></a>, <a href="L4-wire.html"><code>L4-wire.md</code></a>, <a href="L5-trust-and-identity.html"><code>L5-trust-and-identity.md</code></a>, <a href="L6-management.html"><code>L6-management.md</code></a>,
 <a href="L7-application.html"><code>L7-application.md</code></a>, <a href="TEST-VECTORS-L4.html"><code>TEST-VECTORS-L4.md</code></a>.</p>
@@ -605,16 +608,15 @@ of 7.2, with every departure from that corpus named at the clause that departs.<
 CORPUS, never canon.</strong> Stated here as a test rather than as a list, because a test disposes of
 the citations nobody enumerated: <strong>per d041 — Roy, <em>standard is the canon</em> — a sentence you can
 find ONLY in an old-corpus document is not a requirement and never was one.</strong> Cite them for
-provenance; do not build from them. <strong><code>imports/README.md</code> names what binds a reader who is not
-this lane</strong> — d007 for core, and d017 verbatim for every platform target. <em>(Written after a peer
+provenance; do not build from them. <em>(Written after a peer
 lane found that a ruling phrased about DIRECTORIES made it search directories and miss the
 sibling class entirely: <strong>a ruling's noun shapes the search that applies it.</strong>)</em></p>
 <p><strong class="clause" id="c7.2">7.2</strong> The substance is imported rather than reinvented: corpus <code>R2-DEF.md</code> at spec
-DEF 0.14 is held verbatim at <code>imports/R2-DEF-0.14.md</code> (provenance verified 2026-08-01:
-r2-specifications commit <code>3932727</code>, 1811 lines, sha256 prefix <code>8ecb5df83b24864f</code>;
-recomputed on every run of the requirements gate since 2026-08-02 — <code>PROVENANCE.md</code>
-digest of record). <code>R2-CAP.md</code> 0.9 is available from the same commit on ask — <strong>as corpus, under Note 0</strong>, not as
-a document anything may be built from.</p>
+DEF 0.14 is held verbatim with the editing record, and is identified by its provenance
+rather than by where it is kept — r2-specifications commit <code>3932727</code>, 1811 lines, sha256
+prefix <code>8ecb5df83b24864f</code>, verified 2026-08-01 and recomputed on every run of the
+requirements gate since 2026-08-02. <code>R2-CAP.md</code> 0.9 is available from the same commit on
+ask — <strong>as corpus, under Note 0</strong>, not as a document anything may be built from.</p>
 <p>Note 1 to entry: <strong>What this clause is not.</strong> The imported corpus is a working document with
 examples, deprecations, rationale and open questions. This clause carries <strong>the obligations</strong>;
 the examples stay in the import. Where the import states a behaviour without stating who is
@@ -975,13 +977,14 @@ nothing in 7.8 overrides it; <code>registrations</code>, <code>capabilities</cod
 conversion, because a converted document has no signature and 7.9.4a refuses a merely absent
 signature field. The corpus's error identifiers are not
 carried: 7.10.1 obliges an implementation to name <strong>the obligation</strong>, and a shared identifier
-vocabulary is a separate question (<code>OPEN-QUESTIONS.md</code> SS152). <em>(Both <code>PROVISIONAL(supervisor)</code>,
+vocabulary is a separate question, not settled here. <em>(Both <code>PROVISIONAL(supervisor)</code>,
 2026-08-02.)</em></p>
 <span class="clause-anchor" id="c8"></span><h2 id="8-conformance">8 Conformance</h2>
 <p><strong class="clause" id="c8.1">8.1</strong> The vector discipline of <a href="L4-wire.html#c12.2">Layer 4, 12.2</a> applies to every format here: each
 section, when ratified, carries byte-exact vectors including required-to-fail cases.
 The identity derivation (Clause 3) and cipher envelope (Clause 4) vectors land with
-ratification of their provisional choices; a <code>tools/</code> generator accompanies them.</p>
+ratification of their provisional choices, and a generator accompanies them — <strong>the vectors
+are generated, never hand-written.</strong></p>
 <p><strong class="clause" id="c8.2">8.2</strong> Until ratification, an implementation building against a <code>PROVISIONAL</code> choice
 shall mirror the mark (as r2-core mirrors vector provisionals in test comments) so
 the swap on ruling is one site, not an archaeology.</p>
@@ -1010,7 +1013,10 @@ SS273.)</em></p>
 
 </article>
 <footer>
-    <p><a href="/standard/">Contents</a> · <a href="/">reality2.ai</a> · <a href="https://github.com/reality2-ai">GitHub</a></p>
+    <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
+    <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
+    <a href="/">reality2.ai</a></p>
+    <p class="stamp">Corpus revision <span class="mono">032faf1</span>, dated 2026-08-05. Rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the revision, not the date — the text moves.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>

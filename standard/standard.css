@@ -99,6 +99,24 @@ footer {
 }
 footer a { color: var(--text-dim); }
 footer p { color: var(--text-faint); font-size: 13px; }
+footer .stamp { margin-top: 10px; font-size: 12px; }
+.mono { font-family: var(--mono); }
+
+/* Glossary */
+.jump { font-size: 14px; color: var(--text-faint); margin: 0 0 28px; letter-spacing: 1px; }
+.term { border-top: 1px solid var(--hair); padding: 14px 0 4px; }
+.term-head { margin-bottom: 4px; font-size: 16px; font-weight: 600; color: var(--text); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.term-head a { color: var(--accent); }
+.term-src { font-size: 12.5px; color: var(--text-faint); font-family: var(--mono); font-weight: 400; white-space: nowrap; }
+.term-def { font-size: 15px; margin-bottom: 6px; }
+
+/* Clause index */
+ul.ix { list-style: none; margin: 0 0 24px; }
+ul.ix li { margin: 0; border-bottom: 1px solid var(--hair); }
+ul.ix li a { display: flex; gap: 12px; padding: 7px 4px; color: var(--text-dim); font-size: 15px; }
+ul.ix li a:hover { color: var(--accent); text-decoration: none; background: var(--surface); }
+ul.ix .num { font-family: var(--mono); color: var(--accent); min-width: 62px; font-size: 13.5px; }
+ul.ix li.lv3 a { padding-left: 22px; } ul.ix li.lv4 a { padding-left: 44px; font-size: 14px; }
 
 .theme-toggle {
     background: none; border: 1px solid rgba(212,168,83,0.15); border-radius: 8px;
