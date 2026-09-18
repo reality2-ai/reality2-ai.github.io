@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L1 binding — LoRa — Reality2 Standard</title>
+<meta name="description" content="The bearer binding for LoRa: ordinal 2, its sync-word marker, the address it has to create, and the duty cycle Clause 9 imposes.">
+<link rel="canonical" href="https://reality2.ai/standard/L1-BINDING-LORA.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="L1 binding — LoRa — Reality2 Standard">
+<meta property="og:description" content="The bearer binding for LoRa: ordinal 2, its sync-word marker, the address it has to create, and the duty cycle Clause 9 imposes.">
+<meta property="og:url" content="https://reality2.ai/standard/L1-BINDING-LORA.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">Contents</a>
+        <a href="/standard/glossary.html">Glossary</a>
+        <a href="/standard/clauses.html">Clauses</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#1-scope-and-what-is-deliberately-not-here">1 Scope, and what is deliberately not here</a></li><li><a href="#2-b-how-a-frame-is-placed-in-a-transport-unit">2 b) How a frame is placed in a transport unit</a></li><li><a href="#3-c-the-discovery-marker">3 c) The discovery marker</a></li><li><a href="#4-d-medium-address-to-canonical-hive-identifier">4 d) Medium address to canonical hive identifier</a></li><li><a href="#5-the-announcement-and-e-the-payload-it-must-fit-in">5 The announcement, and e) the payload it must fit in</a></li><li><a href="#6-j-the-build-mode-declaration">6 j) The build-mode declaration</a></li><li><a href="#6a-f-how-the-quality-value-is-derived">6a f) How the quality value is derived</a></li><li><a href="#6b-g-the-conditions-producing-each-state">6b g) The conditions producing each state</a></li><li><a href="#6c-h-duty-cycle-and-airtime-budget">6c h) Duty cycle and airtime budget</a></li><li><a href="#6d-i-no-connection-and-what-the-medium-requires-instead">6d i) No connection, and what the medium requires instead</a></li><li><a href="#6e-k-how-the-medium-is-shared">6e k) How the medium is shared</a></li><li><a href="#7-what-this-closes-what-it-narrows-and-what-it-leaves-open">7 What this closes, what it narrows, and what it leaves open</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2--layer-1-binding-lora-lora-ordinal-2">Reality2 — Layer 1 binding: LoRa (<code>lora</code>, ordinal 2)</h1>
+<p class="reader-kind">Normative document</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
+<p><strong>Version:</strong> 0.9.0 · <strong>Date:</strong> 2026-09-03 · <strong>Status:</strong> <code>PROVISIONAL(standard)</code> · <strong>Scope:</strong> this bearer only</p>
+<blockquote>
+<p>⚠ <strong>This is a binding document under Layer 1, Clause 11.</strong> It states what that clause
+defers to a binding and <strong>restates no requirement of Layer 1</strong> (11.2). Where it appears to
+repeat a rule, it is citing the clause that governs and saying what this medium does about
+it.</p>
+</blockquote>
+<blockquote>
+<p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> =
+permission · <em>can</em> = possibility and capability.</p>
+</blockquote>
+
+<hr />
+<span class="clause-anchor" id="c1"></span><h2 id="1-scope-and-what-is-deliberately-not-here">1 Scope, and what is deliberately not here</h2>
+<p><strong class="clause" id="c1.1">1.1</strong> This document binds <strong>LoRa</strong> — the chirp-spread-spectrum modulation used
+peer-to-peer, without LoRaWAN — to bearer ordinal <strong>2</strong> (<code>lora</code>), whose registry row
+<a href="L1-transport.html#c8.2.1">Layer 1, 8.2.1</a> fixes: reach <em>long-range</em>, wire tier <em>compact</em>, largest payload <strong>222 B</strong>,
+relative cost <strong>5</strong>.</p>
+<p><strong class="clause" id="c1.2">1.2</strong> It states items <strong>b)</strong> in Clause 2, <strong>c)</strong> in Clause 3, <strong>d)</strong> in Clause 4, <strong>e)</strong> in
+5.1, <strong>j)</strong> in Clause 6, <strong>f)</strong> in 6a, <strong>g)</strong> in 6b, <strong>h)</strong> in 6c and <strong>i)</strong> in 6d. <strong>Item a)
+is fixed by the registry row.</strong> All ten items are stated, and none by a pointer. <strong>Layer 1,
+11.1a has no subject on this medium</strong> (2a).</p>
+<p><strong class="clause" id="c1.3">1.3 ⚠ This is the third binding, and it inverts the second on nearly every axis.</strong> BLE holds
+connections and is unregulated; <strong>LoRa holds none and is regulated</strong>, so <strong>Clause 9 engages
+here for the first time in this corpus</strong> (6c) and Clause 10 does not (6d). <em>The two documents
+are worth reading together: between them they exercise both conditional clauses of Layer 1,
+and neither could have done it alone.</em></p>
+<p><strong class="clause" id="c1.4">1.4 ⚠ And this medium has no address of any kind, which is the hard part of the document.</strong>
+A LoRa transmission is a preamble, a sync word, an optional header, a payload and a checksum.
+<strong>There is no source field, no destination field and no address anywhere in it</strong> — every
+transmission is heard by every radio in range whose sync word and modulation match. Clause 4
+is where that is dealt with, and it is why this binding wraps a frame where the other two do
+not.</p>
+<p><strong class="clause" id="c1.5">1.5 Out of scope, named rather than left silent:</strong></p>
+<ul>
+<li><strong>LoRaWAN.</strong> This binds LoRa the modulation, not the network stack above it. LoRaWAN has
+its own addressing, its own join procedure and its own duty-cycle machinery, and a hive
+using it would be carrying Reality2 frames over a network rather than over a medium.</li>
+<li><strong>The channel plan and the region.</strong> 6c.3 obliges a deployment to declare them and this
+document fixes neither. <em>The corpus contains no region ruling, and a document that pinned
+one would be legislating for jurisdictions it has not read.</em></li>
+<li><strong>The class-hash algorithm</strong> (<code>SS1</code>), inherited and not introduced here.</li>
+<li><strong>Which spreading factor a deployment uses.</strong> It is declared (6c.3) because it determines
+airtime and therefore the budget, not fixed, because it trades range against airtime and
+that trade is a deployment's to make.</li>
+</ul>
+<hr />
+<span class="clause-anchor" id="c2"></span><h2 id="2-b-how-a-frame-is-placed-in-a-transport-unit">2 b) How a frame is placed in a transport unit</h2>
+<p><strong class="clause" id="c2.1">2.1</strong> One frame <strong>shall</strong> occupy exactly one LoRa transmission.</p>
+<p><strong class="clause" id="c2.2">2.2</strong> The transmission payload <strong>shall</strong> be the <strong>wrapping of 4.3 followed by the frame</strong>,
+and a bearer <strong>shall</strong> remove that wrapping before delivering the frame upward (Layer 1,
+4.2.2).</p>
+<p><strong class="clause" id="c2.3">2.3</strong> A bearer <strong>shall</strong> use the explicit header mode, so that the transmission carries its
+own payload length.</p>
+<p><strong class="clause" id="c2.4">2.4</strong> Transport units <strong>are delimited by the medium</strong>: a LoRa transmission is a discrete
+event with a length in its header, so the second half of 11.1 b) — how transport units are
+delimited where the medium does not delimit them — <strong>has no subject here.</strong></p>
+<p><strong class="clause" id="c2.5">2.5</strong> A bearer <strong>shall</strong> enable the payload checksum, and <strong>shall</strong> discard a transmission
+whose checksum fails without delivering anything upward.</p>
+<p><strong class="clause" id="c2.6">2.6</strong> Layer 1, <strong class="clause" id="c4.4.3">4.4.3 has no subject on this medium</strong>: raw LoRa performs no acknowledgement
+and no retransmission of its own, so there is nothing for a bearer to refuse to expose upward.
+<em>A completed transmission is the radio having transmitted, which is all it ever claimed.</em></p>
+
+<p>Note 1a to entry: <strong>⚠ WHY THE WRAPPING IS NOT 4.7.2's PROHIBITION WEARING ANOTHER HAT, AND
+NOT 4.2.3 EITHER — BOTH OBJECTIONS ARE REACHABLE AND BOTH FAIL.</strong> 4.7.2 forbids the <em>marker</em>
+being placed inside the frame; the wrapping of 4.2 is not the marker (the sync word is, 3.1)
+and it is not inside the frame — <strong class="clause" id="c4.2.1">4.2.1 is about the bytes delivered upward, and the wrapping
+is removed before they are</strong> (2.2). 4.2.3 forbids a bearer <em>interpreting the contents of a
+frame</em>; a bearer reading its own wrapping is reading bytes it wrote, and it reads nothing the
+frame contains. <em>The distinction that matters: this bearer never inspects a frame to decide
+anything, which is the property 4.2.3 exists to protect and which the whole of Clause 4 here
+preserves.</em></p>
+<p>Note 2 to entry: <strong>2.5 is 4.2.1 applied to a medium that can deliver corrupted bytes.</strong> A
+frame delivered upward must be exactly the bytes handed down at the peer; a transmission that
+fails its checksum is not those bytes, and passing it up would make the bearer the source of a
+malformed frame. <em>The alternative — delivering it and letting a higher layer notice — breaks
+4.2.1 and moves a medium's defect into a layer that cannot attribute it.</em></p>
+<h3 id="2a-roles-111a-has-no-subject-here">2a Roles: 11.1a has no subject here</h3>
+<p><strong>2a.1</strong> LoRa has <strong>no roles a device adopts</strong>: there is no initiator and no responder, no
+central and no peripheral, and no state a device holds about another before transmitting. So
+Layer 1, <strong class="clause" id="c11.1a">11.1a has no subject on this medium</strong> and this binding states no role-concurrency
+obligation.</p>
+<p>Note 1 to entry: <strong>The medium is nonetheless half-duplex, and that is a different fact.</strong> A
+radio transmitting cannot receive, so a hive is deaf for the airtime of every frame it sends —
+which at the slowest spreading factors is a substantial fraction of a second. <em>That is not a
+role and 11.1a does not reach it; it is a property the cadence rules of <a href="L2-capability-and-discovery.html#c6.2">Layer 2, 6.2</a> and the
+budget of 6c are already written against, and it is named here so a reader does not mistake
+its absence from 2a.1 for an oversight.</em></p>
+<p><strong>2a.2</strong> A direct LoRa bearer while its platform is receptive <strong>shall</strong> keep its radio receptive
+except while it performs one channel-activity detection or transmits one frame. An accepted frame waiting for either
+operation shall be held in bounded memory; it shall not cause the bearer to remain in a
+transmit-oriented state while it waits.</p>
+<p><strong>2a.3</strong> Where a direct LoRa bearer defers a transmission, it <strong>shall</strong> return the radio to
+receive during that deferral and <strong>shall</strong> process arrivals before making its next transmission
+decision. This makes the deferral window available to 6e.5: an overheard relay can suppress the
+queued duplicate before this hive becomes deaf to send it.</p>
+<p><strong>2a.4</strong> A direct LoRa bearer that is receptive only at intervals <strong>shall not</strong> use a
+common fixed listen-then-transmit phase as its medium-access regimen. It <strong>shall</strong> randomise
+each transmission opportunity from entropy that is local to the hive, retain work while it is
+not receptive, and state its rendezvous behaviour in its Layer 1 B9 profile value. For direct
+LoRa, that intermittent value has a nonzero receptive window and open local ranges for both its
+next-window delay and its transmission-opportunity delay. A shared phase makes every hive deaf
+at the same instant; no queue can recover a frame that no receiver was able to hear.</p>
+<p>Note 2 to entry: Continuous reception is the direct LoRa default; transmission is a short
+exception, not the second half of a global cycle. A duty-cycled profile is a distinct
+deployment choice, not an optimisation that can be inferred from an empty queue. The random
+contention delay of 6e remains necessary in either profile: independent scheduling prevents a
+permanent common phase, while carrier sensing and relay suppression decide a particular
+transmission.</p>
+<hr />
+<span class="clause-anchor" id="c3"></span><h2 id="3-c-the-discovery-marker">3 c) The discovery marker</h2>
+<p><strong class="clause" id="c3.1">3.1</strong> The discovery marker <a href="L1-transport.html#c4.7.1">Layer 1, 4.7.1</a> requires <strong>shall</strong> be the <strong>LoRa sync word</strong>,
+carried in the physical framing ahead of the payload, with the value <strong><code>0x52</code></strong> on parts
+taking an eight-bit sync word and <strong><code>0x5424</code></strong> on parts taking a sixteen-bit one.</p>
+<p><strong class="clause" id="c3.2">3.2</strong> A bearer <strong>shall not</strong> use the public-network sync word, and <strong>shall not</strong> use the
+library or vendor default for a private network.</p>
+
+<p><strong class="clause" id="c3.3">3.3</strong> The marker <strong>shall not</strong> be placed inside the frame (<a href="L1-transport.html#c4.7.2">Layer 1, 4.7.2</a>), and on this
+medium it is not placed inside the transport unit at all.</p>
+<p>Note 1 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
+
+
+<p>Note 3 to entry: <strong>What the marker does NOT do, stated because the clause says <em>distinguish
+Reality2 traffic from other traffic</em> and this marker's discrimination is bounded.</strong> A sync
+word separates this deployment from public LoRaWAN and from any deployment using a different
+value. <strong>It does not separate it from another deployment that happens to choose <code>0x52</code></strong>, and
+nothing in the medium can. <em>3.2 exists to make that boundary as wide as the medium allows: the
+defaults are where collisions actually live, because they are what everything else uses.</em></p>
+<hr />
+<span class="clause-anchor" id="c4"></span><h2 id="4-d-medium-address-to-canonical-hive-identifier">4 d) Medium address to canonical hive identifier</h2>
+<p><strong class="clause" id="c4.1">4.1 ⚠ This medium has no address.</strong> A LoRa transmission carries no source field and no
+destination field. <strong>So this binding creates one</strong>, in the wrapping <a href="L1-transport.html#c4.2.2">Layer 1, 4.2.2</a> permits,
+because 4.5.1 obliges a bearer to report the sender's canonical hive identifier and 4.2.3
+forbids it to read the frame in order to find one.</p>
+<p><strong class="clause" id="c4.2">4.2</strong> The wrapping <strong>shall</strong> be <strong>four octets</strong>, carrying the sender's <strong>medium address</strong>,
+and <strong>shall</strong> precede the frame in the transmission payload.</p>
+<p><strong class="clause" id="c4.3">4.3</strong> A hive <strong>shall</strong> generate its medium address at random, <strong>shall</strong> change it whenever
+the persona changes (<a href="L5-trust-and-identity.html#c5.1.4">Layer 5, 5.1.4</a>), and <strong>shall not</strong> derive it from any other identifier it
+holds.</p>
+<p><strong class="clause" id="c4.4">4.4</strong> A bearer <strong>shall</strong> associate a medium address with the canonical hive identifier
+<a href="L1-transport.html#c3.6">Layer 1, 3.6</a> defines, <strong>shall</strong> report that identifier upward as 4.5.1 requires, and <strong>shall</strong>
+learn the association from received traffic rather than computing it from the address.</p>
+<p><strong class="clause" id="c4.5">4.5</strong> A bearer <strong>shall</strong> discard the association when a hive's medium address changes, and
+<strong>shall not</strong> treat two addresses as one peer on any evidence this layer holds.</p>
+<p><strong class="clause" id="c4.6">4.6</strong> A bearer <strong>shall not</strong> treat the medium address as evidence of who the sender is.</p>
+<p>Note 1 to entry: <strong>⚠ THE ADDRESS IS A LABEL AND NOT A CLAIM, WHICH IS WHY 4.6 IS A CLAUSE AND
+NOT A NOTE.</strong> It is four octets any transmitter may set to anything, on a medium with no
+authentication whatever. <strong>Its only job is to let a bearer say <em>these two receptions came from
+the same radio</em>, so that 4.5.3's derived identifier has something to be derived from and the
+neighbour table does not collapse every peer into one.</strong> <em>Everything that depends on knowing
+who a peer is happens above Layer 4, which is why a forgeable label costs nothing here — and
+why treating it as evidence would be the one way to make it cost something.</em></p>
+
+<p>Note 3 to entry: <strong>Four octets is a size chosen against the population, and it is stated so a
+later revision can argue with the reasoning rather than the number.</strong> A long-range bearer's
+neighbourhood is bounded by airtime long before it is bounded by address space, and four octets
+cost 1.8% of the largest payload. <em>A collision costs two hives one shared neighbour entry until
+either rotates, which is a degradation and not a failure.</em></p>
+<hr />
+<span class="clause-anchor" id="c5"></span><h2 id="5-the-announcement-and-e-the-payload-it-must-fit-in">5 The announcement, and e) the payload it must fit in</h2>
+<span class="clause-anchor" id="c5.1"></span><h3 id="51-maximum-transport-unit-payload">5.1 Maximum transport unit payload</h3>
+<p><strong class="clause" id="c5.1.1">5.1.1</strong> The maximum transport unit payload is <strong>222 octets</strong>, fixed by the registry row
+(<a href="L1-transport.html#c8.2.1">Layer 1, 8.2.1</a>), and nothing on this medium varies it, so 11.1 e)'s second half has no
+subject.</p>
+<p><strong class="clause" id="c5.1.2">5.1.2</strong> The transmission carrying it is therefore <strong>226 octets</strong> — the four-octet wrapping
+of 4.2 and the frame — which <strong>shall</strong> be within the maximum the modulation permits.</p>
+<p>Note 1 to entry: <strong>The wrapping is charged to the medium and not to the frame, and the
+arithmetic is why that is honest rather than convenient.</strong> A LoRa transmission admits 255
+octets; 222 of frame and 4 of wrapping is 226, leaving 29 unused. <strong>So the registry's 222 is
+carried whole, and the wrapping costs headroom that was never available to a frame.</strong> <em>Had the
+sum exceeded 255 the registry row would be wrong and this document would have had to say so.</em></p>
+<span class="clause-anchor" id="c5.2"></span><h3 id="52-the-announcement-is-a-frame">5.2 The announcement is a frame</h3>
+<p><strong class="clause" id="c5.2.1">5.2.1</strong> The announcement <strong>shall</strong> be a frame, carried exactly as any other frame is, and
+addressed as Layer 2 requires.</p>
+<p><strong class="clause" id="c5.2.2">5.2.2</strong> A hive <strong>shall</strong> announce while any LoRa bearer is in service (<a href="L1-transport.html#c3.5a">Layer 1, 3.5a</a>) and
+that bearer participates in discovery, subject to the cadence <a href="L2-capability-and-discovery.html#c6.2">Layer 2, 6.2</a> sets for a
+regulated bearer and to the budget of 6c.</p>
+<p>Note 1 to entry: <strong>This is the ESP-NOW arrangement rather than the BLE one, and the medium
+decides it.</strong> BLE has advertising — an unaddressed, unacknowledged, unrelayable transmission
+that exists to be overheard — so its announcement is not a frame. <strong>LoRa has no such
+facility</strong>: every transmission is the same kind of transmission. <em>So the announcement is a
+frame, and the only thing distinguishing it is what it carries.</em></p>
+<span class="clause-anchor" id="c5.3"></span><h3 id="53-the-announcement-body">5.3 The announcement body</h3>
+<p><strong class="clause" id="c5.3.1">5.3.1</strong> The body <strong>shall</strong> be a sequence of elements, each <code>type (1 octet) || length (1 octet) || value (length octets)</code>, in ascending type order, with no element repeated.</p>
+<p><strong class="clause" id="c5.3.2">5.3.2</strong> The elements <strong>shall</strong> be:</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Type, Length, Value, Required by"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Length</th>
+<th>Value</th>
+<th>Required by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x01</code></td>
+<td>4</td>
+<td>beacon identifier</td>
+<td><a href="L2-capability-and-discovery.html#c5.1">L2 5.1</a> b), 5.4.1</td>
+</tr>
+<tr>
+<td><code>0x02</code></td>
+<td>4</td>
+<td>class hash</td>
+<td><a href="L2-capability-and-discovery.html#c5.1">L2 5.1</a> c)</td>
+</tr>
+<tr>
+<td><code>0x03</code></td>
+<td>1</td>
+<td>build-mode declaration</td>
+<td><a href="L2-capability-and-discovery.html#c5.4a.1">L2 5.4a.1</a> — see Clause 6</td>
+</tr>
+<tr>
+<td><code>0x04</code></td>
+<td>2</td>
+<td>duty-class declaration</td>
+<td><a href="L2-capability-and-discovery.html#c5.4b">L2 5.4b</a> — see 5.4</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong class="clause" id="c5.3.3">5.3.3</strong> An element whose type is not in 5.3.2 <strong>shall</strong> be skipped and its length honoured.</p>
+<p><strong class="clause" id="c5.3.4">5.3.4</strong> A body whose final element is truncated <strong>shall</strong> be treated as unreadable from
+that element onward, and <strong>shall not</strong> be treated as though the element were absent.</p>
+<p><strong class="clause" id="c5.3.4a">5.3.4a</strong> The body's extent <strong>shall</strong> be the payload length of the frame carrying it (5.2.1),
+which the explicit header of 2.3 states, and a body shorter than that length <strong>shall</strong> be
+treated as <strong>unreadable throughout</strong> — not as a shorter body that is well-formed to its end.
+<code>PROVISIONAL(r2, SS390)</code>.</p>
+<p>Note 0 to entry: <strong>5.3.4 protects a cut INSIDE an element and 5.3.4a protects a cut AT a
+boundary, and without the second the first reads as covering both.</strong> A body cut at an element
+boundary is byte-for-byte a shorter, complete, well-formed body: nothing in it is truncated,
+so 5.3.4 has no subject, and 6.3's <em>well-formed to its end, element <code>0x03</code> absent</em> applies in
+terms — <strong>the verdict is production, which 6.4 forbids a scanner to reach from unknown.</strong>
+‼ <strong>And the element at risk is the one that matters by construction rather than by bad luck</strong>:
+5.3.1 fixes ascending type order and the build-mode declaration is <code>0x03</code>, the last of the
+three required elements, so it is <strong>the first thing any truncation removes</strong>. <em>Measured
+2026-08-18 on a development body of fifteen octets: truncated to twelve — the boundary after
+the class hash — a decoder reports no truncation and concludes production.</em></p>
+
+<p><strong class="clause" id="c5.3.5">5.3.5</strong> The beacon identifier <strong>shall</strong> be the value <a href="L2-capability-and-discovery.html#c5.4.1">Layer 2, 5.4.1</a> requires, and <strong>shall
+not</strong> be derived from any other identifier the hive holds.</p>
+<span class="clause-anchor" id="c5.4"></span><h3 id="54--the-duty-class-element-and-why-it-appears-here-first">5.4 ⚠ The duty-class element, and why it appears here first</h3>
+<p><strong class="clause" id="c5.4.1">5.4.1</strong> A hive receptive only at intervals <strong>shall</strong> carry element <code>0x04</code>, whose value is
+<strong>two octets: the duty class <a href="L2-capability-and-discovery.html#c5.4b">Layer 2, 5.4b</a> defines, then the longest interval between its
+receptive windows, coarsely stated as 5.4.3 encodes it.</strong></p>
+<p><strong class="clause" id="c5.4.2">5.4.2</strong> A hive continuously receptive <strong>shall not</strong> carry element <code>0x04</code>.</p>
+<p>Note 0 to entry: <strong>⚠ THE TABLE AT 5.3.2 SAID LENGTH 1 AND 5.4.1 SAYS TWO OCTETS, AND THE
+TABLE WAS WRONG — CORRECTED 2026-08-18.</strong> 5.4.1 names two fields, the class and the interval,
+so one octet could not hold both. <strong>Found by writing the encoder</strong>: a codec has to emit a
+length, and the two statements gave different ones. <em>A summary table and the clause it
+summarises disagreeing is the shape a reader resolves in whichever direction they read
+first</em> — and an encoder written from the table would have produced a body a decoder written
+from the clause reads as truncated, which 5.3.4 makes unreadable rather than absent.</p>
+<p><strong class="clause" id="c5.4.3">5.4.3</strong> <code>PROVISIONAL(supervisor)</code>, and it is a <strong>proposed</strong> encoding for a field the corpus
+says has none. The interval octet <strong>shall</strong> be read as <strong><code>2^n</code> seconds</strong>, where <code>n</code> is the octet's
+value, rounded up to the next representable value — so <code>0x00</code> is one second, <code>0x08</code> is about
+four minutes, <code>0x10</code> is about eighteen hours, and <code>0xFF</code> is reserved and means the interval is
+not stated.</p>
+<p>Note 1 to entry: <strong>⚠ THE OTHER TWO BINDINGS CARRY NO SUCH ELEMENT AND BOTH ARE THEREBY UNABLE
+TO ANNOUNCE A DUTY-CYCLED HIVE.</strong> <a href="L2-capability-and-discovery.html#c5.2">Layer 2, 5.2</a> obliges <em>a beacon emitted by a hive receptive
+only at intervals</em> to carry the declaration, and neither the ESP-NOW body nor the BLE one has
+a type for it. <strong>It is added here rather than there because this is the bearer where the case
+is ordinary</strong>: a long-range radio is what a battery-powered, intermittently-receptive hive
+uses, and <a href="L2-capability-and-discovery.html#c5.4b">Layer 2, 5.4b</a>'s own reason for existing is that an unentangled stranger who can
+verify nothing still needs to know to hold rather than transmit at a sleeping radio.</p>
+<p><span class="clause-anchor" id="c5.4b.1"></span>Source note omitted from this reading edition.</p>
+<p><strong>This document proposes bytes, and marks them provisional, because this is the bearer where
+the omission costs something.</strong> <em>A long-range radio is where duty-cycled hives actually live;
+<code>SS11</code> has been open since the first extraction with no instance forcing it; and a proposal
+Roy can reject in one line is more use than a third silent omission.</em> <strong>A power-of-two ladder
+is chosen because the value is a bound rather than a measurement</strong> — a receiver uses it to
+decide whether to hold or to transmit, and doubling steps are the coarseness 5.4b.1 asks for
+in a form two implementations cannot read differently.</p>
+
+<hr />
+<span class="clause-anchor" id="c6"></span><h2 id="6-j-the-build-mode-declaration">6 j) The build-mode declaration</h2>
+<p><strong class="clause" id="c6.1">6.1</strong> The build-mode declaration <a href="L2-capability-and-discovery.html#c5.4a.1">Layer 2, 5.4a.1</a> requires <strong>shall</strong> be element type <code>0x03</code>
+of 5.3.2, one octet, with the values:</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Value, Meaning"><table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x01</code></td>
+<td>development</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong class="clause" id="c6.2">6.2</strong> A production hive <strong>shall not</strong> emit element <code>0x03</code> at all.</p>
+<p><strong class="clause" id="c6.3">6.3</strong> A receiver that finds no element <code>0x03</code> <strong>shall</strong> treat the declaration as <em>absent</em>;
+one that finds a value other than <code>0x01</code> <strong>shall</strong> treat it as <em>unreadable</em>; and neither
+<strong>shall</strong> be treated as <em>production declared</em>.</p>
+
+<hr />
+<h2 id="6a-f-how-the-quality-value-is-derived">6a f) How the quality value is derived</h2>
+<p><strong>6a.1</strong> The quality value of <a href="L1-transport.html#c5.3.1">Layer 1, 5.3.1</a> <strong>shall</strong> be derived from the <strong>signal-to-noise
+ratio</strong> the receiver reports for the transmission, and <strong>may</strong> be adjusted by the received
+signal strength where the implementation has both.</p>
+<p><strong>6a.2</strong> The derivation <strong>shall</strong> map a stated floor to <code>0.0</code> and a stated ceiling to <code>1.0</code>,
+<strong>shall</strong> clamp outside them, and <strong>shall</strong> be monotonic in signal-to-noise ratio.</p>
+<p><strong>6a.3</strong> The floor and the ceiling <strong>shall</strong> be stated by the implementation. This document
+fixes neither.</p>
+<p><strong>6a.4</strong> The value <strong>shall</strong> be held per medium address, and <strong>shall</strong> be discarded with the
+association when the address changes (4.5).</p>
+<p>Note 1 to entry: <strong>Signal-to-noise ratio rather than signal strength, and this is the one
+place this medium's physics changes the answer.</strong> LoRa demodulates below the noise floor, so a
+usable link can have a received signal strength that looks like nothing at all; <strong>strength
+alone would report a working peer as unusable at exactly the ranges this bearer exists for.</strong>
+<em>The other two bindings derive from strength because on their media strength is the whole
+story.</em></p>
+<h3 id="6a-bis-b5-the-fade-rate-and-why-the-ble-pattern-does-not-transfer">6a-bis B5, the fade rate, and why the BLE pattern does not transfer</h3>
+<p><strong>6a.5</strong> The bearer profile <strong>shall</strong> state <strong>B5</strong> <em>fade rate</em>, and that value <strong>shall</strong> exceed
+the longest interval the airtime budget can produce under load (<a href="L2-capability-and-discovery.html#c6.3.2">Layer 2, 6.3.2</a>).</p>
+<p><strong>6a.6</strong> The value <strong>shall not</strong> be derived from the interval observed while the bearer is idle.</p>
+<p>Note 1 to entry: <strong>⚠ THE BLE BINDING SETS B5 AGAINST A DECLARED RANGE OF ADVERTISING INTERVALS
+AND THAT PATTERN IS FORBIDDEN HERE.</strong> Layer 2, <strong class="clause" id="c6.2.3">6.2.3</strong> forbids giving a regulated bearer a
+fixed beacon interval — on such a bearer the cadence is an outcome, not a setting,
+falling out of what the budget has left after everything else. <strong>So there is no declared range
+for B5 to exceed</strong>, and 6.3.2 substitutes the only thing there is: the longest interval the
+budget can produce <em>under load</em>.</p>
+
+<hr />
+<h2 id="6b-g-the-conditions-producing-each-state">6b g) The conditions producing each state</h2>
+<p><strong>6b.1 <code>available</code>.</strong> The radio is initialised, the modulation and channel are configured, and
+the transmission budget of 6c is not exhausted.</p>
+<p><strong>6b.2 <code>restricted</code>.</strong> This bearer <strong>cannot reach</strong> <em>restricted</em>, and what prevents it is that
+the medium holds nothing per peer: there is no peer table, no registration, no connection and
+no resource that a further peer consumes (6d.1). <em><a href="L1-transport.html#c5.2">Layer 1, 5.2</a>'s Note 1 gives the state's
+purpose as a hard limit on simultaneous peers; this medium has no such limit, so the condition
+that produces the state does not exist here.</em></p>
+<p><strong>6b.3 <code>unavailable</code>.</strong> The transmission budget is exhausted (6c.4, and <a href="L1-transport.html#c9.2">Layer 1, 9.2</a> requires
+this state for it); <strong>or</strong> the radio is powered down or withdrawn by the platform.</p>
+<p><strong>6b.4 <code>failed</code>.</strong> The radio does not respond, its configuration is rejected, or the
+host-to-radio transport errors.</p>
+
+
+<hr />
+<h2 id="6c-h-duty-cycle-and-airtime-budget">6c h) Duty cycle and airtime budget</h2>
+<p><strong>6c.1</strong> Layer 1, <strong class="clause" id="c9.1">9.1 applies to this bearer</strong>, and a bearer conforming to this document
+<strong>shall</strong> declare <strong>B8</strong> <em>regulated</em> as true.</p>
+<p><strong>6c.2</strong> A bearer <strong>shall</strong> compute the airtime of a transmission before sending it, and
+<strong>shall not</strong> send where doing so would exceed the budget (<a href="L1-transport.html#c9.3">Layer 1, 9.3</a>).</p>
+<p><strong>6c.3</strong> A deployment <strong>shall</strong> declare the region it operates in, the channel plan, the
+spreading factor and bandwidth in use, the duty cycle or airtime budget those imply, and
+any medium-access parameter the region imposes (6e.7).</p>
+<p><strong>6c.3a</strong> Where a region imposes <strong>no</strong> duty cycle, a deployment <strong>shall</strong> declare that
+absence, and <strong>shall not</strong> state a budget in place of it.</p>
+<p>Note 4 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
+<p><strong>6c.4</strong> A bearer whose budget is exhausted <strong>shall</strong> report <em>unavailable</em> (6b.3) and <strong>shall
+not</strong> accept a frame it cannot lawfully transmit.</p>
+
+<p>Note 2 to entry: <strong>The spreading factor is in 6c.3's list because it changes the budget by more
+than an order of magnitude.</strong> The same frame at the slowest setting occupies the air for many
+times what it does at the fastest, so a budget stated without it is not a budget. <em>This is also
+why 6c.2 obliges computing airtime per transmission rather than counting frames: on this medium
+frames are not comparable to one another.</em></p>
+<p>Note 3 to entry: <strong class="clause" id="c9.3">9.3 has no exception and this binding adds none.</strong> <em>A budget with an
+exception for important traffic is exceeded whenever traffic is important, which on a shared
+medium is when everyone else needs it too — and on this medium the obligation is also the
+operator's in law.</em></p>
+<hr />
+<h2 id="6d-i-no-connection-and-what-the-medium-requires-instead">6d i) No connection, and what the medium requires instead</h2>
+<p><strong>6d.1</strong> Layer 1, <strong>Clause 10 does not apply to this bearer.</strong> LoRa requires nothing before a
+frame can be carried: a transmission is emitted and any radio in range with the matching sync
+word and modulation receives it.</p>
+<p><strong>6d.2</strong> The medium places <strong>no precondition</strong> on carrying a frame to an individual peer, so
+there is <strong>no limit on how many such preconditions may be held at once</strong> and nothing that has
+to come to be met. <em>This is the second and third parts of 11.1 i) answered in the negative,
+which is the whole of what they ask on a medium like this one.</em></p>
+<p><strong>6d.3</strong> A bearer <strong>shall not</strong> require a peer to be known before transmitting.</p>
+
+<p>Note 2 to entry: <strong>A consequence worth stating: every frame on this bearer is heard by every
+hive in range, whatever it is addressed to.</strong> Addressing is Layer 4's and is not a property of
+this medium — so a hive receives, and its bearer delivers upward, transmissions it is not the
+destination of. <em>That is ordinary for a shared medium and is what Layer 3's relay rules and
+Layer 5's delivery gate are written against; it is named here because a reader coming from a
+connection-oriented bearer will expect the medium to have filtered already, and it has not.</em></p>
+<hr />
+<h2 id="6e-k-how-the-medium-is-shared">6e k) How the medium is shared</h2>
+<p><strong>6e.1</strong> A bearer <strong>shall</strong> determine the medium to be idle immediately before transmitting,
+by the modulation-aware channel-activity detection the receiver provides, and <strong>shall not</strong>
+begin a transmission while a preamble or a transmission of the configured modulation is
+detected.</p>
+<p><strong>6e.2</strong> Where the medium is not idle, a bearer <strong>shall</strong> defer, wait a randomly chosen
+whole number of slot periods, and test again; and <strong>shall</strong> treat a bounded number of
+consecutive deferrals as the medium being unavailable (6b.3) rather than continuing
+indefinitely.</p>
+<p><strong>6e.3</strong> The slot period <strong>shall</strong> be at least the time one channel-activity detection
+occupies at the configured spreading factor and bandwidth. <em>A slot shorter than the test
+that fills it cannot separate two transmitters.</em></p>
+<p><strong>6e.4</strong> A bearer relaying a frame <strong>shall</strong> wait a randomly chosen delay before
+transmitting it, drawn from a window whose width <strong>decreases</strong> as the received quality
+value (6a) of the frame being relayed <strong>decreases</strong>.</p>
+<p><strong>6e.5</strong> A bearer <strong>shall</strong> abandon a pending relay transmission where, before it begins,
+it receives the same frame — identified as <a href="L3-routing.html#c5.3.1">Layer 3, 5.3.1</a> identifies it — from another
+hive.</p>
+<p><strong>6e.6</strong> A bearer <strong>shall not</strong> transmit an originated frame ahead of a relay transmission
+already pending under 6e.4 solely because the originated frame is its own.</p>
+<p><strong>6e.7</strong> Where the region a deployment declares (6c.3) imposes its own medium-access
+requirement — a carrier-sense threshold, a minimum sensing duration, a maximum dwell time,
+or a channel-hopping obligation — <strong>those parameters govern</strong>, and a bearer <strong>shall</strong> apply
+them in place of any less restrictive value this clause would otherwise permit.</p>
+<p><strong>6e.8</strong> A bearer <strong>shall not</strong> transmit where the region has not been declared.</p>
+<p>Note 0 to entry: ‼ <strong>THE REGIMES DIFFER IN KIND AND NOT ONLY IN NUMBER, WHICH IS WHY 6e.7
+DELEGATES RATHER THAN TABULATES.</strong> Some jurisdictions impose a duty cycle and no sensing
+obligation; some impose mandatory carrier sense with a stated threshold and duration and no
+duty cycle; some impose a dwell time per channel and require hopping; and some impose a
+radiated-power limit and none of the three. <strong>A binding that fixed one shape would be
+wrong in most of the world</strong> — and, worse, wrong <em>invisibly</em>, because a bearer applying a
+foreign rule is conformant, silent, and less useful than the law requires. <em>This document
+therefore states the discipline the medium needs (6e.1–6e.6) and gives the jurisdiction
+precedence over it (6e.7), which are two different questions that a single table would
+have merged.</em></p>
+<p>Note 0a to entry: <strong>6e.8 is the same refusal as 6c.4 pointed at a missing declaration
+rather than a spent budget.</strong> A bearer that transmitted under no declared region would be
+choosing a regime by omission, and the one it would choose is <em>whatever its author's
+country happens to be</em> — which is a defect that travels with the firmware and shows itself
+only in somebody else's jurisdiction. <strong>A refusal is recoverable by declaring the region;
+a transmission is not recoverable at all.</strong></p>
+<p>Note 1 to entry: <strong>6e.4 IS INVERTED ON PURPOSE AND THE INVERSION IS THE WHOLE MECHANISM.</strong>
+A hive that heard the frame <em>weakly</em> is far from the sender, so its relay carries the frame
+<strong>furthest</strong>; giving it the <strong>shortest</strong> delay makes the most useful transmission happen
+first. The near hives, still waiting, then hear that relay and abandon their own under
+6e.5. <em>A uniform random delay spaces the transmissions and is indifferent to which of them
+was worth making; this one spends the airtime on distance.</em> <strong>The two clauses are a pair
+and neither works alone</strong>: without 6e.5 the inversion merely reorders a scramble, and
+without 6e.4 the suppression cancels whichever hive happened to draw the short straw,
+which is as likely to be the nearest.</p>
+<p>Note 2 to entry: <strong>6e.5 is suppression and NOT retransmission, and the distinction is where
+this medium differs from an ordinary packet network.</strong> The obvious reliability move —
+<em>send it again a few times and let the duplicate filter sort it out</em> — is sound on a medium
+where a frame costs microseconds. <strong>Here a frame costs a substantial fraction of a second
+and the medium is shared with every hive in range</strong>, so repeating a relayed broadcast
+multiplies the scarcest resource by the repeat count <strong>at every hop</strong>, and <a href="L3-routing.html#c5.3.1">Layer 3, 5.3.1</a>
+makes the copies harmless without making them free. <em>An overheard relay is already an
+acknowledgement that the frame is travelling; 6e.5 spends that information instead of
+spending airtime.</em> <strong>Retransmission remains the right answer for a frame addressed to one
+hive whose delivery is being confirmed</strong> — a bounded matter between two parties — and
+nothing here forbids it.</p>
+<p>Note 3 to entry: <strong>6e.1 does not make the medium collision-free and no clause here claims
+it does.</strong> Detection is local: two hives out of range of each other and in range of a third
+both find the medium idle and both transmit, and the third hears neither. <strong>That is the
+hidden-terminal case and this binding does not solve it</strong> — <em>no listen-before-transmit
+discipline on any medium does</em> — and it is named so that a reader does not take 6e.1 for a
+guarantee. What 6e.1 removes is the collision between hives that <strong>can</strong> hear each other,
+which on a medium where every hive relays every frame is the common case rather than the
+exotic one.</p>
+<p>Note 4 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
+<hr />
+<span class="clause-anchor" id="c7"></span><h2 id="7-what-this-closes-what-it-narrows-and-what-it-leaves-open">7 What this closes, what it narrows, and what it leaves open</h2>
+<p><strong class="clause" id="c7.1">7.1 Closes.</strong> Bearer ordinal 2 now has a binding document, so <a href="L1-transport.html#c12.1">Layer 1, 12.1</a> g) can be met
+for it. <strong><code>SS264</code> counted six bindings owed; with the BLE binding written the same day, four
+remain</strong> — TCP (3), USB (4), UDP (6), and any second binding sharing an ordinal.</p>
+<p><strong class="clause" id="c7.2">7.2 Closes for this bearer, and narrows the finding.</strong> <code>SS379</code> — the marker with one
+forbidden exit and one that is not an exit. <strong>This bearer has a real exit and 3.1 takes it:
+the sync word is physical framing, matched before a payload exists, costing nothing.</strong> <em>The
+finding was raised while sizing this document and is answered by the medium rather than by a
+ruling — so <code>SS379</code> remains open for ESP-NOW and is no longer general.</em></p>
+<p><strong class="clause" id="c7.3">7.3 ⚠ Narrows <code>SS379</code> a second way, and this half is a question for Roy rather than a
+disposal.</strong> The finding says the obligation has <em>one forbidden exit and one that is not an
+exit</em>. <strong><a href="L1-transport.html#c4.2.2">Layer 1, 4.2.2</a> appears to be a third</strong>: it permits a bearer to wrap a frame for its
+medium — <em>a length prefix, a header, a radio preamble</em> — and obliges it to strip the wrapping
+before delivering upward, so wrapping bytes are <strong>not inside the frame</strong> and 4.2.1 is
+untouched. <strong>This document relies on exactly that permission for its address (4.2), so if
+wrapping is available for an address it is available for a marker</strong>, at a cost in payload.
+<em><code>SS272</code> bears directly: under its second reading of medium framing — anything a bearer adds
+for its medium, including the 4.2.2 wrapping — a wrapped marker satisfies 4.7.1 outright.</em>
+<strong>If that is right, <code>SS379</code>'s remaining instance is a cost rather than an impossibility, and
+what ESP-NOW faces is a payload charge it declined rather than an obligation it cannot meet.</strong></p>
+<p><strong class="clause" id="c7.4">7.4 Leaves open.</strong></p>
+<ul>
+<li><strong>The sync-word value is <code>PROVISIONAL(supervisor)</code></strong> (3.1 Note 1), for the reason the BLE
+marker is.</li>
+<li><strong><code>SS384</code> is answered here as it is on BLE</strong> (4.3), and remains open for every medium whose
+address is fixed in hardware.</li>
+<li><strong>The duty-class element <code>0x04</code> is defined here and is absent from the other two bindings</strong>
+(5.4 Note 1), which cannot therefore announce a duty-cycled hive at all. <em>One addition to
+each, not this document's to make.</em></li>
+<li><strong>⚠ <code>SS11</code> blocks 5.4.3 and 5.4.3 proposes a way past it.</strong> The duty-class interval is
+obliged <em>coarsely stated</em> and given no granularity and no encoding, so its register row is
+<code>FLAGGED</code> rather than <code>TESTABLE</code>; <strong>this document's row is flagged the same way.</strong> <em>A
+proposal Roy can reject in one line is more use than a third silent omission, and this is
+the bearer where the omission costs something.</em></li>
+<li><strong>⚠ <code>SS379</code>'s remaining instance and its third exit are both open, and 7.2 and 7.3 pull
+in opposite directions.</strong> <em>One says the finding is narrower than it looked; the other says
+it may be a cost rather than an impossibility. Both are for Roy, and this document takes
+neither as settled.</em></li>
+<li><strong>Clause 9 has a source-level DFR implementation, but no on-air proof.</strong> Its serial LoRa
+owner rolls the legal window, obtains a current quote from the binding, begins the regulated
+dispatcher, and admits ordinary offers and exact L2 beacons through that dispatcher. The
+binding charges accepted airtime and exposes the resulting budget state. Portable controls and
+target compilation establish those paths; neither establishes a legal transmission on an
+actual radio, which remains evidence-bound rather than inferred from a successful build.</li>
+<li><strong>No vector covers any of this</strong> (<code>SS383</code>). The announcement body is now shared by three
+bindings in its first three elements, which is an argument for vectoring it once.</li>
+</ul>
+
+</article></main></div>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
+    <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
+    <a href="/">reality2.ai</a></p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>

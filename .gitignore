@@ -9,3 +9,6 @@ TE-REO-REVIEW.md
 
 # Local parked content awaiting review gates — never commit
 .private-notes/
+
+# Python tool caches
+__pycache__/

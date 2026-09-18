@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>L5C — Management and wallet — Reality2 Standard</title>
 <meta name="description" content="The management wallet: what it may hold, and custody separated from membership.">
@@ -23,10 +24,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/standard/standard.css">
-<script>(function(){var t=localStorage.getItem('r2-theme');
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
 if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
 var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
 if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -54,10 +57,15 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         </button>
     </div>
 </nav>
-<article id="main" class="doc-page">
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#introduction">Introduction</a></li><li><a href="#1-scope">1 Scope</a></li><li><a href="#2-normative-references">2 Normative references</a></li><li><a href="#3-terms-and-definitions">3 Terms and definitions</a></li><li><a href="#4-custody-is-not-membership">4 Custody is not membership</a></li><li><a href="#5-what-a-wallet-may-hold">5 What a wallet may hold</a></li><li><a href="#6-holding-and-acting">6 Holding and acting</a></li><li><a href="#7-granting-and-transferring-custody">7 Granting and transferring custody</a></li><li><a href="#8-loss-compromise-and-splitting">8 Loss, compromise, and splitting</a></li><li><a href="#9-custody-or-grant--which-relationship-to-use">9 Custody or grant — which relationship to use</a></li><li><a href="#10-conformance">10 Conformance</a></li><li><a href="#11-security-considerations">11 Security considerations</a></li><li><a href="#12-what-is-not-decided-at-this-layer">12 What is not decided at this layer</a></li><li><a href="#bibliography">Bibliography</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
 <a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-5-companion-the-management-wallet">Reality2 Standard — Layer 5 companion: The management wallet</h1>
-<p><strong>Status:</strong> Draft — first pass
-<strong>Date:</strong> 2026-08-05</p>
+<p class="reader-kind">Normative document</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
+<p><strong>Version:</strong> 0.9.0 · <strong>Date:</strong> 2026-08-23 · <strong>Status:</strong> Draft</p>
+<p><strong>What "Draft" names here is the editorial maturity of the text, and nothing else.</strong>
+<strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
+build from it. <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> </p>
 <blockquote>
 <p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
 <em>can</em> = possibility and capability.</p>
@@ -176,9 +184,7 @@ peer is owed that map. The wallet's inventory is between the wallet and its owne
 <span class="clause-anchor" id="c6"></span><h2 id="6-holding-and-acting">6 Holding and acting</h2>
 <p><strong class="clause" id="c6.1">6.1</strong> A wallet shall associate every operation class it supports with a required
 person-authentication level of its owner, and shall refuse the operation when the
-owner's current attested level is below it. <em>(The scale is ruled 0–7 and its normative
-home is the person-authentication companion — 12.4; the ruling record is informative and
-outside this standard.)</em></p>
+owner's current attested level is below it. </p>
 <p><strong class="clause" id="c6.2">6.2</strong> Unattended — the owner absent or below every stated level — a wallet shall
 store, and shall exercise nothing.</p>
 <p><strong class="clause" id="c6.3">6.3</strong> Custody transfer (Clause 7) and custodian revocation shall require the highest
@@ -258,7 +264,7 @@ the three classes of <a href="01-terminology.html"><code>01-terminology.md</code
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(PROVISIONAL(supervisor))</em></p>
 <p><strong class="clause" id="c10.1">10.1</strong> An implementation conforms to this document where it:</p>
 <p>a) keeps custody out of membership: one persona, no participation as any held group
 (Clause 4);</p>
@@ -314,12 +320,12 @@ grant-plus-rotation — is undecided.</p>
 <li>[2] ISO/IEC Directives, Part 2, 2016</li>
 </ul>
 
-</article>
+</article></main></div>
 <footer>
     <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
     <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
     <a href="/">reality2.ai</a></p>
-    <p class="stamp">Reality2 Standard <strong>version 0.8.0</strong>, 2026-08-05. Built from <span class="mono">f5bf72b</span>, rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the version. </p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>
@@ -328,7 +334,7 @@ function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')
 var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
 if(n==='dark')document.documentElement.removeAttribute('data-theme');
 else document.documentElement.setAttribute('data-theme',n);
-localStorage.setItem('r2-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
 var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
 var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
 var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];

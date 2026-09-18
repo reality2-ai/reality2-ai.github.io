@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>L2 — Capability and discovery — Reality2 Standard</title>
 <meta name="description" content="Beacons, what a hive announces, and what a scanner may infer.">
@@ -23,10 +24,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/standard/standard.css">
-<script>(function(){var t=localStorage.getItem('r2-theme');
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
 if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
 var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
 if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -54,15 +57,15 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         </button>
     </div>
 </nav>
-<article id="main" class="doc-page">
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#introduction">Introduction</a></li><li><a href="#1-scope">1 Scope</a></li><li><a href="#2-normative-references">2 Normative references</a></li><li><a href="#3-terms-and-definitions">3 Terms and definitions</a></li><li><a href="#4-announcing-is-not-optional">4 Announcing is not optional</a></li><li><a href="#5-what-a-beacon-carries">5 What a beacon carries</a></li><li><a href="#6-cadence">6 Cadence</a></li><li><a href="#7-discovery">7 Discovery</a></li><li><a href="#8-capability-summary">8 Capability summary</a></li><li><a href="#9-what-layer-2-provides-upward">9 What Layer 2 provides upward</a></li><li><a href="#10-conformance">10 Conformance</a></li><li><a href="#11-security-and-privacy-considerations">11 Security and privacy considerations</a></li><li><a href="#12-what-is-not-decided-at-this-layer">12 What is not decided at this layer</a></li><li><a href="#bibliography">Bibliography</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
 <a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-2-capability-and-discovery">Reality2 Standard — Layer 2: Capability and discovery</h1>
-<p><strong>Status:</strong> Draft — <strong>this names the editorial maturity of the text, and nothing else.</strong>
+<p class="reader-kind">Normative document</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
+<p><strong>Version:</strong> 0.9.0 · <strong>Date:</strong> 2026-09-03 · <strong>Status:</strong> Draft</p>
+<p><strong>What "Draft" names here is the editorial maturity of the text, and nothing else.</strong>
 <strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
-build from it (d041, Roy: <em>standard is the canon</em>). <strong>The only text open to replacement is a value
-marked <code>PROVISIONAL(...)</code> at its own clause.</strong> <em>(Subject stated because a status field is scoped to
-a question the reader may not be asking, and a claim with an unstated subject will be given the
-subject the reader brought — composer, 2026-08-03.)</em>
-<strong>Date:</strong> 2026-08-04</p>
+build from it. <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> </p>
 <blockquote>
 <p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
 <em>can</em> = possibility and capability.</p>
@@ -165,9 +168,19 @@ acts on it — the choice between flooding for a destination and holding a frame
 wakes.</p>
 <span class="clause-anchor" id="c4"></span><h2 id="4-announcing-is-not-optional">4 Announcing is not optional</h2>
 <span class="clause-anchor" id="c4.1"></span><h3 id="41-every-hive-every-bearer-in-service">4.1 Every hive, every bearer in service</h3>
-<p><strong class="clause" id="c4.1.1">4.1.1</strong> A hive shall emit a beacon on every bearer in service.</p>
+<p><strong class="clause" id="c4.1.1">4.1.1</strong> A hive shall emit a beacon on every bearer in service that participates in
+discovery (<a href="L1-transport.html#c4.6.2">Layer 1, 4.6.2</a>).</p>
+<p><strong class="clause" id="c4.1.1a">4.1.1a</strong> A hive shall not emit a beacon on a bearer that does not participate in discovery
+(<a href="L1-transport.html#c4.6.2a">Layer 1, 4.6.2a</a>).</p>
+<p><strong class="clause" id="c4.1.1b">4.1.1b</strong> A hive with a BLE-capable radio shall make its BLE bearer participate in discovery
+while it is receptive. This applies whether or not it also has an ESP-NOW or any other bearer.</p>
 <p><strong class="clause" id="c4.1.2">4.1.2</strong> A hive shall not emit a beacon on a bearer that is absent or disabled.</p>
-<p><strong class="clause" id="c4.1.3">4.1.3</strong> A hive shall receive and evaluate beacons on every bearer in service.</p>
+<p><strong class="clause" id="c4.1.3">4.1.3</strong> A hive shall receive and evaluate beacons on every bearer in service, whether or
+not that bearer participates in discovery.</p>
+<p><strong class="clause" id="c4.1.3a">4.1.3a</strong> A beacon heard through a receive-only ingress shall be retained as a passive
+observation for that ingress's declared B5 retention period. Its expiry shall not be treated
+as the peer receding, unreachable, or absent from any other bearer.</p>
+<p>Note 0 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(standard)</code>.</p>
 <p><strong class="clause" id="c4.1.4">4.1.4</strong> A duty-cycled hive satisfies 4.1.1 and 4.1.3 by beaconing and receiving while it
 is receptive, and shall declare its availability as Layer 0 requires.</p>
 <p><strong class="clause" id="c4.1.5">4.1.5</strong> A hive shall not declare itself duty-cycled in order to reduce its beaconing
@@ -187,8 +200,11 @@ announce itself while asleep</strong>, and requiring otherwise would make every 
 non-conforming by construction. <strong>What 4.1.5 prevents is the same fact being used as a
 reason</strong> — a hive is not excused from announcing because it <em>could</em> sleep, only while it
 actually is, and its declared intervals are what tell a scanner the difference.</p>
-<p><em>Verification: enumerate the hive's bearers in service and observe a beacon on each while
-the hive is receptive. A bearer carrying traffic but no beacon is non-conforming.</em></p>
+<p><em>Verification of 4.1.1: enumerate the hive's bearers in service, take those that participate
+in discovery (<a href="L1-transport.html#c4.6.2">Layer 1, 4.6.2</a>), and observe a beacon on each while the hive is receptive. One
+of those bearers carrying traffic and no beacon fails 4.1.1. A bearer that does not
+participate in discovery is outside this test and its silence is 4.1.1a.</em></p>
+
 <span class="clause-anchor" id="c4.2"></span><h3 id="42-nothing-suspends-it">4.2 Nothing suspends it</h3>
 <p><strong class="clause" id="c4.2.1">4.2.1</strong> No role, connection state, election outcome or activity shall suspend beacon
 emission or reception on any bearer in service.</p>
@@ -219,14 +235,18 @@ receiver shall treat a beacon as evidence of presence and of the declarations it
 carries, and of nothing more: never of identity or membership, and a carried capability
 summary is a reason to ask, never an answer (8.3). Information beyond the beacon's
 carriage shall be obtained by asking (7.2.2, 8.3); the ask path is authoritative.</p>
+<p>Note 0 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(standard)</code>.</p>
 <p>Note 1 to entry: A beacon is trivial to forge, and this is accepted rather than mitigated.
 <strong>Nothing is granted on the strength of one.</strong> It causes a scanner to consider a candidate
 and nothing else; every consequential act is gated above the trust boundary, where forgery
 is not cheap.</p>
 <p>Note 2 to entry: <strong>The beacon carries minimal information; if more is required, it is
-requested.</strong> <em>(Ruled 2026-08-01.)</em> The declarations that ride in the beacon are exactly
-the ones the ask path cannot supply: the build-mode declaration gates every cooperative
-exchange (5.4a.5), so it must precede any ask; the duty-class declaration says when a
+requested.</strong>  The declarations that ride in the beacon are exactly
+the ones the ask path cannot supply: <strong>the build-mode declaration is needed before any
+admission decision and therefore before any ask</strong> — <a href="L5-trust-and-identity.html#c9.2">Layer 5, 9.2</a> admits a development device
+only to the development group, and 5.4a.4 obliges a scanner that cannot read the field to hold
+the mode <strong>unknown</strong> and never to present unknown as production, which is a rule about a value
+that has to have arrived already; the duty-class declaration says when a
 peer can be asked at all. Everything else is a request away, and the answer to a request
 — not the beacon — is the authoritative form of it.</p>
 <span class="clause-anchor" id="c5"></span><h2 id="5-what-a-beacon-carries">5 What a beacon carries</h2>
@@ -251,7 +271,7 @@ trust boundary exists to keep off the air.</p>
 announces <em>presence</em> to all and <em>identity</em> only to those who can resolve it, so the same
 broadcast serves discovery by strangers and recognition by members without carrying two
 different things.</p>
-<p><em>Verification: compute the candidate derivations — the hive identifier, the device
+<p><em>Verification of 5.3: compute the candidate derivations — the hive identifier, the device
 identity, each trust-group identifier, and their hashes — and compare against the beacon
 identifier. No match, whole or part. A repeat-suppression counter, where a binding document
 provides one, is permitted: the beacon identifier is stable, so a counter links nothing
@@ -267,15 +287,7 @@ link the two.</p>
 <p><strong class="clause" id="c5.4.3">5.4.3</strong> A hive holding information about a peer may associate the peer's beacon
 identifier with that information, and shall obtain the association above the trust
 boundary — never by decoding the identifier.</p>
-<p>Note 1 to entry: What a stranger gets from a stable beacon identifier is stated in Clause
-11 and is accepted deliberately, in place of a rotating identifier this standard's earlier
-drafts carried. <strong>The rotation defended one narrow case — a device that beacons and never
-transmits data, observed across time by a passive stranger — at the price of a shared
-absolute-time dependency on exactly the platforms least able to hold one.</strong> Where that case
-matters, the mitigation is operational, not cryptographic: an observer's cost is physical
-presence, and the privacy position of this standard is refusing aggregation, not churning
-identifiers. <em>(Settled by ruling; the ruling record is editing history and not part of this
-standard.)</em></p>
+
 <p>Note 2 to entry: 5.4.3 is the resolution model, and it is a table lookup. Members learn the
 association between a beacon identifier and a hive when they learn everything else about
 the peer — above the trust boundary, at provisioning or on verified contact. <strong>The
@@ -287,18 +299,7 @@ every bearer.</p>
 beacon shall carry no development-related bytes.</p>
 <p><strong class="clause" id="c5.4a.1a">5.4a.1a</strong> A hive that cannot determine the build mode of the image it is running shall
 declare development.</p>
-<p>Note 0 to entry: <strong class="clause" id="c5.4a.4">5.4a.4 fails closed on the scanner side and nothing covered the emitter.</strong>
-A scanner that cannot read the field treats the mode as unknown; a hive that cannot determine
-its own mode had no rule at all, and the pleasant answer — <em>say nothing, which reads as
-production</em> — is the one an implementer reaches for. <strong>The failure directions are asymmetric:
-a development device that fails to declare is admitted to a production network</strong> (5.4a.5,
-<a href="L5-trust-and-identity.html#c9.2">Layer 5, 9.2</a>), a relaxed-trust device inside a production boundary; <strong>the reverse costs the
-device its admission and is loud.</strong> <a href="01-terminology.html"><code>01-terminology.md</code></a> 5A.2 states the general form —
-<em>assert the value that grants least</em> — and this is its instance. <strong>Absence of certainty is
-not absence of development.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS205;
-the gap was found by the core lane. Note that under 5.4a Note 1's construction this condition
-should not arise — only a development image carries the declaring code — so a hive reaching
-it has already lost that structural property and should be read accordingly.)</em></p>
+<p><span class="clause-anchor" id="c5.4a.4"></span>Source note omitted from this reading edition.</p>
 <p><strong class="clause" id="c5.4a.3">5.4a.3</strong> A scanner reading a development value shall treat the hive as a development
 device.</p>
 <p><strong class="clause" id="c5.4a.3a">5.4a.3a</strong> A hive running a development image shall not place in service a bearer whose
@@ -320,23 +321,12 @@ declaration on <em>every</em> bearer.</strong> Without 5.4a.3a a conformant bind
 every development hive while appearing available</strong>, and a development hive using it would be
 non-conformant on that bearer with no clause saying so. <strong>The bearer is not forbidden; it is
 forbidden to development hives</strong>, which is the narrowest rule that keeps 5.4a.1 universal.</p>
-<p>Note 0c to entry: <strong>5.4a.3a takes the bearer out of service rather than silencing it, and the
-first drafting got that wrong.</strong> Clause 4.1 requires a hive to emit and receive beacons <strong>on
-every bearer in service</strong>, and nothing suspends that obligation — so <em>do not announce on this
-bearer</em> asked a development hive to be <strong>non-conformant to 4.1 in order to be conformant to
-5.4a.1</strong>, which is not a choice a standard may hand an implementer. <strong>A bearer that cannot
-carry the declaration is not in service for a development image</strong>, and 4.1 then has nothing to
-require of it. <em>(Corrected 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS212, raised by an
-independent review of the fix landed an hour earlier.)</em>
-<em>(Both added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS210, raised by an independent
-review.)</em></p>
+<p>Note 0c to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p><strong>5.4a.4</strong> A scanner unable to read the field — absent, truncated, or unreachable — shall
 treat the hive's build mode as <strong>unknown</strong>, and shall not present unknown as production or
 as secure, to a person or to any trust decision.</p>
-<p><strong class="clause" id="c5.4a.5">5.4a.5</strong> <em>(Revoked 2026-08-04 by Roy's ruling, d231. It required a scanner to refuse a
-cooperative exchange with a peer whose declared build mode differed from its own; that
-requirement no longer applies. The clause number is retained rather than reused, because it is
-cited from three places in this document and from a requirements register row.)</em></p>
+
+<p><strong class="clause" id="c5.4a.5">5.4a.5</strong> </p>
 <p><strong class="clause" id="c5.4a.5a">5.4a.5a</strong> A hive shall participate in the transient network irrespective of its own build
 mode or any peer's, and shall not refuse discovery, neighbour formation, relaying or delivery
 on the ground of a declared build mode.</p>
@@ -349,15 +339,7 @@ neither</strong> — and it is the only one of the three that no clause reached.
 require relaying, and a silent listener declares nothing, joins nothing, and is refused by
 nothing.</strong> <em>(This clause first said</em> any peer, <em>which is a proper subset of anyone in range and
 therefore bounded the wrong set — corrected 2026-08-04 on android's measurement.)</em></p>
-<p>Note 0 to entry: <strong>The revocation's reason is enforceability, and it is Roy's:</strong> <em>a device can
-say it is prod, but still report on traffic … it is easy to get around and impossible to
-police.</em> <strong>An unenforceable control is worse than no control, because implementers rely on
-it</strong> — 5.4a.5 invited a hive to treat a production declaration as assurance against
-observation, and nothing ever made that true. <strong>5.4a.5b replaces a partition that could not
-hold with an assumption that always does</strong>, which is the only form of this protection a mesh
-can actually offer. <strong>Build mode is now a property of the persona a device uses, not a
-partition of the network</strong> (<a href="L5-trust-and-identity.html#c9.2">Layer 5, 9.2</a> governs the persona and is unaffected). <em>(Added
-2026-08-04, <code>PROVISIONAL(standard)</code> as to wording only; the ruling is ratified as d231.)</em></p>
+<p>Note 0 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(standard)</code>.</p>
 <p>Note 0a to entry: <strong>This is not a relaxation of the trust boundary and grants nothing.</strong> Note 2
 below already states the operative half — <em>nothing is granted on build mode alone, because
 trust still requires membership and a valid signature, established above the trust boundary</em> —
@@ -380,17 +362,8 @@ established above the trust boundary. The one forgery that would pay — <strong
 production by omission</strong> — is exactly what 5.4a.4 closes, by refusing to let absence assert
 anything. A reviewer noticing the field is unsigned and proposing to sign it is adding a
 mechanism the threat model does not need.</p>
-<p>Note 3 to entry: <em>(Superseded 2026-08-04 by d231, and retained because the argument it makes
-is the one the ruling answers.)</em> It read that <strong>development and production devices do not work
-together, because a development device implies an ability to track metadata</strong>, and that <strong>one
-development device inside a production network is a metadata tap on it</strong>. <strong>The observation is
-correct and the conclusion drawn from it was not:</strong> a production image that chooses to record
-traffic declares production and records it anyway, so the boundary could be crossed by anyone
-willing to cross it and was load-bearing only for those who would not. <strong>5.4a.5b keeps the
-observation and drops the boundary</strong> — every peer is assumed to be that tap, which is true
-whatever anyone declares.</p>
-<p>Note 4 to entry: <em>(Superseded 2026-08-04 by d231, and this is a correction rather than a
-deletion — the note framed as <strong>the one exception</strong> a case that is now the ordinary one.)</em> It
+
+<p>Note 4 to entry:  It
 read that a development hive may carry a production network's traffic <strong>only</strong> where it is the
 only connector, that the exception is to <em>carriage</em> and never to membership or cooperation,
 and that <strong>where any same-mode path exists it is preferred and the exception does not apply.</strong>
@@ -400,10 +373,8 @@ the trust boundary.</strong> <strong>What falls is the preference and the except
 5.4a.5a, devices of every build mode carry for one another as a matter of course, and no
 same-mode path is preferred over any other. <strong>What the note conceded is what 11.4 now states
 generally: exactly the metadata any party in range sees.</strong></p>
-<p>Note 5 to entry: The declaration is a class attribute, identical across every development
-device. <strong>It carries no per-device identity</strong>, so it does not conflict with 5.3. It does partition the anonymity set into development and production —
-accepted, because development devices are bench equipment whose visibility is the point.</p>
-<p>*Verification: present a scanner with a beacon declaring development and with a beacon truncated before the field. It reports <strong>development</strong> and <strong>unknown</strong>. <strong>It cannot be asked to report <em>production</em>, and the earlier procedure that required it was wrong twice over</strong> (finding SS215): 5.4a.2 forbids a conforming production hive to emit any declaration, so no such input can be constructed — and <strong>a conforming production beacon and a truncated one are the same observation</strong>, which 5.4a.4 answers with <em>unknown</em> by design. <strong>Scanner operation is shown by the development case</strong>, which is the only verdict a conforming emitter can produce — <strong>and it is the vacuity guard too</strong>: a scanner reporting <em>unknown</em> for the declaring beacon has merely stopped reporting. <strong>The sentence that stood here named a readable production value as the guard, contradicting the sentence before it</strong> — the third correction to this one paragraph, each removing a dependency on a value 5.4a.2 forbids anyone to emit. <em>A retraction is not finished when the clause changes; it is finished when every sentence resting on the retracted thing has been found.</em></p>
+
+<p>*Verification of 5.4a.3 and 5.4a.4: present a scanner with a beacon declaring development and with a beacon truncated before the field. It reports <strong>development</strong> and <strong>unknown</strong>. <strong>It cannot be asked to report <em>production</em>, and the earlier procedure that required it was wrong twice over</strong> (finding SS215): 5.4a.2 forbids a conforming production hive to emit any declaration, so no such input can be constructed — and <strong>a conforming production beacon and a truncated one are the same observation</strong>, which 5.4a.4 answers with <em>unknown</em> by design. <strong>Scanner operation is shown by the development case</strong>, which is the only verdict a conforming emitter can produce — <strong>and it is the vacuity guard too</strong>: a scanner reporting <em>unknown</em> for the declaring beacon has merely stopped reporting. <strong>The sentence that stood here named a readable production value as the guard, contradicting the sentence before it</strong> — the third correction to this one paragraph, each removing a dependency on a value 5.4a.2 forbids anyone to emit. <em>A retraction is not finished when the clause changes; it is finished when every sentence resting on the retracted thing has been found.</em></p>
 <span class="clause-anchor" id="c5.4b"></span><h3 id="54b-the-duty-class-declaration">5.4b The duty-class declaration</h3>
 <p><strong class="clause" id="c5.4b.1">5.4b.1</strong> A hive receptive only at intervals shall declare its duty class (3.9) in every
 beacon it emits, on every bearer, together with the longest interval between its receptive
@@ -437,25 +408,14 @@ longest, and preferred intervals — stays in the platform declaration where Lay
 it</strong> (<a href="L0-hardware-and-runtime.html#c7.3">Layer 0, 7.3</a>); the beacon's single coarse value is what sizes a neighbour's retention
 patience. The bytes are weighed as 7.1 Note 2 weighs everything: the field appears only in
 the beacons of hives that sleep, and costs every other beacon nothing.</p>
-<p>Note 4 to entry: This declaration closes a chain that was open across three layers. Layer 0
-requires a platform to declare its availability, as published text that is never
-transmitted; nothing carried the same fact hive to hive, so a hive relaying for a group it
-does not belong to could never learn it, and fell back to flooding for exactly the
-destinations most likely to be asleep. <strong>With the beacon carrying it, the value arrives
-below the trust boundary, from the air, with no relationship to the emitter</strong> — which is
-what a shared mesh requires. <em>(Settled by ruling, 2026-07-31.)</em></p>
-<p><em>Verification: present a scanner with a beacon declaring an intermittent duty class and an
+
+<p><em>Verification of 5.4b.3 and 5.4b.4: present a scanner with a beacon declaring an intermittent duty class and an
 interval, and the same beacon truncated before the field. It reports intermittent with the
 interval for the first and unknown for the second — never continuous for the truncated
 one.</em></p>
 <span class="clause-anchor" id="c5.5"></span><h3 id="55-the-class-hash">5.5 The class hash</h3>
 <p><strong class="clause" id="c5.5.1">5.5.1</strong> A class hash shall be computed from the class exactly as written.</p>
-<p>Note 0 to entry: <strong>The algorithm is still unspecified</strong> (register finding SS1), and that
-absence is not neutral: an implementer reaching for the cheap obvious choice reaches for
-a short non-cryptographic hash, which is what the deployed implementation did — and the
-attack described at 5.5.2 Note 0 follows from that choice alone. <strong>An unspecified
-algorithm selects its own default, and the default is the weak one.</strong> Until the algorithm
-is pinned, 5.5.3 and 5.5.4 are what stand between a collidable hash and a false label.</p>
+
 <p><strong class="clause" id="c5.5.2">5.5.2</strong> A scanner matching on class shall compute the hash of the class it seeks and
 compare, and shall not attempt to recover the class from the hash.</p>
 <p><strong class="clause" id="c5.5.3">5.5.3</strong> A scanner that learns a class string — by asking, as 7.2.2 permits — shall not
@@ -464,15 +424,7 @@ learned from one hive is that hive's, and nothing else's.</p>
 <p><strong class="clause" id="c5.5.4">5.5.4</strong> Where a class string learned from the network is displayed to a person or used
 as a label, a scanner shall not replace a class string it holds on the strength of a hash
 match alone.</p>
-<p>Note 0 to entry: 5.5.3 and 5.5.4 exist because <strong>the hash is not
-collision-resistant and was never meant to carry a name.</strong> A deployed implementation
-cached learned strings keyed by hash and served them for every hive advertising that
-hash — which is 5.5.2's forbidden step reached by a different route — and because the
-hash it used was a 32-bit non-cryptographic one, an attacker could craft a string
-colliding with a well-known class, <strong>pass the hash check honestly</strong>, and relabel every
-device of that class on an operator's screen. No key and no delivery were involved: the
-whole attack is a lie told to a human. <em>(Added 2026-08-02 from a measured finding in the
-android lane; <code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p>Note 0 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p>Note 3 to entry: <strong>The reasoning of <a href="L4-wire.html#c7.2.1">Layer 4, 7.2.1</a> does not transfer here, and the two
 notes must not be read as one policy.</strong> There, a hash match is treated as a match and
 collisions are survived rather than prevented, because <em>wrong delivery is harmless
@@ -502,6 +454,11 @@ discovered, and lengthen it where it is stationary or short of energy.</p>
 the lowest priority traffic.</p>
 <p><strong class="clause" id="c6.2.2">6.2.2</strong> Such a hive shall not emit a beacon where the budget is exhausted or where any
 other traffic is waiting.</p>
+<p><strong class="clause" id="c6.2.2a">6.2.2a</strong> A hive using such a bearer shall reserve enough permitted airtime in every
+complete budget window to emit one beacon. Where other traffic is waiting, it shall emit
+that beacon only after traffic that can be sent without consuming the reserve, and shall
+not use the reserve for more than one beacon in that window.</p>
+
 <p><strong class="clause" id="c6.2.3">6.2.3</strong> Such a bearer shall not be given a fixed beacon interval.</p>
 <p>Note 1 to entry: 6.2.3 is a requirement and not an omission. <strong>On a regulated bearer the
 cadence is an outcome, not a setting</strong> — it falls out of what the budget has left after
@@ -518,6 +475,9 @@ exceed the longest interval at which that bearer's beacons can be expected.</p>
 airtime budget can produce under load, and shall not be derived from the interval observed
 while the bearer is idle.</p>
 <p><strong class="clause" id="c6.3.3">6.3.3</strong> A hive shall not apply one bearer's fade behaviour to another bearer.</p>
+<p><strong class="clause" id="c6.3.4">6.3.4</strong> Clauses 6.3.1 and 6.3.2 apply to a bearer that can emit discovery traffic. A
+receive-only ingress shall instead use its declared passive-observation retention under
+4.1.3a, and shall not represent that retention as a peer fade.</p>
 <p>Note 1 to entry: <strong>This clause is what the fade rate declared at Layer 1 is set against.</strong>
 Layer 1 requires each bearer to declare how quickly an unheard peer recedes and does not
 say what the value should be, because the value is not a property of the medium — it is a
@@ -527,18 +487,17 @@ simplification and is wrong in both directions at once. <strong>Applied to a slo
 bearer's impatience declares working peers gone every few minutes; applied to a fast
 bearer, a slow bearer's patience keeps peers in the table long after they have left.</strong> The
 first costs re-discovery, the second costs frames sent into empty air.</p>
-<p>Note 3 to entry: 6.3.2 names the case that makes 6.3.1 insufficient on its own. A regulated
-bearer observed on a quiet bench announces often; the same bearer in a dense deployment
-announces rarely. <strong>A fade period measured on the bench is a fade period that fails in the
-field</strong>, and it fails by declaring live peers gone at exactly the moment the network is
-busiest.</p>
-<p><em>Verification: load a regulated bearer to its budget with higher-priority traffic and
+
+<p>Note 4 to entry: <strong>A passive observer has a different ignorance.</strong> It may know that it heard a
+beacon but cannot infer how often that remote hive can announce, nor whether this observer can
+ever address it. A finite local record is useful; calling its expiry a liveness verdict is not.</p>
+<p><em>Verification of 6.3.3: load a regulated bearer to its budget with higher-priority traffic and
 measure the longest gap between beacons. The declared fade period exceeds it.</em></p>
 <span class="clause-anchor" id="c7"></span><h2 id="7-discovery">7 Discovery</h2>
 <span class="clause-anchor" id="c7.1"></span><h3 id="71-progressive-filtering">7.1 Progressive filtering</h3>
 <p><strong class="clause" id="c7.1.1">7.1.1</strong> A scanner shall evaluate candidates in the following order, and shall not perform
 a later step for a candidate that failed an earlier one.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: #, Question, Answered from, Cost"><table>
 <thead>
 <tr>
 <th>#</th>
@@ -659,7 +618,7 @@ the three classes of <a href="01-terminology.html"><code>01-terminology.md</code
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(PROVISIONAL(supervisor))</em></p>
 <p><strong class="clause" id="c10.1">10.1</strong> An implementation conforms to this document where it:</p>
 <p>a) beacons on every bearer in service and never suspends it (Clause 4);</p>
 <p>b) carries what Clause 5 requires and omits what Clause 5 forbids;</p>
@@ -709,8 +668,7 @@ declare production and report traffic anyway, so the separation was unpoliceable
 is the stronger reason: <strong>a silent listener does not need to lie — it needs only to be in
 range and say nothing at all</strong>, and nothing declares it, nothing admits it, and nothing can
 refuse it.)</em> <strong>This is why the protection this standard does offer is stated as opacity and
-non-aggregation (11.3) rather than as confidentiality.</strong> <em>(Added 2026-08-04,
-<code>PROVISIONAL(standard)</code>, applying d231.)</em></p>
+non-aggregation (11.3) rather than as confidentiality.</strong> <em>(PROVISIONAL(standard))</em></p>
 <span class="clause-anchor" id="c12"></span><h2 id="12-what-is-not-decided-at-this-layer">12 What is not decided at this layer</h2>
 <p><strong>This clause states gaps and contains no requirements.</strong></p>
 <p><strong class="clause" id="c12.1">12.1 Matching a class by structure on a bearer with no means to ask.</strong> 7.2 puts structural
@@ -728,12 +686,12 @@ diverge in which peers they know about</strong>, without either being non-confor
 <li>[2] ISO/IEC Directives, Part 2, 2016</li>
 </ul>
 
-</article>
+</article></main></div>
 <footer>
     <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
     <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
     <a href="/">reality2.ai</a></p>
-    <p class="stamp">Reality2 Standard <strong>version 0.8.0</strong>, 2026-08-05. Built from <span class="mono">f5bf72b</span>, rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the version. </p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>
@@ -742,7 +700,7 @@ function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')
 var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
 if(n==='dark')document.documentElement.removeAttribute('data-theme');
 else document.documentElement.setAttribute('data-theme',n);
-localStorage.setItem('r2-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
 var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
 var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
 var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];

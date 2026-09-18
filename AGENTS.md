@@ -47,9 +47,18 @@ sha. A guarded push is completed only with Roy's explicit, per-change authorizat
 
 ## 3. Authority — where R2 facts come from
 
-The canonical source of truth for all Reality2 behaviour and terminology is **`../r2-specifications`**.
-This repo *presents* Reality2 to the public; it does not define it. When a public claim depends on a
-technical fact, verify it against the specs rather than inventing or paraphrasing from memory.
+The canonical source of truth for all Reality2 behaviour and terminology is **`r2-standard`**.
+The earlier `r2-specifications` and several application repositories are retired or archived.
+This repo *presents* Reality2; it does not define it. Verify technical claims against a pinned
+revision of the actual standard, rather than an old app or recalled specification.
+
+The `standard/` subsite is a curated reading edition for people given a direct link. **Do not add
+links to it from the main website, introduction, or sitemap.** Keep its search-indexing exclusion.
+The standard's source renderer can include non-normative material that is not suitable for this
+public repository. Render outside this repo first, curate and disclose omissions, retain all
+normative requirements and provisional markers, and run the content-hygiene guard before import.
+Website reading aids are maintained by `tools/prepare-standard.py`, `standard/reader.css`, and
+`standard/reader.js`; reapply them after a reviewed source refresh.
 
 ## 4. Working principles
 

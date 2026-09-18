@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How Reality2 Works - Step by Step</title>
-    <meta name="description" content="What happens when you open a Reality2 capability. Where your data lives. Why there's no account.">
+    <meta name="description" content="How the Reality2 design separates a shared mesh, cryptographic trust groups and cooperating software agents.">
     <link rel="canonical" href="https://reality2.ai/how.html">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -15,7 +15,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Reality2">
     <meta property="og:title" content="How Reality2 Works - Step by Step">
-    <meta property="og:description" content="What happens when you open a Reality2 capability. Where your data lives. Why there's no account.">
+    <meta property="og:description" content="How the Reality2 design separates a shared mesh, cryptographic trust groups and cooperating software agents.">
     <meta property="og:url" content="https://reality2.ai/how.html">
     <meta property="og:image" content="https://reality2.ai/og-image.png">
     <meta property="og:image:width" content="1200">
@@ -23,7 +23,7 @@
     <meta property="og:image:alt" content="Reality2 — Technology That Disappears">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="How Reality2 Works - Step by Step">
-    <meta name="twitter:description" content="What happens when you open a Reality2 capability. Where your data lives. Why there's no account.">
+    <meta name="twitter:description" content="How the Reality2 design separates a shared mesh, cryptographic trust groups and cooperating software agents.">
     <meta name="twitter:image" content="https://reality2.ai/og-image.png">
     <meta name="twitter:image:alt" content="Reality2 — Technology That Disappears">
     <script type="application/ld+json">
@@ -33,7 +33,7 @@
       "@id": "https://reality2.ai/how.html#webpage",
       "name": "How Reality2 Works - Step by Step",
       "url": "https://reality2.ai/how.html",
-      "description": "What happens when you open a Reality2 capability. Where your data lives. Why there's no account.",
+      "description": "How the Reality2 design separates a shared mesh, cryptographic trust groups and cooperating software agents.",
       "inLanguage": "en",
       "isPartOf": { "@id": "https://reality2.ai/#website" },
       "publisher": { "@id": "https://reality2.ai/#organization" }
@@ -89,33 +89,6 @@
         .step-content h3 { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
         .step-content p { font-size: 15px; color: var(--text-dim); margin: 0; }
 
-        /* Where data lives */
-        .storage-map {
-            background: var(--surface); border: 1px solid rgba(212,168,83,0.06);
-            border-radius: 12px; padding: 28px; margin: 24px 0;
-        }
-        .storage-row {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 0; border-bottom: 1px solid rgba(212,168,83,0.04);
-            font-size: 14px;
-        }
-        .storage-row:last-child { border-bottom: none; }
-        .storage-what { color: var(--text); font-weight: 500; }
-        .storage-where { font-family: var(--mono); font-size: 13px; color: var(--accent); }
-        .storage-note { font-size: 12px; color: var(--text-faint); margin-top: 2px; }
-
-        /* Diagram */
-        .diagram {
-            background: var(--surface); border: 1px solid rgba(212,168,83,0.06);
-            border-radius: 12px; padding: 32px; margin: 32px 0;
-            font-family: var(--mono); font-size: 13px; color: var(--text-dim);
-        }
-        .diagram .label { color: var(--accent); font-weight: 500; }
-        .diagram .faint { color: var(--text-faint); }
-        .diagram-table { width: 100%; border-collapse: collapse; text-align: center; }
-        .diagram-table td { padding: 4px 6px; }
-        .diagram-table .arrow { color: var(--text-faint); font-size: 12px; }
-
         .callout {
             background: var(--surface); border-left: 3px solid var(--accent);
             border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0;
@@ -138,8 +111,6 @@
             --text: #2a2520; --text-dim: #5a554e; --text-faint: #6f6b66;
         }
         [data-theme="light"] nav { background: rgba(245,242,236,0.92); border-bottom-color: rgba(122,92,24,0.1); }
-        [data-theme="light"] .storage-map { border-color: rgba(122,92,24,0.08); }
-        [data-theme="light"] .diagram { border-color: rgba(122,92,24,0.08); }
         [data-theme="light"] .callout { border-left-color: var(--accent); }
 
         /* High contrast theme */
@@ -153,8 +124,6 @@
         [data-theme="high-contrast"] .btn-primary { background: #ffd700; color: #000; font-weight: 700; }
         [data-theme="high-contrast"] .btn-secondary { border-color: rgba(255,215,0,0.4); color: #fff; }
         [data-theme="high-contrast"] a { color: #ffd700; text-decoration: underline; }
-        [data-theme="high-contrast"] .storage-map { border-color: rgba(255,215,0,0.2); }
-        [data-theme="high-contrast"] .diagram { border-color: rgba(255,215,0,0.2); }
         [data-theme="high-contrast"] .callout { border-left-color: #ffd700; }
         [data-theme="high-contrast"] .step-num { border-color: rgba(255,215,0,0.4); }
 
@@ -200,7 +169,6 @@
             article { padding: 100px 20px 60px; }
             article h1 { font-size: 26px; }
             .step { gap: 14px; }
-            .storage-row { flex-direction: column; align-items: flex-start; gap: 2px; }
         }
         /* Screen-reader-only utility */
         .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
@@ -208,10 +176,22 @@
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
         }
+        article > p, .reading-list { color:var(--text-dim); margin-bottom:20px; font-size:16px; }
+        .reading-list { padding-left:22px; }
+        .reading-list li { margin-bottom:14px; }
+        article h2[id] { scroll-margin-top:90px; }
+        .responsibilities { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr)); gap:12px; margin:28px 0; }
+        .responsibilities > div { padding:20px; background:var(--surface); border:1px solid var(--text-faint); border-radius:10px; }
+        .responsibilities strong { color:var(--accent); }
+        .responsibilities p { color:var(--text-dim); font-size:14px; margin-top:8px; }
+        .cta { display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
+        [data-theme="high-contrast"] a.btn-primary { color:#000; }
+        h2[id] { scroll-margin-top:90px; }
     </style>
     <script>
         (function() {
-            var t = localStorage.getItem('r2-theme');
+            var t;
+            try { t = localStorage.getItem('r2-theme'); } catch (e) {}
             if (t === 'light' || t === 'high-contrast') {
                 document.documentElement.setAttribute('data-theme', t);
                 var tc = { light: '#f5f2ec', 'high-contrast': '#000000' }[t];
@@ -235,7 +215,7 @@
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="links" id="nav-menu">
-        <a href="index.html#built" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">Built with R2</a>
+        <a href="index.html#built" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">Uses and Projects</a>
         <a href="about.html" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">About</a>
         <a href="https://github.com/reality2-ai" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">GitHub</a>
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
@@ -251,250 +231,53 @@
 
 <a href="index.html" class="back-link" aria-label="Back to Reality2 home">Back to Reality2</a>
 
-<h1>How <span>This</span> Works</h1>
-<p class="subtitle">What actually happens when you open a Reality2 capability. Where your data goes. Why there's no account.</p>
+<h1>How <span>Reality2</span> Works</h1>
+<p class="subtitle">Devices carry messages. Trust groups set boundaries. Software agents decide what to do.</p>
+<div class="callout">Reality2 is in development. This is a guide to the current protocol design. The earlier Notekeeper walkthrough described an experimental app that is now archived.</div>
 
-<h2>When you first open Notekeeper</h2>
-
+<h2 id="mesh">First, a shared mesh</h2>
+<p>A Reality2 device is called a <em>hive</em>. It participates using the communication media available to it. Devices may move, sleep, run out of power or disappear from radio range. The protocol starts with that uncertainty.</p>
 <div class="step">
-    <div class="step-num">1</div>
-    <div class="step-content">
-        <h3>Your browser fetches a web page</h3>
-        <p>Just like any website. The page is served from GitHub - it's static HTML, CSS, and about 300KB of WebAssembly. That WASM file is the entire R2 protocol stack - encryption, trust groups, mesh routing - compiled from Rust.</p>
-    </div>
+    <div class="step-num" aria-hidden="true">1</div>
+    <div class="step-content"><h3>Discover what is nearby</h3><p>A device observes neighbours on each available transport. An announcement is evidence that something may be there; it is not proof of membership or permission to act.</p></div>
 </div>
-
 <div class="step">
-    <div class="step-num">2</div>
-    <div class="step-content">
-        <h3>The page caches itself</h3>
-        <p>A service worker stores all the files on your device. From this moment on, your browser never needs to contact GitHub again. The next time you open the page, it loads instantly from your local cache. Pull the network cable - it still works.</p>
-    </div>
+    <div class="step-num" aria-hidden="true">2</div>
+    <div class="step-content"><h3>Forward using local evidence</h3><p>Devices relay frames for neighbours, including those from other trust groups. Each forwarding decision uses local knowledge of links and available resources. Carrying a frame does not require understanding its contents.</p></div>
 </div>
-
 <div class="step">
-    <div class="step-num">3</div>
-    <div class="step-content">
-        <h3>You create a trust group</h3>
-        <p>Cryptographic keys are generated right here, in your browser. An Ed25519 signing key, a data encryption key, an HMAC key. These keys never leave your device. There is no server that has a copy. No company that knows they exist.</p>
-    </div>
+    <div class="step-num" aria-hidden="true">3</div>
+    <div class="step-content"><h3>Handle loss at the endpoints</h3><p>Sending a frame is not a delivery guarantee. When a task needs a receipt or retransmission, the endpoints provide it. A receipt is another independently routed message, not proof that every hop on the outward route remains usable.</p></div>
 </div>
 
-<div class="step">
-    <div class="step-num">4</div>
-    <div class="step-content">
-        <h3>You start writing</h3>
-        <p>Notes are stored in your browser's local storage. They're right there on your device, alongside the keys. No server, no database, no cloud upload. Close the tab, reopen tomorrow - your notes are still there.</p>
-    </div>
+<h2 id="trust">Then, the trust boundary</h2>
+<p>A trust group gives its members a shared cryptographic identity. Joining is an explicit enrolment process. A device's membership survives periods offline; poor connectivity cannot revoke it.</p>
+<p>At the boundary, cryptographic checks establish whether a frame is authentic for a group. Further checks govern actions such as changing configuration or installing software. Confidence in a neighbour never substitutes for those checks.</p>
+<div class="callout"><strong>Authentication and privacy are different.</strong> A valid integrity tag does not itself hide a payload. Encryption protects the contents; authentication and authorisation determine what may be accepted and acted on.</div>
+
+<h2 id="relationships">Cooperate across groups</h2>
+<p>Two groups can form an <em>entanglement</em>: a signed agreement with a scope, an authentication grade and conditions. Each group stays sovereign and evaluates the agreement using its own evidence.</p>
+<p>A relationship might last while a presenter is in a room, for a single transaction, or across a longer collaboration. Conditions can lapse without anyone being at fault. Silence alone is never evidence of a breach.</p>
+
+<h2 id="applications">Applications give messages meaning</h2>
+<p>A <em>sentant</em> is a software agent hosted by a hive. Sentants react to events and communicate with other sentants. The mesh carries their messages, group relationships constrain the permitted interaction, and application behaviour determines what happens next.</p>
+<div class="responsibilities" aria-label="Three roles in Reality2">
+    <div><strong>Devices carry</strong><p>Discovery, local forwarding and transport.</p></div>
+    <div><strong>Groups permit</strong><p>Membership, scoped relationships and authority.</p></div>
+    <div><strong>Agents act</strong><p>Events and application behaviour.</p></div>
 </div>
 
-<div class="callout">
-    At this point, the website you loaded from GitHub has no idea you exist. It served you a file and moved on. There's no session, no cookie tracking you, no analytics, no account. The code is running on your device, for you, with keys only you have.
-</div>
-
-<h2>When you add another device</h2>
-
-<div class="step">
-    <div class="step-num">5</div>
-    <div class="step-content">
-        <h3>You generate an invitation</h3>
-        <p>Your browser creates a short code and a QR code. These contain your trust group identity and a single-use join secret, encrypted so only the right device can use them.</p>
-    </div>
-</div>
-
-<div class="step">
-    <div class="step-num">6</div>
-    <div class="step-content">
-        <h3>Your other device joins</h3>
-        <p>On your phone, you scan the QR code. The page loads (from GitHub, or from cache if you've visited before). The WASM stack runs the join handshake - X25519 key exchange, XChaCha20-Poly1305 encryption. Your phone now has its own copy of the trust group keys.</p>
-    </div>
-</div>
-
-<div class="step">
-    <div class="step-num">7</div>
-    <div class="step-content">
-        <h3>Both devices connect through a relay</h3>
-        <p>The relay is a simple server that forwards encrypted messages. It knows which devices belong to the same trust group (by a hash), but it can't read what they're saying. It's a postal service carrying sealed envelopes.</p>
-    </div>
-</div>
-
-<div class="step">
-    <div class="step-num">8</div>
-    <div class="step-content">
-        <h3>Notes sync</h3>
-        <p>When you edit a note on your laptop, the change is encrypted with your trust group key, sent through the relay, decrypted by your phone, and stored locally. The relay saw only ciphertext. GitHub saw nothing at all.</p>
-    </div>
-</div>
-
-<h2>Where everything lives</h2>
-
-<div class="storage-map">
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">The capability (HTML, WASM, JS)</div>
-            <div class="storage-note">Fetched once, then cached forever</div>
-        </div>
-        <div class="storage-where">Your browser cache</div>
-    </div>
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">Trust group keys</div>
-            <div class="storage-note">Ed25519, DEK, HK - generated on your device</div>
-        </div>
-        <div class="storage-where">Your browser localStorage</div>
-    </div>
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">Your notes</div>
-            <div class="storage-note">Plaintext, only on your device</div>
-        </div>
-        <div class="storage-where">Your browser localStorage</div>
-    </div>
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">Encrypted sync frames</div>
-            <div class="storage-note">Pass through relay, unreadable</div>
-        </div>
-        <div class="storage-where">Relay (volatile, not stored)</div>
-    </div>
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">Your account</div>
-            <div class="storage-note"></div>
-        </div>
-        <div class="storage-where" style="color:var(--text-faint)">Doesn't exist</div>
-    </div>
-</div>
-
-<h2>What the relay sees</h2>
-
-<div class="diagram">
-    <table class="diagram-table" role="img" aria-label="Diagram showing data flow: your laptop encrypts notes into ciphertext, the relay forwards the ciphertext without reading it, your phone decrypts back to notes">
-        <tr>
-            <td class="label">Your laptop</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="label">Relay</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="label">Your phone</td>
-        </tr>
-        <tr>
-            <td>notes</td>
-            <td class="arrow">►</td>
-            <td>encrypt</td>
-            <td class="arrow">►</td>
-            <td class="faint">████████</td>
-            <td class="arrow">►</td>
-            <td>decrypt</td>
-            <td class="arrow">►</td>
-            <td>notes</td>
-        </tr>
-    </table>
-    <div class="faint" style="margin-top:16px;text-align:center">The relay sees ████████████. Your devices see your notes.</div>
-    <div style="margin-top:8px;text-align:center;font-size:13px;color:var(--text-dim)">Nothing goes to GitHub (or anyone else).</div>
-</div>
-
-<h2>What happens on second visit</h2>
-
-<div class="step">
-    <div class="step-num">&rarr;</div>
-    <div class="step-content">
-        <h3>Nothing goes to GitHub</h3>
-        <p>The service worker serves the page from local cache. Your trust group keys and notes load from localStorage. If you have a relay connection, sync resumes. The whole thing starts in milliseconds, entirely from your device.</p>
-    </div>
-</div>
-
-<div class="callout">
-    Think of it this way: you downloaded a tool. The tool now lives on your device. It uses keys that only you have. It stores data that only you can read. The place you downloaded it from has no ongoing relationship with you. You could delete the website tomorrow and your capability would keep working.
-</div>
-
-<h2>What's in the files</h2>
-
-<p style="color:var(--text-dim);font-size:15px;margin-bottom:16px">Total transparency. Here's exactly what runs on your device:</p>
-
-<div class="storage-map">
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">index.html</div>
-            <div class="storage-note">The user interface - layout, styling, editor, settings. Plain HTML, CSS, JavaScript. No tracking scripts, no analytics, no external requests. You can read every line.</div>
-        </div>
-        <div class="storage-where">~95KB</div>
-    </div>
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">r2_wasm_bg.wasm</div>
-            <div class="storage-note">The R2 protocol stack compiled from Rust to WebAssembly. Contains: Ed25519 signatures, X25519 key exchange, XChaCha20-Poly1305 encryption, HMAC-SHA256, HKDF key derivation, R2-WIRE frame encode/decode, CBOR encoding, FNV hashing, trust group lifecycle.</div>
-        </div>
-        <div class="storage-where">~300KB</div>
-    </div>
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">r2_wasm.js</div>
-            <div class="storage-note">JavaScript bindings generated by wasm-bindgen. Bridges between the HTML interface and the WASM protocol stack. No application logic - just type conversions and function calls.</div>
-        </div>
-        <div class="storage-where">~45KB</div>
-    </div>
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">qrcode.min.js</div>
-            <div class="storage-note">QR code generator library (qrcode-generator). Creates the QR codes for invitations. Open source, well-established.</div>
-        </div>
-        <div class="storage-where">~57KB</div>
-    </div>
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">sw.js</div>
-            <div class="storage-note">Service worker. Caches the above files so the capability loads offline. Does not intercept, modify, or report any data.</div>
-        </div>
-        <div class="storage-where">~2KB</div>
-    </div>
-</div>
-
-<p style="color:var(--text-dim);font-size:15px;margin-top:16px">Total download: about 500KB. After first visit, everything is cached - no further downloads. The source is public at <a href="https://github.com/reality2-ai/r2-notekeeper">github.com/reality2-ai/r2-notekeeper</a>. The WASM is compiled from the Rust crates in <a href="https://github.com/reality2-ai/r2-core">r2-core</a> (not yet public - coming soon).</p>
-
-<div class="callout">
-    There are no hidden files, no telemetry, no analytics scripts, no third-party requests. The only external connection the capability makes is to the relay you choose - and it sends only encrypted bytes that the relay cannot read. You can verify all of this by reading the source or inspecting network traffic in your browser's developer tools.
-</div>
-
-<h2>What can go wrong</h2>
-
-<div class="storage-map">
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">Clear browser data</div>
-            <div class="storage-note">Keys and notes are deleted</div>
-        </div>
-        <div class="storage-where" style="color:var(--text-faint)">Rejoin from another device</div>
-    </div>
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">Lose all devices</div>
-            <div class="storage-note">Trust group keys are gone</div>
-        </div>
-        <div class="storage-where" style="color:var(--text-faint)">Restore from backed-up key</div>
-    </div>
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">Relay goes down</div>
-            <div class="storage-note">Devices can't sync temporarily</div>
-        </div>
-        <div class="storage-where" style="color:var(--text-faint)">Notes still work locally</div>
-    </div>
-    <div class="storage-row">
-        <div>
-            <div class="storage-what">GitHub goes down</div>
-            <div class="storage-note">New users can't load the page</div>
-        </div>
-        <div class="storage-where" style="color:var(--text-faint)">Existing users unaffected (cached)</div>
-    </div>
-</div>
-
-<div style="text-align:center;margin-top:48px">
-    <a href="https://reality2.ai/r2-notekeeper/" class="btn btn-primary" style="margin-right:8px">Try Notekeeper</a>
-    <a href="about.html" class="btn btn-secondary">Learn More About R2</a>
+<h2 id="limits">What this means in practice</h2>
+<ul class="reading-list">
+    <li><strong>No mandatory central service.</strong> Local communication can continue where devices and links remain available.</li>
+    <li><strong>Intermittent does not mean infallible.</strong> Storage, energy and reachable peers still limit what can be delivered.</li>
+    <li><strong>Relaying does not grant trust.</strong> Devices can help carry traffic without joining the groups that sent it.</li>
+    <li><strong>An app is not the standard.</strong> Implementations need evidence that they meet the protocol's requirements.</li>
+</ul>
+<div class="callout">Looking for the earlier apps? <a href="index.html#built">The homepage lists their current status and archived source.</a></div>
+<div class="cta">
+    <a href="about.html" class="btn btn-primary">Why Reality2?</a>
+    <a href="mailto:roy@reality2.ai" class="btn btn-secondary">Discuss Building with R2</a>
 </div>
 
 </article>
@@ -502,7 +285,7 @@
 
 <footer>
     <p><a href="https://github.com/reality2-ai">GitHub</a> · <a href="built-by-a-fleet.html">Built by a fleet</a></p>
-    <p style="margin-top:8px">Reality2 is in early development.</p>
+    <p style="margin-top:8px">Reality2 is in development. The protocol is defined by the R2 Standard.</p>
 </footer>
 
 <script>
@@ -511,7 +294,7 @@ function toggleTheme() {
     var next = current === 'dark' ? 'light' : current === 'light' ? 'high-contrast' : 'dark';
     if (next === 'dark') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('r2-theme', next);
+    try { localStorage.setItem('r2-theme', next); } catch (e) {}
     var label = next === 'high-contrast' ? 'High contrast' : next.charAt(0).toUpperCase() + next.slice(1);
     var s = document.getElementById('theme-status');
     if (s) s.textContent = label + ' theme';

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>L6 — Management — Reality2 Standard</title>
 <meta name="description" content="Who may update, configure and inspect a hive — and what evidence each operation requires.">
@@ -23,10 +24,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/standard/standard.css">
-<script>(function(){var t=localStorage.getItem('r2-theme');
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
 if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
 var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
 if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -54,15 +57,15 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         </button>
     </div>
 </nav>
-<article id="main" class="doc-page">
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#introduction">Introduction</a></li><li><a href="#1-scope">1 Scope</a></li><li><a href="#2-normative-references">2 Normative references</a></li><li><a href="#3-terms-and-definitions">3 Terms and definitions</a></li><li><a href="#4-authority">4 Authority</a></li><li><a href="#5-the-update-model">5 The update model</a></li><li><a href="#6-diagnostics">6 Diagnostics</a></li><li><a href="#7-management-surfaces">7 Management surfaces</a></li><li><a href="#8-conformance">8 Conformance</a></li><li><a href="#9-security-considerations">9 Security considerations</a></li><li><a href="#10-what-is-not-decided-at-this-layer">10 What is not decided at this layer</a></li><li><a href="#bibliography">Bibliography</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
 <a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-6-management">Reality2 Standard — Layer 6: Management</h1>
-<p><strong>Status:</strong> Draft — <strong>this names the editorial maturity of the text, and nothing else.</strong>
+<p class="reader-kind">Normative document</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
+<p><strong>Version:</strong> 0.9.0 · <strong>Date:</strong> 2026-09-18 · <strong>Status:</strong> Draft</p>
+<p><strong>What "Draft" names here is the editorial maturity of the text, and nothing else.</strong>
 <strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
-build from it (d041, Roy: <em>standard is the canon</em>). <strong>The only text open to replacement is a value
-marked <code>PROVISIONAL(...)</code> at its own clause.</strong> <em>(Subject stated because a status field is scoped to
-a question the reader may not be asking, and a claim with an unstated subject will be given the
-subject the reader brought — composer, 2026-08-03.)</em>
-<strong>Date:</strong> 2026-08-04</p>
+build from it. <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> </p>
 <blockquote>
 <p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
 <em>can</em> = possibility and capability.</p>
@@ -149,7 +152,7 @@ management surface</strong></p>
 operation's class requires, and the delivery gate alone shall not authorise any management
 operation.</p>
 <p><strong class="clause" id="c4.1.1a">4.1.1a</strong> The evidence each operation class requires shall be:</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Operation class, Required evidence"><table>
 <thead>
 <tr>
 <th>Operation class</th>
@@ -187,14 +190,8 @@ operation.</p>
 </tr>
 </tbody>
 </table></div>
-<p>Note 1 to entry: The table's shape is its argument: <strong>evidence rises with consequence,
-and the last two rows cannot be reached by adding more evidence.</strong> No quantity of
-signatures substitutes for physical possession, and no ordinary entanglement becomes a
-management one by carrying more of them — those two rows are categorically different
-from the rest, which is why 4.2.3 and <code>L5A</code> 9.1 state them as their own requirements
-rather than as high settings of a dial. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>:
-4.1.1 and 7.2 both bound to "the evidence the operation's class requires" and no table
-existed anywhere.)</em></p>
+<p>Note 1 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
+
 <p><strong class="clause" id="c4.1.2">4.1.2</strong> Update packages shall be accepted only under a valid signature of an update
 authority (3.1) of the receiving hive's group, or of a group whose entanglement with the
 receiving group carries management scope at the required grade.</p>
@@ -203,7 +200,7 @@ includes management operations is at that grade, names the managing group, the m
 surface and the operations granted explicitly and exhaustively, and every management
 crossing carries member-attributable evidence regardless of the entanglement's other
 terms (<a href="L5A-entanglement.html"><code>L5A-entanglement.md</code></a>, 9.1 and 9.2). The channel keys alone never authorise a
-management operation. <em>(Cross-reference made explicit 2026-08-01.)</em></p>
+management operation. </p>
 <p><strong class="clause" id="c4.1.3">4.1.3</strong> A group shall be able to enumerate its current update authorities on demand,
 from a signed, versioned artefact, without network access to any issuer — and a holder
 list without its version shall be rejected as indistinguishable from an arbitrarily old
@@ -272,14 +269,7 @@ low — the package is simply re-accepted, costing airtime. Raise the floor firs
 power, and the floor is <em>n</em> while the slot is still pending, so a later health failure
 reverts to <em>n−1</em> beneath a floor of <em>n</em>: the same soft brick, by power cut rather than by
 choice. Hence: <strong>leave the floor behind the running image, never ahead of it.</strong></p>
-<p>Note 0 to entry: 5.2.3a and 5.2.3b govern <strong>reading</strong> the record; without 5.2.3c
-nothing governs <strong>writing</strong> it, and the brick those clauses exist to prevent is then
-reachable through the mechanism's own write path — a caller setting a floor above every
-sequence a real package will ever carry refuses every future update, permanently, with
-nothing observable saying why. <strong>That the caller is local and authorised does not help:
-the damage does not depend on where the caller sits.</strong> <em>(Added 2026-08-02 after an
-implementation found exactly this route through its own public API;
-<code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p>Note 0 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p>Note 1 to entry: 5.2.3a and 5.2.3b exist because the alternative was observed on
 metal: <strong>two devices refused every update, permanently and silently.</strong> Their
 anti-rollback record validated nothing, and stale bytes decoded as an enormous
@@ -290,7 +280,7 @@ obvious defence does not work, because a flash driver that read-modify-writes a 
 sector leaves a real record and foreign bytes <strong>coexisting</strong>, so record presence
 cannot be inferred from erased-sector signatures. Only a discriminator written by the
 mechanism itself distinguishes <em>my record</em> from <em>bytes that happen to be here</em>.
-<em>(Ruled 2026-08-01 on evidence from the pre-standard deployment.)</em></p>
+</p>
 <p><strong class="clause" id="c5.2.4">5.2.4</strong> A hive shall not reveal, to a party whose package's signature has not been
 verified, whether the package would have been accepted on any other ground — not by an
 error, and not by a distinguishable behaviour.</p>
@@ -305,9 +295,19 @@ matters on platforms that have none.</p>
 arrives observably faster than a signature check has told an unauthenticated party
 something about the device. <strong>Silence toward the unverified is uniform: no reason, no
 differential timing.</strong></p>
-<span class="clause-anchor" id="c5.3"></span><h3 id="53-delivery--ordinary-frames-epidemic-spread-pulled-by-the-needy">5.3 Delivery — ordinary frames, epidemic spread, pulled by the needy</h3>
-<p><strong class="clause" id="c5.3.1">5.3.1</strong> Update delivery shall use ordinary frames and the ordinary mesh; no delivery
-mechanism of this clause shall require a new capability at Layers 1 to 4.</p>
+<span class="clause-anchor" id="c5.3"></span><h3 id="53-delivery--ordinary-frames-or-an-optional-bulk-service-pulled-by-the-needy">5.3 Delivery — ordinary frames or an optional bulk service, pulled by the needy</h3>
+<p><strong class="clause" id="c5.3.1">5.3.1</strong> Subject to the installation-path restrictions of 5.6, update delivery
+shall use ordinary frames and the ordinary mesh, except for
+payload carried by an explicitly selected optional bulk service meeting <a href="L7-application.html#c6.4">Layer 7, 6.4</a>;
+no delivery mechanism of this clause shall require a new capability at Layers 1 to 4.</p>
+<p>Note 0 to entry: The exception changes payload carriage, not update authority or the
+image lifecycle. Advertisement, recipient pull, session authorization and application
+results remain ordinary events. A bulk service is an additional declared platform
+facility, not a mandatory extension to a Reality2 bearer. Its absence does not imply
+permission to fall back silently to another service or route. The signed package,
+target and sequence checks of 5.2 and the staging/health/rollback rules of 5.4 apply
+regardless of the selected payload carriage. A service transport acknowledgment is
+not an image-verification or boot-health result.</p>
 <p><strong class="clause" id="c5.3.2">5.3.2</strong> A hive holding a verified package should advertise its availability — a small
 frame naming the package, its target, its sequence and its size — and the advertisement
 shall never carry the payload.</p>
@@ -320,15 +320,21 @@ of its own storage</strong> — verification before serving, and any holder answ
 both hold for a multi-megabyte image on a device with a few hundred kilobytes of memory
 unless the image can be read back in pieces. <strong>Neither clause says so and both depend on
 it</strong>, so the platform capability is assumed silently. An implementer should expect to need
-it; the platform declaration of Layer 0 is where it would be stated. <em>(Noted 2026-08-02
-from an implementation that added the capability to its platform seam on exactly this
-reasoning.)</em></p>
+it; the platform declaration of Layer 0 is where it would be stated.  <strong>The seam has since been built: <a href="L0-hardware-and-runtime.html#c8.2.1">Layer 0, 8.2.1</a> now carries <code>P11</code> — whether a
+stored image can be read back in pieces bounded by available memory — so the capability is no
+longer assumed silently. This note is retained for the reasoning that produced the parameter,
+and no longer states a live gap.</strong> <em>Amended 2026-08-06: a gap statement outlives its own
+closure, and a note naming a filled hole is a false signal pointing at solved ground.)</em></p>
 <p><strong class="clause" id="c5.3.5">5.3.5</strong> A pulling hive may retrieve a package in pieces, from any holder, over any
 interval its bearers' budgets dictate; it shall reassemble, verify the whole as 5.2.2
 requires, and only then apply. It may request specifically the pieces it lacks, and a
 holder receiving such a request should resend those pieces.</p>
-<p>Note 1 to entry: 5.3.5 is the delivery model for the device every other mechanism cannot
-reach: <strong>the sensor whose only bearer is slow, regulated, and asleep most of the day.</strong>
+<p>Note 3 to entry: Package distribution and caching do not establish installation
+permission. For levels 3 and 4, 5.6 restricts delivery into the receiving hive's
+executable staging area to direct non-LoRa proximity or local USB. A holder can
+relay or cache a package for a maintainer without becoming an installation path.</p>
+<p>Note 1 to entry: For remotely admissible content under 5.6, 5.3.5 is the
+delivery model for the device every other mechanism cannot reach: <strong>the sensor whose only bearer is slow, regulated, and asleep most of the day.</strong>
 Pieces arrive as the airtime budget permits — days are conformant, not degraded — the
 assembler holds its own partial state across sleeps, asks for what it lacks when awake,
 and any holder may answer. <strong>Reliability is end-to-end repair by the party that noticed:
@@ -337,7 +343,7 @@ acknowledgement exists anywhere beneath it.</p>
 <p>Note 2 to entry: The push prohibition in 5.3.3 is the mesh protecting itself. A package is
 the largest thing this standard moves; <strong>the decision to spend that bandwidth belongs to
 the device that needs it</strong>, which alone knows its version, its storage and its budget.</p>
-<h3 id="54-applying-and-surviving-the-application">5.4 Applying, and surviving the application</h3>
+<h3 id="54-applying-and-surviving-the-application"><span class="clause-anchor" id="c5.4"></span>5.4 Applying, and surviving the application</h3>
 <p><strong class="clause" id="c5.4.1">5.4.1</strong> A platform able to stage an update alongside the running image shall apply by
 staging, switching, and keeping the prior image until the update is committed.</p>
 <p><strong class="clause" id="c5.4.1c">5.4.1c</strong> A hive shall determine the image it is executing from the platform's report of
@@ -350,31 +356,18 @@ about the configuration and wrong about the world</strong> (<a href="01-terminol
 on the configured image therefore protects the wrong slot <strong>precisely in the situation
 5.4.3 exists to survive</strong>, and permits erasing the executing image — a damage path, not a
 diagnostic one.</p>
-<p>Note 2 to entry: <strong>This is measured, not hypothetical.</strong> An implementation found its guard
-keyed on the configured image, on a platform whose own interface documentation says in as
-many words that the configured partition <em>may not be the booted partition if the bootloader
-fell back</em>, and names the call that answers the other question. <strong>The caveat was published,
-in the file being used, and the guard was built on the wrong call anyway</strong> — which is why
-this is stated as a requirement rather than left to the platform's documentation.
-<em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS172.)</em></p>
+<p>Note 2 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p><strong class="clause" id="c5.4.1a">5.4.1a</strong> A platform declaring the capability of 5.4.1 shall verify at boot that the
 storage slots that capability requires are present, and shall declare itself
 update-incapable where they are not.</p>
-<p>Note 0 to entry: <strong>A platform's own assertion about its configuration is not evidence of
-that configuration.</strong> Observed on the reference platform: firmware built without its
-partition table fell back to a single-slot layout — no second slot, no state region —
-making staged update and rollback structurally impossible, <strong>while the firmware went on
-printing the layout it had been written to claim.</strong> Only the bootloader's own dump
-revealed it. An update accepted on a device that cannot roll back is exactly the failure
-5.4.3 exists to prevent, so the check belongs at boot rather than at first update.
-<em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, on bring-up evidence.)</em></p>
+<p>Note 0 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p>Note 1 to entry: <strong>A platform may require metadata inside the image itself</strong> for its
 own slot management — an ESP32-S3 bootloader, for instance, refuses to boot an OTA
 slot whose image carries no application descriptor. The staging model of this clause
 is implementable on such platforms, but <strong>a package's payload is not portable across
 them</strong>: an image is built for a platform, and the platform declaration (Layer 0,
 Clause 8) is where that requirement is visible. Nothing in this standard assumes a
-raw binary. <em>(Added 2026-08-01 from bring-up evidence on the reference platform.)</em></p>
+raw binary. </p>
 <p><strong class="clause" id="c5.4.2">5.4.2</strong> An updated hive shall run its health checks (3.4) within a bounded window, and
 shall commit the update only when they pass.</p>
 <p><strong class="clause" id="c5.4.1b">5.4.1b</strong> At most one target shall hold a pending update across any one reboot. A hive
@@ -388,26 +381,8 @@ The floor for that target then rises to a package whose health was never establi
 through a third route</strong>, neither a chosen value nor a mis-timed write but a <em>misdirected</em>
 authorisation. The permission is real, it gates <strong>that</strong> a commit happens, and it does not
 gate <strong>which</strong>.</p>
-<p>Note 2 to entry: <strong>The bound is stated here rather than left to callers because it cannot
-be enforced where the authorisation is spent.</strong> After a reboot the machinery deciding a
-commit is reconstructed and <strong>never saw the staging</strong>; the fact of which target is under
-test exists only in durable storage, and a per-target record cannot see whether another
-target is also pending. So a caller obligation would be unverifiable at the only point it
-matters. <strong>The alternative — a health window bound per target — requires the running image
-to identify its own target durably</strong>, which is heavier and pushes metadata into the record
-format; it may supersede this clause later, and moving from <em>at most one</em> to <em>per target</em>
-is a relaxation and therefore a safe direction of travel. <em>(Added 2026-08-02,
-<code>PROVISIONAL(supervisor)</code>. Silence here read as this rule to anyone who did not go looking,
-which is why stating it costs nothing and leaving it silent did.)</em></p>
-<p>Note 3 to entry: <strong>The report is required because a refusal and a loss are
-indistinguishable to whoever offered the package.</strong> On a lossy bearer an offering hive
-that hears nothing has no way to tell that the offer was declined, and would reasonably
-retry — for ever, since <strong>the offer is not the problem and retrying never fixes it.</strong> The
-two parties then disagree permanently with neither at fault. This is 5.4.4's finding in
-the other direction: <strong>silence and a wrong reason are both failures of the report rather
-than of the behaviour</strong>, and the behaviour here is correct. <em>(Added 2026-08-02,
-<code>PROVISIONAL(supervisor)</code>, from the implementation of this clause, which reported the
-refusal without being told to.)</em></p>
+<p>Note 2 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
+<p>Note 3 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p>Note 4 to entry: <strong>The release condition is load-bearing and is not decoration.</strong> <em>Committed
 or reverted</em> names the two ways a pending update ends; a hive that held the bound without
 releasing on both would <strong>take exactly one update for ever</strong> — a brick reached by
@@ -417,16 +392,7 @@ refusal from staging, staged and health-window states; permission from idle, unk
 position, committed and reverted.)</em></p>
 <p><strong class="clause" id="c5.4.2a">5.4.2a</strong> A hive whose image position is unreadable shall accept and stage an update, and
 shall not commit one.</p>
-<p>Note -1 to entry: 5.4.2a exists because Note 0's silence was read as refusal, and refusal
-is the wrong half. <strong>Staging commits to nothing</strong> — it writes the slot the hive is not
-running from, and moves no sequence floor — while <strong>committing</strong> needs the health window
-that an unreadable position never opens, so the safety property is preserved by refusing
-the commit alone. Refusing the <em>update</em> instead strands the device: on the reference
-platform a freshly provisioned board boots with no readable position, so it <strong>could never
-take its first update over the air</strong> and would need a hand on it — which is the outcome
-5.4.3 exists to prevent. This is 5.2.3b's rule one level up: <strong>unreadable must not
-refuse.</strong> <em>(Added 2026-08-02 from an implementation whose cycle test caught the strand;
-<code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p>Note -1 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p>Note 0 to entry: <strong>Where the platform holds no readable record of the running image's
 position, no health window is opened at all</strong> — the unreadable case of 5.2.3b has a
 distinct correct action, not merely a distinct name. Opening a window for an image the
@@ -436,18 +402,8 @@ Folding that case into <em>pending</em> is therefore actively harmful rather tha
 imprecise. Verified on the reference platform, where a plain flash write leaves no valid
 record at all — so this is the <strong>first</strong> state a freshly provisioned board exercises, not
 a rare edge, and a conformance suite starting only from a clean confirmed image never
-reaches it. <em>(Added 2026-08-02 from on-metal evidence.)</em></p>
-<p>Note 1 to entry: <strong>An unreadable position may not survive the next reboot, and an
-implementation that assumes it does is assuming something no clause here provides.</strong> On a platform whose boot path <strong>manufactures</strong> an
-update record where it finds none — a documented behaviour, not a fault (SS135) — the
-unreadable position of 5.4.2a is <strong>transient</strong>: the device boots, the platform writes a
-record marked valid, and every later reader sees a settled position that no update produced.
-<strong>The consequence is that a hive cannot establish a durable <em>never updated</em> position from
-its update record alone</strong>, and a state machine that encodes one is encoding a measurement
-taken between two boots rather than a property of the platform. Whether the boot path writes
-such a record is a <strong>platform fact and belongs in the platform declaration</strong> (Layer 0,
-Clause 8); it is registered with the declaration group awaiting ruling. <em>(Added 2026-08-02,
-<code>PROVISIONAL(supervisor)</code>.)</em></p>
+reaches it. </p>
+<p>Note 1 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p>Note 2 to entry: <strong>Erasing the update record is not a way to reach the unprovisioned
 state</strong>, on such a platform, and an implementer or operator reaching for it will appear to
 succeed: the erase works, and the <strong>next boot destroys the state it produced</strong>. This is
@@ -477,46 +433,26 @@ a record <strong>against corruption, not against being false</strong>. It establ
 that owns the record wrote these bytes; it establishes nothing about whether the bytes
 still describe the world. <strong>No checksum catches a true-looking lie.</strong> <a href="01-terminology.html"><code>01-terminology.md</code></a>
 5.4 states the general obligation this clause instances.</p>
-<p>Note 4 to entry: <strong>Staging is the repair.</strong> A hive in this position accepts and stages for
-the reason 5.4.2a gives — unreadable must not refuse, and neither must inconsistent — and a
-completed copy restores agreement between record and slots, after which the ordinary rules
-apply. <strong>The state is self-healing over the air</strong>, which is the property 5.4.3 exists to
-protect. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>. The treatment is not new: <em>no
-window and report</em> follows 5.4.2 Note 0's own reasoning. What was missing was <strong>the ability
-to say it</strong> — a platform that can see the disagreement was obliged to state a falsehood,
-because <em>pending</em> was the only word this clause gave it.)</em></p>
+<p>Note 4 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p><strong class="clause" id="c5.4.3">5.4.3</strong> An updated hive whose health checks fail, or that fails to boot the new image,
 shall revert to the prior image without external help.</p>
 <p><strong class="clause" id="c5.4.4">5.4.4</strong> A hive that reverted should report the reversion and its reason when next able,
 and the reason should be <strong>distinguishable from the adjacent ones</strong> — in particular, <em>the
 health checks did not pass</em> and <em>the health checks could not be run</em> are different facts.</p>
-<p>Note 1 to entry: <strong>A diagnostic that names the wrong cause is worse than none, because it
-is acted on.</strong> Reporting a failed check where the check never ran sends the reader hunting
-a defect in the new image while the actual fault is that the check could not execute — and
-on the unattended devices this standard cares most about, <strong>nobody is present to notice by
-hand.</strong> This is <a href="01-terminology.html#c5.3"><code>01-terminology.md</code> 5.3</a> applied to a report rather than to a decision: the
-third answer must remain distinguishable <strong>to whoever acts on it</strong>, even where it changes
-no behaviour. <em>(Added 2026-08-02; <code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p>Note 1 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p><strong class="clause" id="c5.4.5">5.4.5</strong> Applying an update shall preserve the persona (4.2) and the device's claim state,
 across success, failure and reversion alike.</p>
 <p>Note 1 to entry: 5.4.3's <em>without external help</em> is the load-bearing phrase. The devices
 this standard cares most about are exactly the ones nobody can reach when an update goes
 wrong — <strong>a rollback that needs a hand on the device is, for them, a brick with
 paperwork.</strong></p>
-<h3 id="55-the-recovery-layer">5.5 The recovery layer</h3>
+<p>Note 2 to entry: Permission to stage under 5.4.2a or 5.4.2b does not waive
+management evidence or the installation-path restrictions of 5.6. Unreadable
+image position is distinct from an unauthorized update source or path.</p>
+<h3 id="55-the-recovery-layer"><span class="clause-anchor" id="c5.5"></span>5.5 The recovery layer</h3>
 <p><strong class="clause" id="c5.5.1">5.5.1</strong> A device shall have a recovery layer (3.5): resident, independent of the stack,
 by which physical possession restores a working image when nothing else can.</p>
-<p>Note 1 to entry: <strong>The independence required here bounds who may implement this clause,
-and the obvious implementation route is the one it forbids.</strong> A recovery layer that linked
-a component of the stack would contradict the clause it implements — the point of 3.5 is
-that the layer still works when the stack does not — so <strong>a shared library across that
-boundary does not conform</strong>, however convenient, and an implementer will reach for one.
-What the two sides do legitimately share is what the recovery layer <em>leaves behind</em> and the
-stack <em>reads at boot</em>: <strong>a format is not a dependency.</strong> 5.5.3a states that seam in those
-terms, and 5.5.3's crash safety is a property <strong>of the format</strong> rather than of any
-particular writer — which is what lets the stack rely on it without linking the thing that
-wrote it. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, from an implementation that
-stopped before writing a recovery layer on exactly this reading.)</em></p>
+<p>Note 1 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p><strong class="clause" id="c5.5.2">5.5.2</strong> The recovery layer shall not be reachable by any remote path, and shall not be
 able to authorise or apply a mesh-delivered update.</p>
 <p><strong class="clause" id="c5.5.3">5.5.3</strong> A recovery re-image shall erase the device's persona as part of the recovery
@@ -537,7 +473,7 @@ storage alone, and shall be <strong>self-validating</strong> — that is, a comp
 distinguishable from an incomplete one by reading that storage and nothing else. A transition from one disposition to another shall be effected such that <strong>at
 every instant one complete disposition is selected</strong> — the prior one before the transition,
 the new one after it.</p>
-<p>Note 1 to entry: <strong class="clause" id="c5.5">5.5.3's crash safety is not achievable by intent, and this clause is
+<p>Note 1 to entry: <strong>5.5.3's crash safety is not achievable by intent, and this clause is
 what makes it achievable.</strong> No writer can promise power will not be lost mid-write; it can
 only arrange that <strong>no partial state is ever the selected one.</strong> The usual construction —
 two generation-numbered self-validating records, the writer targeting whichever is <em>not</em>
@@ -545,23 +481,8 @@ currently selected — has that property because <strong>the transition is the c
 validating field, not the start of the write.</strong> A platform whose durable storage offers an
 atomic transition of its own may satisfy this clause without two records; the construction
 is given in full, informatively, at <a href="FORMATS.html"><code>FORMATS.md</code></a> 5b.</p>
-<p>Note 2 to entry: <strong>This clause is the seam of 5.5.1.</strong> The recovery layer writes this state
-and the stack reads it, and by 5.5.1 Note 1 they may share nothing else — so the format
-carries what a shared component would otherwise have carried, and it has to be <strong>written
-down</strong> for the reason <a href="FORMATS.html"><code>FORMATS.md</code></a> 5a Note 2 gives about revocations: what is not written
-down is invented separately by each implementer, and here the two inventors sit on opposite
-sides of a boundary that exists so that neither can call the other. <em>(Added 2026-08-02,
-<code>PROVISIONAL(supervisor)</code>; construction contributed by the core lane, which tested it by
-walking <strong>every prefix</strong> of the write and asserting a complete state at each.)</em></p>
-<p>Note 3 to entry: <strong>This record has two independently written readers by construction, and
-5.5.1 is what puts them there.</strong> The recovery layer must be independent of the stack, so it
-implements its own reader against this layout and <strong>cannot share the stack's code</strong> — which
-means the two validity predicates are <strong>guaranteed</strong> to be written separately, by different
-people, from this document alone. For this record, therefore,
-<a href="01-terminology.html#c5.4a"><code>01-terminology.md</code> 5.4a</a> and 5.4b are <strong>not an edge case but its normal condition</strong>: each
-side states the conditions under which it accepts the record, and each compares against the
-other's. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS147 — raised by an
-implementation that found the second reader by reading 5.5.1 rather than by meeting it.)</em></p>
+<p>Note 2 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
+<p>Note 3 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p><strong class="clause" id="c5.5.4">5.5.4</strong> Where no complete persona disposition can be read — <strong>for any cause, including
 damage arising outside recovery</strong> — the device shall treat itself as holding a fresh
 persona: a closed group of itself, as after a recovery re-image. The device should report
@@ -574,20 +495,211 @@ close. Read as <em>fresh</em>, the device loses its group: a denial of service a
 owner, but <strong>an attacker gains nothing</strong>, since a recovered device is nobody's already.
 <strong>One reading loses a membership; the other hands one over</strong>, and that is the whole of the
 argument.</p>
-<p>Note 2 to entry: This is <a href="01-terminology.html#c5.1"><code>01-terminology.md</code> 5.1</a> <strong>with its tie-break made explicit, and
-the tie-break is needed here because both readings look restrictive from somewhere</strong>:
-<em>present</em> keeps the device locked to its group and refuses any new claim; <em>fresh</em> refuses
-to exercise a membership the device cannot prove. They are restrictive on different axes,
-and 5.1 alone chooses neither. <a href="01-terminology.html#c5.1"><code>01-terminology.md</code> 5.1</a> Note 5 states the rule that
-separates them — <strong>ask which reading grants an authority, not which looks more locked
-down.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, from a lane that ruled on it alone
-and said so rather than shipping the judgement silently.)</em></p>
+<p>Note 2 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p>Note 3 to entry: The behavioural fold here is deliberate and the diagnostic one is not. <strong>A
 device that never held a persona is nobody's as a matter of fact, not as a fallback</strong> — a
 definite answer reached by a different route — and although the stack cannot distinguish
 the two, whoever investigates a device can and must. That is <a href="01-terminology.html#c5.3"><code>01-terminology.md</code> 5.3</a>'s test
 applied correctly: <em>indistinguishable to the machinery</em> and <em>indistinguishable to whoever
 acts on it</em> are different questions, and only the second one forbids the fold.</p>
+<span class="clause-anchor" id="c5.6"></span><h3 id="56-change-levels-and-ensemble-update-policy">5.6 Change levels and ensemble update policy</h3>
+<p>A change level describes what an operation changes and how it can reach the
+receiving hive. It is not a trust grade, certificate role, storage class or
+additional content-class code in the package of 5.2. The content classes of 5.1
+remain unchanged.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Level, Changed content, Permitted installation path"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Changed content</th>
+<th>Permitted installation path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Parameters</strong></td>
+<td>Values exposed by the installed application through supported configuration operations; no definition or executable replacement</td>
+<td>Remote TN management, direct proximity or local USB</td>
+</tr>
+<tr>
+<td><strong>2 — Sentants</strong></td>
+<td>Separately replaceable declarative sentant definitions within an admitted ensemble, using compatible plugins already installed on the receiving hive</td>
+<td>Remote TN management, direct proximity or local USB</td>
+</tr>
+<tr>
+<td><strong>3 — Firmware ensembles</strong></td>
+<td>Firmware-managed ensembles and application plugins, including a newly required plugin</td>
+<td>Verified executable release through direct proximity or local USB</td>
+</tr>
+<tr>
+<td><strong>4 — Core firmware</strong></td>
+<td>TN stack, runtime, security enforcement, update verifier or rollback machinery</td>
+<td>Verified executable release through direct proximity or local USB</td>
+</tr>
+</tbody>
+</table></div>
+<p>Here <em>firmware</em> includes the equivalent installed executable on a hosted
+platform. A platform that separates modules can update the affected executable
+module; a platform that combines the content classes follows 5.1.2. A combined
+image that changes core code, or whose application/core change boundary the
+receiving hive cannot establish, is level 4. The physical recovery layer of 5.5
+remains separate and is never made remotely reachable by this table.
+Local USB installation here is an ordinary
+authorized update, not the persona-erasing recovery re-image of 5.5.3.</p>
+<p><strong class="clause" id="c5.6.1">5.6.1</strong> A receiving hive shall classify a requested change by its actual
+content and effects at the highest applicable level in the table, independently
+of the sender's claimed level, file extension or package label.</p>
+<p><strong class="clause" id="c5.6.2">5.6.2</strong> A hive shall determine which ensemble definitions and parameter
+operations are separately changeable from its locally held admission policy,
+with an unclassified definition treated as firmware managed and no candidate
+able to promote its own permissions.</p>
+<p>Note 1 to entry: The two ensemble policies are <em>remotely replaceable</em> (eligible
+for level 2) and <em>firmware managed</em> (replacement requires level 3 or, where core
+content is involved, level 4). Both can expose level 1 parameter operations.
+Changing this policy is part of the installed enforcement machinery, not an
+ordinary parameter operation. An ensemble name or a score signature alone does
+not establish permission to invoke a protected service.</p>
+<p><strong class="clause" id="c5.6.3">5.6.3</strong> A hive shall refuse a level 1 operation that is not an admitted
+parameter operation or that changes a definition, plugin binding, executable or
+change-admission policy.</p>
+<p><strong class="clause" id="c5.6.4">5.6.4</strong> A hive shall refuse a requested level 2 replacement if it affects a
+firmware-managed definition, introduces executable code, or requires a plugin,
+capability or command contract not already installed and compatible on that hive.</p>
+<p>Note 2 to entry: A newly required plugin needs level 3 or level 4 installation
+before a definition-only replacement can use it. This is admission of a requested
+replacement, not a requirement that every part of an ensemble run on every hive.
+<a href="L7-application.html#c6.2.2b">Layer 7, 6.2.2b</a> and 7.2.2 continue to govern performance at a subset of parts; an
+unsupported replacement does not remove already working parts. A missing optional
+part does not become a required plugin merely because it exists in the score.</p>
+<p><strong class="clause" id="c5.6.5">5.6.5</strong> A hive shall receive a level 3 or level 4 payload into its executable
+update staging area only through an authorized direct proximity session or a
+local USB connection, rather than through an intermediary hive or a remote IP
+management path.</p>
+<p><strong class="clause" id="c5.6.6">5.6.6</strong> A hive admitting a direct proximity session shall establish its
+current direct peer association from authenticated endpoint binding and actual
+platform service observations, without accepting a TN hop limit, claimed peer
+address or sender assertion as proof, and cease accepting payload when that
+association is lost.</p>
+<p>Note 3 to entry: <em>Direct proximity</em> means a direct local non-LoRa radio bearer or
+platform service over that radio between the updating and receiving hives, without forwarding
+by another hive. Components of one complex hive do not thereby become
+intermediary hives. This is not a cryptographic proof of distance or immunity to
+physical-layer relays. The selected service profile still determines additional radio,
+rate and route restrictions. An IP/TCP/UDP path, a shared LAN or an IP address
+alone does not satisfy this condition; IP-specific installation admission is
+not specified by this clause and supplies no exception. Package distribution to a maintainer or cache can
+use 5.3's ordinary mesh; it does not authorize that cache or recipient to move
+bytes into an executable slot remotely. A held package can be installed later
+when the direct association is available. Incomplete transfer does not discard
+an otherwise valid prior image or move a sequence floor.</p>
+<p><strong class="clause" id="c5.6.7">5.6.7</strong> A hive shall apply the management evidence required by 4.1.1a and,
+where the operation is an update, all target, signature and sequence checks of
+5.2, regardless of its change level or use of proximity or USB.</p>
+<p>Note 4 to entry: Levels 1 and 2 do not confer anonymous or merely group-gated
+configuration authority. A configure operation and an update package retain
+their respective evidence requirements; scores also retain FORMATS 7.9 signing
+requirements. Levels 3 and 4 are executable updates, not configure operations.
+No level permits remote membership or claim-state mutation.</p>
+<p><strong class="clause" id="c5.6.8">5.6.8</strong> Before disturbing a working definition, a hive shall validate the
+complete proposed level 2 replacement against its admitted schema, capability
+and command contracts, resource bounds, storage requirements and change policy.</p>
+<p><strong class="clause" id="c5.6.9">5.6.9</strong> A hive providing level 2 replacement shall stage the candidate
+separately, retain the prior working definition and recoverable state until
+commit, and supervise a bounded trial whose required health checks include
+continued operation of the authorized maintenance/update path.</p>
+<p><strong class="clause" id="c5.6.10">5.6.10</strong> A hive whose level 2 trial fails, times out or is interrupted before
+commit shall restore the prior working definition and recoverable state without
+external help, with power loss leaving a complete recoverable selection rather
+than a partially selected definition.</p>
+<p>Note 5 to entry: This is a definition transaction, not a second pending firmware
+image; 5.4.1b's restriction on pending image targets remains. A platform unable
+to stage, supervise and recover a separate definition treats it as firmware
+managed. A successful plugin invocation or data receipt alone is not trial
+health. Levels 3 and 4 retain 5.4's image health, rollback and persona protection.</p>
+<p><strong class="clause" id="c5.6.11">5.6.11</strong> A hive shall prevent level 1 and level 2 changes, including indirect
+plugin invocations and resource consumption, from replacing, disabling or taking
+control of its admission verifier, trial supervisor, rollback mechanism or
+essential maintenance entry, with recovery independent of candidate sentant
+cooperation.</p>
+<p><strong class="clause" id="c5.6.12">5.6.12</strong> A hive replacing sentant definitions shall use the explicit lifecycle
+of <a href="L7-application.html#c4.3">Layer 7, 4.3</a> with a declared state restart or compatible state migration that
+preserves the declared storage-class obligations, prevents stale completions
+from reaching replacement instances and leaves running definitions immutable.</p>
+<p>Note 6 to entry: A retained rollback package is not a second live persisted
+sentant definition; unloading still removes the latter under <a href="L7-application.html#c4.3.2">Layer 7, 4.3.2</a>.
+Recovery can load the retained version as a new instance. State migration does
+not create an external state-query interface or relax sentant opacity. Firmware
+identity and ensemble/definition versions are distinct; a management interface
+should distinguish proposed, staged, trial, committed and reverted versions
+without reporting a prepared package as installed.</p>
+<p><strong class="clause" id="c5.6.13">5.6.13</strong> A level 3 or level 4 release shall include one authenticated,
+versioned installation bundle containing its required executable components,
+plugins and sentant definitions together with a complete parameter installation
+policy specifying supplied values or defaults and retention or migration of
+existing device-specific values.</p>
+<p><strong class="clause" id="c5.6.14">5.6.14</strong> A hive applying such a release shall stage and select the compatible
+bundle as one transaction, run health checks against that selected combination,
+and restore the prior compatible combination on rollback without requiring
+follow-up configuration messages to make either combination operable.</p>
+<p>Note 7 to entry: Physical writes can be sequential; the selected release is
+coherent at every recoverable activation boundary. A bundle's parameter policy
+can retain each device's existing name, location and reading interval, so the
+same release can serve multiple device identities. Persona and claim-state
+preservation remains mandatory under 5.4.5. Referenced pre-existing components
+need authenticated version/digest binding and locally verified presence before
+the bundle can be considered complete. Platform-specific packaging remains
+inside the authenticated payload of FORMATS Clause 5; change levels do not add
+an unsigned manifest alongside it. Separately replaceable level 2 definitions
+remain eligible for later admitted changes after the firmware bundle commits.</p>
+<p><strong class="clause" id="c5.6.15">5.6.15</strong> Both endpoints of a level 3 or level 4 proximity transfer shall
+observe and authenticate their current direct radio peer, bind the observations
+to the intended hive, and exclude LoRa from the payload transfer regardless of
+its apparent reach or directness.</p>
+<p>Note 8 to entry: A LoRa wake or discovery event can precede the update. It does
+not qualify the transfer path; the updater subsequently establishes the direct
+non-LoRa association. Neither a repeater that hears the target nor a relayed
+radio report substitutes for the updater observing the target's own radio.
+The USB alternative in 5.6.5 remains independent of radio availability.</p>
+<p><strong class="clause" id="c5.6.16">5.6.16</strong> A hive applying or reverting an update shall preserve its device
+configuration, including existing application JSON fields such as name,
+location and timing, through a declared lossless migration or retention policy,
+with a recoverable prior configuration for rollback and no implicit reset to
+release defaults.</p>
+<p>Note 9 to entry: An explicitly authorized parameter change or reset is a
+separate intent. New parameters can receive declared defaults; existing values
+and unrelated metadata survive a normal update. Keeping configuration in a
+separate region is one implementation; snapshot and restore is another. Neither
+permits partial configuration to become active after interrupted writes. Persona
+keys and claim state retain their separate protected storage and authority rules.</p>
+<p><strong class="clause" id="c5.6.17">5.6.17</strong> A hive shall represent all parameters declared by its hosted ensembles
+in its device JSON configuration document, with declared types, bounds and
+defaults, and use the admitted values as the authoritative runtime parameter set.</p>
+<p>Note 10 to entry: The logical JSON document can have a platform-specific durable
+encoding and bounded capacity. Distinct ensembles need unambiguous parameter
+names or namespaces. The document is separate from the score schema; a JSON key
+is not permission to replace an automation, bind a plugin or change admission
+policy. Runtime implementation constants and protected identity material are
+not ensemble parameters. This document exposes declared configuration, not a
+sentant's private vars or current state; sentants consume changes through events
+under <a href="L7-application.html#c5.1.1">Layer 7, 5.1.1</a>, without a new state-query interface. A platform unable to represent a required parameter
+does not silently run that ensemble with a hidden substitute.</p>
+<p><strong class="clause" id="c5.6.18">5.6.18</strong> A hive shall apply an authorized and validated parameter-document
+change at the ensemble's declared safe application boundary without requiring
+firmware replacement, preserving the prior effective values until that boundary.</p>
+<p><strong class="clause" id="c5.6.19">5.6.19</strong> A hive reporting a parameter change to an authorized manager shall
+distinguish durable acceptance from runtime application, and distinguish either
+from refusal, deferred application or failure.</p>
+<p>Note 11 to entry: A reading period can take effect after the active acquisition;
+a name can take effect without that delay. A stored revision alone proves
+neither outcome. Admission and parameter schemas, not arbitrary JSON mutation,
+define which changes are accepted. A failed update cannot be presented as an
+applied parameter set merely because the portal retained its proposed JSON.</p>
+<p>Note 12 to entry: Before updating, an authorized maintainer can export the
+confirmed device JSON together with hive identity, configuration schema and
+revision, and active firmware/ensemble versions. This is a configuration backup,
+not an export of protected identity keys or a license to replay stale management
+proofs. Restoration is a newly authorized, validated operation. A pending portal
+proposal is not the device's confirmed configuration.</p>
 <span class="clause-anchor" id="c6"></span><h2 id="6-diagnostics">6 Diagnostics</h2>
 <span class="clause-anchor" id="c6.1"></span><h3 id="61-the-public-tier--every-device">6.1 The public tier — every device</h3>
 <p><strong class="clause" id="c6.1.1">6.1.1</strong> Every hive shall answer, to any asker, its identity-and-health summary: what it
@@ -599,31 +711,59 @@ talks to, relays for, or has seen.</p>
 update package — its target class, its per-target sequence, and the digest of its image
 bytes — in the shape <a href="FORMATS.html"><code>FORMATS.md</code></a> 5c gives. A hive that cannot determine one of the three
 shall report that it cannot, and shall not report a substitute value.</p>
-<p>Note 1 to entry: <strong>Without a shape, <em>firmware identity</em> is a string every implementation
-invents</strong>, and the thing an operator needs to do with it — decide whether a device is
-running the package in their hand — needs the two values that package is keyed by, not a
-version banner. The three fields are exactly the package's keys 2, 3 and 5, so <strong>the answer
-is comparable with the artefact it describes</strong> and discloses nothing an update authority did
-not publish. The third sentence is <a href="01-terminology.html#c5.3"><code>01-terminology.md</code> 5.3</a> at a reporting surface: a hive
-whose position is unreadable (5.4.2 Note 0) genuinely cannot state a sequence, and a
-substituted zero would read as <em>the first package ever</em>. <em>(Added 2026-08-02,
-<code>PROVISIONAL(supervisor)</code>, on finding SS133 — raised as <code>CORE-1</code>.)</em></p>
+<p>Note 1 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
+<span class="clause-anchor" id="c6.1a"></span><h3 id="61a-the-member-tier--self-health-on-any-device">6.1a The member tier — self-health on any device</h3>
+<p><strong class="clause" id="c6.1a.1">6.1a.1</strong> A hive shall answer, <strong>only to a verified member of its own group</strong>, its
+self-health summary: its stored-energy state where it runs on stored energy, the time
+since it last restarted, the state of its own storage, and <strong>the number of peers it
+currently holds links to, as a count and never as a list</strong>.</p>
+<p><strong class="clause" id="c6.1a.2">6.1a.2</strong> The member tier shall contain no relationship data: nothing about who the hive
+talks to, relays for, or has seen.</p>
+<p><strong class="clause" id="c6.1a.3">6.1a.3</strong> An asker that is not a verified member of the hive's own group shall receive
+nothing — no response, no error.</p>
+<p><strong class="clause" id="c6.1a.4">6.1a.4</strong> The code answering a member-tier query may be present in a production image.</p>
+<p><strong class="clause" id="c6.1a.5">6.1a.5</strong> A hive that cannot determine a field of 6.1a.1 shall report that it cannot, and
+shall not report a substitute value.</p>
+<p>Note 0 to entry: ‼ <strong>THIS TIER EXISTS BECAUSE THE HARM THIS STANDARD NAMES IS NOT THE ONE
+THAT WAS BEING PREVENTED.</strong> 6.2.3 Note 2 states it exactly — <em>the aggregation of
+who-talks-to-whom is the harm</em> — and <strong>a battery level is not that.</strong> Telemetry was
+answerable only from a development device not because a device's own energy state is a
+topology fact, but because <strong>there was nowhere else to put it</strong>: the public tier answers
+<em>any asker</em> (6.1.1) and the internal tier is development-only (6.2.1), so a fact that is
+neither safe for strangers nor dangerous to members had no home.</p>
+<p>Note 1 to entry: <strong>The gap this closes is an operator's, and it had only two exits, both
+bad.</strong> Managing a production fleet — knowing which device is about to run out of power,
+which has filled its store — required either <strong>flashing development images</strong>, which
+<a href="L2-capability-and-discovery.html#c5.4a.1">Layer 2, 5.4a.1</a> makes every device announce in every beacon on every bearer for the rest
+of its life, or <strong>having no health data at all</strong>. <em>The choice between lying about what a
+fleet is and being unable to see it is not a choice a standard should force.</em></p>
+<p>Note 1a to entry: ‼ <strong>A COUNT IS A FACT ABOUT YOURSELF; A LIST IS AN EDGE IN A GRAPH.</strong>
+<em>I can hear four devices</em> is self-health and aggregates into a fleet view that shows
+which devices are isolated and which are well connected. <em>I can hear A, B, C and D</em>
+<strong>reconstructs the network</strong>, and it is the asset that grows more valuable the more of it
+an attacker holds — which is why 6.2.3 Note 2 names aggregation, not observation, as the
+harm. <strong>So the degree is admitted here and the edges are not</strong>, and that boundary is the
+reason 6.1a.2 can be stated at all.</p>
+<p>⚠ <strong>AND THIS IS WHY APPROXIMATE LOCATION DOES NOT FOLLOW.</strong> Position derived from which
+peers a device hears <strong>is</strong> the edge list, arrived at by another name: a member tier
+carrying it would ship edge-answering code in every production image behind a membership
+check, so <strong>one compromised member, or one stolen device key, maps the whole fleet.</strong> A
+deployment that wants position at this tier states it as a <strong>configured fact about the
+device</strong> — where it was installed — which is not relationship data and is answerable
+without any peer being named.</p>
+<p>Note 2 to entry: ‼ <strong>6.1a.2 IS LOAD-BEARING AND ITS ABSENCE WOULD UNDO 6.2.1.</strong> The
+internal tier's protection is that the answering code is <strong>absent from a production
+image, not disabled in it</strong> (6.2.1). A relationship fact admitted to <em>this</em> tier would
+ship that code in production behind nothing but a membership check — <em>which is exactly the
+runtime check 6.2.1 Note 0 refuses.</em> <strong>The bound is the tier</strong>, and widening it later
+would silently convert a membership check into the topology oracle 6.2.2's silence exists
+to prevent.</p>
+<p><span class="clause-anchor" id="c10.9"></span>Source note omitted from this reading edition.</p>
 <span class="clause-anchor" id="c6.2"></span><h3 id="62-the-internal-tier--development-devices-only">6.2 The internal tier — development devices only</h3>
 <p><strong class="clause" id="c6.2.1">6.2.1</strong> Internal state — routing tables, neighbour data, event flow, telemetry — shall
 be answerable only by a development-mode device, and the code that answers shall be absent
 from a production image, not disabled in it.</p>
-<p>Note 0 to entry: <strong>The four words <em>absent from a production image, not disabled in it</em>
-choose the mechanism, and the mechanism they forbid is the one an implementer reaches for
-first.</strong> A runtime check on build mode <strong>is</strong> the <em>disabled</em> this clause refuses: the
-answering code ships, the branch is one flipped byte or one glitched comparison from
-taken, and <strong>the binary still contains the answers</strong> — so a device that is compromised, or
-merely mis-flashed with a development flag, becomes the topology oracle 6.2.2 Note 1 exists
-to prevent. Conditional compilation, defaulted off, is what <em>absent</em> means here. <strong>Whether
-the original drafting weighed the two mechanisms is not recorded, and this note does not
-claim it did</strong> — the wording is unambiguous either way, and an implementer that read it
-this way, unprompted, is the evidence it is readable. <em>(Note added 2026-08-02,
-<code>PROVISIONAL(supervisor)</code>, at the request of a lane confirming its reading; the clause
-itself is unchanged.)</em></p>
+<p>Note 0 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p><strong class="clause" id="c6.2.2">6.2.2</strong> An internal-tier query shall be answered only for a verified member of the
 hive's own group; any other asker shall receive nothing — <strong>no response, no error</strong>.</p>
 <p><strong class="clause" id="c6.2.3">6.2.3</strong> Internal-tier data shall not be forwarded to any unauthenticated party, and
@@ -645,9 +785,7 @@ of 6.1.1, carries no relationship data (6.1.2), and accepts no operation.</p>
 <p>Note 0 to entry: The carve-out is not a loophole but the boundary drawn exactly: <strong>the
 public tier answers any asker by design</strong> (6.1.1) and changes nothing on the device, so
 it is a diagnostics answer, not a management surface — anything that reads more, or
-writes anything, is under Clause 4 authority without exception. <em>(Carve-out made
-explicit 2026-08-01, resolving a conflict between 6.1.1's "any asker" and this clause
-as previously worded.)</em></p>
+writes anything, is under Clause 4 authority without exception. </p>
 <p><strong class="clause" id="c7.2">7.2</strong> A management surface reachable beyond the device itself shall authenticate its
 callers as members, and shall scope what each caller may do by the same evidence classes
 as any other management operation.</p>
@@ -656,13 +794,36 @@ operator-authority surface; it shall not be reachable as a remote service.</p>
 <p>Note 1 to entry: The protocol binding of a surface — query language, transport, encoding —
 is deliberately unspecified. <strong>What is specified is who gets an answer</strong>, and that no
 image ships a surface whose default is anyone.</p>
+<p><strong class="clause" id="c7.4">7.4</strong> Where a caller presenting the evidence Clause 4 requires names an operation the hive
+does not recognise, the surface shall return an answer distinguishable from no answer.</p>
+<p><strong class="clause" id="c7.5">7.5</strong> Where such a caller names an operation the hive recognises and its platform cannot
+perform, the surface shall return an answer distinguishable from the answer 7.4 requires.</p>
+<p><strong class="clause" id="c7.6">7.6</strong> A surface shall not satisfy 7.5 by treating the operation as one of another class.</p>
+<p>Note 2 to entry: <strong>7.4 and 7.5 are about the AUTHORISED caller and change nothing for anybody
+else. 6.2.2 stands exactly as written</strong> — an internal-tier query from any other asker receives
+nothing, no response and no error — <strong>and 9.4's posture is untouched: an unauthenticated party
+still learns nothing from a hive's refusals.</strong> <em>The reasons 6.2.2 gives are refusing to be a
+topology oracle and refusing to be an amplification surface, and a verified member of the
+hive's own group is neither of those things.</em></p>
+<p>Note 3 to entry: <strong>This does not reach <a href="L7-application.html#c9.1">Layer 7, 9.1</a>, and the two must not be collapsed.</strong> An
+event that matches no handler does nothing, silently, <strong>because the sender may be probing and
+there is no registry of valid events to probe</strong> — that reason is about an unauthenticated
+sender on a mesh. <strong>It does not reach a caller who has already presented the evidence Clause 4
+requires.</strong> <em>Two silences, different grounds, and only one of them travels.</em></p>
+<p>Note 4 to entry: <strong>What 7.6 forbids is the repair an implementer reaches for first, and it is
+the one that makes a test agree with the defect.</strong> A platform that cannot perform an operation
+is tempted to record it as an operation of some other class — a malformed request, an unknown
+verb, a diagnostic — <strong>and a fixture written against that relabelling then passes</strong>, because
+the surface and the fixture agree about a thing neither of them did. <em>The gated case is
+discharged by saying it is unsupported, and by nothing else.</em></p>
+
 <span class="clause-anchor" id="c8"></span><h2 id="8-conformance">8 Conformance</h2>
 <p>Every requirement of this document is demonstrated by conformance evidence of one of
 the three classes of <a href="01-terminology.html"><code>01-terminology.md</code></a>, 3.10 — behavioural, by construction, or by
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(PROVISIONAL(supervisor))</em></p>
 <p><strong class="clause" id="c8.1">8.1</strong> An implementation conforms to this document where it:</p>
 <p>a) accepts management operations only with the evidence Clause 4 requires, and can
 enumerate its authorities as 4.1.3 requires;</p>
@@ -694,14 +855,36 @@ existence, not eligibility, not timing.</p>
 missing-pieces request encoding, piece size relative to bearer budgets, and whether the
 mechanism is one generic facility shared with application bulk transfer (a sensor's image
 or sound recording travelling the same way, in the other direction) are owed to a
-companion part. The direction of travel is decided — <strong>one mechanism, direction-agnostic,
-firmware as one profile of it</strong> — the bytes are not.</p>
+companion part. The ordinary-frame facility is direction-agnostic, with firmware as
+one profile of it; its bytes remain unresolved here. Optional bulk-service profiles
+under <a href="L7-application.html#c6.4">Layer 7, 6.4</a> declare their own carriage without changing the package format or
+making such a service a prerequisite for ordinary-frame delivery.</p>
 <p><strong class="clause" id="c10.2">10.2 The authority-enumeration artefact.</strong> 4.1.3 states the required properties (signed,
 versioned, offline-verifiable, staleness-detectable); its encoding and distribution shape
-are undecided.</p>
+are undecided. <strong>The silence is inherited, as 10.12's is.</strong> Three antecedent management
+surfaces were read for this clause and <strong>not one enumerates an authority</strong>: the first has no
+authentication at all and says so with its reason — physical proximity is the control, and a
+web convenience layer grants nothing a nearby radio did not already have; the second carries
+trust-group fields <strong>deliberately unenforced</strong>, as placeholders against a later authority
+model; the third gates at connect and <strong>states its own gap in its own text</strong> — the realised
+check is browser-enforced and therefore does not bind a caller that is not a browser. <strong>So
+the artefact 4.1.3 requires has no antecedent to draw on, and three prior designs each
+deferred it rather than solving it differently.</strong> <em>One rule from that reading is already
+satisfied here and is recorded so it is not re-imported as new: their rule that the
+existence of a management transport is no authorisation of any particular exposure — 7.1
+states it more strongly, as no unauthenticated remote surface in a production image at all.</em> <em>(PROVISIONAL(standard))</em></p>
 <p><strong class="clause" id="c10.3">10.3 Health-check content and window.</strong> 5.4.2 bounds neither what a health check tests
 nor how long the window is, and a check that tests too little commits bad updates while a
-window too short reverts good ones on slow platforms.</p>
+window too short reverts good ones on slow platforms. <strong>The antecedents supply numbers for a
+different question, and the resemblance is the hazard.</strong> What they carry is <em>observer-side
+liveness</em> — a device unseen for thirty seconds is stale, for five minutes set aside, for an
+hour dropped; three consecutive unanswered queries at a minute's spacing mark it offline —
+and <strong>every one of those figures answers <em>can the manager still see it</em>, where 5.4.2 asks
+<em>did the update work</em>.</strong> The two come apart exactly where it matters: <strong>the device decides
+5.4.2's question about itself and reverts unaided (5.4.3), with no manager watching and
+possibly none reachable</strong>, while a liveness window measures a path that a good update and a
+bad one can both interrupt. <strong>So a reader who finds those numbers has found a window for
+someone else's decision</strong>, and 10.3's is still owed. <em>(PROVISIONAL(standard))</em></p>
 <p><strong class="clause" id="c10.4">10.4 Reversion reporting.</strong> 5.4.4 is a <em>should</em> with no format: what a reversion report
 carries, and to whom it goes, is unspecified.</p>
 <p><strong class="clause" id="c10.5">10.5 Configuration and parameters as managed state.</strong> This document specifies parameter
@@ -722,8 +905,7 @@ decided distinction there is <strong>key holder or not</strong>. <strong>So this
 vocabulary and a value, and none of the three exists</strong> — while the half that resolves makes it
 read as satisfied. <strong>And the requirement is stated twice in this document — 4.1.4 and the
 authority-appointment row of 4.1.1a's table — so a repair at one leaves the other standing.</strong>
-<em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, finding SS278, raised from an implementation that
-had already assigned a role byte to fill the hole.)</em></p>
+<em>(PROVISIONAL(standard))</em></p>
 <p><strong class="clause" id="c10.8">10.8 Ordering verification against <em>apply</em> rather than against the commit.</strong> 5.3.5 requires a
 pulling hive to reassemble, verify the whole, and <strong>only then apply</strong>; 5.4.1 requires a
 platform to <strong>apply by staging</strong>, so staging is the first step of applying rather than a step
@@ -734,18 +916,58 @@ therefore names a sequence the reference platform cannot perform.</strong> <stro
 and only the ordering is wrong:</strong> stage, verify from the slot by reading it back, and commit on
 success — <strong>and Note 0 to 5.3 already assumes exactly that read-back capability</strong>, having found
 the same memory limit from the serving side and stopped one consequence short of this one.
-<strong>What is owed is an ordering stated against the commit rather than against <em>apply</em>.</strong> <em>(Added
-2026-08-04, <code>PROVISIONAL(standard)</code>, finding SS279.)</em></p>
-<p><strong class="clause" id="c10.9">10.9 No precondition on stored energy before a firmware write.</strong> Nothing in this document,
+<strong>What is owed is an ordering stated against the commit rather than against <em>apply</em>.</strong> <em>(PROVISIONAL(standard))</em></p>
+<p><strong>10.9 No precondition on stored energy before a firmware write.</strong> Nothing in this document,
 the formats companion or Layer 0 requires a device to hold any charge before it erases or
-writes a staging slot: <em>battery</em> and <em>charge</em> appear in none of the three. <strong class="clause" id="c5.4">5.4.1's
+writes a staging slot: <em>battery</em> and <em>charge</em> appear in none of the three. <strong>5.4.1's
 keep-the-prior-image rule protects against a bad image, not against loss of power mid-write</strong>,
 and a device that browns out part-way through erasing a slot is not saved by an image it can no
 longer reach a bootloader to select. <strong>The standard's own device model makes this the expected
 case</strong>: Layer 0's duty-cycled platform is intermittent by definition, and the formats
 companion's power-source enum carries <em>battery / intermittent</em> as a declared value. <strong>So the
 corpus knows a device may be running on stored energy and never asks how much remains before it
-writes flash.</strong> <em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, finding SS280.)</em></p>
+writes flash.</strong> <em>(PROVISIONAL(standard))</em></p>
+<p><strong class="clause" id="c10.10">10.10 The cost of the recovery tier, and the scope of what it erases.</strong> The recovery layer of
+5.5 requires physical possession, and a deployment that reaches its devices only over the air
+still has that tier — <strong>by retrieval rather than by cable</strong>. Nothing here bounds <strong>how often it
+is invoked</strong>, and an operator's expectation that retrieval be rare is a requirement no clause
+makes true; 10.9 is the clause that would, and its denominator is retrievals caused <strong>solely by
+a firmware write</strong>, since a hardware failure and a redeployment already put hands on the device.
+<strong>Nor does 5.5.1's <em>when nothing else can</em> describe how the tier is actually used</strong>: a
+redeployment to another trust group is a deliberate recovery of a working device, not a failure,
+so the tier is exercised routinely by design while this document frames it as a last resort.
+5.5.3 Note 1 already holds un-bricking and un-claiming apart, so this is a mismatch of framing
+rather than a contradiction — but it decides what any rate figure is a rate <strong>of</strong>.</p>
+<p><strong class="clause" id="c10.11">10.11 What a recovery re-image erases, and over what storage.</strong> 5.5.3 requires a recovery
+re-image to <strong>erase the device's persona</strong>, and bounds nothing else. <strong>Whether that is a wipe or
+a crypto-erase is not stated, and the difference is the whole guarantee</strong>: where application
+state at rest is encrypted under something the persona roots, destroying the persona destroys
+access to it and the ciphertext survives a re-image; where it is not, the persona's destruction
+protects nothing, and <strong>this document, Layer 5 and Layer 7 place no confidentiality obligation
+on stored application state at all</strong> — <a href="L5-trust-and-identity.html#c5.3.2">L5 5.3.2</a> seals <strong>key material</strong> and <a href="L7-application.html#c4.2.2">L7 4.2.2</a> defines a
+<strong>durable-state</strong> class with no such requirement attached. 5.5.3 Note 2's argument that a
+recovered device <em>comes back as nobody's</em> is about <strong>membership</strong>, and reads as though it were
+also about data. <strong>Compounding it, this standard has no vocabulary for storage outside the main
+processor</strong>: L0 <code>P1</code> states memory and persistent storage as one undifferentiated figure, <code>P9</code>
+and <code>P11</code> describe the image, and <code>P10</code> draws its boundary around the <strong>update path</strong> rather
+than around the processor — so a medium that neither an update nor a recovery reaches cannot be
+declared, and the scope of 5.5.3 over such a medium is undefined rather than narrow. What is
+owed is a decision on vocabulary before a clause can be written. <em>(PROVISIONAL(standard))</em></p>
+<p><strong class="clause" id="c10.12">10.12 How a device gets its first image.</strong> This document specifies the update model in
+detail and the recovery layer beside it, and <strong>neither describes how an image reaches a board
+that has none.</strong> What a blank board must <strong>do</strong> is specified — Layer 5 requires it to mint a
+persona and form a trust group of itself at first boot, and 5.4.2a Note 0 records that its
+first state is one with no readable image position — <strong>but the act of placing the first image
+is nowhere addressed</strong>, and no clause requires that image to be signed, verified or
+structured. 5.2.2's verify-before-applying binds a <strong>package</strong> delivered by the update model,
+which a cable flash is not; and 5.5.1, the only physical image-write path this standard
+defines, <strong>restores</strong> a working image, which presupposes there was one, while 5.5.3 has it
+erase a persona a blank board does not hold. <strong>So the operation every device undergoes exactly
+once is the one operation this standard does not name.</strong> What is owed is a sentence of scope
+rather than a mechanism: either that placing a first image lies outside this standard, or what
+such an image must satisfy. <strong>Either answer cures it; the silence is what cannot stand</strong>, because
+a reader cannot tell today whether an unsigned cable flash conforms or is simply not addressed.
+<em>(PROVISIONAL(standard))</em></p>
 <h2 id="bibliography">Bibliography</h2>
 <p><em>Informative.</em></p>
 <ul>
@@ -753,12 +975,12 @@ writes flash.</strong> <em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>
 <li>[2] ISO/IEC Directives, Part 2, 2016</li>
 </ul>
 
-</article>
+</article></main></div>
 <footer>
     <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
     <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
     <a href="/">reality2.ai</a></p>
-    <p class="stamp">Reality2 Standard <strong>version 0.8.0</strong>, 2026-08-05. Built from <span class="mono">f5bf72b</span>, rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the version. </p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>
@@ -767,7 +989,7 @@ function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')
 var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
 if(n==='dark')document.documentElement.removeAttribute('data-theme');
 else document.documentElement.setAttribute('data-theme',n);
-localStorage.setItem('r2-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
 var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
 var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
 var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];

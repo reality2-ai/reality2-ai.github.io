@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Test vectors — FORMATS — Reality2 Standard</title>
 <meta name="description" content="Byte-exact vectors for the encoding companion.">
@@ -23,10 +24,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/standard/standard.css">
-<script>(function(){var t=localStorage.getItem('r2-theme');
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
 if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
 var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
 if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -54,11 +57,13 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         </button>
     </div>
 </nav>
-<article id="main" class="doc-page">
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#document-fixtures-clause-7">Document fixtures (Clause 7)</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
 <a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--formats-companion-test-vectors">Reality2 Standard — FORMATS companion test vectors</h1>
+<p class="reader-kind">Test vectors</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
 <p><strong>Status:</strong> Derived, informative. <strong>These vectors are generated, never hand-written</strong> — a
 generator held with the editing record produces them, and every commit regenerates and
-byte-compares them, so this file cannot drift from it. <strong>Date:</strong> 2026-08-05.</p>
+byte-compares them, so this file cannot drift from it. <strong>Date:</strong> 2026-09-11.</p>
 <blockquote>
 <p>⚠ <strong>INFORMATIVE, NOT NORMATIVE.</strong> Companion vectors for the obligations of
 <a href="FORMATS.html"><code>FORMATS.md</code></a>. Every entry states <strong>the conforming case and the case the
@@ -70,8 +75,16 @@ named, the entry is not evidence for an obligation — it is a demonstration tha
 format exists, and it does not belong here.</p>
 <p><strong>Coverage is partial and stated rather than implied.</strong> These cover the
 byte-mechanical obligations — identity derivation, purpose strings, the CBOR profile,
-firmware identity, and the signature exemption. <strong>The Clause 7 document obligations
-are not yet covered</strong>, and <a href="FORMATS.html#c8.1"><code>FORMATS.md</code> 8.1</a> carries that debt.</p>
+firmware identity, and the signature exemption; <strong>the Clause 7 document obligations
+of the load path (FV-013 to FV-020, since 2026-08-18 — this header wrongly said <em>not
+yet covered</em> for three days after they landed, corrected 2026-08-21 rather than
+silently)</strong>; the path grammar of 7.7.2a to 7.7.2c (FV-026 to FV-028); and the
+instantiation event of 7.5.9 (FV-029 to FV-031). <strong>The remaining Clause 7 RUNTIME
+obligations are not yet covered</strong>, and <a href="FORMATS.html#c8.1"><code>FORMATS.md</code> 8.1</a> carries that debt. <strong>A
+vector for behaviour a codec cannot check names the instrument that does check it</strong>
+— the conform runner's skip list and the sentant runtime's own tests are that
+record, and 7.5.9's delivery half has vectors here before any runtime performs it:
+the vector states the behaviour, and nothing yet performs it.</p>
 </blockquote>
 <hr />
 <h3 id="fv-001--extended-wire-identity-hive-half-from-the-identity-key">FV-001 — Extended wire identity: hive half from the identity key</h3>
@@ -85,6 +98,38 @@ hive half = <code>630dcd29</code> (SHA-256 of the key, bytes 0-3, big-endian; 0 
 <p><strong>Conforming.</strong> a key whose first derivation lands on <code>00000000</code> or <code>ffffffff</code> re-derives over key ‖ <code>0x01</code>, and repeats until the value is not reserved</p>
 <p><strong>Excluded — must be refused.</strong> accepting the reserved value, or re-deriving over a different suffix (<code>0x00</code>, a counter, the value itself)</p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> an implementation that iterates with any other suffix: it produces a legal-looking identity that no peer derives, so the failure appears as an unroutable device rather than as a format error.</p>
+<h3 id="fv-035--membership-certificate-exact-representation-and-signed-span">FV-035 — Membership certificate exact representation and signed span</h3>
+<p><strong>Demonstrates:</strong> <code>F-190</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 5d.1).</p>
+<p><strong>Conforming.</strong> 136 bytes, with issued-at epoch 0x0102030405060708:</p>
+<p><code>e5c64c1cd2c64c197668f9a983e13b8f8b333e4768842fb25bf7d97b577fa11ccc9527cecd948b5bb97b0c10e5838dd2ca0960694f317e34ebfda924a53331630102030405060708cae76d3ab424c61843275cadfad10f55c5baa1a442d9497daf7d1a3b9f40ea6d0b7f395006c0fd27b57e2d89ff073ee7403749549d16da71703ddd080f074201</code></p>
+<p>Synthetic member seed is SHA-256 of US-ASCII "Reality2 independent member evidence fixture only"; the issuer uses the published development seed of <a href="L5-trust-and-identity.html#c9.1">L5 9.1</a>. The Python Ed25519 generator and the OpenSSL member-evidence generator independently reproduce this signature. These are public fixtures, never production credentials.</p>
+<p><strong>Excluded — must be refused.</strong> In order: one-byte truncation; one trailing byte (structural refusals); signature over group-before-subject; signature over little-endian epoch; altered subject; altered group (authentication refusals).</p>
+<p><code>e5c64c1cd2c64c197668f9a983e13b8f8b333e4768842fb25bf7d97b577fa11ccc9527cecd948b5bb97b0c10e5838dd2ca0960694f317e34ebfda924a53331630102030405060708cae76d3ab424c61843275cadfad10f55c5baa1a442d9497daf7d1a3b9f40ea6d0b7f395006c0fd27b57e2d89ff073ee7403749549d16da71703ddd080f0742</code></p>
+<p><code>e5c64c1cd2c64c197668f9a983e13b8f8b333e4768842fb25bf7d97b577fa11ccc9527cecd948b5bb97b0c10e5838dd2ca0960694f317e34ebfda924a53331630102030405060708cae76d3ab424c61843275cadfad10f55c5baa1a442d9497daf7d1a3b9f40ea6d0b7f395006c0fd27b57e2d89ff073ee7403749549d16da71703ddd080f07420100</code></p>
+<p><code>e5c64c1cd2c64c197668f9a983e13b8f8b333e4768842fb25bf7d97b577fa11ccc9527cecd948b5bb97b0c10e5838dd2ca0960694f317e34ebfda924a53331630102030405060708fed368f69aea77405d259566587d19be9a9873957cc4807bc4e7c3807f73cc8675e14c63c49a30619d3a99e08e2c0ab99c9c68ab7ebebbda72efe7375db35d0c</code></p>
+<p><code>e5c64c1cd2c64c197668f9a983e13b8f8b333e4768842fb25bf7d97b577fa11ccc9527cecd948b5bb97b0c10e5838dd2ca0960694f317e34ebfda924a53331630102030405060708dc421a61cedad14d3d45e036ee3c1835d0c541a007a549b27de41b798bb5f9d8efc66d2ed2260a5377b6d1be396b08d3c7d6e4232e4438cf7301b9f7ad801106</code></p>
+<p><code>e4c64c1cd2c64c197668f9a983e13b8f8b333e4768842fb25bf7d97b577fa11ccc9527cecd948b5bb97b0c10e5838dd2ca0960694f317e34ebfda924a53331630102030405060708cae76d3ab424c61843275cadfad10f55c5baa1a442d9497daf7d1a3b9f40ea6d0b7f395006c0fd27b57e2d89ff073ee7403749549d16da71703ddd080f074201</code></p>
+<p><code>e5c64c1cd2c64c197668f9a983e13b8f8b333e4768842fb25bf7d97b577fa11ccd9527cecd948b5bb97b0c10e5838dd2ca0960694f317e34ebfda924a53331630102030405060708cae76d3ab424c61843275cadfad10f55c5baa1a442d9497daf7d1a3b9f40ea6d0b7f395006c0fd27b57e2d89ff073ee7403749549d16da71703ddd080f074201</code></p>
+<p><strong>What this rejects that a positive vector alone would not:</strong> Permissive length decoding, different field order or epoch endianness, and unsigned identity fields. Signature verification does not establish local group policy, currency, revocation or store authority..</p>
+<h3 id="fv-025--a-small-order-ed25519-public-key-is-rejected">FV-025 — A small-order Ed25519 public key is rejected</h3>
+<p><strong>Demonstrates:</strong> <code>F-002</code> (<a href="FORMATS.html#c3.1a"><code>FORMATS.md</code> 3.1a</a>).</p>
+<p><strong>Conforming.</strong> a public key of the prime-order subgroup — the development group half, derived in FV-021 and reproduced by this generator:</p>
+<p><code>cc9527cecd948b5bb97b0c10e5838dd2ca0960694f317e34ebfda924a5333163</code></p>
+<p><strong>Excluded — must be refused.</strong> <strong>an order-4 point of the curve</strong>, which is a valid encoding of a valid point and is not a usable key:</p>
+<pre tabindex="0" aria-label="Code or test vector"><code>0000000000000000000000000000000000000000000000000000000000000000</code></pre>
+<p>Its order is proven by this generator rather than quoted: the point lies on the curve, <code>4P</code> is the identity and <code>2P</code> is not.</p>
+<p><strong>What this rejects that a positive vector alone would not:</strong> <strong>the encoding is thirty-two zero bytes, which is what uninitialised memory, a zeroed buffer and a never-written key all look like</strong> — so an implementation that accepts it fails in the one case most likely to arise by accident rather than by attack. It is a genuine curve point, so a decoder that merely checks the bytes decompress accepts it. <strong>⚠ What this vector does NOT demonstrate, measured rather than assumed:</strong> it does not separate strict from cofactored verification. Measured against <code>ed25519-dalek 2.x</code>, <strong>both</strong> refuse it, and a refusal under a wrong key proves nothing about WHY — any incorrect key rejects any signature. <em>That the key is small-order is established by construction and corroborated by the library's own <code>is_weak</code>; that it is refused FOR THAT REASON is not shown here, and constructing a signature that separates the two risks a test that passes for the wrong reason — which 3.1b Note 2 records as how this property came to be unproven in the first place.</em>.</p>
+<h3 id="fv-024--a-non-canonical-ed25519-signature-encoding-is-refused">FV-024 — A non-canonical Ed25519 signature encoding is refused</h3>
+<p><strong>Demonstrates:</strong> <code>F-003</code> (<a href="FORMATS.html#c3.1b"><code>FORMATS.md</code> 3.1b</a>).</p>
+<p><strong>Conforming.</strong> public key = <code>cc9527cecd948b5bb97b0c10e5838dd2ca0960694f317e34ebfda924a5333163</code></p>
+<p>message = <code>R2 FORMATS 3.1b non-canonical signature vector</code> (46 bytes US-ASCII, no terminator)</p>
+<p>message bytes = <code>523220464f524d41545320332e3162206e6f6e2d63616e6f6e6963616c207369676e617475726520766563746f72</code></p>
+<p><code>S</code> is reduced modulo the group order <code>L = 2^252 + 27742317777372353535851937790883648493</code>:</p>
+<pre tabindex="0" aria-label="Code or test vector"><code>17dfa0c8ed731a270ed32b8e045cc88796b06d3a927885f32f010c62a797c6ff4a7f5b9e60d42873e99330c12928849151d06ccd6a7ac2b57a40473802da8804</code></pre>
+<p><strong>Provenance.</strong> The private seed is FV-021's development group secret, and the public key derived from it here <strong>reproduces the value published at <a href="L5-trust-and-identity.html#c9.1"><code>L5-trust-and-identity.md</code> 9.1</a> and in FV-021</strong> — which is what validates the generator that produced these signatures, rather than the signatures validating themselves.</p>
+<p><strong>Excluded — must be refused.</strong> the same <code>R</code>, with <code>S + L</code> substituted so the scalar is <strong>not reduced</strong>:</p>
+<pre tabindex="0" aria-label="Code or test vector"><code>17dfa0c8ed731a270ed32b8e045cc88796b06d3a927885f32f010c62a797c6ff375351fb7a373bcbbf302864082263a651d06ccd6a7ac2b57a40473802da8814</code></pre>
+<p><strong>What this rejects that a positive vector alone would not:</strong> <strong>the two signatures are byte-for-byte identical in their first 32 bytes</strong> and both are 64 bytes long, so an implementation checking length, or checking <code>R</code>, or checking that the bytes parse, sees nothing wrong with either — only reduction of <code>S</code> separates them. Under a verifier that accepts the second, <strong>one message has more than one valid signature</strong>, and this standard treats a signature as an identity for a decision in at least two places (<a href="L6-management.html#c5.2.3">Layer 6, 5.2.3</a> reasons about <em>the</em> package that was signed; <a href="L5-trust-and-identity.html#c7.4.3a">Layer 5, 7.4.3a</a> advances a high-water mark on <em>a</em> verified signature), so one authorisation can appear as two: the replay this standard refuses everywhere else, arriving through the verifier instead of through the wire. <strong>⚠ What this vector does NOT demonstrate, measured rather than assumed:</strong> it does not distinguish strict from permissive verification and therefore says nothing about <strong class="clause" id="c3.1a">3.1a</strong> — measured against <code>ed25519-dalek 2.x</code>, <code>verify_strict</code> and permissive <code>verify</code> <strong>both</strong> refuse it, so an implementation swapping one for the other stays green here. <em>3.1a is the small-order or non-canonical public KEY half and its vector is still owed</em>, and the note is written into the vector because 3.1b Note 2 records that exactly this confusion is what left the property unproven the first time.</p>
 <h3 id="fv-003--purpose-string-is-exact-ascii-no-terminator-no-padding">FV-003 — Purpose string is exact ASCII, no terminator, no padding</h3>
 <p><strong>Demonstrates:</strong> <code>F-012</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 4a.2).</p>
 <p><strong>Conforming.</strong> the byte sequence of the table entry alone, e.g. <code>r2/v0/group/frame</code> = <code>72322f76302f67726f75702f6672616d65</code></p>
@@ -125,15 +170,60 @@ hive half = <code>630dcd29</code> (SHA-256 of the key, bytes 0-3, big-endian; 0 
 <p><strong>Conforming.</strong> a payload nested to the stated limit (at least 8, per 4b.5b)</p>
 <p><strong>Excluded — must be refused.</strong> nine nested arrays = <code>818181818181818180</code> against a stated limit of 8</p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> a decoder with no limit at all — it accepts until it exhausts its stack, which is a denial of service rather than a parse error.</p>
+<h3 id="fv-022--a-float-takes-the-shortest-width-that-is-exact">FV-022 — A float takes the shortest width that is EXACT</h3>
+<p><strong>Demonstrates:</strong> <code>F-014</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 4b.2 d)).</p>
+<p><strong>Conforming.</strong> 1.5 = <code>f93e00</code> (half), 65536.0 = <code>fa47800000</code> (single), 0.1 = <code>fb3fb999999999999a</code> (double, because no narrower width is exact)</p>
+<p><strong>Excluded — must be refused.</strong> 1.5 as a double = <code>fb3ff8000000000000</code></p>
+<p><strong>What this rejects that a positive vector alone would not:</strong> the reading that any IEEE width is canonical because the VALUE is unchanged - true of the value and false of the bytes, and 5.2 signs the bytes.</p>
+<h3 id="fv-023--negative-zero-keeps-its-sign-and-its-width">FV-023 — Negative zero keeps its sign and its width</h3>
+<p><strong>Demonstrates:</strong> <code>F-014</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 4b.2 d)).</p>
+<p><strong>Conforming.</strong> -0.0 = <code>f98000</code> and 0.0 = <code>f90000</code>, which differ in one bit and must not be conflated</p>
+<p><strong>Excluded — must be refused.</strong> -0.0 as a double = <code>fb8000000000000000</code></p>
+<p><strong>What this rejects that a positive vector alone would not:</strong> an implementation testing exactness with <code>==</code>: 0.0 == -0.0 is true in every language in this corpus, so such a test reports narrowing -0.0 to 0.0 as exact and the sign is lost - the same trap NaN sets from the other side, comparing unequal to itself.</p>
 <h3 id="fv-011--a-value-the-hive-cannot-determine-is-absent-not-zero">FV-011 — A value the hive cannot determine is ABSENT, not zero</h3>
 <p><strong>Demonstrates:</strong> <code>F-034</code> (<a href="FORMATS.html"><code>FORMATS.md</code></a> 5c.2).</p>
 <p><strong>Conforming.</strong> all three keys known = <code>a30167657370333273330207035820000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f</code></p>
 <p><strong>Excluded — must be refused.</strong> sequence unknown encoded as 0 = <code>a30167657370333273330200035820000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f</code></p>
 <p><strong>What this rejects that a positive vector alone would not:</strong> the placeholder: <code>0</code> reads as THE FIRST PACKAGE EVER to an operator comparing against an artefact, and absence is the only encoding that says <em>this hive cannot state this</em>.</p>
+<h3 id="fv-026--a-decimal-digit-segment-indexes-an-array-and-the-base-is-zero">FV-026 — A decimal-digit segment indexes an array, and the base is ZERO</h3>
+<p><strong>Demonstrates:</strong> <code>F-175</code> (<a href="FORMATS.html#c7.7.2a"><code>FORMATS.md</code> 7.7.2a</a>).</p>
+<p><strong>Conforming.</strong> value: <code>params = {"readings": [{"mm": 42}, {"mm": 53}]}</code> — <code>{{params.readings.1.mm}}</code> resolves to <code>53</code>, and <code>{{params.readings.0.mm}}</code> to <code>42</code></p>
+<p><strong>Excluded — must be refused.</strong> <code>42</code> answered for <code>.1.</code> — the same path under ONE-based indexing; and refusing the digit segment on an array outright, which leaves a realistic plugin result (an array-of-maps API answer) impossible to pick apart</p>
+<p><strong>What this rejects that a positive vector alone would not:</strong> the off-by-one reader: at index 0 both conventions agree, so only a probe at 1 with two distinguishable values (53 against 42, both plausible readings) can fail it.</p>
+<h3 id="fv-027--the-same-digit-segment-on-a-map-is-an-ordinary-key">FV-027 — The same digit segment on a MAP is an ordinary key</h3>
+<p><strong>Demonstrates:</strong> <code>F-176</code> (<a href="FORMATS.html#c7.7.2b"><code>FORMATS.md</code> 7.7.2b</a>).</p>
+<p><strong>Conforming.</strong> value: <code>params = {"by_index": {"0": "first", "1": "second"}}</code> — a map whose keys are digit strings — <code>{{params.by_index.1}}</code> resolves to <code>"second"</code> by ordinary key lookup</p>
+<p><strong>Excluded — must be refused.</strong> refusing the digit segment on a map, or converting the map to an array and indexing it — key <code>"1"</code> and index 1 coincide here by construction, so the excluded reader is one that would misread a map whose digit keys are sparse or unordered</p>
+<p><strong>What this rejects that a positive vector alone would not:</strong> a resolver that decides by the SEGMENT rather than the CONTAINER: the same text <code>1</code> is an index on an array and a key on a map, and only the container can say which.</p>
+<h3 id="fv-028--an-index-at-or-beyond-the-length-is-unresolved-never-repaired">FV-028 — An index at or beyond the length is UNRESOLVED, never repaired</h3>
+<p><strong>Demonstrates:</strong> <code>F-177</code> (<a href="FORMATS.html#c7.7.2c"><code>FORMATS.md</code> 7.7.2c</a>).</p>
+<p><strong>Conforming.</strong> with <code>readings</code> of length 2, <code>{{params.readings.2.mm}}</code> is unresolved (7.7.10) and a <code>test</code> on it executes NEITHER branch (7.6.5c)</p>
+<p><strong>Excluded — must be refused.</strong> clamping to the last element (<code>53</code>), wrapping to the first (<code>42</code>), or answering <code>null</code> or zero — each is a manufactured value; and segments <code>-1</code> or <code>last</code>, which are not solely decimal digits and resolve nothing on an array (7.7.10)</p>
+<p><strong>What this rejects that a positive vector alone would not:</strong> the manufactured-value family: a clamp answers a plausible reading and a null takes the <code>false</code> branch of every policy that reads it, both indistinguishable downstream from a real answer — where neither-branch is observable as the policy doing nothing.</p>
+<h3 id="fv-032--operative-keys-sit-under-parameters-the-bare-sibling-form-reads-but-is-never-written">FV-032 — Operative keys sit under <code>parameters</code>; the bare sibling form reads but is never written</h3>
+<p><strong>Demonstrates:</strong> <code>F-178/F-179/F-180</code> (<a href="FORMATS.html#c7.6.2a"><code>FORMATS.md</code> 7.6.2a</a>/7.6.2b/7.6.2c).</p>
+<p><strong>Conforming.</strong> the same <code>set</code> twice: <code>{command: "set", parameters: {key: "depth", value: 42}}</code> (the form a writer shall produce) and <code>{command: "set", key: "depth", value: 42}</code> (the imported corpus's sibling form) — a reader accepts BOTH and they mean the same action</p>
+<p><strong>Excluded — must be refused.</strong> a reader refusing either form; and a writer emitting the bare form — 7.6.2c makes the acceptance a deprecation window, not a second canonical spelling</p>
+<p><strong>What this rejects that a positive vector alone would not:</strong> the two-validators-disagree state SS387 measured: before this ruling a validator insisting on either position refused conformant documents written the other way, and the first implementation would otherwise have become the de-facto answer.</p>
+<h3 id="fv-033--a-send-carries-the-accumulated-map-action-stated-entries-are-defaults-the-map-overrides">FV-033 — A send carries the accumulated map; action-stated entries are defaults the map overrides</h3>
+<p><strong>Demonstrates:</strong> <code>F-181/F-182</code> (<a href="FORMATS.html#c7.6.3h"><code>FORMATS.md</code> 7.6.3h</a>/7.6.3i).</p>
+<p><strong>Conforming.</strong> map holds <code>{level: 42}</code> from an earlier action; the send states <code>parameters: {event: "reading", level: 99, unit: "mm"}</code> — the receiver gets <code>{level: 42, unit: "mm"}</code>: the stated <code>level</code> is a DEFAULT and the map's own entry prevails; <code>unit</code> fills from the statement; <code>event</code> is addressing, not payload, and does not travel as a parameter</p>
+<p><strong>Excluded — must be refused.</strong> delivering <code>level: 99</code> (statement beating map — a default that overrides is not a default); delivering an empty parameter set (the pre-ruling divergence, where 7.5.6 then discards what matches nothing, silently); and leaking <code>event</code> or <code>to</code> into the payload</p>
+<p><strong>What this rejects that a positive vector alone would not:</strong> the silent-divergence pair SS448 named: two hives answering differently were both conformant, and a definition working on one delivered empty parameters on the other — this vector pins the one answer and the override direction at once.</p>
+<h3 id="fv-034--a-plugin-invocation-carries-its-parameters-by-the-same-model-as-a-send">FV-034 — A plugin invocation carries its parameters by the same model as a send</h3>
+<p><strong>Demonstrates:</strong> <code>F-183</code> (<a href="FORMATS.html#c7.6.6c"><code>FORMATS.md</code> 7.6.6c</a>).</p>
+<p><strong>Conforming.</strong> the FV-033 map and statement shapes, on a plugin action: the invocation reaches the plugin carrying <code>{level: 42, unit: "mm"}</code> — the accumulated map with stated defaults, <code>command</code> staying operative rather than payload</p>
+<p><strong>Excluded — must be refused.</strong> an invocation carrying only the stated entries, or nothing — a plugin result that must be restated at every hop is the antecedent's worked definitions broken</p>
+<p><strong>What this rejects that a positive vector alone would not:</strong> divergence between the send path and the invocation path: one model for both is what 7.6.6c is FOR, and a runtime implementing them separately drifts exactly here.</p>
+<h3 id="fv-031--a-network-frame-named-init-does-not-re-fire-the-boot-hook">FV-031 — A network frame named <code>init</code> does not re-fire the boot hook</h3>
+<p><strong>Demonstrates:</strong> <code>F-171/F-174</code> (<a href="FORMATS.html#c7.5.9b"><code>FORMATS.md</code> 7.5.9b</a>/7.5.9e).</p>
+<p><strong>Conforming.</strong> the document of FV-029, after instantiation: the instantiation event was delivered with INTERNAL origin and no parameters (7.5.9b); a frame then arrives carrying an event named <code>init</code> — the runtime tags it external (<a href="L7-application.html#c5.2.3">Layer 7, 5.2.3</a>), the start-marker transition does not match it (7.5.9e), and no second <code>booted</code> emission occurs (any OTHER transition naming <code>init</code> matches it as an ordinary event)</p>
+<p><strong>Excluded — must be refused.</strong> a hive whose start-marker transition re-fires on a network <code>init</code> — a remote replay of the boot hook; and a hive attaching parameters, or honouring a sender-supplied origin, on the instantiation delivery</p>
+<p><strong>What this rejects that a positive vector alone would not:</strong> the boot-hook replay lever: a boot announcement often carries privileged effects, and a hive matching the start-marker transition on ANY arrival named <code>init</code> hands every peer that lever — 5.2.3's runtime-owned origin tag is what 7.5.9b anchors to, and 7.5.9e is what keeps the marker transition out of the ordinary match set.</p>
 <h3 id="fv-021--the-development-trust-group-derived-end-to-end">FV-021 — The development trust group, derived end to end</h3>
 <p><strong>Demonstrates:</strong> <code>L5-110 to L5-117</code> (<a href="L5-trust-and-identity.html"><code>L5-trust-and-identity.md</code></a> Clause 9.1a-9.1h).</p>
 <p><strong>Conforming.</strong> seed = 57 bytes US-ASCII, no terminator, no trailing newline, every byte in 0x20-0x79 (inside the 0x20-0x7E bound):</p>
-<pre><code>Reality2 development trust group - not for production use</code></pre>
+<pre tabindex="0" aria-label="Code or test vector"><code>Reality2 development trust group - not for production use</code></pre>
 <p>seed bytes = <code>5265616c6974793220646576656c6f706d656e742074727573742067726f7570202d206e6f7420666f722070726f64756374696f6e20757365</code></p>
 <p>group secret = SHA-256(seed) = <code>7ffcba77aa8afc962e32f9f42ebc500414a46bdffade96db18dab8baf7c8b3ac</code>, taken as the RFC 8032 private seed</p>
 <p>public half = <code>cc9527cecd948b5bb97b0c10e5838dd2ca0960694f317e34ebfda924a5333163</code></p>
@@ -144,7 +234,7 @@ hive half = <code>630dcd29</code> (SHA-256 of the key, bytes 0-3, big-endian; 0 
 <h3 id="fv-013--the-baseline-conforming-score-and-the-seam-from-source-to-canonical-bytes">FV-013 — The baseline conforming score, and the seam from source to canonical bytes</h3>
 <p><strong>Demonstrates:</strong> <code>F-077</code> (<a href="FORMATS.html#c7.8.1"><code>FORMATS.md</code> 7.8.1</a>).</p>
 <p><strong>Document as authored.</strong></p>
-<pre><code>name: &#39;level-watch&#39;
+<pre tabindex="0" aria-label="Code or test vector"><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
 class: &#39;nz.example.ensemble.level-watch&#39;
 version: &#39;0.1.0&#39;
@@ -154,18 +244,20 @@ parts:
   - name: &#39;Level&#39;
     description: &#39;Holds the last reading&#39;
     class: &#39;nz.example.sentant.level&#39;
+    public_events: []
+    plugins: []
     automations:
       - name: &#39;main&#39;
         transitions:
           - event: &#39;read&#39;</code></pre>
 <p><strong>Canonical encoding (Clause 4b), rendered from the same structure as the source above — one source, two derivations.</strong></p>
-<p><code>a7646e616d656b6c6576656c2d776174636865636c617373781f6e7a2e6578616d706c652e656e73656d626c652e6c6576656c2d776174636865706172747381a4646e616d65654c6576656c65636c61737378186e7a2e6578616d706c652e73656e74616e742e6c6576656c6b6175746f6d6174696f6e7381a2646e616d65646d61696e6b7472616e736974696f6e7381a1656576656e7464726561646b6465736372697074696f6e76486f6c647320746865206c6173742072656164696e676776657273696f6e65302e312e3068756e7369676e6564f56b6465736372697074696f6e745265706f72747320612074616e6b206c6576656c6e736368656d615f76657273696f6e63302e31</code></p>
+<p><code>a7646e616d656b6c6576656c2d776174636865636c617373781f6e7a2e6578616d706c652e656e73656d626c652e6c6576656c2d776174636865706172747381a6646e616d65654c6576656c65636c61737378186e7a2e6578616d706c652e73656e74616e742e6c6576656c67706c7567696e73806b6175746f6d6174696f6e7381a2646e616d65646d61696e6b7472616e736974696f6e7381a1656576656e7464726561646b6465736372697074696f6e76486f6c647320746865206c6173742072656164696e676d7075626c69635f6576656e7473806776657273696f6e65302e312e3068756e7369676e6564f56b6465736372697074696f6e745265706f72747320612074616e6b206c6576656c6e736368656d615f76657273696f6e63302e31</code></p>
 <p><strong>Verdict.</strong> MUST LOAD. <strong>This is the vacuity guard and the baseline</strong>: every negative below is this document with exactly one change, verified by the generator to differ in exactly one place. <strong>It carries <code>unsigned: true</code> (7.9.4b) because a score with neither a signature nor that declaration is refused (7.9.4a)</strong> — a baseline that would itself be refused gives every negative a second reason to fail.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> nothing on its own — but without it every refusal below could be a refusal for a baseline reason rather than for the clause it names.</p>
 <h3 id="fv-014--unknown-field-is-refused">FV-014 — Unknown field is refused</h3>
 <p><strong>Demonstrates:</strong> <code>F-040</code> (<a href="FORMATS.html#c7.3.1"><code>FORMATS.md</code> 7.3.1</a>).</p>
 <p><strong>Document as authored.</strong></p>
-<pre><code>name: &#39;level-watch&#39;
+<pre tabindex="0" aria-label="Code or test vector"><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
 class: &#39;nz.example.ensemble.level-watch&#39;
 version: &#39;0.1.0&#39;
@@ -175,17 +267,21 @@ parts:
   - name: &#39;Level&#39;
     description: &#39;Holds the last reading&#39;
     class: &#39;nz.example.sentant.level&#39;
+    public_events: []
+    plugins: []
     automations:
       - name: &#39;main&#39;
         transitions:
           - event: &#39;read&#39;
 colour: &#39;blue&#39;</code></pre>
+<p><strong>Canonical encoding (Clause 4b), rendered from the same structure as the source above — one source, two derivations.</strong></p>
+<p><code>a8646e616d656b6c6576656c2d776174636865636c617373781f6e7a2e6578616d706c652e656e73656d626c652e6c6576656c2d776174636865706172747381a6646e616d65654c6576656c65636c61737378186e7a2e6578616d706c652e73656e74616e742e6c6576656c67706c7567696e73806b6175746f6d6174696f6e7381a2646e616d65646d61696e6b7472616e736974696f6e7381a1656576656e7464726561646b6465736372697074696f6e76486f6c647320746865206c6173742072656164696e676d7075626c69635f6576656e74738066636f6c6f757264626c75656776657273696f6e65302e312e3068756e7369676e6564f56b6465736372697074696f6e745265706f72747320612074616e6b206c6576656c6e736368656d615f76657273696f6e63302e31</code></p>
 <p><strong>Verdict.</strong> MUST BE REFUSED, <strong>attributed to 7.3.1</strong> — one field added to a document that otherwise loads.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> accumulated deployment-local dialect: of ten deployed scores exactly one drifted, and the drifted file becomes the model the next author copies.</p>
 <h3 id="fv-015--unresolvable-versioned-reference-fails-and-fails-loudly">FV-015 — Unresolvable versioned reference fails, and fails loudly</h3>
 <p><strong>Demonstrates:</strong> <code>F-041</code> (<a href="FORMATS.html#c7.3.2"><code>FORMATS.md</code> 7.3.2</a>).</p>
 <p><strong>Document as authored.</strong></p>
-<pre><code>name: &#39;level-watch&#39;
+<pre tabindex="0" aria-label="Code or test vector"><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
 class: &#39;nz.example.ensemble.level-watch&#39;
 version: &#39;0.1.0&#39;
@@ -195,17 +291,21 @@ parts:
   - name: &#39;Level&#39;
     description: &#39;Holds the last reading&#39;
     class: &#39;nz.example.sentant.level&#39;
+    public_events: []
+    plugins: []
     automations:
       - name: &#39;main&#39;
         transitions:
           - event: &#39;read&#39;
   - include: &#39;nz.example.part@9.9.9&#39;</code></pre>
+<p><strong>Canonical encoding (Clause 4b), rendered from the same structure as the source above — one source, two derivations.</strong></p>
+<p><code>a7646e616d656b6c6576656c2d776174636865636c617373781f6e7a2e6578616d706c652e656e73656d626c652e6c6576656c2d776174636865706172747382a6646e616d65654c6576656c65636c61737378186e7a2e6578616d706c652e73656e74616e742e6c6576656c67706c7567696e73806b6175746f6d6174696f6e7381a2646e616d65646d61696e6b7472616e736974696f6e7381a1656576656e7464726561646b6465736372697074696f6e76486f6c647320746865206c6173742072656164696e676d7075626c69635f6576656e747380a167696e636c756465756e7a2e6578616d706c652e7061727440392e392e396776657273696f6e65302e312e3068756e7369676e6564f56b6465736372697074696f6e745265706f72747320612074616e6b206c6576656c6e736368656d615f76657273696f6e63302e31</code></p>
 <p><strong>Verdict.</strong> MUST BE REFUSED WITH AN ERROR, <strong>attributed to 7.3.2</strong>; and 7.3.3 forbids substituting an absent value, so a load that succeeds with an empty part fails <strong class="clause" id="c7.3.3">7.3.3</strong> specifically.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> the silent-empty path: a pre-migration consumer once emitted empty values for every migrated entry, caught only by a negative control.</p>
 <h3 id="fv-016--a-part-declared-not-runtime-executable-is-not-loaded">FV-016 — A part declared not runtime-executable is not loaded</h3>
 <p><strong>Demonstrates:</strong> <code>F-081</code> (<a href="FORMATS.html#c7.8.4"><code>FORMATS.md</code> 7.8.4</a>).</p>
 <p><strong>Document as authored.</strong></p>
-<pre><code>name: &#39;level-watch&#39;
+<pre tabindex="0" aria-label="Code or test vector"><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
 class: &#39;nz.example.ensemble.level-watch&#39;
 version: &#39;0.1.0&#39;
@@ -215,17 +315,21 @@ parts:
   - name: &#39;Level&#39;
     description: &#39;Holds the last reading&#39;
     class: &#39;nz.example.sentant.level&#39;
+    public_events: []
+    plugins: []
     automations:
       - name: &#39;main&#39;
         transitions:
           - event: &#39;read&#39;
     runtime_executable: False</code></pre>
+<p><strong>Canonical encoding (Clause 4b), rendered from the same structure as the source above — one source, two derivations.</strong></p>
+<p><code>a7646e616d656b6c6576656c2d776174636865636c617373781f6e7a2e6578616d706c652e656e73656d626c652e6c6576656c2d776174636865706172747381a7646e616d65654c6576656c65636c61737378186e7a2e6578616d706c652e73656e74616e742e6c6576656c67706c7567696e73806b6175746f6d6174696f6e7381a2646e616d65646d61696e6b7472616e736974696f6e7381a1656576656e7464726561646b6465736372697074696f6e76486f6c647320746865206c6173742072656164696e676d7075626c69635f6576656e7473807272756e74696d655f65786563757461626c65f46776657273696f6e65302e312e3068756e7369676e6564f56b6465736372697074696f6e745265706f72747320612074616e6b206c6576656c6e736368656d615f76657273696f6e63302e31</code></p>
 <p><strong>Verdict.</strong> <strong>The score is otherwise the baseline, so it is well-formed by construction</strong>; the RUNTIME MUST NOT LOAD that part, attributed to 7.8.4. A builder may still realise it.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> a runtime that treats every part as loadable: the score parses, the part runs, and a build-time contract is executed as though it were a program.</p>
 <h3 id="fv-017--a-conflicting-registration-is-refused">FV-017 — A conflicting registration is refused</h3>
 <p><strong>Demonstrates:</strong> <code>F-088</code> (<a href="FORMATS.html#c7.8.8"><code>FORMATS.md</code> 7.8.8</a>).</p>
 <p><strong>Document as authored.</strong></p>
-<pre><code>name: &#39;level-watch&#39;
+<pre tabindex="0" aria-label="Code or test vector"><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
 class: &#39;nz.example.ensemble.level-watch&#39;
 version: &#39;0.1.0&#39;
@@ -235,6 +339,8 @@ parts:
   - name: &#39;Level&#39;
     description: &#39;Holds the last reading&#39;
     class: &#39;nz.example.sentant.level&#39;
+    public_events: []
+    plugins: []
     automations:
       - name: &#39;main&#39;
         transitions:
@@ -242,12 +348,14 @@ parts:
 registrations:
   r2-web:
     route_prefix: &#39;/level&#39;</code></pre>
+<p><strong>Canonical encoding (Clause 4b), rendered from the same structure as the source above — one source, two derivations.</strong></p>
+<p><code>a8646e616d656b6c6576656c2d776174636865636c617373781f6e7a2e6578616d706c652e656e73656d626c652e6c6576656c2d776174636865706172747381a6646e616d65654c6576656c65636c61737378186e7a2e6578616d706c652e73656e74616e742e6c6576656c67706c7567696e73806b6175746f6d6174696f6e7381a2646e616d65646d61696e6b7472616e736974696f6e7381a1656576656e7464726561646b6465736372697074696f6e76486f6c647320746865206c6173742072656164696e676d7075626c69635f6576656e7473806776657273696f6e65302e312e3068756e7369676e6564f56b6465736372697074696f6e745265706f72747320612074616e6b206c6576656c6d726567697374726174696f6e73a16672322d776562a16c726f7574655f707265666978662f6c6576656c6e736368656d615f76657273696f6e63302e31</code></p>
 <p><strong>Verdict.</strong> MUST BE REFUSED <strong>when a score already present holds <code>/level</code></strong>, attributed to 7.8.8 — and MUST LOAD when no other score holds it. <strong>Both halves are the vector</strong>: one document, two hive states, two verdicts.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> an implementation that refuses on any second registration regardless of conflict, and one that accepts both and lets the later silently win.</p>
 <h3 id="fv-018--an-action-naming-an-undeclared-plugin-is-refused">FV-018 — An action naming an undeclared plugin is refused</h3>
 <p><strong>Demonstrates:</strong> <code>F-102</code> (<a href="FORMATS.html#c7.10.2"><code>FORMATS.md</code> 7.10.2</a>).</p>
 <p><strong>Document as authored.</strong></p>
-<pre><code>name: &#39;level-watch&#39;
+<pre tabindex="0" aria-label="Code or test vector"><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
 class: &#39;nz.example.ensemble.level-watch&#39;
 version: &#39;0.1.0&#39;
@@ -257,6 +365,8 @@ parts:
   - name: &#39;Level&#39;
     description: &#39;Holds the last reading&#39;
     class: &#39;nz.example.sentant.level&#39;
+    public_events: []
+    plugins: []
     automations:
       - name: &#39;main&#39;
         transitions:
@@ -264,12 +374,14 @@ parts:
             actions:
               - plugin: &#39;nz.example.sensor.level&#39;
                 command: &#39;read&#39;</code></pre>
+<p><strong>Canonical encoding (Clause 4b), rendered from the same structure as the source above — one source, two derivations.</strong></p>
+<p><code>a7646e616d656b6c6576656c2d776174636865636c617373781f6e7a2e6578616d706c652e656e73656d626c652e6c6576656c2d776174636865706172747381a6646e616d65654c6576656c65636c61737378186e7a2e6578616d706c652e73656e74616e742e6c6576656c67706c7567696e73806b6175746f6d6174696f6e7381a2646e616d65646d61696e6b7472616e736974696f6e7381a2656576656e74647265616467616374696f6e7381a266706c7567696e776e7a2e6578616d706c652e73656e736f722e6c6576656c67636f6d6d616e6464726561646b6465736372697074696f6e76486f6c647320746865206c6173742072656164696e676d7075626c69635f6576656e7473806776657273696f6e65302e312e3068756e7369676e6564f56b6465736372697074696f6e745265706f72747320612074616e6b206c6576656c6e736368656d615f76657273696f6e63302e31</code></p>
 <p><strong>Verdict.</strong> MUST BE REFUSED, <strong>attributed to 7.10.2</strong> — the part declares no <code>plugins</code> entry for the name the action invokes.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> deferring the failure to run time, where the sentant silently discards a result event that never arrives (7.5.6) and the fault presents as a dead automation.</p>
 <h3 id="fv-019--a-part-with-no-automation-is-refused">FV-019 — A part with no automation is refused</h3>
 <p><strong>Demonstrates:</strong> <code>F-043</code> (<a href="FORMATS.html#c7.4.1"><code>FORMATS.md</code> 7.4.1</a>).</p>
 <p><strong>Document as authored.</strong></p>
-<pre><code>name: &#39;level-watch&#39;
+<pre tabindex="0" aria-label="Code or test vector"><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
 class: &#39;nz.example.ensemble.level-watch&#39;
 version: &#39;0.1.0&#39;
@@ -278,13 +390,17 @@ unsigned: True
 parts:
   - name: &#39;Level&#39;
     description: &#39;Holds the last reading&#39;
-    class: &#39;nz.example.sentant.level&#39;</code></pre>
+    class: &#39;nz.example.sentant.level&#39;
+    public_events: []
+    plugins: []</code></pre>
+<p><strong>Canonical encoding (Clause 4b), rendered from the same structure as the source above — one source, two derivations.</strong></p>
+<p><code>a7646e616d656b6c6576656c2d776174636865636c617373781f6e7a2e6578616d706c652e656e73656d626c652e6c6576656c2d776174636865706172747381a5646e616d65654c6576656c65636c61737378186e7a2e6578616d706c652e73656e74616e742e6c6576656c67706c7567696e73806b6465736372697074696f6e76486f6c647320746865206c6173742072656164696e676d7075626c69635f6576656e7473806776657273696f6e65302e312e3068756e7369676e6564f56b6465736372697074696f6e745265706f72747320612074616e6b206c6576656c6e736368656d615f76657273696f6e63302e31</code></p>
 <p><strong>Verdict.</strong> MUST BE REFUSED, <strong>attributed to 7.4.1</strong> — the one field removed is the one under test.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> an implementation that accepts a part with nothing to run: it instantiates a sentant that can never respond, indistinguishable at run time from one whose events are being discarded.</p>
 <h3 id="fv-020--a-merely-absent-signature-field-is-not-the-unsigned-exemption">FV-020 — A merely absent signature field is not the unsigned exemption</h3>
 <p><strong>Demonstrates:</strong> <code>F-098</code> (<a href="FORMATS.html#c7.9.4a"><code>FORMATS.md</code> 7.9.4a</a>).</p>
 <p><strong>Document as authored.</strong></p>
-<pre><code>name: &#39;level-watch&#39;
+<pre tabindex="0" aria-label="Code or test vector"><code>name: &#39;level-watch&#39;
 description: &#39;Reports a tank level&#39;
 class: &#39;nz.example.ensemble.level-watch&#39;
 version: &#39;0.1.0&#39;
@@ -293,23 +409,94 @@ parts:
   - name: &#39;Level&#39;
     description: &#39;Holds the last reading&#39;
     class: &#39;nz.example.sentant.level&#39;
+    public_events: []
+    plugins: []
     automations:
       - name: &#39;main&#39;
         transitions:
           - event: &#39;read&#39;</code></pre>
+<p><strong>Canonical encoding (Clause 4b), rendered from the same structure as the source above — one source, two derivations.</strong></p>
+<p><code>a6646e616d656b6c6576656c2d776174636865636c617373781f6e7a2e6578616d706c652e656e73656d626c652e6c6576656c2d776174636865706172747381a6646e616d65654c6576656c65636c61737378186e7a2e6578616d706c652e73656e74616e742e6c6576656c67706c7567696e73806b6175746f6d6174696f6e7381a2646e616d65646d61696e6b7472616e736974696f6e7381a1656576656e7464726561646b6465736372697074696f6e76486f6c647320746865206c6173742072656164696e676d7075626c69635f6576656e7473806776657273696f6e65302e312e306b6465736372697074696f6e745265706f72747320612074616e6b206c6576656c6e736368656d615f76657273696f6e63302e31</code></p>
 <p><strong>Verdict.</strong> MUST BE REFUSED, <strong>attributed to 7.9.4a</strong> — the baseline carries <code>unsigned: true</code> and this removes it, leaving a score with neither a signature nor a declaration.</p>
 <p><strong>What this rejects that a positive fixture alone would not:</strong> the fail-open reading: a stripped, truncated or corrupt score is otherwise indistinguishable from a local-development one and loads. <strong>The baseline is the vacuity guard for this pair</strong> — it carries the declaration and must load.</p>
+<h3 id="fv-029--the-boot-hook-one-init-delivery-per-instantiation-fires-the-start-marker-transition">FV-029 — The boot hook: one <code>init</code> delivery per instantiation fires the start-marker transition</h3>
+<p><strong>Demonstrates:</strong> <code>F-169/F-170</code> (<a href="FORMATS.html#c7.5.9"><code>FORMATS.md</code> 7.5.9</a>/7.5.9a).</p>
+<p><strong>Document as authored.</strong></p>
+<pre tabindex="0" aria-label="Code or test vector"><code>name: &#39;level-watch&#39;
+description: &#39;Reports a tank level&#39;
+class: &#39;nz.example.ensemble.level-watch&#39;
+version: &#39;0.1.0&#39;
+schema_version: &#39;0.1&#39;
+unsigned: True
+parts:
+  - name: &#39;Level&#39;
+    description: &#39;Holds the last reading&#39;
+    class: &#39;nz.example.sentant.level&#39;
+    public_events: []
+    plugins: []
+    automations:
+      - name: &#39;main&#39;
+        transitions:
+          - from: &#39;start&#39;
+            event: &#39;init&#39;
+            to: &#39;ready&#39;
+            actions:
+              - command: &#39;send&#39;
+                parameters:
+                  event: &#39;booted&#39;
+                  to:
+                    class: &#39;nz.example.sentant.monitor&#39;
+                    hive: &#39;group&#39;
+          - event: &#39;read&#39;</code></pre>
+<p><strong>Canonical encoding (Clause 4b), rendered from the same structure as the source above — one source, two derivations.</strong></p>
+<p><code>a7646e616d656b6c6576656c2d776174636865636c617373781f6e7a2e6578616d706c652e656e73656d626c652e6c6576656c2d776174636865706172747381a6646e616d65654c6576656c65636c61737378186e7a2e6578616d706c652e73656e74616e742e6c6576656c67706c7567696e73806b6175746f6d6174696f6e7381a2646e616d65646d61696e6b7472616e736974696f6e7382a462746f6572656164796466726f6d657374617274656576656e7464696e697467616374696f6e7381a267636f6d6d616e646473656e646a706172616d6574657273a262746fa264686976656567726f757065636c617373781a6e7a2e6578616d706c652e73656e74616e742e6d6f6e69746f72656576656e7466626f6f746564a1656576656e7464726561646b6465736372697074696f6e76486f6c647320746865206c6173742072656164696e676d7075626c69635f6576656e7473806776657273696f6e65302e312e3068756e7369676e6564f56b6465736372697074696f6e745265706f72747320612074616e6b206c6576656c6e736368656d615f76657273696f6e63302e31</code></p>
+<p><strong>Verdict.</strong> MUST LOAD; and at instantiation the hive delivers ONE event named <code>init</code> — after the variables initialise (7.4.3b) and before any other event — so the <code>from: start</code> transition fires, the <code>booted</code> frame is emitted to the group, and the automation stands in <code>ready</code>, <strong>the state 7.5.4 already named statically: the loader's answer and the runtime's agree by construction (7.5.9 Note 2)</strong>. <strong>The demonstration is positive and counted: exactly one <code>booted</code> emission per instantiation.</strong></p>
+<p><strong>What this rejects that a positive fixture alone would not:</strong> the dead boot hook: a hive that never delivers <code>init</code> loads this document, reaches the same state, and emits nothing — which is byte-for-byte what the bench-test catalogue did before 7.5.9 existed, and no state observation can see it because state is opaque. A hive delivering before variables initialise, or after another event, fails the ordering half.</p>
+<h3 id="fv-030--a-boot-reload-is-an-instantiation-a-resumption-is-not">FV-030 — A boot reload is an instantiation; a resumption is not</h3>
+<p><strong>Demonstrates:</strong> <code>F-172/F-173</code> (<a href="FORMATS.html#c7.5.9c"><code>FORMATS.md</code> 7.5.9c</a>/7.5.9d).</p>
+<p><strong>Document as authored.</strong></p>
+<pre tabindex="0" aria-label="Code or test vector"><code>name: &#39;level-watch&#39;
+description: &#39;Reports a tank level&#39;
+class: &#39;nz.example.ensemble.level-watch&#39;
+version: &#39;0.1.0&#39;
+schema_version: &#39;0.1&#39;
+unsigned: True
+parts:
+  - name: &#39;Level&#39;
+    description: &#39;Holds the last reading&#39;
+    class: &#39;nz.example.sentant.level&#39;
+    public_events: []
+    plugins: []
+    automations:
+      - name: &#39;main&#39;
+        transitions:
+          - from: &#39;start&#39;
+            event: &#39;init&#39;
+            to: &#39;ready&#39;
+            actions:
+              - command: &#39;send&#39;
+                parameters:
+                  event: &#39;booted&#39;
+                  to:
+                    class: &#39;nz.example.sentant.monitor&#39;
+                    hive: &#39;group&#39;
+          - event: &#39;read&#39;
+    storage: &#39;durable&#39;</code></pre>
+<p><strong>Canonical encoding (Clause 4b), rendered from the same structure as the source above — one source, two derivations.</strong></p>
+<p><code>a7646e616d656b6c6576656c2d776174636865636c617373781f6e7a2e6578616d706c652e656e73656d626c652e6c6576656c2d776174636865706172747381a7646e616d65654c6576656c65636c61737378186e7a2e6578616d706c652e73656e74616e742e6c6576656c67706c7567696e73806773746f726167656764757261626c656b6175746f6d6174696f6e7381a2646e616d65646d61696e6b7472616e736974696f6e7382a462746f6572656164796466726f6d657374617274656576656e7464696e697467616374696f6e7381a267636f6d6d616e646473656e646a706172616d6574657273a262746fa264686976656567726f757065636c617373781a6e7a2e6578616d706c652e73656e74616e742e6d6f6e69746f72656576656e7466626f6f746564a1656576656e7464726561646b6465736372697074696f6e76486f6c647320746865206c6173742072656164696e676d7075626c69635f6576656e7473806776657273696f6e65302e312e3068756e7369676e6564f56b6465736372697074696f6e745265706f72747320612074616e6b206c6576656c6e736368656d615f76657273696f6e63302e31</code></p>
+<p><strong>Verdict.</strong> MUST LOAD; the part is <code>durable</code>, so each boot reload re-instantiates it and each re-instantiation delivers <code>init</code> again — <strong>one <code>booted</code> emission per boot</strong> (7.5.9c). Suspending and resuming the sentant delivers NO instantiation event (7.5.9d): <strong>the demonstration is positive both ways — an emission after the reboot, and none after the resume — because a missing emission and a correctly-withheld one are otherwise indistinguishable (the 7.5.8c Note 7 reasoning applied here).</strong></p>
+<p><strong>What this rejects that a positive fixture alone would not:</strong> the two available wrong analogies, one per clause: treating a reboot like a resume (the boot hook fires once ever, and a durable sentant wakes silent for the rest of its life), and treating a resume like a reboot (every suspension cycle re-announces, and a boot action with side effects runs on a lifecycle operation 4.3.2 says preserves rather than restarts).</p>
 <hr />
-<p><strong>12 paired byte vectors and 8 document fixtures.</strong> Each is one
+<p><strong>24 paired byte vectors and 10 document fixtures.</strong> Each is one
 job: the conforming case and its excluded case, written and cited together.
 <em>The same two written a month apart are three jobs and an audit.</em></p>
 
-</article>
+</article></main></div>
 <footer>
     <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
     <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
     <a href="/">reality2.ai</a></p>
-    <p class="stamp">Reality2 Standard <strong>version 0.8.0</strong>, 2026-08-05. Built from <span class="mono">f5bf72b</span>, rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the version. </p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>
@@ -318,7 +505,7 @@ function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')
 var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
 if(n==='dark')document.documentElement.removeAttribute('data-theme');
 else document.documentElement.setAttribute('data-theme',n);
-localStorage.setItem('r2-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
 var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
 var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
 var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];

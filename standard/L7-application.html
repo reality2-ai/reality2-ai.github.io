@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>L7 — Application — Reality2 Standard</title>
 <meta name="description" content="The sentant: its defining properties, its definition, its lifecycle, and its event model.">
@@ -23,10 +24,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/standard/standard.css">
-<script>(function(){var t=localStorage.getItem('r2-theme');
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
 if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
 var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
 if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -54,15 +57,15 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         </button>
     </div>
 </nav>
-<article id="main" class="doc-page">
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#introduction">Introduction</a></li><li><a href="#1-scope">1 Scope</a></li><li><a href="#2-normative-references">2 Normative references</a></li><li><a href="#3-terms-and-definitions">3 Terms and definitions</a></li><li><a href="#4-the-sentant">4 The sentant</a></li><li><a href="#5-events">5 Events</a></li><li><a href="#6-plugins">6 Plugins</a></li><li><a href="#7-ensembles">7 Ensembles</a></li><li><a href="#8-conformance">8 Conformance</a></li><li><a href="#9-security-considerations">9 Security considerations</a></li><li><a href="#10-what-is-not-decided-at-this-layer">10 What is not decided at this layer</a></li><li><a href="#bibliography">Bibliography</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
 <a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-7-application">Reality2 Standard — Layer 7: Application</h1>
-<p><strong>Status:</strong> Draft — <strong>this names the editorial maturity of the text, and nothing else.</strong>
+<p class="reader-kind">Normative document</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
+<p><strong>Version:</strong> 0.9.0 · <strong>Date:</strong> 2026-09-18 · <strong>Status:</strong> Draft</p>
+<p><strong>What "Draft" names here is the editorial maturity of the text, and nothing else.</strong>
 <strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
-build from it (d041, Roy: <em>standard is the canon</em>). <strong>The only text open to replacement is a value
-marked <code>PROVISIONAL(...)</code> at its own clause.</strong> <em>(Subject stated because a status field is scoped to
-a question the reader may not be asking, and a claim with an unstated subject will be given the
-subject the reader brought — composer, 2026-08-03.)</em>
-<strong>Date:</strong> 2026-08-04</p>
+build from it. <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> </p>
 <blockquote>
 <p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
 <em>can</em> = possibility and capability.</p>
@@ -141,7 +144,7 @@ identity</p>
 <span class="clause-anchor" id="c4.1"></span><h3 id="41-the-six-properties">4.1 The six properties</h3>
 <p><strong class="clause" id="c4.1.1">4.1.1</strong> Every sentant shall satisfy all of the following, and an implementation shall
 enforce each.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Property, Requirement"><table>
 <thead>
 <tr>
 <th>Property</th>
@@ -198,6 +201,19 @@ A definition shall have no dependency not named within it.</p>
 <p><strong class="clause" id="c4.2.3">4.2.3</strong> A hive shall reload durable and durable-state sentants at boot, and a
 durable-state sentant shall tolerate resuming from a snapshot older than its last
 activity.</p>
+<p>Note 0 to entry: <strong>What <em>no dependency not named within it</em> tests, because it is not <em>names
+nothing outside itself</em>.</strong> A definition necessarily names things the hive supplies — a class,
+plugin bindings, a hive-shared plugin it registers with. <strong>Naming an external thing is
+permitted; depending on an unnamed one is not</strong>, and the distinction is the whole clause.
+<strong>The check follows from the formats companion and needs nothing further: a document may
+carry only fields its schema defines (<a href="FORMATS.html#c7.3.1"><code>FORMATS.md</code> 7.3.1</a>), so what a definition CAN name is
+bounded; the one construct that defers resolution is a part given by reference, which carries
+<code>include</code> with a <code>name@version</code> value (7.8.2b) and is required to validate as though written
+inline (7.8.2a); and an unresolvable or unrecognised versioned reference is an error rather
+than an omission (7.3.2, 7.3.3).</strong> <strong>So a definition satisfies this clause exactly when every
+reference it carries resolves, and the resolved document satisfies it too</strong> — and an
+implementation refuses a field the schema does not define, and a reference it cannot resolve,
+rather than running with the dependency unmet. <em>(PROVISIONAL(standard))</em></p>
 <p>Note 1 to entry: 4.2.1's self-containment is what makes a sentant <em>movable</em> — it can be
 carried to another hive, or another group, as a frame's payload, and run there without
 hidden dependencies. <strong>The definition is the unit of portability</strong>, which is also why the
@@ -211,6 +227,12 @@ promise from the platform.</p>
 management authority of Layer 6.</p>
 <p><strong class="clause" id="c4.3.2">4.3.2</strong> Unloading a durable sentant shall remove its persisted definition; suspension
 shall not.</p>
+<p>Note 1 to entry: <a href="L6-management.html#c5.6">Layer 6, 5.6</a> distinguishes parameter changes, separately
+replaceable sentant definitions, firmware-managed ensembles and core changes.
+Replacing a definition uses this lifecycle; it does not mutate a running
+sentant. Storage class and update policy are independent. Rollback retains a
+release artifact rather than leaving an unloaded definition live. A separately
+replaceable definition still uses only already installed compatible plugins.</p>
 <span class="clause-anchor" id="c5"></span><h2 id="5-events">5 Events</h2>
 <span class="clause-anchor" id="c5.1"></span><h3 id="51-one-model-two-scopes">5.1 One model, two scopes</h3>
 <p><strong class="clause" id="c5.1.1">5.1.1</strong> An event shall be the only way anything acts on a sentant.</p>
@@ -220,11 +242,12 @@ fire-and-forget.</p>
 <p><strong class="clause" id="c5.1.3">5.1.3</strong> An event addressed to a class shall be delivered to every sentant of that class
 on the receiving hive.</p>
 <p><strong class="clause" id="c5.1.4">5.1.4</strong> Sentant instance identifiers shall never appear in a frame; across the wire,
-addressing ends at the hive and the event name and class do the rest.</p>
+addressing ends at the hive and the event name does the rest.</p>
 <p>Note 1 to entry: 5.1.4 is Layer 4's <em>the wire stops at the hive</em> seen from above. <strong>What
 handles an event is the receiving hive's own affair</strong>, invisible and unaddressable from
 outside — which is what lets a hive host one sentant or a thousand behind the same
 four-byte address.</p>
+
 <span class="clause-anchor" id="c5.2"></span><h3 id="52-public-private-and-the-origin-tag">5.2 Public, private, and the origin tag</h3>
 <p><strong class="clause" id="c5.2.1">5.2.1</strong> A sentant's public events (3.4) are its declared external contract, and shall be
 what its hive advertises for it.</p>
@@ -237,6 +260,15 @@ usually faked. Hiding private event names is opacity, not protection — a guess
 arrives. <strong>What protects is the tag</strong>: a transition gated on internal origin cannot be
 fired from the network at all, however good the guess, because the runtime — not the
 sender — decides what is internal. One mechanism, applied where the trust actually is.</p>
+<p>Note 1a to entry: <strong>Advertising nothing is not the same as accepting nothing, and the two
+are separate axes throughout this standard.</strong> 5.2.1 makes the accepted set what a hive
+advertises for a sentant, and <a href="L2-capability-and-discovery.html#c8.4">Layer 2, 8.4</a> keeps a hive publishing no public capability from
+carrying a summary at all — <strong>so a sentant declaring an empty public list is invisible to
+discovery while remaining fully loaded and routable</strong> (4.1.1, <em>Consistent</em>). <strong>5.2.2 is what
+keeps that from meaning unreachable: a name a sentant does not advertise still arrives and is
+still processed, because the advertised list is a contract and never a filter.</strong> <em>Visibility
+is what a hive says it responds to; reachability is what the runtime will deliver, and the
+second is wider than the first by design.</em> <em>(PROVISIONAL(standard))</em></p>
 <p>Note 2 to entry: The origin tag is binary — internal or external — and says only who
 injected the event: the runtime, or the delivery path. <strong>It does not say what the
 delivery gate established.</strong> An external event arrives with its delivery classification
@@ -244,8 +276,7 @@ delivery gate established.</strong> An external event arrives with its delivery 
 fact, and a transition that cares filters on both. A sentant gating on external origin
 alone has decided what <em>all</em> of the outside may do — including its unauthenticated part,
 which 10.1.1 delivers with Layer 7 filtering as the only gate; deciding what the
-<em>verified</em> outside may do is a filter on the classification, not on the tag. <em>(Reworded
-2026-08-01 — the earlier text wrongly excluded unauthenticated delivery.)</em></p>
+<em>verified</em> outside may do is a filter on the classification, not on the tag. </p>
 <span class="clause-anchor" id="c5.3"></span><h3 id="53-delivery-semantics">5.3 Delivery semantics</h3>
 <p><strong class="clause" id="c5.3.1">5.3.1</strong> Event delivery shall be fire-and-forget: no acknowledgement exists at this layer
 or below, and a sender shall not be able to observe delivery.</p>
@@ -254,6 +285,9 @@ duplicate delivery of the same event.</p>
 <p><strong class="clause" id="c5.3.3">5.3.3</strong> Where a purpose requires assurance, the participating endpoints shall contract
 for it in events — a receipt, a release, a completion — at the grade the purpose
 warrants, and such contracts are application traffic carried like any other.</p>
+<p><strong class="clause" id="c5.3.4">5.3.4</strong> A sentant may offer <code>send reply</code> as a local convenience: it creates an ordinary
+event and fills its target from the event being handled. It shall not create a special wire
+frame, return route, acknowledgement or delivery guarantee.</p>
 <p>Note 1 to entry: 5.3.2 is the last line of a defence stated at three layers: transit
 duplicates are suppressed (Layer 3), destination duplicates are bounded (Layer 4), and
 <strong>what makes the residue harmless is that acting twice equals acting once.</strong> Replication
@@ -267,11 +301,31 @@ store wants receipt-with-release. The network never learns that grades exist.</p
 <span class="clause-anchor" id="c6.1"></span><h3 id="61-the-contract-is-events">6.1 The contract is events</h3>
 <p><strong class="clause" id="c6.1.1">6.1.1</strong> A plugin shall interact with its hive, and with sentants, through events alone;
 its implementation, language and process boundary are invisible outside the hive.</p>
-<p><strong class="clause" id="c6.1.2">6.1.2</strong> A plugin's data shall travel the network as ordinary frames. <strong>This layer
-defines no other carriage</strong>, and a plugin needing bulk movement uses the chunked-transfer
-contract of Layer 6's model at the assurance grade its purpose warrants.</p>
+<p><strong class="clause" id="c6.1.2">6.1.2</strong> A plugin's data shall travel the network as ordinary frames, except for
+payload carried by an explicitly selected optional bulk service meeting 6.4 or by
+the declared egress path of 6.3. Ordinary-frame bulk movement uses Layer 6's
+chunked-transfer model at the assurance grade its purpose warrants.</p>
 <p><strong class="clause" id="c6.1.3">6.1.3</strong> A plugin shall be the declared source of any non-determinism a sentant consumes
 (4.1.1), so that time, randomness and the physical world enter the record as events.</p>
+<p>Note 1 to entry: An event can itself carry data, but an event is not a carriage decision. A
+plugin result addressed to another sentant travels as an ordinary Reality2 frame;
+bulk payload uses the ordinary-frame contract or an explicitly selected 6.4 service.
+A plugin consuming a declared,
+already-established data service supplies or consumes its payload through that service without
+thereby owning the Layer 1 binding below it. For example, an update plugin initiates or reports
+an L6 transfer while a live video or remote-API plugin uses its declared egress path (6.3).
+The binding retains medium configuration, framing, airtime and connection lifecycle in every
+case. A same-group bulk service is local reach, not an egress exemption. Its control
+events retain the Layer 5 delivery gate; service payload has its own explicitly
+specified protection and session admission under 6.4.</p>
+<p>Note 2 to entry: A plugin that uses a physical peripheral is the <strong>consumer</strong> of a named L0
+capability contract, not the owner of its adaptation. The sentant invokes the plugin by an L7
+event; the plugin invokes the capability operation; the adaptation performs the board-specific
+work; and any fact a sentant consumes returns as a plugin-sourced L7 event. The plugin never
+receives pins, buses, vendor handles, a board name, a Layer 5 key or a management credential.
+The adaptation never receives a sentant identifier or emits an L7 event directly. This is the
+non-adjacent named-contract exception of <a href="01-terminology.html#c4.8.1"><code>01-terminology.md</code> 4.8.1</a>, not a path around the trust
+boundary. <a href="L0-hardware-and-runtime.html#c5.6"><code>L0-hardware-and-runtime.md</code> 5.6</a> Note 4a gives the corresponding full trace.</p>
 <span class="clause-anchor" id="c6.2"></span><h3 id="62-two-ownership-flavours">6.2 Two ownership flavours</h3>
 <p><strong class="clause" id="c6.2.1">6.2.1</strong> A plugin wrapping a resource the platform exposes once — a network server port,
 an audio device, a display, a filesystem — shall be <strong>hive-shared</strong>: one instance per
@@ -290,15 +344,7 @@ per hive is the rule in either case.</p>
 any other platform capability the part requires — <strong>does not perform that part</strong>, and is
 not thereby non-conformant. The ensemble's behaviour at that subset of its parts is
 governed by 7.2.2.</p>
-<p>Note 3 to entry: 6.2.2a and 6.2.2b state what 7.1.2 and 7.2.2 already imply, because
-read alone 6.2.2 appeared to mandate a runtime loader — which a constrained platform
-does not have and cannot get: <strong>native code cannot enter a flashed image at runtime
-without an interpreter this standard neither requires nor describes.</strong> An ensemble is
-performed by whichever hives currently host its parts (7.1.2); a hive that cannot host a
-part is simply not one of them, and an ensemble is required to define its behaviour at
-any subset of its parts down to one (7.2.2). Nothing further is needed — but the absence
-of the statement read as a requirement no small device could meet.
-<em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p>Note 3 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <span class="clause-anchor" id="c6.3"></span><h3 id="63-reach">6.3 Reach</h3>
 <p><strong class="clause" id="c6.3.1">6.3.1</strong> A plugin's <strong>reach</strong> shall be declared as either <em>local</em> — it acts only within
 its hive and the Reality2 network — or <em>egress</em> — it exchanges data with endpoints
@@ -318,10 +364,7 @@ working as intended, and it is simultaneously a path by which data leaves the tr
 by construction, and 6.3.2 says so rather than leaving it to be discovered: an
 unstated absence reads as a permission, and this one is a permission — but a declared
 one, whose cost is visible in the score before the ensemble is admitted.</p>
-<p>Note 2 to entry: 6.3.3 is the ordinary consequence of Layer 1's registry and Layer 1's
-4.9.4: an egress plugin generally needs an IP-carrying bearer, so a hive whose only
-bearer is a local radio cannot host one. That is a platform fact, not a defect, and it is
-why 6.2.2b exists. <em>(Clause 6.3 added 2026-08-02, <code>PROVISIONAL(supervisor)</code>.)</em></p>
+<p>Note 2 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p>Note 1 to entry: 6.2.1 exists because the failure is concrete: three ensembles each
 declaring "a web interface" cannot be three web servers fighting for one port. <strong>The
 singleton is the hive's; the ensembles register into it</strong> — routes, bundles, channels —
@@ -330,6 +373,69 @@ and it outlives any one of them.</p>
 plugins, the ensemble model has <strong>exactly two part types</strong>, and everything this standard
 says about plugin lifecycle, advertisement and delivery applies to a voice interface
 exactly as to a sensor driver. The interface to a human is an interface like any other.</p>
+<span class="clause-anchor" id="c6.4"></span><h3 id="64-optional-bulk-services-controlled-by-events">6.4 Optional bulk services controlled by events</h3>
+<p>A bulk service is optional payload carriage between endpoints. It is not a TN
+frame, a new Layer 1 bearer requirement, a sentant-to-bearer interface, or a
+change to a plugin's ownership/reach declaration. The sentant requests work and
+receives progress/results through plugin events under 6.1.1; the plugin consumes
+an established platform service through its declared capability contract.</p>
+<p><strong class="clause" id="c6.4.1">6.4.1</strong> A bulk-service profile shall define its name/version, capability and
+reach requirements, exact setup/control and payload encodings, framing and size
+bounds, peer/session authentication, confidentiality, integrity, replay handling,
+flow control, repair, cancellation, expiry and positive/refusal test vectors.</p>
+<p><strong class="clause" id="c6.4.2">6.4.2</strong> An endpoint shall activate a bulk session only after explicit selection
+of a mutually supported profile and authorization through ordinary TN events
+admitted under Layer 5 and the application's locally held authority policy,
+binding the session to both endpoint identities, its profile/version, transfer
+identity, permitted directions, size/resource bounds and validity interval.</p>
+<p>For an immutable object the transfer binding includes its digest; for a firmware
+package it additionally includes target class, sequence and package size. The
+profile specifies the complete authenticated representation, how the endpoint
+identities are established, and the evidence required by the application grade.
+Wire hashes and network addresses alone are not member-attributable evidence.</p>
+<p><strong class="clause" id="c6.4.3">6.4.3</strong> A bulk endpoint shall accept payload only for its active authorized
+session after the profile's peer binding, integrity, confidentiality and replay
+checks, without treating the admission of a control frame as authentication of
+subsequent service bytes.</p>
+<p><strong class="clause" id="c6.4.4">6.4.4</strong> A plugin using a bulk service shall obtain only the service operations
+and session handles its capability contract exposes, without acquiring the
+underlying medium configuration, peripheral handles, Layer 5 keys or management
+credentials.</p>
+<p>The platform/binding retains medium configuration, admissibility, airtime and
+connection lifecycle. A service may use the same radio as a Reality2 binding,
+but its payload discriminator and ownership are part of the declared service;
+service bytes do not become valid Reality2 frames by sharing that radio.</p>
+<p><strong class="clause" id="c6.4.5">6.4.5</strong> A receiver shall bound session lifetime, partial storage, in-flight
+work and reassembly according to the selected profile and its declared platform
+capabilities, admitting only requested transfer work within those bounds.</p>
+<p>A request may authorize a bounded window or the complete bounded object. It need
+not be repeated as a TN message for every service packet; the selected profile
+owns flow control and repair within the authorized work.</p>
+<p><strong class="clause" id="c6.4.6">6.4.6</strong> An endpoint shall report an unavailable, unsupported or failed bulk
+service through its plugin events without silently changing profile, protection,
+peer, route restriction or carriage; any fallback requires explicit selection
+under the same application policy.</p>
+<p>These are local plugin results, not permission to disclose refusal details to an
+unverified remote party. <a href="L6-management.html#c5.2.4">Layer 6, 5.2.4</a>'s silence rule still governs update results.</p>
+<p><strong class="clause" id="c6.4.7">6.4.7</strong> A service acknowledgment shall establish only the assurance stated by
+its profile, without substituting for the application's required whole-object
+verification, storage receipt, update authority, sequence/target checks, boot
+health or rollback contract.</p>
+<p><strong class="clause" id="c6.4.8">6.4.8</strong> An endpoint shall retire a session on cancellation, expiry, loss of
+authorization or runtime restart, erasing its session secrets and refusing its
+subsequent payload while preserving partial-object and recovery state as the
+application contract requires.</p>
+<p>Restoring partial data does not restore a live session. A profile may define
+resumption after a fresh authorized exchange binding the retained object and
+new session. Local monotonic validity does not require a shared wall clock.</p>
+<p><strong class="clause" id="c6.4.9">6.4.9</strong> An endpoint shall enforce the selected profile's transport and route
+restrictions using the platform's actual service/peer observations, rather than
+inferring a direct physical link from a TN hop limit or a claimed peer address.</p>
+<p>A direct-only profile excludes forwarding by another hive. Components inside a
+complex hive remain part of that endpoint. A proximity claim does not establish
+immunity to a malicious physical tunnel; the profile and qualification evidence
+state the observed path and this limit. This clause does not require any hive to
+provide a bulk service, or replace Layer 6's ordinary-frame delivery model.</p>
 <span class="clause-anchor" id="c7"></span><h2 id="7-ensembles">7 Ensembles</h2>
 <span class="clause-anchor" id="c7.1"></span><h3 id="71-what-an-ensemble-is">7.1 What an ensemble is</h3>
 <p><strong class="clause" id="c7.1.1">7.1.1</strong> An ensemble shall consist of one or more sentants and zero or more plugins,
@@ -338,14 +444,42 @@ described by a score (3.6).</p>
 home hive</strong>: it is performed by whichever hives currently host its parts.</p>
 <p><strong class="clause" id="c7.1.3">7.1.3</strong> An ensemble shall have a name, a class, and a version, and different versions
 may coexist in a group during transition.</p>
-<span class="clause-anchor" id="c7.2"></span><h3 id="72-performance">7.2 Performance</h3>
+<h3 id="72-performance"><span class="clause-anchor" id="c7.2"></span>7.2 Performance</h3>
 <p><strong class="clause" id="c7.2.1">7.2.1</strong> An ensemble's parts shall find each other by class and event, through the
 discovery of Layer 2 and the delivery of the layers below — never by host address.</p>
+<p>Note 0 to entry: <strong>This forbids finding by an address; it does not forbid an address
+existing.</strong> The verb is <em>find</em>, and the obligation is on the mechanism by which parts locate
+one another — class and event, through Layer 2 discovery and the delivery beneath it. <strong>A part
+that puts an address in a payload has not found anything by one</strong>, and a catalogue was judged
+against this clause on exactly that distinction. <strong>What this clause does NOT say, stated
+because the gap is the interesting half: it places no bar on what a part may hand out, and a
+peer given an address can use it afterwards by means this standard does not describe.</strong>
+Whether that should be forbidden — and where, since the carriage position that would forbid it
+lives in this document's introduction rather than in a clause — is not answered here. <em>(PROVISIONAL(standard))</em></p>
 <p><strong class="clause" id="c7.2.2">7.2.2</strong> A hive joining a group and hosting parts of an ensemble extends that ensemble's
 performance; a hive leaving contracts it. <strong>Neither event is an error</strong>, and an ensemble
 shall define its behaviour at any subset of its parts, down to one.</p>
 <p><strong class="clause" id="c7.2.3">7.2.3</strong> An ensemble's score shall travel within its trust group as content, deliverable
 to a joining hive by the ordinary delivery of this standard.</p>
+<p>Note 1 to entry: Receiving a score is not admission to replace installed
+behaviour. <a href="L6-management.html#c5.6">Layer 6, 5.6</a> applies per receiving hive. Its definition-only admission
+rule does not add a runtime plugin loader or require all parts to be available.
+An executable release installs its required definitions and parameter policy as
+one compatible bundle; version coexistence under 7.1.3 remains possible across
+hives.</p>
+<p>Note 0 to entry: <strong>Who 7.2.2 binds, asked because an implementation refused a whole score
+when one part had no factory and could not tell whether that defeated this clause.</strong> <strong>7.2.2's
+own subject is the ensemble</strong>, so on its wording alone the question is arguable. <strong class="clause" id="c8.1">8.1 settles
+it without needing the argument: its subject is <em>an implementation</em>, and 8.1(f) makes
+conformance turn on performing ensembles from scores <em>at any subset of parts (7.2.2)</em>.</strong> <strong>So a
+runtime that can deliver a defined subset and instead delivers nothing does not conform</strong> —
+the obligation reaches whatever performs the score, not only the score itself.</p>
+<p>Note 0a to entry: <strong>And the per-part reading of 6.2's Note 3 is the only one this clause
+survives.</strong> That Note says a hive unable to host a part <em>is simply not one of them</em>. Read
+<strong>per-part</strong> — not one of the hives hosting THAT part — it is consistent with what follows it.
+Read <strong>per-hive</strong> — not one of the ensemble's hives at all — <strong>a hive able to host four parts
+of five would host none, and <em>any subset of its parts, down to one</em> could never be reached.</strong>
+<strong>A reading that empties the clause it is conjoined to is not the reading.</strong> <em>(PROVISIONAL(standard))</em></p>
 <p>Note 1 to entry: 7.2.2 is the premise as an application obligation. On a network where
 peers come and go, <strong>an application is a degradation gradient, not a binary</strong> — the
 question a score answers is not "what do I need to run" but "what do I do with what is
@@ -363,8 +497,8 @@ the three classes of <a href="01-terminology.html"><code>01-terminology.md</code
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
-<p><strong class="clause" id="c8.1">8.1</strong> An implementation conforms to this document where it:</p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(PROVISIONAL(supervisor))</em></p>
+<p><strong>8.1</strong> An implementation conforms to this document where it:</p>
 <p>a) enforces all six sentant properties (4.1), including restart of crashed sentants and
 atomic visibility;</p>
 <p>b) honours the storage classes of 4.2 across restart;</p>
@@ -405,9 +539,15 @@ test vectors.</p>
 5). This layer speaks of classes and public events; whether <em>capability</em> names the event,
 the class, or a declared set of either is unresolved, and the beacon's capability summary
 (Layer 2) currently summarises public events.</p>
-<p><strong class="clause" id="c10.4">10.4 Resource bounds.</strong> Persistence forbids eviction (4.1.1) and nothing bounds how many
-sentants a hive accepts, from whom, or what happens at the platform's memory limit — the
-denial-of-service this invites is real and the bound is deployment policy for now.</p>
+<p><strong class="clause" id="c10.4">10.4 Resource bounds.</strong> Persistence forbids eviction — <strong>and 4.1.1 does it in two sentences
+that are not equally strong, which this clause used to compress into one.</strong> <strong><em>A loaded sentant
+exists until explicitly unloaded</em> is absolute and admits no reason, so it is what forbids
+eviction TO MAKE ROOM</strong>; the sentence after it bars eviction <strong>for inactivity</strong> — <strong>one</strong> reason
+— and would leave capacity-eviction merely unaddressed. <strong>The first sentence is the compelling one.</strong> And
+nothing bounds how many sentants a hive accepts, from whom, or what happens at the platform's
+memory limit — the denial-of-service this invites is real and the bound is deployment policy
+for now.</p>
+
 <p><strong class="clause" id="c10.5">10.5 Cross-group ensembles.</strong> Scores travel within a group (7.2.3), and entanglement delivers
 events across groups (Layer 5). Whether an ensemble may <em>span</em> groups — parts performed
 in two groups, joined by entanglement — is neither enabled nor forbidden, and the identity and
@@ -422,9 +562,17 @@ before the frame exists — which makes it this layer's to declare, and 4.2.1's 
 carries no such field. <strong>The resolution path exists and is unbuilt:</strong> the event identifier hash
 is in clear on every frame (<a href="L4-wire.html#c4.2.1">Layer 4, 4.2.1</a>, 7.1.1) and unalterable by a relay (<a href="L4-wire.html#c4.4.2">Layer 4, 4.4.2</a>),
 so a receiver holding the definition resolves the question with nothing added to the wire.
-<em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, finding SS44, whose register entry is promoted and
-before Roy. Until it is decided, the fail-closed reading stands: encrypt every intra-group
-payload and take no exemption, because the exemption is the undefined branch.)</em></p>
+<em>(PROVISIONAL(standard))</em></p>
+<p><strong class="clause" id="c10.7">10.7 The external observation surface.</strong> A user interface is a plugin (6.2.3), and its
+contract with its own clients — what the antecedent corpus called <strong>signals</strong>, with an
+<code>awaitSignal</code> subscription and a per-signal <code>public</code> flag gating who may subscribe — is that
+plugin's affair, which this standard deliberately does not define (the formats companion,
+7.6.1 Note 0a, records the mapping). <strong>What is not decided is whether anything standard-level
+is owed above that</strong>: a common vocabulary for subscription gating across interface plugins,
+or nothing. What IS decided bounds the answer: control and observations remain events
+(6.1.1), optional bulk payload carriage is bounded by 6.4, no state
+query exists (4.1.1, <em>Opaque</em>), and an interface plugin observes only what sentants emit to
+it — <strong>so whatever gating is adopted gates emissions, never state.</strong> </p>
 <h2 id="bibliography">Bibliography</h2>
 <p><em>Informative.</em></p>
 <ul>
@@ -432,12 +580,12 @@ payload and take no exemption, because the exemption is the undefined branch.)</
 <li>[2] ISO/IEC Directives, Part 2, 2016</li>
 </ul>
 
-</article>
+</article></main></div>
 <footer>
     <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
     <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
     <a href="/">reality2.ai</a></p>
-    <p class="stamp">Reality2 Standard <strong>version 0.8.0</strong>, 2026-08-05. Built from <span class="mono">f5bf72b</span>, rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the version. </p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>
@@ -446,7 +594,7 @@ function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')
 var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
 if(n==='dark')document.documentElement.removeAttribute('data-theme');
 else document.documentElement.setAttribute('data-theme',n);
-localStorage.setItem('r2-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
 var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
 var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
 var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>L0 — Hardware and runtime — Reality2 Standard</title>
 <meta name="description" content="What a platform provides to the layers above: identity, storage, entropy, power.">
@@ -23,10 +24,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/standard/standard.css">
-<script>(function(){var t=localStorage.getItem('r2-theme');
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
 if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
 var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
 if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -54,18 +57,18 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         </button>
     </div>
 </nav>
-<article id="main" class="doc-page">
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#introduction">Introduction</a></li><li><a href="#1-scope">1 Scope</a></li><li><a href="#2-normative-references">2 Normative references</a></li><li><a href="#3-terms-and-definitions">3 Terms and definitions</a></li><li><a href="#4-devices-and-relaying">4 Devices and relaying</a></li><li><a href="#5-what-a-platform-provides">5 What a platform provides</a></li><li><a href="#6-isolation-at-the-trust-boundary">6 Isolation at the trust boundary</a></li><li><a href="#7-availability">7 Availability</a></li><li><a href="#8-declaring-what-a-platform-is">8 Declaring what a platform is</a></li><li><a href="#9-conformance">9 Conformance</a></li><li><a href="#10-what-is-not-decided-at-this-layer">10 What is not decided at this layer</a></li><li><a href="#bibliography">Bibliography</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
 <a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-0-hardware-and-runtime">Reality2 Standard — Layer 0: Hardware and runtime</h1>
-<p><strong>Status:</strong> Draft — <strong>this names the editorial maturity of the text, and nothing else.</strong>
+<p class="reader-kind">Normative document</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
+<p><strong>Version:</strong> 0.9.0 · <strong>Date:</strong> 2026-09-13 · <strong>Status:</strong> Draft</p>
+<p><strong>What "Draft" names here is the editorial maturity of the text, and nothing else.</strong>
 <strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
-build from it (d041, Roy: <em>standard is the canon</em>). <strong>The only text open to replacement is a value
-marked <code>PROVISIONAL(...)</code> at its own clause.</strong> <em>(Subject stated because a status field is scoped to
-a question the reader may not be asking, and a claim with an unstated subject will be given the
-subject the reader brought — composer, 2026-08-03.)</em>
-<strong>Date:</strong> 2026-08-04</p>
+build from it. <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> </p>
 <blockquote>
 <p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
-<em>can</em> = possibility and capability. <em>(Register settled by Roy, 2026-07-31.)</em></p>
+<em>can</em> = possibility and capability. </p>
 </blockquote>
 <hr />
 <h2 id="introduction">Introduction</h2>
@@ -164,7 +167,7 @@ receptive</p>
 not be presented as a device.</p>
 <p>Note 1 to entry: Such hardware attaches to a device as a peripheral. This constrains what
 may be claimed, not what may be built.</p>
-<p><em>Verification: submit a well-formed frame and one with a corrupted integrity check. A
+<p><em>Verification of 4.1.2: submit a well-formed frame and one with a corrupted integrity check. A
 conforming device accepts the first and rejects the second.</em></p>
 <span class="clause-anchor" id="c4.2"></span><h3 id="42-relaying-is-the-default-and-stopping-is-a-declaration">4.2 Relaying is the default, and stopping is a declaration</h3>
 <p><strong class="clause" id="c4.2.1">4.2.1</strong> A device shall relay frames addressed to others, except as permitted by 4.2.2.</p>
@@ -179,7 +182,7 @@ fully capable hive that happens to run on small hardware does not carry it.</p>
 indistinguishable, from every other device's position, from one that has failed. The mesh
 then spends effort routing through something that will never forward. <strong>Ceasing to relay is
 legitimate; ceasing silently is not.</strong></p>
-<p><em>Verification: transmit a frame addressed to a third party within range of the device
+<p><em>Verification of 4.2.3: transmit a frame addressed to a third party within range of the device
 under test. Either it retransmits, or its own originated frames carry the constrained-
 origin marking.</em></p>
 <span class="clause-anchor" id="c4.3"></span><h3 id="43-identity">4.3 Identity</h3>
@@ -196,9 +199,12 @@ A higher layer obtains it without knowing, and without being able to discover, w
 provides it.</p>
 <span class="clause-anchor" id="c5.1"></span><h3 id="51-transport-access">5.1 Transport access</h3>
 <p><strong class="clause" id="c5.1.1">5.1.1</strong> A platform shall provide at least one Layer 1 transport binding.</p>
-<p><strong class="clause" id="c5.1.2">5.1.2</strong> For each binding it provides, a platform shall expose operations to transmit a
-frame, to receive a frame, to configure the binding's parameters, and to place the binding
-into and out of a low-power state.</p>
+<p><strong class="clause" id="c5.1.2">5.1.2</strong> For each binding it provides, a platform shall expose operations to receive a
+frame, to configure the binding's parameters, and to place the binding into and out of a
+low-power state.</p>
+<p><strong class="clause" id="c5.1.2a">5.1.2a</strong> For each binding it provides other than a declared receive-only ingress (Layer 1,
+4.6.3), a platform shall expose an operation to transmit a frame. A receive-only ingress shall
+not expose one.</p>
 <p><strong class="clause" id="c5.1.3">5.1.3</strong> A platform having no radio hardware shall provide those operations over its
 available network transports.</p>
 <p><strong class="clause" id="c5.1.4">5.1.4</strong> No layer above shall be required to know which transport technology underlies a
@@ -208,8 +214,32 @@ externally visible by definition and there would be nothing for it to be visible
 <p>Note 2 to entry: 5.1.3 is what makes a platform with no radio an ordinary participant
 rather than a special case. The same requirement, differently arranged, would have produced
 a standard with a permanent exception in it.</p>
-<p><em>Verification: exercise transmit and receive on each declared binding through the
+<p><em>Verification of 5.1.4: exercise transmit and receive on each declared binding through the
 abstraction, with no reference in the calling code to the underlying technology.</em></p>
+<p>Note 3 to entry: <strong>A transport binding is a consumer of the platform adaptation, not a
+plugin.</strong> The adaptation owns the physical details that make a radio work — the selected
+peripheral, pins, bus, interrupt, power, antenna and any RF-control sequence — and the
+binding exposes only Layer 1 operations above that seam. A plugin may require a bearer or an
+established data service to be available (<a href="L7-application.html#c6.3.3">Layer 7, 6.3.3</a>), but it does not own the medium.
+Conversely, a physical
+peripheral whose observations or actions are consumed by a sentant enters through a
+plugin-sourced event (<a href="L7-application.html#c6.1.3">Layer 7, 6.1.3</a>). Thus two images on the same board can have different
+adaptations without teaching Layer 1 or a sentant about a board name or pin assignment.</p>
+<p>Note 4 to entry: A plugin may consume a declared data service after the binding or platform
+has established it, but the plugin supplies or consumes payload rather than owning the
+medium. The binding retains radio configuration, frame admissibility, airtime and connection
+lifecycle. Plugin control and results follow the ordinary-event contract of Layer 7,
+6.1.1. Payload follows the ordinary-frame contract or an explicitly selected declared
+bulk service under <a href="L7-application.html#c6.4">Layer 7, 6.4</a>; egress data follows that layer's separate declared
+egress path. A bulk service consumes platform facilities through their named
+contracts and does not redefine the Reality2 binding or acquire its peripheral.</p>
+<p>Note 5 to entry: An implementation may assemble a firmware image from only the facilities it
+needs. An omitted facility is absent from that image, not an inactive promise of one: an image
+does not declare a binding, capability or higher-layer role that it did not include and cannot
+perform. This permits a constrained image to be a reusable platform adaptation, peripheral
+endpoint or partial profile without making a conformant Reality2 platform's stated obligations
+optional. Composition is an implementation choice; the declaration remains the evidence of
+what the resulting image actually provides.</p>
 <span class="clause-anchor" id="c5.2"></span><h3 id="52-a-monotonic-time-source">5.2 A monotonic time source</h3>
 <p><strong class="clause" id="c5.2.1">5.2.1</strong> A platform shall provide a monotonic time source (3.5) with a resolution of one
 second or finer.</p>
@@ -220,7 +250,7 @@ shall not require its value to be comparable with any other platform's.</p>
 neighbour was heard, how stale a path has become. A counter starting at zero on each start
 satisfies every such use. <strong>Requiring more would have excluded the platforms Reality2 most
 wants to include, in exchange for nothing.</strong></p>
-<p><em>Verification: read the source twice with a delay between reads. The second value is not
+<p><em>Verification of 5.2.3: read the source twice with a delay between reads. The second value is not
 less than the first, and the difference corresponds to the interval elapsed.</em></p>
 <blockquote>
 <p><strong>Not specified: what happens across loss of power.</strong> Whether the source resumes, resets,
@@ -237,7 +267,7 @@ storage.</p>
 <p>Note 1 to entry: Membership of a trust group is durable, and re-establishing it requires a
 person. A platform that forgets its key material when power is removed cannot rejoin
 unattended, whatever else it can do.</p>
-<p><em>Verification: write, remove power, restore power, read back.</em></p>
+<p><em>Verification of 5.3.3: write, remove power, restore power, read back.</em></p>
 <span class="clause-anchor" id="c5.4"></span><h3 id="54-dynamic-memory-where-it-is-needed">5.4 Dynamic memory, where it is needed</h3>
 <p><strong class="clause" id="c5.4.1">5.4.1</strong> A platform hosting Layer 5 or above shall provide a dynamic memory allocator.</p>
 <p><strong class="clause" id="c5.4.2">5.4.2</strong> A platform hosting no layer above Layer 4 need not provide one.</p>
@@ -245,7 +275,7 @@ unattended, whatever else it can do.</p>
 allocation and fixed-size buffers alone. <strong>This is a deliberate constraint on those layers,
 not an accident of them being simple</strong> — it is what allows the smallest hardware to carry
 mesh traffic for everyone else.</p>
-<p><em>Verification: exercise a platform through Layers 1 to 4 with dynamic allocation disabled.</em></p>
+<p><em>Verification of 5.4.2: exercise a platform through Layers 1 to 4 with dynamic allocation disabled.</em></p>
 <span class="clause-anchor" id="c5.5"></span><h3 id="55-random-numbers-where-keys-are-made">5.5 Random numbers, where keys are made</h3>
 <p><strong class="clause" id="c5.5.1">5.5.1</strong> A platform generating key material shall provide a cryptographically secure
 random number generator.</p>
@@ -262,17 +292,11 @@ running</em>.</strong> Measured from vendor source: its hardware generator produ
 minting its persona at first boot <strong>before</strong> starting a radio produces a perfectly well-formed
 32-byte identity from a pseudo-random source. <strong>Nothing errors, nothing is malformed, and the
 device is weak for its whole life.</strong></p>
-<p>Note 1 to entry: <strong>No conformance test that inspects the result can see this</strong>, which is why
-the obligation is on the <em>moment</em> rather than on the output: <strong>the output of a weak generator
-and a strong one are indistinguishable by inspection</strong>, so a negative control is not
-constructible here at all (<a href="01-terminology.html#c4.5"><code>01-terminology.md</code> 4.5</a>). <strong>The practical consequence an
-implementer will not otherwise derive: the radio starts before trust boots.</strong> <em>(Added
-2026-08-02, <code>PROVISIONAL(supervisor)</code>, finding SS213, from an implementation that read 5.5.2
-correctly, answered it correctly, and would still have minted a weak identity.)</em></p>
+<p>Note 1 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p>Note 1 to entry: 5.5.2 and 4.3.2 are one rule seen from two sides. <strong>A platform without
 adequate entropy does not improvise</strong> — it receives key material made where there was
 enough.</p>
-<p><em>Verification: identify the entropy source behind the generator. A generator seeded from a
+<p><em>Verification of 5.5.1: identify the entropy source behind the generator. A generator seeded from a
 value fixed at build time, from the device identity, or from the monotonic time source
 alone does not satisfy 5.5.1.</em></p>
 <span class="clause-anchor" id="c5.6"></span><h3 id="56-sensors-and-peripherals">5.6 Sensors and peripherals</h3>
@@ -284,22 +308,36 @@ not report an error.</p>
 <p>Note 1 to entry: The distinction in 5.6.2 carries weight. <em>Unsupported</em> is a fixed property
 of the platform, which a higher layer can act on once and remember. <em>Error</em> is a passing
 condition, which a higher layer will retry — for as long as it keeps being told to.</p>
-<p>Note 2 to entry: This clause is <strong>known thin</strong>, and the thinness is now a recorded gap
-rather than a settled scope: the working corpus carries a hardware-capability registry
-contract this document never absorbed — a namespace of capability tokens with binding
-kinds, role-sets under a disjoint-union invariant, and a fail-closed rule that an
-unlisted token grounds nothing — machinery that is CI-wired and consumed today. Whether
-it enters this document, a companion, or stays implementation territory is register item
-Q38 (found by the provenance audit, 2026-08-01).</p>
-<p>Note 3 to entry: <strong>Note 2's gap has since been measured from the implementing side, and the
-indicator row is the worked example.</strong> Three capability names for one hardware function were
-found in use in one catalogue, <strong>one of them with no provider at all and appearing only in
-requirement position</strong> — an ensemble requiring a capability nothing supplied. <strong><a href="FORMATS.html"><code>FORMATS.md</code></a>
-Clause 6 holds no indicator contract</strong>, so by 6.1 all three names are <em>deployment-local and
-carry no interop claim</em>, however established one of them looks. <strong>The consequence to state
-here is that a hardware function every board image is obliged to carry has no agreed name</strong>,
-and the standard is silent rather than permissive about it — the silence is Q38's, not a
-licence. <em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, on composer-lane measurement.)</em></p>
+
+<p>Note 3 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(standard)</code>.</p>
+<p>Note 4 to entry: A platform adaptation may make one physical capability available on one
+board image and unavailable on another, even where both use the same processor. A sentant
+does not select pins or board variants: its score names the plugin capability, the hive
+registers a provider only where the adaptation can supply it, and the provider reports its
+result as an event. This is the same boundary for sensors, clocks, positioning receivers,
+storage-backed peripherals, displays and actuators. A device carrying Reality2 frames is
+instead the transport facility of 5.1, even where the device itself is attached through a
+serial or SPI peripheral.</p>
+<p>Note 4a to entry: <strong>The complete L0-to-plugin path is deliberately asymmetric:</strong></p>
+<pre class="text"><code>sentant --L7 event--&gt; plugin --named L0 capability contract--&gt; platform adaptation
+platform adaptation --capability outcome--&gt; plugin --L7 plugin-sourced event--&gt; sentant</code></pre>
+<p>The adaptation owns the board-specific operation throughout: its pins, bus or bus-sharing,
+power sequence, vendor driver, timing and physical failure. The plugin owns the capability's
+event and command contract; it may invoke only the named L0 operation and may expose an
+observation, completion or failure to a sentant only as a plugin-sourced event. The adaptation
+does not know which plugin or sentant caused an operation and does not emit an L7 event itself.
+No L5 key, delivery verdict or management credential crosses this interface: an incoming event
+has already reached the plugin through the layers above it, while a physical observation is not
+thereby a trust assertion. Thus a radar, RTC, GNSS, IMU, environmental sensor, display or
+actuator can be exchanged for another board adaptation without changing a score or teaching a
+plugin a board name. A radio carrying Reality2 frames remains on the separate L0-to-L1 path of
+5.1; a plugin can consume only an already-established data service, never configure or schedule
+that radio.</p>
+<p>Note 5 to entry: A reusable implementation separates portable contracts and device semantics
+from a board adaptation. The former may be combined in more than one image; the latter binds
+only the processor, wiring, power and peripheral access that a particular image has. Selecting
+a smaller image removes facilities and their dependencies rather than teaching portable code a
+board-specific special case.</p>
 <span class="clause-anchor" id="c5.7"></span><h3 id="57-applying-a-firmware-image">5.7 Applying a firmware image</h3>
 <p><strong class="clause" id="c5.7.1">5.7.1</strong> A platform shall provide the means by which a validated firmware image is applied
 to it.</p>
@@ -321,7 +359,7 @@ the hardware beneath it.</p>
 <p>Note 1 to entry: A platform difference visible above this boundary is a defect in the
 platform adaptation. It is never a property of Reality2, and it is never a reason for a
 higher layer to acquire a special case.</p>
-<p><em>Verification: a conformance suite for any higher layer passes unmodified on two platforms
+<p><em>Verification of 5.8.2: a conformance suite for any higher layer passes unmodified on two platforms
 in different capability classes.</em></p>
 <span class="clause-anchor" id="c6"></span><h2 id="6-isolation-at-the-trust-boundary">6 Isolation at the trust boundary</h2>
 <p><strong>The trust boundary lies between Layer 4 and Layer 5.</strong> Where a platform hosts both sides
@@ -345,8 +383,8 @@ secret.</strong></p>
 for groups it is not a member of and could not join, because the code doing the relaying
 was never able to reach anything that would let it. <strong>The property is structural, and it is
 what "shared mesh, private data" means in practice.</strong></p>
-<p><em>Verification: enumerate what the below-boundary code depends on. A dependency reaching any
-item in 6.1 a) to c) is non-conforming whether or not it is exercised while running.</em></p>
+<p><em>Verification of 6.1: enumerate what the below-boundary code depends on. A dependency
+reaching any item in 6.1 a) to c) fails that clause whether or not it is exercised while running.</em> </p>
 <span class="clause-anchor" id="c7"></span><h2 id="7-availability">7 Availability</h2>
 <p><strong class="clause" id="c7.1">7.1</strong> A platform shall declare itself always-on or duty-cycled (3.7).</p>
 <p><strong class="clause" id="c7.2">7.2</strong> A duty-cycled platform shall not assume any peer is receptive outside a wake window
@@ -356,11 +394,7 @@ wake periods, the longest permitted, and the shortest it may adopt without being
 to.</p>
 <p><strong class="clause" id="c7.4">7.4</strong> A duty-cycled platform shall not adopt an interval shorter than the shortest
 permitted, whatever instruction it receives.</p>
-<p>Note 1 to entry: The three intervals in 7.3 are different quantities with different owners.
-The first protects the energy source and belongs to whoever deployed the hardware. The
-second bounds how stale the data may become and belongs to whoever depends on it. The third
-is the limit of the platform's own discretion. <strong>Collapsing them into one number loses the
-ability to say which one was violated.</strong></p>
+
 <p>Note 2 to entry: The declaration required by 7.1 is what lets the routing layer hold a
 frame for a platform that is asleep instead of treating it as unreachable. <strong>A sleeping
 device and a failed device are indistinguishable without it</strong>, and the mesh will treat both
@@ -368,7 +402,15 @@ as failed.</p>
 <p>Note 3 to entry: Availability and energy state are separate declarations. A platform whose
 energy supply is healthy can still be duty-cycled, and a platform running low on energy is
 not thereby duty-cycled.</p>
-<p><em>Verification: instruct the platform to adopt an interval shorter than its stated shortest
+<p>Note 4 to entry: Availability is an operating promise, not a taxonomy of boards. A platform
+declared duty-cycled may remain receptive throughout an awake interval and later use a wake
+interval within the limits it declared; a platform declared always-on has made the opposite
+promise and cannot turn its receiver off merely as an energy optimisation. A deployment that
+needs the option to conserve power therefore declares the duty-cycled profile before peers
+are asked to rely on it. The beacon's duty class states the hive's current receptive behaviour;
+a peer that misses the change has only the ordinary fade evidence, never permission to assume
+the old behaviour persists.</p>
+<p><em>Verification of 7.4: instruct the platform to adopt an interval shorter than its stated shortest
 permitted. A conforming platform does not adopt it.</em></p>
 <span class="clause-anchor" id="c8"></span><h2 id="8-declaring-what-a-platform-is">8 Declaring what a platform is</h2>
 <span class="clause-anchor" id="c8.1"></span><h3 id="81-the-declaration">8.1 The declaration</h3>
@@ -376,23 +418,15 @@ permitted. A conforming platform does not adopt it.</em></p>
 <p><strong class="clause" id="c8.1.2">8.1.2</strong> A platform declaration shall state a value for every parameter in 8.2.</p>
 <p><strong class="clause" id="c8.1.3">8.1.3</strong> A platform declaration shall not identify a class by a product name, a board name
 or a vendor name.</p>
-<p>Note 0 to entry: <strong>The declaration answers one question: what must a platform tell the
-layers above it, and why must they be told rather than assume?</strong> Every parameter is here
-because some other part of this standard makes a decision that is wrong without it — not
-because the parameter describes something interesting about hardware. <strong>Parameters P9 to
-P13 and subclauses 8.5 and 8.6 were drafted as one piece</strong> after six independent findings,
-from three implementations and two platforms, each arrived at the same clause from a
-different direction (SS61, SS68, SS90, SS113, SS115, SS135). <strong>That convergence is the
-evidence the question is real</strong>: a declaration assembled one finding at a time becomes a
-list of accidents, and six parties needing the same clause is a different fact from six
-parties each wanting a field.</p>
+<p>Note 0a to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(standard)</code>.</p>
+
 <p>Note 1 to entry: A declaration naming a product ceases to be checkable when the product
 changes, and says nothing to anyone who does not have one. <strong>A declaration in parameters
 can be checked by someone holding different hardware entirely</strong> — which is the only kind of
 check this standard can require.</p>
 <span class="clause-anchor" id="c8.2"></span><h3 id="82-parameters">8.2 Parameters</h3>
 <p><strong class="clause" id="c8.2.1">8.2.1</strong> A platform declaration shall state:</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: #, Parameter, Stated as"><table>
 <thead>
 <tr>
 <th>#</th>
@@ -413,8 +447,8 @@ check this standard can require.</p>
 </tr>
 <tr>
 <td>P3</td>
-<td>Transports</td>
-<td>the Layer 1 bindings provided, by technology</td>
+<td>Transport bindings</td>
+<td>the Layer 1 bindings provided, by technology; and, where a binding document requires platform-selected binding parameters, that binding's parameter declaration</td>
 </tr>
 <tr>
 <td>P4</td>
@@ -468,6 +502,19 @@ check this standard can require.</p>
 </tr>
 </tbody>
 </table></div>
+<p><strong class="clause" id="c8.2.1a">8.2.1a</strong> Where a binding document requires a P3 binding-parameter declaration, the
+platform declaration shall carry one for that binding. It shall name the binding, a
+reverse-DNS parameter-schema identifier owned by the schema publisher, the schema version,
+and the complete canonical parameter value that version defines.</p>
+<p><strong class="clause" id="c8.2.1b">8.2.1b</strong> A P3 binding-parameter declaration shall state transport behaviour only. It shall
+not expose board wiring, pins, buses, chip registers, vendor-stack types, or another
+physical adaptation beneath the binding.</p>
+<p>Note 3 to entry: P3 is the construction boundary between a platform adaptation and a
+portable binding. A value such as a BLE advertising interval belongs here because it changes
+the binding behaviour a higher layer can rely on. A GPIO number or an HCI handle does not:
+it explains how one board obtains that behaviour and is not a portable binding fact. The
+schema identifier is reverse-DNS so an external binding publisher owns its own namespace;
+<code>ai.reality2.…</code> is not a namespace external implementers borrow.</p>
 <p><strong class="clause" id="c8.2.2">8.2.2</strong> An energy or duration figure stated for a platform shall name the parameter
 values it was measured or calculated against.</p>
 <p>Note 1 to entry: P2 separates a hardware capability from a fact about software on purpose.
@@ -478,13 +525,13 @@ be read as though it does.</p>
 all. An obligation counted from a known start is satisfiable while powered; an obligation
 fixed to an absolute point in time is not satisfiable on a platform whose timebase does not
 survive power loss. <em>(Clause 10.)</em></p>
-<p><em>Verification: an energy or duration figure naming no parameter values, and a declaration
+<p><em>Verification of 8.2.2: an energy or duration figure naming no parameter values, and a declaration
 omitting any parameter, are each non-conforming. Neither can be checked by anyone outside
 the organisation that wrote it.</em></p>
 <span class="clause-anchor" id="c8.3"></span><h3 id="83-capability-classes">8.3 Capability classes</h3>
 <p><strong class="clause" id="c8.3.1">8.3.1</strong> A platform whose declaration satisfies the values below is in the corresponding
 capability class.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Class, P1 memory, P1 storage, P6 highest layer"><table>
 <thead>
 <tr>
 <th>Class</th>
@@ -533,10 +580,11 @@ capability class.</p>
 </tbody>
 </table></div>
 <p><strong class="clause" id="c8.3.2">8.3.2</strong> A platform in a capability class shall provide at least the following capacities.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Structure, Specified at, Class 1, and the Layer 1–4 part of class 2, Classes 3 and 4, and the Layer 5–7 part of class 2"><table>
 <thead>
 <tr>
 <th>Structure</th>
+<th>Specified at</th>
 <th>Class 1, and the Layer 1–4 part of class 2</th>
 <th>Classes 3 and 4, and the Layer 5–7 part of class 2</th>
 <th>Class 5</th>
@@ -545,24 +593,36 @@ capability class.</p>
 <tbody>
 <tr>
 <td>Deduplication cache</td>
+<td><a href="L3-routing.html#c5.3">Layer 3, 5.3</a> — as the <strong>duplicate-suppression record</strong></td>
 <td>128 entries</td>
 <td>4 096 entries</td>
 <td>1 024 entries</td>
 </tr>
 <tr>
 <td>Neighbour table</td>
+<td>Layer 3, Clause 4</td>
 <td>32 entries</td>
 <td>256 entries</td>
 <td>64 entries</td>
 </tr>
 <tr>
 <td>Packet log</td>
+<td><strong>nowhere — see Note 1a</strong></td>
 <td>256 entries</td>
 <td>unbounded</td>
 <td>1 024 entries</td>
 </tr>
 </tbody>
 </table></div>
+
+<p><strong>The packet log is a different and worse state, and the pointer column says so rather than
+being left blank: over the fourteen documents of this standard the phrase occurs exactly
+once — in the row above.</strong> Nothing states its purpose, its contents, its writer, its reader
+or its retention. <strong>The obligation is therefore satisfiable without being meaningful</strong>: an
+implementation can allocate 256 entries of anything and pass the verification line below,
+which measures allocated capacity. <strong>Whether the row is specified or withdrawn is not decided
+here</strong> — inventing the contents to justify the number would be the worse of the two errors.
+<em>(PROVISIONAL(standard))</em></p>
 <p><strong class="clause" id="c8.3.3">8.3.3</strong> A platform satisfying the values of more than one class may declare any of them,
 and shall meet 8.3.2 for the class it declares.</p>
 <p><strong class="clause" id="c8.3.4">8.3.4</strong> Where a platform in class 2 runs Layers 1 to 4 and Layers 5 to 7 on separate
@@ -578,17 +638,18 @@ stated at Layer 5.</p>
 <p>Note 3 to entry: <strong>The classes are thresholds, and 8.3.3 says so directly.</strong> A platform is
 not in class 1 because of what it is made of; it is in class 1 because of what it declared.
 Anything meeting class 3's values is in class 3.</p>
-<p><em>Verification: measure the allocated capacity of each structure. A neighbour table below
-the stated minimum is non-conforming even where no deployment has yet filled one.</em></p>
+<p><em>Verification of 8.3.2: measure the allocated capacity of each structure. A neighbour table
+below the capacity 8.3.2 requires of the platform's class fails that clause, even where no
+deployment has yet filled one.</em> </p>
 <span class="clause-anchor" id="c8.4"></span><h3 id="84-form-of-the-declaration">8.4 Form of the declaration</h3>
 <p><strong class="clause" id="c8.4.1">8.4.1</strong> A platform declaration shall be published in a form a third party can read
 without possessing the platform.</p>
 <p>The following form satisfies 8.1 and 8.2. It is illustrative and not the only permitted
 form.</p>
-<pre><code>platform-declaration: 1
+<pre tabindex="0" aria-label="Code or test vector"><code>platform-declaration: 1
   P1  memory: 512 MB          storage: 4 GB
   P2  low-power-state-implemented: yes
-  P3  transports: [lora, ble, wifi]
+  P3  transports: [lora, wifi]
   P4  peripheral-power-gated: yes
   P5  timebase-survives-power-loss: no
   P6  highest-layer-hosted: 7
@@ -626,19 +687,7 @@ equally unavailable. The instance: a hive hosted in a browser without persistent
 for which <strong>a page reload is a loss of power</strong>, so it cannot hold a persona across one. It
 is a legitimate hive and it cannot meet 5.3. <strong>A standard that cannot say so gets told
 nothing</strong>, and the layers above it discover the shortfall by failing.</p>
-<p>Note 1a to entry: <strong>The warrant for 8.5 is a night of measurement, not the browser case
-above.</strong> On 2026-08-02 this standard's implementing lanes found six platform facts that
-changed clauses — a slot geometry with no floor, a write boundary no layer required
-declaring, an image that could not be read back, verification covering a payload and not
-the substrate beneath it, a boot path that manufactures an update record, and a checksum
-covering one field of a record and not another. <strong>Every one had to be discovered by
-measurement</strong> — a partition table grepped, a vendor source read, a checksum's scope traced
-through header comments — and <strong>none of them could have been read off a platform
-declaration</strong>, because the declaration could describe only what a platform <strong>has</strong>. The
-facts that mattered were all of the form <em>this platform cannot</em>, and there was <strong>no place in
-the declaration for a sentence of that shape.</strong> <em>(Rationale added 2026-08-02,
-<code>PROVISIONAL(supervisor)</code>; the clause it justifies is 8.5, findings SS61, SS68, SS90,
-SS113, SS115, SS135.)</em></p>
+<p>Note 1a to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p>Note 2 to entry: 8.5.2 is the load-bearing half. <strong>A shortfall stated without its
 consequences reads as a small omission</strong>, and the reader who needs it is the one deciding
 whether to deliver a persona, an update, or a key to that platform. Naming the obligations
@@ -664,17 +713,7 @@ cross — partition handles, a protection region, separate storage. On a platfor
 storage is one flat writable space to all on-device software it <strong>cannot be satisfied by
 construction at all</strong>, only by convention, which 4.2.2 rejects. Before P10 the standard was
 silent on which platforms were which, so both kinds claimed the same conformance.</p>
-<p>Note 3 to entry: <strong>8.6.3 answers a measured case rather than a hypothetical one.</strong> On a
-dominant embedded platform, in the layout the reference board uses, the boot path
-<strong>constructs and writes an image-position record where it finds none</strong> — correct,
-documented behaviour — so the <em>no valid record</em> condition exists for less than one boot and
-<strong>never reaches the application at all.</strong> A clause requiring such a platform to report that
-condition would be requiring something it structurally cannot do. <strong>The resolution is not to
-weaken the requirement but to make the platform say so and require a second source</strong>:
-P13 declares it, and 5.4.2b's corroboration of the record against the slots is that second
-source. <a href="01-terminology.html#c5.4"><code>01-terminology.md</code> 5.4</a> arriving as a conformance requirement rather than as
-advice. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; findings SS61, SS68, SS90, SS113,
-SS115, SS135.)</em></p>
+<p>Note 3 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p>Note 4 to entry: <strong>What this subclause deliberately does not add.</strong> A seventh parameter is
 implied by the same evidence — <em>which fields of a platform's own records its validity check
 covers</em>, after a vendor format was measured whose checksum covers a record's sequence and
@@ -687,7 +726,7 @@ the three classes of <a href="01-terminology.html"><code>01-terminology.md</code
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(PROVISIONAL(supervisor))</em></p>
 <p><strong class="clause" id="c9.1">9.1</strong> A platform conforms to this document where it:</p>
 <p>a) meets Clause 4;</p>
 <p>b) provides every facility of Clause 5 that its declaration requires of it;</p>
@@ -748,12 +787,12 @@ when this settles, both clauses move together.)</em></p>
 <li>[2] ISO/IEC Directives, Part 2, 2016</li>
 </ul>
 
-</article>
+</article></main></div>
 <footer>
     <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
     <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
     <a href="/">reality2.ai</a></p>
-    <p class="stamp">Reality2 Standard <strong>version 0.8.0</strong>, 2026-08-05. Built from <span class="mono">f5bf72b</span>, rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the version. </p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>
@@ -762,7 +801,7 @@ function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')
 var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
 if(n==='dark')document.documentElement.removeAttribute('data-theme');
 else document.documentElement.setAttribute('data-theme',n);
-localStorage.setItem('r2-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
 var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
 var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
 var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];

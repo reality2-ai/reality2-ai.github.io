@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L1 binding — BLE — Reality2 Standard</title>
+<meta name="description" content="The bearer binding for Bluetooth Low Energy: ordinal 0, its GATT carriage, its advertising marker, its rotating address and its connection lifecycle.">
+<link rel="canonical" href="https://reality2.ai/standard/L1-BINDING-BLE.html">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0e0e12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Reality2">
+<meta property="og:title" content="L1 binding — BLE — Reality2 Standard">
+<meta property="og:description" content="The bearer binding for Bluetooth Low Energy: ordinal 0, its GATT carriage, its advertising marker, its rotating address and its connection lifecycle.">
+<meta property="og:url" content="https://reality2.ai/standard/L1-BINDING-BLE.html">
+<meta property="og:image" content="https://reality2.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/standard/standard.css">
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
+if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
+var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
+if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<span id="theme-status" class="sr-only" aria-live="polite"></span>
+<nav aria-label="Main navigation">
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;color:inherit">
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" aria-hidden="true"><path d="M256 52L420 147V337L256 432L92 337V147Z" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" opacity="0.8"/></svg>
+        Reality2</a>
+    </div>
+    <button class="menu-toggle" onclick="var l=document.querySelector('nav .links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'))" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="links" id="nav-menu">
+        <a href="/standard/">Contents</a>
+        <a href="/standard/glossary.html">Glossary</a>
+        <a href="/standard/clauses.html">Clauses</a>
+        <a href="/about.html">About</a>
+        <a href="/how.html">How it works</a>
+        <a href="https://github.com/reality2-ai">GitHub</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-hc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20" stroke-width="2"/></svg>
+        </button>
+    </div>
+</nav>
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#1-scope-and-what-is-deliberately-not-here">1 Scope, and what is deliberately not here</a></li><li><a href="#2-b-how-a-frame-is-placed-in-a-transport-unit">2 b) How a frame is placed in a transport unit</a></li><li><a href="#3-c-the-discovery-marker">3 c) The discovery marker</a></li><li><a href="#4-d-medium-address-to-canonical-hive-identifier">4 d) Medium address to canonical hive identifier</a></li><li><a href="#5-the-announcement-and-e-the-payload-it-must-fit-in">5 The announcement, and e) the payload it must fit in</a></li><li><a href="#6-j-the-build-mode-declaration">6 j) The build-mode declaration</a></li><li><a href="#6a-f-how-the-quality-value-is-derived">6a f) How the quality value is derived</a></li><li><a href="#6b-g-the-conditions-producing-each-state">6b g) The conditions producing each state</a></li><li><a href="#6c-h-duty-cycle-and-airtime-budget">6c h) Duty cycle and airtime budget</a></li><li><a href="#6d-i-the-connection-lifecycle-and-the-silence-period">6d i) The connection lifecycle and the silence period</a></li><li><a href="#7-what-this-closes-what-it-narrows-and-what-it-leaves-open">7 What this closes, what it narrows, and what it leaves open</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
+<a class="back-link" href="/standard/">← Contents</a><h1 id="reality2--layer-1-binding-bluetooth-low-energy-ble-ordinal-0">Reality2 — Layer 1 binding: Bluetooth Low Energy (<code>ble</code>, ordinal 0)</h1>
+<p class="reader-kind">Normative document</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
+<p><strong>Version:</strong> 0.9.0 · <strong>Date:</strong> 2026-09-03 · <strong>Status:</strong> <code>PROVISIONAL(standard)</code> · <strong>Scope:</strong> this bearer only</p>
+<blockquote>
+<p>⚠ <strong>This is a binding document under Layer 1, Clause 11.</strong> It states what that clause
+defers to a binding and <strong>restates no requirement of Layer 1</strong> (11.2). Where it appears to
+repeat a rule, it is citing the clause that governs and saying what this medium does about
+it.</p>
+</blockquote>
+<blockquote>
+<p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> =
+permission · <em>can</em> = possibility and capability.</p>
+</blockquote>
+
+<hr />
+<span class="clause-anchor" id="c1"></span><h2 id="1-scope-and-what-is-deliberately-not-here">1 Scope, and what is deliberately not here</h2>
+<p><strong class="clause" id="c1.1">1.1</strong> This document binds <strong>Bluetooth Low Energy</strong> to bearer ordinal <strong>0</strong> (<code>ble</code>), whose
+registry row <a href="L1-transport.html#c8.2.1">Layer 1, 8.2.1</a> fixes: reach <em>proximity</em>, wire tier <em>compact</em>, largest payload
+<strong>200 B</strong>, relative cost <strong>1</strong>.</p>
+<p><strong class="clause" id="c1.2">1.2</strong> It states items <strong>b)</strong> in Clause 2, <strong>c)</strong> in Clause 3, <strong>d)</strong> in Clause 4, <strong>e)</strong> in
+5.1, <strong>j)</strong> in Clause 6, <strong>f)</strong> in 6a, <strong>g)</strong> in 6b, <strong>h)</strong> in 6c and <strong>i)</strong> in 6d. <strong>Item a)
+is fixed by the registry row.</strong> All ten items are stated, and none by a pointer. <strong>Layer 1,
+11.1a — the role-concurrency obligation, which applies to a medium with a central and a
+peripheral and therefore to this one — is stated in 2a</strong>, and its conformance test is Layer 1,
+12.4.</p>
+<p><strong class="clause" id="c1.2a">1.2a</strong> This document <strong>does not share its ordinal</strong> with another binding, so 11.1 a)'s
+second half — which properties make two bindings indistinguishable above Layer 1 — has no
+subject here. <em>Stated rather than omitted: 8.2.4 permits the sharing, so its absence is a
+fact about this binding and not about the registry.</em></p>
+<p><strong class="clause" id="c1.3">1.3 ⚠ This is the second binding in the corpus, and the first whose medium holds
+connections.</strong> ESP-NOW reaches its peers by a local table entry that the far end never
+participates in, which Layer 1, 10 Note 3 rules <strong>is not a connection for that clause</strong>. A
+BLE link is bilateral, is lost by elapsed silence, and is re-established after loss — <strong>so
+Clause 10 applies here in full, for the first time in this corpus</strong>, and 6d states it.
+<em>One consequence follows in 6d: <code>SS2</code> acquires its first real instance. Note that Clause 7's
+profile is a closed list of eight parameters with <strong>no connection block</strong> — which is precisely
+what <code>SS2</code> is about, and why 6d states the two values rather than pointing at a field.</em></p>
+<p><strong class="clause" id="c1.4">1.4 Out of scope, named rather than left silent:</strong></p>
+<ul>
+<li><strong>Bluetooth BR/EDR (classic).</strong> This binding is Low Energy only. BR/EDR is a different
+medium with a different framing and holds no ordinal in the registry.</li>
+<li><strong>Legacy advertising.</strong> 5.2.3 states the arithmetic that excludes it and the version floor
+that follows. <em>It is excluded by measurement rather than by preference.</em></li>
+<li><strong>Bonding, pairing and the Security Manager.</strong> BLE's own key agreement is <strong>not used by
+this binding</strong> and is neither required nor forbidden: everything this standard protects is
+protected end-to-end above Layer 4, and a link-layer key would authenticate a <em>radio</em> where
+Layer 5 authenticates a <em>hive</em>. See 4.5.</li>
+<li><strong>The class-hash algorithm.</strong> As for the ESP-NOW binding, it is a stated dependency of the
+announcement and not a choice made here (<code>SS1</code>).</li>
+<li><strong>The bridge of a complex hive.</strong> <a href="01-terminology.html#c4.1"><code>01-terminology.md</code> 4.1</a>'s bridge is not a bearer and
+takes no ordinal; a hive whose parts are joined over BLE is joined by a bridge, and this
+document does not govern it (<code>SS385</code>).</li>
+<li><strong>Every other bearer</strong>, on the ordinary per-bearer rule. <em><a href="L1-BINDING-LORA.html"><code>L1-BINDING-LORA.md</code></a> was written
+the same day and binds ordinal 2; the two share an announcement body in its first three
+elements and nothing else.</em></li>
+</ul>
+<hr />
+<span class="clause-anchor" id="c2"></span><h2 id="2-b-how-a-frame-is-placed-in-a-transport-unit">2 b) How a frame is placed in a transport unit</h2>
+<p><strong class="clause" id="c2.1">2.1</strong> A frame <strong>shall</strong> be carried as the value of a single GATT characteristic operation,
+one frame per operation, with no wrapper, prefix or padding added by this binding.</p>
+<p><strong class="clause" id="c2.2">2.2</strong> A hive <strong>shall</strong> expose the <strong>Reality2 transport service</strong>, whose UUID 3.1 fixes,
+containing exactly two characteristics:</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Characteristic, UUID, Properties, Direction"><table>
+<thead>
+<tr>
+<th>Characteristic</th>
+<th>UUID</th>
+<th>Properties</th>
+<th>Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>inbound</td>
+<td><code>52324e54-0002-4000-8000-52324e540001</code></td>
+<td>Write Without Response</td>
+<td>to the hive exposing the service</td>
+</tr>
+<tr>
+<td>outbound</td>
+<td><code>52324e54-0003-4000-8000-52324e540001</code></td>
+<td>Notify</td>
+<td>from the hive exposing the service</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong class="clause" id="c2.3">2.3</strong> A hive <strong>shall</strong> be able to act as GATT server and as GATT client, and <strong>shall not</strong>
+require a peer to take a particular one of those roles before frames can be exchanged in
+either direction. <em><a href="L1-transport.html#c3.1">Layer 1, 3.1</a> makes a bearer symmetric between hives; BLE is not symmetric
+between a central and a peripheral, and 2.3 is what stops that asymmetry reaching upward.</em></p>
+<p><strong class="clause" id="c2.4">2.4</strong> Transport units <strong>are delimited by the medium</strong> and this binding adds nothing: the
+ATT operation carries its own length, and the second half of 11.1 b) — how transport units
+are delimited where the medium does not delimit them — <strong>has no subject here.</strong></p>
+<p><strong class="clause" id="c2.5">2.5</strong> A hive <strong>shall not</strong> reassemble a frame from more than one characteristic operation.
+A frame that does not fit one operation is not carried (5.1.3).</p>
+<p>Note 1 to entry: <strong>GATT rather than an L2CAP credit-based channel, and the reason is
+availability rather than fitness.</strong> A credit-based channel is the better mechanism on its
+merits — it segments, it flow-controls, and it carries a service data unit larger than any
+frame this bearer admits. It is also unavailable or awkward on platforms this bearer exists
+to reach. <strong>A binding that two implementations cannot both satisfy has not bound anything</strong>,
+so the common mechanism is chosen and the better one is recorded here as what a later
+revision would take if the ground changed.</p>
+<p>Note 2 to entry: <strong>2.5 is a refusal to invent fragmentation.</strong> <a href="L4-wire.html#c6.2">Layer 4, 6.2</a> forbids any layer
+to fragment, and a binding that reassembled across operations would be fragmenting under
+another name — <em>the frame would arrive whole, and the fact that it did would be this
+document's doing rather than the sender's.</em></p>
+<h3 id="2a-the-role-concurrency-obligation-layer-1-111a">2a The role-concurrency obligation (<a href="L1-transport.html#c11.1a">Layer 1, 11.1a</a>)</h3>
+<p><strong>2a.1</strong> A conforming hive <strong>shall</strong> support the <strong>central and peripheral roles at the same
+time</strong>: it shall advertise and accept an inbound connection while an outbound connection
+attempt of its own is in progress.</p>
+<p><strong>2a.2</strong> Where two hives attempt to reach each other at the same moment, the yield rule
+<strong>shall</strong> be: <strong>the hive whose current medium address (4.1) is numerically lower, compared as
+a big-endian 48-bit unsigned integer, abandons its outbound attempt and accepts the inbound
+one.</strong> The other <strong>shall</strong> continue its attempt.</p>
+<p><strong>2a.3</strong> A hive <strong>shall not</strong> refuse an inbound connection on the ground that an outbound
+attempt is in progress.</p>
+
+<p>Note 2 to entry: <strong>The tie-break is on the medium address rather than on any hive identifier,
+and that is deliberate.</strong> The address is the only value both sides hold <strong>before</strong> a connection
+exists — a canonical hive identifier is learned from traffic (4.4), and there is no traffic
+yet. <em>A rule that needed the identifier could not be applied at the moment it is needed.</em></p>
+<p>Note 3 to entry: <strong>The addresses rotate (4.3), so the rule does not systematically favour any
+device.</strong> Two hives that collide repeatedly will not keep resolving the same way, which is
+what stops a low-addressed hive from being permanently the one that yields.</p>
+<hr />
+<span class="clause-anchor" id="c3"></span><h2 id="3-c-the-discovery-marker">3 c) The discovery marker</h2>
+<p><strong class="clause" id="c3.1">3.1</strong> The discovery marker <a href="L1-transport.html#c4.7.1">Layer 1, 4.7.1</a> requires <strong>shall</strong> be the 128-bit service UUID</p>
+<pre tabindex="0" aria-label="Code or test vector"><code>52324e54-0001-4000-8000-52324e540001</code></pre>
+<p>carried in the advertising data as a <strong>Service Data — 128-bit UUID</strong> structure (AD type
+<code>0x21</code>), whose data field is the announcement body of 5.3.</p>
+<p><strong class="clause" id="c3.1a">3.1a</strong> The marker's octets <strong>shall</strong> be carried least-significant octet first, as this
+medium carries every UUID in advertising data; the first octet on air <strong>shall</strong> be <code>0x01</code>
+and the last <code>0x52</code>. <code>PROVISIONAL(r2, SS394)</code>.</p>
+
+<p>Note 0a to entry: <strong>A value printed in one order and transmitted in another needs saying even
+where the convention is well known</strong>, because the convention belongs to the medium and the
+reader is arriving from this document. <em>No byte on the wire changes: 3.1a states what a
+conformant implementation was already doing, and names what a mistaken one does instead.</em></p>
+<p><strong class="clause" id="c3.2">3.2</strong> The marker <strong>shall</strong> be present in every announcement, and a receiver <strong>shall</strong> be
+able to reach it without connecting, without a scan request and without parsing any frame.
+<em>This is what makes <a href="L2-capability-and-discovery.html#c7.1">Layer 2, 7.1</a>'s first filter step free: the comparison is one UUID against
+an advertisement the scanner already has in hand.</em></p>
+<p><strong class="clause" id="c3.3">3.3</strong> The marker <strong>shall not</strong> appear inside a frame (<a href="L1-transport.html#c4.7.2">Layer 1, 4.7.2</a>). It is a property of
+the medium framing, and this medium has framing to put it in.</p>
+<p><strong class="clause" id="c3.4">3.4 ⚠ Which reading of <em>medium framing</em> this binding takes, because <a href="L1-transport.html#c13.2">Layer 1, 13.2</a> records
+that the term is used normatively and defined nowhere, and that the two readings differ by
+exactly the advertised maximum transport unit payload (<code>SS272</code>).</strong> This binding takes the
+<strong>first</strong> reading: the marker sits in the medium's own framing, <strong>outside the payload a frame
+occupies</strong>. It is an advertising structure; a frame is the value of a characteristic operation
+on a connection; <strong>the two never share a byte.</strong> So the 200 B of 5.1.1 is unaffected by the
+marker's sixteen octets, and this bearer is one where the ambiguity has no consequence.</p>
+<p>Note 1 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
+<p>Note 2 to entry: <strong>It is deliberately outside the Bluetooth SIG base range.</strong> The range
+<code>0000xxxx-0000-1000-8000-00805F9B34FB</code> is SIG-allocated space for 16-bit and 32-bit UUIDs,
+and a value inside it would be claiming an allocation this project does not hold. <strong>A 128-bit
+UUID needs no allocation from anybody</strong>, which is why it is the marker rather than the
+cheaper 16-bit form.</p>
+<p>Note 3 to entry: <strong>The marker costs sixteen octets and that is the whole reason 5.2.3
+excludes legacy advertising.</strong> A 16-bit UUID would cost two, and is unavailable. <em>The cost is
+paid once per advertisement and buys a filter that never needs a connection.</em></p>
+<hr />
+<span class="clause-anchor" id="c4"></span><h2 id="4-d-medium-address-to-canonical-hive-identifier">4 d) Medium address to canonical hive identifier</h2>
+<p><strong class="clause" id="c4.1">4.1</strong> The medium address is the <strong>48-bit BLE device address</strong> together with its address
+type.</p>
+<p><strong class="clause" id="c4.2">4.2</strong> A hive <strong>shall</strong> use a <strong>non-resolvable private address</strong>, and <strong>shall not</strong> use a
+public address or a random static address.</p>
+<p><strong class="clause" id="c4.3">4.3</strong> A hive <strong>shall</strong> change that address at intervals not exceeding a stated maximum, and
+<strong>shall</strong> change it whenever the persona changes (<a href="L5-trust-and-identity.html#c5.1.4">Layer 5, 5.1.4</a>).</p>
+<p><strong class="clause" id="c4.4">4.4</strong> A bearer <strong>shall</strong> associate a medium address with the canonical hive identifier
+<a href="L1-transport.html#c3.6">Layer 1, 3.6</a> defines, and <strong>shall</strong> report that identifier upward as 4.5.1 requires; the
+association <strong>shall</strong> be learned from received traffic and <strong>shall not</strong> be computed from the
+address.</p>
+<p><strong class="clause" id="c4.5">4.5</strong> A bearer <strong>shall</strong> discard the association when the medium address changes, and
+<strong>shall not</strong> treat two addresses as one peer on any evidence this layer holds.</p>
+
+<p>Note 2 to entry: <strong>4.5 is the cost, and it is accepted.</strong> Discarding the association on every
+address change means a peer that rotates becomes, to Layer 1, a new peer — its neighbour
+entry ages out and is rebuilt, and its link quality is measured again from nothing.
+<em>Unlinkability and continuity are the same knob turned in opposite directions, and this
+document turns it toward unlinkability because Layer 5 already provides continuity where it
+matters and this layer cannot provide privacy at all if the address persists.</em></p>
+<p>Note 3 to entry: <strong>BLE's own pairing is not what makes a peer known here, and using it would
+create a second identity system underneath this one.</strong> A bonded peer is a <em>radio</em> that a
+controller recognises; a canonical hive identifier names a <em>hive</em>. <strong>The two would drift the
+moment a hive re-personas without re-pairing, or a peripheral changed hands</strong> — and 4.4's
+learned association has no such failure because it holds only what the traffic said.</p>
+<hr />
+<span class="clause-anchor" id="c5"></span><h2 id="5-the-announcement-and-e-the-payload-it-must-fit-in">5 The announcement, and e) the payload it must fit in</h2>
+<span class="clause-anchor" id="c5.1"></span><h3 id="51-maximum-transport-unit-payload">5.1 Maximum transport unit payload</h3>
+<p><strong class="clause" id="c5.1.1">5.1.1</strong> The maximum transport unit payload is <strong>200 octets</strong>, fixed by the registry row
+(<a href="L1-transport.html#c8.2.1">Layer 1, 8.2.1</a>). Nothing in this medium varies it, so 11.1 e)'s second half has no subject.</p>
+<p><strong class="clause" id="c5.1.2">5.1.2</strong> A hive <strong>shall</strong> negotiate an ATT maximum transmission unit of at least <strong>203
+octets</strong> before carrying a frame, and <strong>shall</strong> enable the link-layer data length extension
+required to reach it.</p>
+<p><strong class="clause" id="c5.1.3">5.1.3</strong> Where the negotiated maximum transmission unit is below 203 octets, the bearer
+<strong>shall</strong> report <code>restricted</code> (6b.2) and <strong>shall not</strong> carry a frame on that connection.</p>
+<p>Note 1 to entry: <strong>203 is 200 plus the three-octet ATT operation header</strong>, and the arithmetic
+is stated because getting it wrong produces the worst failure this medium offers: a frame
+truncated by the controller, delivered as a short write, and parsed as a malformed frame by a
+layer that has no way to know the medium did it.</p>
+<p>Note 2 to entry: <strong>5.1.3 is the honest disposal of a negotiation that can fail.</strong> The payload
+is fixed by the registry and the medium cannot vary it — but a <em>connection</em> can fail to reach
+it, which is a property of the link and not of the bearer. <em>Reporting <code>restricted</code> says the
+bearer is in service and this peer cannot be reached at full size, which is exactly what
+happened.</em></p>
+<span class="clause-anchor" id="c5.2"></span><h3 id="52-the-announcement-is-an-advertisement">5.2 The announcement is an advertisement</h3>
+<p><strong class="clause" id="c5.2.1">5.2.1</strong> The announcement <strong>shall</strong> be a BLE advertisement carrying the Service Data
+structure of 3.1, and <strong>shall not</strong> be a frame. <em>This is where this binding differs most from
+the ESP-NOW one, whose announcement is a frame: an advertisement is not addressed, is not
+acknowledged and cannot be relayed, and Layer 2's beacon needs none of those.</em></p>
+<p><strong class="clause" id="c5.2.2">5.2.2</strong> A hive <strong>shall</strong> advertise while any BLE bearer is in service (<a href="L1-transport.html#c3.5a">Layer 1, 3.5a</a>) and
+that bearer participates in discovery.</p>
+<p><strong class="clause" id="c5.2.3">5.2.3</strong> A hive <strong>shall</strong> use <strong>extended advertising</strong>, and therefore <strong>shall</strong> implement
+Bluetooth 5.0 or later.</p>
+<p><strong class="clause" id="c5.2.4">5.2.4</strong> The advertisement <strong>shall not</strong> carry the hive's canonical identifier, any value
+derived from the hive's trust group, or any identifier of the hive other than the beacon
+identifier of 5.3.2 (<a href="L2-capability-and-discovery.html#c5.3">Layer 2, 5.3</a>).</p>
+<p>Note 1 to entry: <strong>5.2.3 is arithmetic, not preference, and here it is.</strong> Legacy advertising
+carries 31 octets. The Service Data structure costs one octet of length, one of type and
+sixteen of UUID before any body at all — <strong>eighteen</strong> — and the mandatory body of 5.3 is
+<strong>fifteen</strong>. <em>Thirty-three into thirty-one does not go.</em> A connectable LE advertisement also
+carries the three-octet Flags structure, so the complete advertising-data sequence is
+<strong>thirty-six</strong> octets; the Service Data structure is still the binding's marker and has its
+own stated length. The alternatives were each rejected
+for a stated reason: a 16-bit UUID is SIG-allocated space this project does not hold; a scan
+response costs the scanner an active scan and so breaks the free first filter of Layer 2,
+7.1; and manufacturer-specific data needs a company identifier this project does not hold.
+<strong>Extended advertising carries 254 octets and the complete advertising-data sequence occupies
+36 of them.</strong></p>
+<p>Note 2 to entry: <strong>The version floor is a real exclusion and is named as one.</strong> A Bluetooth
+4.x device cannot satisfy this binding. <em>That is a narrower bearer than the medium could
+support, and it is the price of a marker that needs no allocation and a body that is the same
+on every bearer.</em></p>
+<span class="clause-anchor" id="c5.3"></span><h3 id="53-the-announcement-body">5.3 The announcement body</h3>
+<p><strong class="clause" id="c5.3.1">5.3.1</strong> The body <strong>shall</strong> be a sequence of elements, each <code>type (1 octet) || length (1 octet) || value (length octets)</code>, in ascending type order, with no element repeated.</p>
+<p><strong class="clause" id="c5.3.2">5.3.2</strong> The elements <strong>shall</strong> be:</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Type, Length, Value, Required by"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Length</th>
+<th>Value</th>
+<th>Required by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x01</code></td>
+<td>4</td>
+<td>beacon identifier</td>
+<td><a href="L2-capability-and-discovery.html#c5.1">L2 5.1</a> b), 5.4.1</td>
+</tr>
+<tr>
+<td><code>0x02</code></td>
+<td>4</td>
+<td>class hash</td>
+<td><a href="L2-capability-and-discovery.html#c5.1">L2 5.1</a> c)</td>
+</tr>
+<tr>
+<td><code>0x03</code></td>
+<td>1</td>
+<td>build-mode declaration</td>
+<td><a href="L2-capability-and-discovery.html#c5.4a.1">L2 5.4a.1</a> — see Clause 6</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong class="clause" id="c5.3.3">5.3.3</strong> An element whose type is not in 5.3.2 <strong>shall</strong> be skipped and its length honoured.</p>
+<p><strong class="clause" id="c5.3.4">5.3.4</strong> A body whose final element is truncated <strong>shall</strong> be treated as unreadable from
+that element onward, and <strong>shall not</strong> be treated as though the element were absent.</p>
+<p><strong class="clause" id="c5.3.4a">5.3.4a</strong> The body's extent <strong>shall</strong> be the length the Service Data structure of 5.2.1
+declares, less its AD type and UUID octets, and a body shorter than that <strong>shall</strong> be treated
+as <strong>unreadable throughout</strong> — not as a shorter body that is well-formed to its end.
+<code>PROVISIONAL(r2, SS390)</code>.</p>
+<p>Note 0 to entry: <strong>5.3.4 protects a cut INSIDE an element and 5.3.4a protects a cut AT a
+boundary, and without the second the first reads as covering both.</strong> A body cut at an element
+boundary is byte-for-byte a shorter, complete, well-formed body: nothing in it is truncated,
+so 5.3.4 has no subject, and 6.3's <em>well-formed to its end, element <code>0x03</code> absent</em> applies in
+terms — <strong>the verdict is production, which 6.4 forbids a scanner to reach from unknown.</strong>
+‼ <strong>And the element at risk is the one that matters by construction rather than by bad luck</strong>:
+5.3.1 fixes ascending type order and the build-mode declaration is <code>0x03</code>, the last of the
+three required elements, so it is <strong>the first thing any truncation removes</strong>. <em>Measured
+2026-08-18 on a development body of fifteen octets: truncated to twelve — the boundary after
+the class hash — a decoder reports no truncation and concludes production.</em></p>
+
+<p><strong class="clause" id="c5.3.5">5.3.5</strong> The beacon identifier <strong>shall</strong> be the value <a href="L2-capability-and-discovery.html#c5.4.1">Layer 2, 5.4.1</a> requires, and <strong>shall
+not</strong> be derived from any other identifier the hive holds.</p>
+<p>Note 1 to entry: <strong>This body is byte-for-byte the body of the ESP-NOW binding, and that is
+deliberate.</strong> The announcement body answers Layer 2, which knows nothing about media; only
+its <em>carriage</em> is a property of a medium. <strong>Two bindings that encoded the same three values
+differently would oblige every implementation to hold two decoders for one question</strong>, and
+the second decoder would be the one with the bug in it. <em>Where a later binding cannot carry
+this body, the honest move is 11.1 j)'s stated-nil form and not a second layout.</em></p>
+<p>Note 2 to entry: <strong>5.3.5 drops one word the ESP-NOW binding carries, and the omission is
+deliberate.</strong> That binding says the identifier is <em>generated randomly by the hive or installed
+at manufacture, and stable</em>. <strong>Stable is true within a persona and false across one</strong> —
+<a href="L5-trust-and-identity.html#c5.1.4">Layer 5, 5.1.4</a> obliges a fresh beacon identifier on re-persona — and on a bearer whose address
+also rotates (4.3), a reader who took <em>stable</em> at face value would defeat both. <em>The clause it
+cites is unchanged; what is removed is a gloss that was never true of the whole lifetime.</em></p>
+<hr />
+<span class="clause-anchor" id="c6"></span><h2 id="6-j-the-build-mode-declaration">6 j) The build-mode declaration</h2>
+<p><strong class="clause" id="c6.1">6.1</strong> The build-mode declaration <a href="L2-capability-and-discovery.html#c5.4a.1">Layer 2, 5.4a.1</a> requires <strong>shall</strong> be element type <code>0x03</code>
+of 5.3.2, one octet, with the values:</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Value, Meaning"><table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x01</code></td>
+<td>development</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong class="clause" id="c6.2">6.2</strong> A production hive <strong>shall not</strong> emit element <code>0x03</code> at all.</p>
+<p><strong class="clause" id="c6.3">6.3</strong> A receiver that finds no element <code>0x03</code> <strong>shall</strong> treat the declaration as <em>absent</em>;
+one that finds a value other than <code>0x01</code> <strong>shall</strong> treat it as <em>unreadable</em>; and neither
+<strong>shall</strong> be treated as <em>production declared</em>.</p>
+
+<p>Note 1 to entry: <strong>There is no value meaning production, and that is <a href="L2-capability-and-discovery.html#c5.4a.2">Layer 2, 5.4a.2</a> rather
+than an economy.</strong> A production beacon may carry no development-related bytes, so production
+is encodable only as the absence of the element — which is why 5.3.4's truncation rule exists
+and why 6.3 keeps <em>absent</em> and <em>unreadable</em> apart. <em>A scanner that collapsed them would
+report a cut-off advertisement as a production hive.</em></p>
+<hr />
+<h2 id="6a-f-how-the-quality-value-is-derived">6a f) How the quality value is derived</h2>
+<p><strong>6a.1</strong> The quality value of <a href="L1-transport.html#c5.3.1">Layer 1, 5.3.1</a> <strong>shall</strong> be derived from the <strong>received signal
+strength indication</strong> of the advertisement or connection event that carried the most recent
+traffic from that peer.</p>
+<p><strong>6a.2</strong> The derivation <strong>shall</strong> map a stated floor to <code>0.0</code> and a stated ceiling to <code>1.0</code>,
+<strong>shall</strong> clamp outside them, and <strong>shall</strong> be monotonic in signal strength.</p>
+<p><strong>6a.3</strong> The floor and the ceiling <strong>shall</strong> be stated by the implementation. This document
+fixes neither.</p>
+<p><strong>6a.4</strong> The value <strong>shall</strong> be held per medium address, and <strong>shall</strong> be discarded with the
+association when the address changes (4.5).</p>
+<p>Note 1 to entry: <strong>6a.3 refuses to pin constants for the same reason the ESP-NOW binding
+does</strong> — the usable range is a property of an antenna, a package and an enclosure, and a
+number fixed here would be wrong for most of them. <em>What is fixed is the shape: floor,
+ceiling, clamped, monotonic, so that two implementations disagree about calibration and not
+about meaning.</em></p>
+<p>Note 2 to entry: <strong>6a.4 is 4.5's consequence and is stated because it is easy to miss.</strong> A
+quality value that outlived the address it was measured on would be a measurement of one
+radio attributed to another.</p>
+<h3 id="6a-bis-b5-the-fade-rate-and-what-it-is-set-against">6a-bis B5, the fade rate, and what it is set against</h3>
+<p><strong>6a.5</strong> The bearer profile <strong>shall</strong> state <strong>B5</strong> <em>fade rate</em>, and that value <strong>shall</strong>
+exceed the longest advertising interval the hive can adopt (<a href="L2-capability-and-discovery.html#c6.3.1">Layer 2, 6.3.1</a>).</p>
+<p><strong>6a.6</strong> A hive <strong>shall</strong> declare the range of advertising intervals it can adopt (Layer 2,
+6.1.3), and <strong>shall not</strong> apply this bearer's fade behaviour to any other bearer (Layer 2,
+6.3.3).</p>
+<p>Note 1 to entry: <strong>B5 is declared here and constrained there, which is the division Layer 1,
+7.1 Note 2 sets out</strong>: the value is not a property of the medium, it is set against how often
+this bearer announces presence, and Layer 2 states what it has to exceed. <em>A fade shorter than
+the advertising interval declares a present hive receding once per interval, for ever.</em></p>
+<h3 id="6a-ter-platform-binding-profile">6a-ter Platform binding profile</h3>
+<p><strong>6a-ter.1</strong> A platform that declares this binding in P3 of <a href="L0-hardware-and-runtime.html#c8.2.1">Layer 0, 8.2.1</a> shall carry the
+P3 binding-parameter declaration <a href="L0-hardware-and-runtime.html#c8.2.1a">Layer 0, 8.2.1a</a> requires. Its schema identifier shall be
+<code>ai.reality2.binding.ble</code> and its version shall be <code>1</code>.</p>
+<p><strong>6a-ter.2</strong> Version 1's canonical parameter value shall be UTF-8 text containing exactly
+these lower-case ASCII <code>name=value</code> lines, in this order, separated by a single line feed
+and with no leading, trailing, or other whitespace:</p>
+<pre tabindex="0" aria-label="Code or test vector"><code>quality-floor-dbm=&lt;signed decimal integer&gt;
+quality-ceiling-dbm=&lt;signed decimal integer&gt;
+advertising-interval-min-s=&lt;unsigned decimal integer&gt;
+advertising-interval-max-s=&lt;unsigned decimal integer&gt;
+fade-s=&lt;unsigned decimal integer&gt;
+connection-interval-ms=&lt;unsigned decimal integer&gt;
+supervision-timeout-ms=&lt;unsigned decimal integer&gt;
+max-reattempt-interval-s=&lt;unsigned decimal integer&gt;
+connection-limit=&lt;unsigned decimal integer&gt;
+address-rotation-max-s=&lt;unsigned decimal integer&gt;</code></pre>
+<p>A decimal zero is written <code>0</code>; a non-zero decimal has no leading zero; and a signed
+negative value has <code>-</code> followed by a non-zero magnitude. These rules make one value have one
+representation rather than merely making the field readable.</p>
+<p><strong>6a-ter.3</strong> The values in 6a-ter.2 shall be the values the platform uses for 4.3, 6a.3,
+6a.5–6a.6, 6d.4–6d.6. The advertising interval minimum shall be non-zero and shall not
+exceed its maximum; the fade, connection, supervision, connection-limit, and address-rotation
+constraints elsewhere in this binding still apply.</p>
+<p><strong>6a-ter.3a</strong> A stated connection interval and supervision timeout shall be exactly
+representable in the Bluetooth LE link-layer parameter units. A platform shall not round a
+declared value when applying it to the controller.</p>
+
+<hr />
+<h2 id="6b-g-the-conditions-producing-each-state">6b g) The conditions producing each state</h2>
+<p><strong>6b.1 <code>available</code>.</strong> The controller is initialised and powered, advertising and scanning are
+permitted, and at least one connection slot is free.</p>
+<p><strong>6b.2 <code>restricted</code>.</strong> All connection slots are in use; <strong>or</strong> a connection to the peer
+exists but its negotiated maximum transmission unit is below 203 octets (5.1.3). <em>In both
+cases the bearer is in service and some peer cannot be reached, which is what <code>restricted</code>
+means.</em></p>
+<p><strong>6b.3 <code>unavailable</code>.</strong> The controller is powered down, the host has disabled the radio, or
+the platform has withdrawn it. <em>An elapse does not produce this state and neither does a
+peer: it is the local radio being absent.</em></p>
+<p><strong>6b.4 <code>failed</code>.</strong> The host-controller transport has errored, the controller has reset
+unexpectedly, or an operation has returned an error the host cannot attribute to a peer.</p>
+<p><strong>6b.5</strong> All four states of <a href="L1-transport.html#c5.2">Layer 1, 5.2</a> <strong>can</strong> be produced on this medium. 11.1 g)'s
+stated-nil form — a state the medium cannot reach, and what prevents it — <strong>has no subject
+here.</strong></p>
+
+<p>Note 2 to entry: <strong><code>restricted</code> has two conditions and they are not the same kind.</strong> Slot
+exhaustion is a property of the local controller; an undersized maximum transmission unit is
+a property of one link. <em>Both make a peer unreachable while the bearer works, which is the
+state's definition, and an implementation that reported the second as <code>failed</code> would be
+telling a layer above that the radio is broken when a single negotiation was.</em></p>
+<hr />
+<h2 id="6c-h-duty-cycle-and-airtime-budget">6c h) Duty cycle and airtime budget</h2>
+<p><strong>6c.1</strong> <a href="L1-transport.html#c9.1">Layer 1, 9.1</a> <strong>does not apply</strong> to this bearer. The 2.4 GHz band this medium
+occupies is not governed by a duty cycle or an airtime budget in the regulatory regimes this
+document contemplates; what governs it is transmit power, which is a platform property
+declared at Layer 0 and not a bearer obligation.</p>
+<p><strong>6c.2</strong> The bearer profile <strong>shall</strong> state <strong>B8</strong> <em>regulated</em> as false.</p>
+<p>Note 1 to entry: <strong>This is a claim about regulation and is the kind that ages.</strong> It is stated
+as this document's claim rather than as a fact of physics, and a deployment in a regime that
+does budget airtime in this band would need a revision. <em>The contrast with the LoRa bearer is
+the point: same registry, same clause, opposite answer, and the answer belongs in the binding
+because that is where the medium is known.</em></p>
+<hr />
+<h2 id="6d-i-the-connection-lifecycle-and-the-silence-period">6d i) The connection lifecycle and the silence period</h2>
+<p><strong>6d.1</strong> BLE <strong>requires a connection before a frame can be carried</strong>, so Layer 1, Clause 10
+applies in full. <em>A link is bilateral, the far end participates in establishing it, it is
+lost by elapsed silence, and it is re-established after loss — the tests Clause 10 Note 3
+sets for whether a precondition is a connection.</em></p>
+<p><strong>6d.2</strong> The interval at which the bearer expects to hear from a peer <strong>shall</strong> be the
+<strong>connection interval</strong> in force on that link.</p>
+<p><strong>6d.3</strong> The silence period of <a href="L1-transport.html#c10.2">Layer 1, 10.2</a> <strong>shall</strong> be the <strong>link supervision timeout</strong>,
+and <strong>shall</strong> be at least three times the connection interval (<a href="L1-transport.html#c10.3">Layer 1, 10.3</a>).</p>
+<p><strong>6d.4</strong> A bearer <strong>shall</strong> declare the connection interval and the supervision timeout it
+uses, and <strong>shall</strong> report a peer unreachable when the supervision timeout elapses.</p>
+<p><strong>6d.5</strong> A bearer <strong>should</strong> reattempt a lost connection at an interval that increases to a
+stated maximum, and <strong>should</strong> continue reattempting for as long as the bearer is in service
+(<a href="L1-transport.html#c10.4">Layer 1, 10.4</a>).</p>
+<p><strong>6d.6</strong> The number of connections a hive can hold at once <strong>shall</strong> be stated by the
+implementation, and exhausting it <strong>shall</strong> produce <code>restricted</code> (6b.2).</p>
+
+<p>Note 2 to entry: <strong>The factor of three is satisfied by construction on this medium and that
+is a coincidence worth naming rather than relying on.</strong> Bluetooth's own rules already require
+a supervision timeout greater than twice the effective connection interval, so an
+implementation that merely obeys the medium is close to obeying 10.3 — <em>but "close to" is not
+"obeys", the two rules count different things, and a binding that leaned on the coincidence
+would be conformant by luck.</em></p>
+<p>Note 3 to entry: <strong>6d.6 is where 11.1 i)'s last question is answered — how a precondition
+comes to be met.</strong> A connection is established by either hive initiating to an address it has
+seen advertising; no ceremony, no key and no prior relationship is required, because
+everything that depends on knowing who the peer is happens above Layer 4. <em>A hive that
+required pairing before carriage would have made a radio's identity a precondition for a
+hive's traffic.</em></p>
+<hr />
+<span class="clause-anchor" id="c7"></span><h2 id="7-what-this-closes-what-it-narrows-and-what-it-leaves-open">7 What this closes, what it narrows, and what it leaves open</h2>
+<p><strong class="clause" id="c7.1">7.1 Closes.</strong> Bearer ordinal 0 now has a binding document, so <a href="L1-transport.html#c12.1">Layer 1, 12.1</a> g) can be met
+for it. <strong><code>SS264</code> counted six bindings owed against one written; five remain.</strong></p>
+<p><strong class="clause" id="c7.2">7.2 Closes for this bearer only.</strong> <code>SS384</code> — a medium address that outlives the persona it
+served. 4.2 and 4.3 make the address rotate with the persona, and 4.5 makes the association
+follow it. <em>This is a disposal on one bearer and not a corpus answer: every other binding
+still owes the question, and <code>SS354</code>'s proposed tenth item for 11.1 is what would oblige them
+to answer it.</em></p>
+<p><strong class="clause" id="c7.3">7.3 Narrows.</strong> <code>SS2</code> — its practical half is discharged in 6d and its clause-level half is
+untouched (6d Note 1).</p>
+<p><strong class="clause" id="c7.4">7.4 Leaves open.</strong></p>
+<ul>
+<li><strong>The marker UUID is <code>PROVISIONAL(supervisor)</code></strong> (3.1 Note 1). It is a permanent allocation
+and Roy's word is what fixes it.</li>
+<li><strong>The class-hash algorithm</strong> (<code>SS1</code>), inherited and not introduced here.</li>
+<li><strong>Whether the 4.x exclusion is acceptable</strong> (5.2.3 Note 2). It is a deliberate narrowing
+and a deployment may find it too narrow.</li>
+<li><strong>⚠ The duty-class declaration of <a href="L2-capability-and-discovery.html#c5.4b">Layer 2, 5.4b</a> is carried by no element of 5.3.2, and
+neither is it carried by the ESP-NOW binding.</strong> <a href="L2-capability-and-discovery.html#c5.2">Layer 2, 5.2</a> obliges <em>a beacon emitted by a
+hive receptive only at intervals</em> to carry it. <strong>So a duty-cycled hive cannot conformantly
+announce on either bound bearer in this corpus</strong> — the body has three elements and none is
+the duty class. <em>This is inherited rather than introduced here: the body is deliberately the
+same as the ESP-NOW binding's (5.3 Note 1), so the omission is the same omission, and fixing
+it in one document alone would break the property that makes the body worth sharing.</em> <strong>It
+is raised rather than patched, because a fourth element type is a change to both bindings
+and to Layer 2's expectations of all of them.</strong></li>
+<li><strong>No vector covers any of this.</strong> <code>SS383</code> records that a normative obligation about bytes
+with no vector is outside the conformance contract by construction, and every byte layout in
+Clause 3, 5.3 and 6 is in that position. <em>The announcement body is the same as the ESP-NOW
+binding's, so a vector written for one would serve both, which is an argument for writing it
+once.</em></li>
+</ul>
+
+</article></main></div>
+<footer>
+    <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
+    <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
+    <a href="/">reality2.ai</a></p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
+    <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
+    register and the requirements registers are internal and are not published here.</p>
+</footer>
+<script>
+function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')||'dark';
+var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
+if(n==='dark')document.documentElement.removeAttribute('data-theme');
+else document.documentElement.setAttribute('data-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
+var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
+var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
+var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
+var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
+var b=document.querySelector('.theme-toggle');if(b)b.setAttribute('aria-label','Theme: '+l+'. Switch theme');}
+</script>
+</body>
+</html>

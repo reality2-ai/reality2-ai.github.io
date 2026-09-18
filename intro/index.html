@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Reality2 — a protocol for agents that meet</title>
-<meta name="description" content="A decentralised mesh protocol for trust groups, built for a network where nothing can be assumed. An introduction, ahead of the standard.">
+<meta name="description" content="A decentralised mesh protocol for trust groups, built for a network where nothing can be assumed. An introduction to the Reality2 design.">
+<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0e0e12">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -13,7 +14,7 @@
 <meta property="og:title" content="Reality2 — a protocol for agents that meet">
 <meta property="og:description" content="Built for a network where nothing can be assumed.">
 <meta property="og:url" content="https://reality2.ai/intro/">
-<script>(function(){var t=localStorage.getItem('r2-theme');
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
 if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
 var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
 if(m&&tc)m.setAttribute('content',tc);}})();</script>
@@ -200,7 +201,7 @@ ul.pts li b{color:var(--text);font-weight:600}
   evidence arrives, decaying without it — and held <strong>locally</strong>, with no consensus and no
   shared truth anywhere.</p>
   <div class="cols" style="margin-top:30px">
-    <div class="card"><h3>BELIEF</h3><p>“This link works.” “This path delivers.” “This neighbour is behaving.” Probabilistic, local, decaying, never final.</p></div>
+    <div class="card"><h3>BELIEF</h3><p>“This link works.” “This next hop appears usable.” “This neighbour is behaving.” Probabilistic, local, decaying, never final.</p></div>
     <div class="card"><h3>PROOF</h3><p>“This message belongs to the group.” One binary gate. Cryptography, not belief — it verifies or it does not.</p></div>
   </div>
 </section>
@@ -267,13 +268,11 @@ ul.pts li b{color:var(--text);font-weight:600}
 
 <section>
   <p class="num">09 — WHERE IT IS</p>
-  <p class="badge q">Version 0.8.0 · draft</p>
+  <p class="badge q">A developing standard</p>
   <h2>The specification is written, and it is being built from</h2>
   <p class="lede">The standard is a document set an implementer can build a conformant implementation
-  from — layer by layer, with worked examples and byte-exact test vectors. It is <strong>drafted, not
-  ratified</strong>: it is under active development and clauses still move.</p>
-  <p class="sub">Published in full shortly. If you would like to read it before then, or to build
-  against it, get in touch.</p>
+  from — layer by layer, with worked examples and byte-exact test vectors. It is under active development. Requirements apply as written; explicitly provisional values remain provisional.</p>
+  <p class="sub">For access to the current text, or to discuss building against it, <a href="mailto:roy@reality2.ai">get in touch</a>.</p>
 </section>
 
 <div class="foot">
@@ -290,7 +289,7 @@ function cycleTheme(){
   var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
   if(n==='dark')document.documentElement.removeAttribute('data-theme');
   else document.documentElement.setAttribute('data-theme',n);
-  localStorage.setItem('r2-theme',n);
+  try{localStorage.setItem('r2-theme',n);}catch(e){}
   var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
   var m=document.querySelector('meta[name="theme-color"]');if(m&&tc)m.setAttribute('content',tc);
 }

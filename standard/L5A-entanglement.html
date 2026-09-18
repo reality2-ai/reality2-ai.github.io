@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>L5A — Entanglement — Reality2 Standard</title>
 <meta name="description" content="Entanglement between two trust groups: the authority to bind one, and the grades of authentication.">
@@ -23,10 +24,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/standard/standard.css">
-<script>(function(){var t=localStorage.getItem('r2-theme');
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
 if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
 var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
 if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -54,10 +57,15 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         </button>
     </div>
 </nav>
-<article id="main" class="doc-page">
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#introduction">Introduction</a></li><li><a href="#1-scope">1 Scope</a></li><li><a href="#2-normative-references">2 Normative references</a></li><li><a href="#3-terms-and-definitions">3 Terms and definitions</a></li><li><a href="#4-the-agreement-artefact">4 The agreement artefact</a></li><li><a href="#5-establishment">5 Establishment</a></li><li><a href="#6-conditions">6 Conditions</a></li><li><a href="#7-liveness-across-an-entanglement">7 Liveness across an entanglement</a></li><li><a href="#8-lifecycle">8 Lifecycle</a></li><li><a href="#9-management-bearing-entanglements">9 Management-bearing entanglements</a></li><li><a href="#10-conformance">10 Conformance</a></li><li><a href="#11-security-considerations">11 Security considerations</a></li><li><a href="#12-what-is-not-decided-at-this-layer">12 What is not decided at this layer</a></li><li><a href="#bibliography">Bibliography</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
 <a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-5-companion-entanglement">Reality2 Standard — Layer 5 companion: Entanglement</h1>
-<p><strong>Status:</strong> Draft — first pass
-<strong>Date:</strong> 2026-08-05</p>
+<p class="reader-kind">Normative document</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
+<p><strong>Version:</strong> 0.9.0 · <strong>Date:</strong> 2026-08-23 · <strong>Status:</strong> Draft</p>
+<p><strong>What "Draft" names here is the editorial maturity of the text, and nothing else.</strong>
+<strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
+build from it. <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> </p>
 <blockquote>
 <p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
 <em>can</em> = possibility and capability.</p>
@@ -83,7 +91,7 @@ that as ordinary rather than as an error.</p>
 <p>This document specifies the establishment of an entanglement between two trust groups:
 the agreement artefact, the authority to bind a group, the key establishment, the grades
 of the level of authentication, and the completing trial.</p>
-<p>It specifies the vocabulary of conditions, their two failure classes, and how each side
+<p>It specifies the vocabulary of conditions, their failure classes, and how each side
 evaluates them.</p>
 <p>It specifies the lifecycle: standing, lapse, completion, demotion, severance, and
 re-establishment, and what liveness across an entanglement establishes.</p>
@@ -191,7 +199,7 @@ derivation, re-derivable, nothing transmitted.</p>
 <span class="clause-anchor" id="c5.3"></span><h3 id="53-the-grades">5.3 The grades</h3>
 <p><strong class="clause" id="c5.3.1">5.3.1</strong> The grade shall be one of the following, ordered from weakest to strongest, and
 the artefact shall name it.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Grade, Name, What binds the keys to the counterpart, Defeats"><table>
 <thead>
 <tr>
 <th>Grade</th>
@@ -245,12 +253,7 @@ refusing to name the weak grade would not remove it, only leave it unlabelled.</
 introduces a community to nothing — it attests <em>identity</em>, and each pair still agrees its
 own terms. <strong>An introduction is evidence about who the counterpart is, never a grant of
 anything.</strong></p>
-<p>Note 3 to entry: Grade 3 is the floor for management-bearing scope (Clause 9). The
-artefact states the required level; how a group's devices reach that level is its own
-vocabulary. <strong>The scale itself — ruled as 0–7, probability-anchored, level-only across
-boundaries — has its normative home in the person-authentication companion, not yet
-written; until it lands, the level is a number the two artefact signers agree the meaning
-of.</strong> <em>(Settled by ruling; the ruling record is informative and outside this standard.)</em></p>
+
 <span class="clause-anchor" id="c5.4"></span><h3 id="54-the-trial">5.4 The trial</h3>
 <p><strong class="clause" id="c5.4.1">5.4.1</strong> The trial shall consist of at least one frame in each contracted direction,
 carrying no application effect, crossing the counterpart's delivery gate under the
@@ -266,8 +269,9 @@ frames retire it.</p>
 <p><strong class="clause" id="c6.1.1">6.1.1</strong> Each condition of an artefact shall state:</p>
 <p>a) the predicate — what is claimed to hold;</p>
 <p>b) the evidence — what each side evaluates it against; and</p>
-<p>c) the failure class — <strong>lapse</strong> (6.2) or <strong>breach</strong> (<a href="L5-trust-and-identity.html#c10.3">Layer 5, 10.3</a>), and for breach,
-whether the stated response is severance or demotion and to which grade.</p>
+<p>c) the failure class — <strong>lapse</strong> (6.2), <strong>breach</strong> (<a href="L5-trust-and-identity.html#c10.3">Layer 5, 10.3</a>) or <strong>refusal</strong>
+(6.2.5) — and for breach, whether the stated response is severance or demotion and to which
+grade.</p>
 <p><strong class="clause" id="c6.1.2">6.1.2</strong> Each group shall evaluate every condition locally, against its own evidence.
 No condition shall require a shared evaluator, an arbiter, or the counterpart's
 agreement to fail.</p>
@@ -277,7 +281,7 @@ platforms have not declared (Layer 0, Clause 8).</p>
 to calendar time is adoptable by the venue with a clock and not by the sensor without
 one — <strong>the condition vocabulary bends to the platform declaration, never the reverse.</strong>
 The party that holds the ruler makes the measurement.</p>
-<span class="clause-anchor" id="c6.2"></span><h3 id="62-the-two-failure-classes">6.2 The two failure classes</h3>
+<span class="clause-anchor" id="c6.2"></span><h3 id="62-the-failure-classes">6.2 The failure classes</h3>
 <p><strong class="clause" id="c6.2.1">6.2.1</strong> A lapse shall end the entanglement, or suspend it where the artefact stands
 and its terms permit resumption; in either case the derived keys are destroyed as 8.2
 requires, and a suspended entanglement resumes only by re-derivation under 5.2.4. A
@@ -288,9 +292,7 @@ the groups' retained key material, and 8.5 already relies on exactly that to sur
 restart — so a side holding the artefact holds the relationship, whatever it does with
 the derived keys. What ends an entanglement is the artefact going void (5.4.2), a
 terminal lapse such as completion or lifetime end, severance, or dissolution (8.1).
-<em>(Reworded 2026-08-02: the earlier text left "suspend" apparently contradicting 8.2.
-No choice was made here — 5.2.4 and 8.5 already decided it, and this states what they
-decide.)</em></p>
+</p>
 <p><strong class="clause" id="c6.2.2">6.2.2</strong> A breach shall be answered as <a href="L5-trust-and-identity.html#c10.3">Layer 5, 10.3</a> provides — severance or demotion,
 as the artefact states — and is evidence about the breaching group's conduct.</p>
 <p><strong class="clause" id="c6.2.3">6.2.3</strong> A condition whose failure can occur innocently — presence fading, a lifetime
@@ -307,10 +309,32 @@ walking out of the room is a lapse — the condition failed, the keys died, no o
 standing moved. The insurer redistributing licensed insights is a breach — the artefact
 named it one, and the response and the reputational evidence follow. <strong>Conflating the
 two would make every sleeping sensor a defaulter.</strong></p>
+<p>Note 3 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(standard)</code>.</p>
+<p><strong class="clause" id="c6.2.5">6.2.5</strong> A refusal shall refuse the crossing whose requirements were unmet, and shall
+affect nothing else: the entanglement stands, the derived keys are not destroyed, and no
+standing is affected. An artefact may state that repeated refusal is breach.</p>
+
+
+<p>Note 3 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(standard)</code>.</p>
+<p><strong class="clause" id="c6.2.6">6.2.6</strong> Where more than one condition fails at the same evaluation, the entanglement's
+ending shall be determined as follows, and a class that does not end the entanglement applies
+in addition rather than instead:</p>
+<p>a) where any failure is a breach whose stated response is severance, the entanglement ends by
+<strong>severance</strong> (8.1 c);</p>
+<p>b) otherwise, where any failure is of lapse class, it ends as 8.1 a) or 8.1 b) provides;</p>
+<p>c) a breach whose stated response is demotion applies where the entanglement has not ended —
+<strong>a suspension (6.2.1) is not an ending: 8.1 lists four and suspension is none of them</strong>, so a
+demotion applies through one — and where more than one demotion applies the <strong>lowest</strong> resulting
+grade governs; and</p>
+<p>d) a refusal refuses its own crossing whatever else applies.</p>
+<p><strong class="clause" id="c6.2.7">6.2.7</strong> A failure not reflected in the ending shall remain evidence under 6.2.2 and 8.6.</p>
+
+
+<p>Note 3 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(standard)</code>.</p>
 <span class="clause-anchor" id="c6.3"></span><h3 id="63-the-condition-vocabulary">6.3 The condition vocabulary</h3>
 <p><strong class="clause" id="c6.3.1">6.3.1</strong> An artefact's conditions shall be drawn from the following classes; a class an
 implementation does not support is a condition it shall not agree to.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Class, Predicate over, Evidence, Typical failure class"><table>
 <thead>
 <tr>
 <th>Class</th>
@@ -336,7 +360,7 @@ implementation does not support is a condition it shall not agree to.</p>
 <td><strong>transactional</strong></td>
 <td>requirements per crossing — a required person-authentication level per operation or amount, required member-attributable evidence per event class</td>
 <td>the crossing itself (<a href="L5-trust-and-identity.html#c7.4">Layer 5, 7.4</a>; attested levels)</td>
-<td>neither — an unmet transactional condition refuses that crossing and nothing else, unless the artefact states that repetition is breach</td>
+<td>refusal (6.2.5) — refuses that crossing and nothing else, unless the artefact states that repetition is breach</td>
 </tr>
 <tr>
 <td><strong>conduct</strong></td>
@@ -442,7 +466,7 @@ the three classes of <a href="01-terminology.html"><code>01-terminology.md</code
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(PROVISIONAL(supervisor))</em></p>
 <p><strong class="clause" id="c10.1">10.1</strong> An implementation conforms to this document where it:</p>
 <p>a) establishes entanglements only by the sequence of 5.1, over one dually-signed
 artefact (Clause 4);</p>
@@ -505,12 +529,12 @@ the exchange by which one is requested and delivered is not specified.</p>
 <li>[2] ISO/IEC Directives, Part 2, 2016</li>
 </ul>
 
-</article>
+</article></main></div>
 <footer>
     <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
     <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
     <a href="/">reality2.ai</a></p>
-    <p class="stamp">Reality2 Standard <strong>version 0.8.0</strong>, 2026-08-05. Built from <span class="mono">f5bf72b</span>, rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the version. </p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>
@@ -519,7 +543,7 @@ function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')
 var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
 if(n==='dark')document.documentElement.removeAttribute('data-theme');
 else document.documentElement.setAttribute('data-theme',n);
-localStorage.setItem('r2-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
 var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
 var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
 var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];

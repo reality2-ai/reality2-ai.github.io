@@ -199,10 +199,13 @@
             *, *::before, *::after { animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
             .fleet-fig .node { opacity: .9 !important; animation: none !important; }
         }
+        [data-theme="high-contrast"] a.btn-primary { color:#000; }
+        h2[id] { scroll-margin-top:90px; }
     </style>
     <script>
         (function() {
-            var t = localStorage.getItem('r2-theme');
+            var t;
+            try { t = localStorage.getItem('r2-theme'); } catch (e) {}
             if (t === 'light' || t === 'high-contrast') {
                 document.documentElement.setAttribute('data-theme', t);
                 var tc = { light: '#f5f2ec', 'high-contrast': '#000000' }[t];
@@ -226,7 +229,7 @@
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="links" id="nav-menu">
-        <a href="index.html#built" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">Built with R2</a>
+        <a href="index.html#built" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">Uses and Projects</a>
         <a href="about.html" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">About</a>
         <a href="https://github.com/reality2-ai" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">GitHub</a>
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
@@ -298,8 +301,8 @@
 </div>
 
 <div class="cta-box">
-    <p>See what the fleet has built.</p>
-    <a href="index.html#built" class="btn btn-primary">What's Built</a>
+    <p>Explore the Reality2 design.</p>
+    <a href="about.html" class="btn btn-primary">About Reality2</a>
     <a href="how.html" class="btn btn-secondary">How It Works</a>
 </div>
 
@@ -308,7 +311,7 @@
 
 <footer>
     <p><a href="https://github.com/reality2-ai">GitHub</a></p>
-    <p style="margin-top:8px">Reality2 is in early development.</p>
+    <p style="margin-top:8px">Reality2 is in development. The protocol is defined by the R2 Standard.</p>
 </footer>
 
 <script>
@@ -317,7 +320,7 @@ function toggleTheme() {
     var next = current === 'dark' ? 'light' : current === 'light' ? 'high-contrast' : 'dark';
     if (next === 'dark') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('r2-theme', next);
+    try { localStorage.setItem('r2-theme', next); } catch (e) {}
     var label = next === 'high-contrast' ? 'High contrast' : next.charAt(0).toUpperCase() + next.slice(1);
     var s = document.getElementById('theme-status');
     if (s) s.textContent = label + ' theme';

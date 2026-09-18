@@ -194,10 +194,13 @@
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
         }
+        [data-theme="high-contrast"] a.btn-primary { color:#000; }
+        h2[id] { scroll-margin-top:90px; }
     </style>
     <script>
         (function() {
-            var t = localStorage.getItem('r2-theme');
+            var t;
+            try { t = localStorage.getItem('r2-theme'); } catch (e) {}
             if (t === 'light' || t === 'high-contrast') {
                 document.documentElement.setAttribute('data-theme', t);
                 var tc = { light: '#f5f2ec', 'high-contrast': '#000000' }[t];
@@ -221,7 +224,7 @@
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="links" id="nav-menu">
-        <a href="index.html#built" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">Built with R2</a>
+        <a href="index.html#built" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">Uses and Projects</a>
         <a href="index.html#developers" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">Developers</a>
         <a href="https://github.com/reality2-ai" onclick="this.parentElement.classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false')">GitHub</a>
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme: dark, light, or high contrast" title="Toggle theme">
@@ -266,7 +269,7 @@
 
 <h2 id="practice">What It <span>Looks Like</span></h2>
 
-<p>Digital sovereignty sounds abstract until you see it in practice.</p>
+<p>These imagined situations show what Reality2 is designed to make possible. They describe the direction of the protocol, rather than features available in a current app.</p>
 
 <div class="scenario">
     <p>You walk into a friend's house. Your phone and their speaker recognise each other from last visit. Music picks up where it left off. No app to open, no pairing screen, no login. They've met before, they trust each other, and they just work.</p>
@@ -288,23 +291,23 @@
 
 <p>In real life, trust isn't a password. It builds through experience - you meet someone, interact over time, and gradually trust them more. Today's digital systems ignore all of this. Trust is binary: logged in or locked out.</p>
 
-<p>Reality2 introduces <em>trust groups</em> - small circles of people and devices that trust each other directly, secured by strong cryptography. Your phone, your laptop, your watch, and the people you've chosen to include can communicate freely. No internal logins. Membership is the proof.</p>
+<p>Reality2 uses <em>trust groups</em>: devices sharing a cryptographic group identity, under the control of the people responsible for them. Enrolment establishes membership. Group membership and the authority to perform a sensitive action are separate questions.</p>
 
-<p>Trust has texture. A device that's been in your group for months is trusted smoothly. A brand new device gets asked for stronger verification. Trust grows through interaction and fades when contact lapses. This is how human judgment works.</p>
+<p>The network learns from observation, but that learning does not grant membership. A familiar route can become unreliable; a group member can be asleep or out of range. Silence alone does not remove a member from its group.</p>
 
-<p>And because there's no central password database, there's no treasure chest for hackers to steal.</p>
+<p>There is no central account service that every group must depend on. Keys, device security and the authority to manage a group still matter.</p>
 
 <h3>When groups need to work together</h3>
 
 <p>Reality2 handles this through <em>entanglement</em>. Two trust groups open a secure channel - but stay separate. They agree on exactly what to share, in which direction, under what conditions. Either side can end it at any time.</p>
 
-<p>Entanglement needs to be maintained - regular heartbeat messages keep it alive. If they stop, it fades. Use it or lose it. And it doesn't spread: if your group is entangled with a hospital, and the hospital with a research lab, the lab has no relationship with you. Trust doesn't leak sideways.</p>
+<p>An entanglement stands while its agreed conditions hold. Those conditions can concern proximity, duration or the task being performed. Each group evaluates them using its own evidence. A lost connection is not, by itself, proof of misconduct. A relationship between two groups does not automatically extend to a third.</p>
 
 <h2 id="network">A Network That <span>Learns</span></h2>
 
 <p>Most networks are like fixed roads. When the road disappears, everything stops. Reality2 treats connectivity as something that comes and goes - because in the real world, it does.</p>
 
-<p>Two trusted devices near each other talk directly, over whatever's available. If nothing is reachable, devices keep working alone and catch up later. Every message that gets delivered strengthens the route it took. Paths that go quiet gradually fade.</p>
+<p>Nearby devices can relay messages even when they belong to different groups. Each device uses local observations of neighbours and links to make forwarding decisions. An end-to-end receipt says something arrived; it does not prove the original route is still available. When no path exists, delivery must wait or fail according to the message and the resources available.</p>
 
 <div class="pullquote">
     The network breathes: strengthening where there's activity, relaxing where there isn't. The system mirrors the way real relationships work - living connections that need ongoing attention to thrive.
@@ -312,13 +315,13 @@
 
 <h2 id="privacy">Privacy That's <span>Structural</span></h2>
 
-<p>Within a trust group, members can see each other's events. But nothing leaves the group unless you create an entanglement, and every entanglement has a defined scope.</p>
+<p>Relaying a frame does not grant access to its encrypted payload or authority to act on it. Authentication, encryption and permission serve different purposes: a valid integrity check establishes authenticity, while encryption is what protects the contents. Inter-group cooperation is governed by the scope of the relationship.</p>
 
-<p>There is no central server collecting everything. No advertising algorithm studying your behaviour. This is fundamentally different from today's model, where privacy is a policy document - a promise made by a company that may change its mind, get hacked, or be compelled by a government. In Reality2, privacy is structural. The data simply isn't anywhere it shouldn't be.</p>
+<p>Reality2 is designed to let people control the devices and relationships that handle their data, without a mandatory central collector. Applications still need to make appropriate choices about what they store and share. The protocol provides boundaries; it cannot make every application private by itself.</p>
 
 <h2 id="different">How Is This <span>Different</span>?</h2>
 
-<p><strong>Not locked to one brand.</strong> Apple's ecosystem works - if everything is Apple. Reality2 trust groups include any device from any maker.</p>
+<p><strong>Not locked to one brand.</strong> The protocol defines how conforming implementations cooperate, rather than requiring one manufacturer's ecosystem.</p>
 
 <p><strong>Not just a mesh network.</strong> Mesh networks move data but don't carry trust. Reality2 combines networking with cryptographic identity.</p>
 
@@ -334,7 +337,7 @@
 
 <p><strong>The physical world, connected properly.</strong> Farms, buildings, vehicles full of sensors that work with limited power and intermittent connectivity. Cooperate locally, sync when paths appear.</p>
 
-<p><strong>Resilience when it counts.</strong> In emergencies, outages, remote areas - Reality2 keeps working. Trust doesn't depend on a server. There is no single point of failure.</p>
+<p><strong>Resilience when it counts.</strong> The design allows local cooperation without a central server. What remains reachable during an outage depends on the available devices, power and communication links.</p>
 
 <h2 id="planet">Beyond People: <span>the Living World</span></h2>
 
@@ -349,10 +352,10 @@
 </div>
 
 <div class="cta-box">
-    <p>See it in action</p>
-    <p class="sub">Try Notekeeper - private, encrypted notes running entirely in your browser.</p>
-    <a href="https://reality2.ai/r2-notekeeper/" class="btn btn-primary">Try Notekeeper</a>
-    <a href="index.html#built" class="btn btn-secondary">See What's Built</a>
+    <p>Explore the design</p>
+    <p class="sub">How devices carry messages, groups set boundaries, and applications cooperate.</p>
+    <a href="how.html" class="btn btn-primary">How It Works</a>
+    <a href="index.html#built" class="btn btn-secondary">Uses and Earlier Projects</a>
 </div>
 
 </article>
@@ -360,7 +363,7 @@
 
 <footer>
     <p><a href="https://github.com/reality2-ai">GitHub</a> · <a href="built-by-a-fleet.html">Built by a fleet</a></p>
-    <p style="margin-top:8px">Reality2 is in early development. Source specifications and code available soon.</p>
+    <p style="margin-top:8px">Reality2 is in development. The protocol is defined by the R2 Standard.</p>
 </footer>
 
 <script>
@@ -369,7 +372,7 @@ function toggleTheme() {
     var next = current === 'dark' ? 'light' : current === 'light' ? 'high-contrast' : 'dark';
     if (next === 'dark') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('r2-theme', next);
+    try { localStorage.setItem('r2-theme', next); } catch (e) {}
     var label = next === 'high-contrast' ? 'High contrast' : next.charAt(0).toUpperCase() + next.slice(1);
     var s = document.getElementById('theme-status');
     if (s) s.textContent = label + ' theme';

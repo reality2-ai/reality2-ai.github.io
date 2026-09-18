@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>L5B — Enrolment — Reality2 Standard</title>
 <meta name="description" content="Joining a trust group, and the ceremony that admits a member.">
@@ -23,10 +24,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/standard/standard.css">
-<script>(function(){var t=localStorage.getItem('r2-theme');
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
 if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
 var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
 if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -54,10 +57,15 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         </button>
     </div>
 </nav>
-<article id="main" class="doc-page">
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#introduction">Introduction</a></li><li><a href="#1-scope">1 Scope</a></li><li><a href="#2-normative-references">2 Normative references</a></li><li><a href="#3-terms-and-definitions">3 Terms and definitions</a></li><li><a href="#4-the-parties-and-the-precondition">4 The parties and the precondition</a></li><li><a href="#5-the-invitation">5 The invitation</a></li><li><a href="#6-the-ceremony">6 The ceremony</a></li><li><a href="#7-abort-and-what-a-ceremony-never-leaves">7 Abort, and what a ceremony never leaves</a></li><li><a href="#8-conformance">8 Conformance</a></li><li><a href="#9-security-considerations">9 Security considerations</a></li><li><a href="#10-what-is-not-decided-at-this-layer">10 What is not decided at this layer</a></li><li><a href="#bibliography">Bibliography</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
 <a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-5-companion-the-enrolment-ceremony">Reality2 Standard — Layer 5 companion: The enrolment ceremony</h1>
-<p><strong>Status:</strong> Draft — first pass
-<strong>Date:</strong> 2026-08-05</p>
+<p class="reader-kind">Normative document</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
+<p><strong>Version:</strong> 0.9.0 · <strong>Date:</strong> 2026-09-11 · <strong>Status:</strong> Draft</p>
+<p><strong>What "Draft" names here is the editorial maturity of the text, and nothing else.</strong>
+<strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
+build from it. <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> </p>
 <blockquote>
 <p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
 <em>can</em> = possibility and capability.</p>
@@ -121,7 +129,7 @@ ceremony session</strong></p>
 nothing else</p>
 <span class="clause-anchor" id="c4"></span><h2 id="4-the-parties-and-the-precondition">4 The parties and the precondition</h2>
 <p><strong class="clause" id="c4.1">4.1</strong> A ceremony shall have exactly two protocol parties — the candidate and the
-provisioner — and, at every grade above anchored cable, a person.</p>
+provisioner — and, at the grades 6.4.1 names, a person.</p>
 <p><strong class="clause" id="c4.2">4.2</strong> The candidate shall be in claim state OPEN, verified as <a href="L5-trust-and-identity.html#c4.4.2">Layer 5, 4.4.2</a> requires:
 before its claim request is emitted, and again immediately before the install commits.</p>
 <p><strong class="clause" id="c4.3">4.3</strong> A device in claim state OWNER shall not present itself as claimable, on any
@@ -182,7 +190,11 @@ offered role requires (6.3, 6.4);</p>
 the invitation's code and the public half of a member keypair it generated itself;</p>
 <p>e) <strong>install</strong> — the provisioner returns the persona bundle: the group identity, the
 candidate's member certificate over the key from d), and the group material the role
-carries; the candidate re-verifies OPEN and commits atomically — persona installed,
+carries. For an ordinary member (a non-key-holder), that material is the current
+epoch's derived payload-protection and integrity keys of <a href="L5-trust-and-identity.html#c5.2.2">Layer 5, 5.2.2</a>, delivered
+together with their epoch under the verified session; it excludes the group issuer
+secret and prior epochs' traffic keys. Custody remains subject to <a href="L5-trust-and-identity.html#c5.3.2">Layer 5, 5.3.2</a>.
+The candidate re-verifies OPEN and commits atomically — persona installed,
 claim state OWNER, in one commit (<a href="L5-trust-and-identity.html#c4.4.2">Layer 5, 4.4.2</a>); and</p>
 <p>f) <strong>announcement</strong> — the provisioner introduces the new member to the group by the
 group's ordinary machinery.</p>
@@ -204,7 +216,7 @@ fixed before the attacker sees anything to grind against.</p>
 <span class="clause-anchor" id="c6.3"></span><h3 id="63-verification-graded-by-role">6.3 Verification, graded by role</h3>
 <p><strong class="clause" id="c6.3.1">6.3.1</strong> Verification shall be at one of three grades, and the invitation's offered role
 shall set the floor:</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Grade, Co-presence evidence, Floor for"><table>
 <thead>
 <tr>
 <th>Grade</th>
@@ -249,16 +261,28 @@ authenticates the <em>destination</em> of the claim, not merely the absence of a
 volume — <strong>the attacker's strategy is retries</strong> — and a ceremony that loops on mismatch
 hands them exactly that. One mismatch, one dead invitation, one informed owner.</p>
 <span class="clause-anchor" id="c6.4"></span><h3 id="64-the-person">6.4 The person</h3>
-<p><strong class="clause" id="c6.4.1">6.4.1</strong> At the glance-confirmed grade and above, a person shall perform the
-confirmation, and their decline shall abort the ceremony (6.3.3).</p>
+<p><strong class="clause" id="c6.4.1">6.4.1</strong> At the glance-confirmed grade and at the anchored + person grade, a person
+shall perform the confirmation, and their decline shall abort the ceremony (6.3.3).</p>
+<p>Note 0 to entry: <strong>The grades are not a ladder, and both clauses above previously read as
+though they were.</strong> 6.3.1's table has three rows and <strong>an ordering was never stated for
+them</strong>, so <em>above</em> had no defined meaning — while 4.1 put <em>anchored cable</em> at the bottom
+needing no person and this clause said <em>glance-confirmed and above</em>, which against the row
+order sweeps anchored in. <strong>Read together they named different floors for the same fact.</strong></p>
+<p>Note 0a to entry: <strong>The table already decides it, in its own middle column, and the
+enumeration above states that rather than inventing an ordering.</strong> Glance-confirmed's
+co-presence evidence <strong>is a person comparing a string</strong>; the anchored grade's <strong>is the
+cable</strong> — <em>the wire is the co-presence, and there is nothing left for a person to do.</em> Only
+<em>anchored + person</em> adds one by name. <strong>So the first two rows are alternatives at one
+floor</strong> — both read <em>ordinary membership</em> — <strong>and only the third is above either of them.</strong></p>
+<p>Note 0b to entry: <strong>The case this decides is the one the anchored row was written for.</strong> Its
+<em>Floor for</em> column reads <em>ordinary membership, headless pairs</em>: <strong>a pair of devices with no
+display and nobody present.</strong> Under the sweeping reading such a pair could not complete a
+ceremony at all, and the grade named for it would have been unusable by it.</p>
+<p><em>(PROVISIONAL(standard))</em></p>
 <p><strong class="clause" id="c6.4.2">6.4.2</strong> Where the invitation states a person-authentication level for the confirmation
 (6.3.1, third grade), the confirming person's group shall attest <strong>the level and nothing
 else</strong> — never the method used or the evidence behind it.</p>
-<p>Note 1 to entry: The scale the level is stated on is ruled — 0–7, probability-anchored —
-and its normative definition is owed to the person-authentication companion; the ruling
-record is informative and outside this standard. This clause binds regardless:
-whatever the scale, the attestation carries a level, a time and a signature, and no
-method.</p>
+
 <span class="clause-anchor" id="c6.5"></span><h3 id="65-after-enrolment">6.5 After enrolment</h3>
 <p><strong class="clause" id="c6.5.1">6.5.1</strong> The announcement (6.1.1 f) shall teach the group the new member's identity by
 ordinary verified traffic; no global roster push shall be required, and a member is a
@@ -297,7 +321,7 @@ the three classes of <a href="01-terminology.html"><code>01-terminology.md</code
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(PROVISIONAL(supervisor))</em></p>
 <p><strong class="clause" id="c8.1">8.1</strong> An implementation conforms to this document where it:</p>
 <p>a) verifies OPEN at both check points and refuses claim on OWNER at both (4.2, 4.3);</p>
 <p>b) issues and honours invitations as Clause 5 requires, including single-use and the
@@ -332,14 +356,7 @@ rule for MEMBERSHIP (<a href="L5-trust-and-identity.html#c9.2">Layer 5, 9.2</a>�
 which devices share a network (<a href="L2-capability-and-discovery.html#c5.4a.5a">Layer 2, 5.4a.5a</a>, d231):</strong> published credentials that admit only development devices,
 confer nothing on or from production, <strong>and are absent from a production image rather than
 inert within one (<a href="L5-trust-and-identity.html#c9.3a">Layer 5, 9.3a</a>).</strong></p>
-<p>Note 1 to entry: <strong>The last clause of 9.4 was added because the sentence without it restates
-only the neutralised-effect half of the wall.</strong> A reader repairing <a href="L5-trust-and-identity.html#c9.3">Layer 5, 9.3</a> and stopping
-there leaves this restatement carrying the older remedy — <strong>and a restatement outlives the
-sentence it summarises</strong>, because the next reader finds whichever they meet first. <em>(Added
-2026-08-04. <strong>RATIFIED by Roy 2026-08-05, d255</strong> — this is the second site of that
-ratification, in a different document from the clause it restates, and it is the one a
-promotion pass most easily leaves behind. Finding SS276, from the sweep that produced 9.3a:
-this was the only site in the corpus repeating that half of the rule.)</em></p>
+
 <span class="clause-anchor" id="c10"></span><h2 id="10-what-is-not-decided-at-this-layer">10 What is not decided at this layer</h2>
 <p><strong>This clause states gaps and contains no requirements.</strong></p>
 <p><strong class="clause" id="c10.1">10.1 Byte formats.</strong> The invitation, the persona bundle, the exchange messages, the
@@ -359,19 +376,14 @@ grade.</p>
 <p><strong class="clause" id="c10.5">10.5 Provisioning at scale.</strong> Two hundred venue hives enrolled one glance at a time is
 a real cost. Whether a batch form exists — one person, one confirmation, many anchored
 candidates — and what it may not shortcut, is undecided.</p>
-<p><strong class="clause" id="c10.6">10.6 What the non-key-holder's group material is.</strong> 10.3 states what the key-holder side
-of the one decided distinction carries — the group secret and the capability to enrol
-further devices. <strong>It states nothing about the other side, and 6.1.1 e) names <em>the group
-material the role carries</em> without defining it for either role.</strong> A non-key-holder member
-must nonetheless hold the payload-protection and integrity keys of <a href="L5-trust-and-identity.html#c5.2.2">Layer 5, 5.2.2</a> in order
-to decrypt (<a href="L5-trust-and-identity.html#c7.3.1">Layer 5, 7.3.1</a>), tag and verify at all, <strong>and cannot derive them</strong>: 5.2 derives
-from the group secret, which 5.3.1 confines to key holders, and 5.3.2 Note 1 says so in as
-many words. <strong>So the material exists, is entailed by other clauses, and is named by no
-clause.</strong> Whether the bundle carries the derived keys, at what granularity, and what the
-<em>re-obtained on next contact with the group</em> path of 5.3.2 actually is, are all undecided.
-<em>(Added 2026-08-04, <code>PROVISIONAL(standard)</code>, finding SS271; raised by the lane that reached
-for it — core, building the <a href="L5-trust-and-identity.html#c11.1">Layer 5 11.1</a> b) surface, found no clause putting key material
-into a member's hands.)</em></p>
+<p><strong class="clause" id="c10.6">10.6 Ordinary-member material — semantic choice resolved, exchange still open.</strong>
+The install step in 6.1.1 e) now specifies the current epoch's derived payload and
+integrity keys as the ordinary member's material, excluding the issuer secret.
+Roy approved that choice on 2026-09-09 (D-348, SS271). The persona-bundle byte
+format, authenticated exchange and the re-obtainment path required by Layer 5,
+5.3.2 remain unspecified. This resolution does not supply those contracts or
+qualify atomic installation and hardware-rooted custody. The original gap was
+raised on 2026-08-04 when an implementer found no clause delivering the keys.</p>
 <h2 id="bibliography">Bibliography</h2>
 <p><em>Informative.</em></p>
 <ul>
@@ -379,12 +391,12 @@ into a member's hands.)</em></p>
 <li>[2] ISO/IEC Directives, Part 2, 2016</li>
 </ul>
 
-</article>
+</article></main></div>
 <footer>
     <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
     <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
     <a href="/">reality2.ai</a></p>
-    <p class="stamp">Reality2 Standard <strong>version 0.8.0</strong>, 2026-08-05. Built from <span class="mono">f5bf72b</span>, rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the version. </p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>
@@ -393,7 +405,7 @@ function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')
 var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
 if(n==='dark')document.documentElement.removeAttribute('data-theme');
 else document.documentElement.setAttribute('data-theme',n);
-localStorage.setItem('r2-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
 var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
 var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
 var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];

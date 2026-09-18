@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Presenting in a room — Reality2 Standard</title>
 <meta name="description" content="Near-zero stakes, proximity-conditioned entanglement, contention left to the room — by design.">
@@ -23,10 +24,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/standard/standard.css">
-<script>(function(){var t=localStorage.getItem('r2-theme');
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
 if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
 var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
 if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -54,10 +57,12 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         </button>
     </div>
 </nav>
-<article id="main" class="doc-page">
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#cast">Cast</a></li><li><a href="#the-premise-of-this-example">The premise of this example</a></li><li><a href="#the-signal-trace">The signal trace</a></li><li><a href="#the-pairing-stated-once">The pairing, stated once</a></li><li><a href="#open-edges-this-example-touches">Open edges this example touches</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
 <a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--worked-example-presenting-slides-in-a-room">Reality2 Standard — worked example: presenting slides in a room</h1>
+<p class="reader-kind">Informative example</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
 <p><strong>Status:</strong> Informative — worked example
-<strong>Date:</strong> 2026-08-05</p>
+<strong>Date:</strong> 2026-08-12</p>
 <blockquote>
 <p>⚠ <strong>INFORMATIVE.</strong> The deliberate counterpart to
 <a href="EXAMPLE-payment-at-point-of-sale.html"><code>EXAMPLE-payment-at-point-of-sale.md</code></a>: the same stack, the same mechanisms, at the
@@ -80,7 +85,7 @@ This is the assurance spectrum doing its job in the opposite direction from paym
 purpose selects the grade, and this purpose selects almost none.</p>
 <h2 id="the-signal-trace">The signal trace</h2>
 <h3 id="phase-0--discovery">Phase 0 — discovery</h3>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: #, Signal, Layer facts"><table>
 <thead>
 <tr>
 <th>#</th>
@@ -128,7 +133,7 @@ slides, coarse radio presence is plainly enough; <strong>the point is that the c
 strength is priced by the level, and this level is low.</strong></p>
 </blockquote>
 <h3 id="phase-2--the-deck-and-the-show">Phase 2 — the deck, and the show</h3>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: #, Signal, What it carries, Layer facts"><table>
 <thead>
 <tr>
 <th>#</th>
@@ -194,7 +199,7 @@ toward the unentitled is the same posture the diagnostics tier takes (<a href="L
 proximity condition fails, their entanglement expires, and the screen's policy falls back
 to whatever the room configured for that case.</p>
 <h2 id="the-pairing-stated-once">The pairing, stated once</h2>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: , Payment, Presenting"><table>
 <thead>
 <tr>
 <th></th>
@@ -244,7 +249,7 @@ to whatever the room configured for that case.</p>
 same dials to different values, and the purpose chose the values. That is the claim the
 two examples exist to demonstrate.</p>
 <h2 id="open-edges-this-example-touches">Open edges this example touches</h2>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Edge, Register"><table>
 <thead>
 <tr>
 <th>Edge</th>
@@ -267,12 +272,12 @@ two examples exist to demonstrate.</p>
 </tbody>
 </table></div>
 
-</article>
+</article></main></div>
 <footer>
     <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
     <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
     <a href="/">reality2.ai</a></p>
-    <p class="stamp">Reality2 Standard <strong>version 0.8.0</strong>, 2026-08-05. Built from <span class="mono">f5bf72b</span>, rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the version. </p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>
@@ -281,7 +286,7 @@ function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')
 var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
 if(n==='dark')document.documentElement.removeAttribute('data-theme');
 else document.documentElement.setAttribute('data-theme',n);
-localStorage.setItem('r2-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
 var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
 var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
 var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];

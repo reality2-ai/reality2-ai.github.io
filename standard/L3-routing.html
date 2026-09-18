@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>L3 — Routing — Reality2 Standard</title>
 <meta name="description" content="Relaying without knowing anybody. The mesh below the trust boundary.">
@@ -23,10 +24,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/standard/standard.css">
-<script>(function(){var t=localStorage.getItem('r2-theme');
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
 if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
 var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
 if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -54,15 +57,15 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         </button>
     </div>
 </nav>
-<article id="main" class="doc-page">
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#introduction">Introduction</a></li><li><a href="#1-scope">1 Scope</a></li><li><a href="#2-normative-references">2 Normative references</a></li><li><a href="#3-terms-and-definitions">3 Terms and definitions</a></li><li><a href="#4-the-neighbour-table">4 The neighbour table</a></li><li><a href="#5-relaying">5 Relaying</a></li><li><a href="#6-choosing-a-bearer">6 Choosing a bearer</a></li><li><a href="#7-holding-frames-until-a-path-returns">7 Holding frames until a path returns</a></li><li><a href="#8-what-this-layer-provides-and-requires">8 What this layer provides and requires</a></li><li><a href="#9-conformance">9 Conformance</a></li><li><a href="#10-security-considerations">10 Security considerations</a></li><li><a href="#11-what-is-not-decided-at-this-layer">11 What is not decided at this layer</a></li><li><a href="#bibliography">Bibliography</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
 <a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--layer-3-routing">Reality2 Standard — Layer 3: Routing</h1>
-<p><strong>Status:</strong> Draft — <strong>this names the editorial maturity of the text, and nothing else.</strong>
+<p class="reader-kind">Normative document</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
+<p><strong>Version:</strong> 0.9.0 · <strong>Date:</strong> 2026-09-11 · <strong>Status:</strong> Draft</p>
+<p><strong>What "Draft" names here is the editorial maturity of the text, and nothing else.</strong>
 <strong>It is not a licence to deviate:</strong> every requirement here is normative now and the implementing lanes
-build from it (d041, Roy: <em>standard is the canon</em>). <strong>The only text open to replacement is a value
-marked <code>PROVISIONAL(...)</code> at its own clause.</strong> <em>(Subject stated because a status field is scoped to
-a question the reader may not be asking, and a claim with an unstated subject will be given the
-subject the reader brought — composer, 2026-08-03.)</em>
-<strong>Date:</strong> 2026-08-03</p>
+build from it. <strong>The only text open to replacement is a value
+marked <code>PROVISIONAL(...)</code> at its own clause.</strong> </p>
 <blockquote>
 <p><strong>Verbal forms.</strong> <em>shall</em> = requirement · <em>should</em> = recommendation · <em>may</em> = permission ·
 <em>can</em> = possibility and capability.</p>
@@ -79,6 +82,13 @@ not exist now, and the hive that would have told you is the one that left. Routi
 therefore not the business of finding a path and following it. <strong>It is deciding what to do
 with a frame given knowledge that is incomplete, out of date by an unknown amount, and
 partly supplied by strangers.</strong></p>
+<p><strong>A hive has no network view beyond what it has itself observed.</strong> Its table is a local,
+ageing evidence ledger, not a map of the mesh and not a claim about a peer or path that it
+has not directly observed. A reception supports only that a particular local binding heard
+the reported peer at that time; an accepted Layer 1 output offer is not evidence of delivery.
+Movement, attenuation, weather and congestion can alter those observations, but do not become
+separate routing facts unless a lower layer measures and reports their effect. What lies beyond
+that evidence remains conjecture, which later observations may reinforce or contradict.</p>
 <p>Four consequences run through every clause below.</p>
 <p><strong>Relaying is the default, and it is not conditional on knowing anybody.</strong> A hive forwards
 frames for hives it has never met, belonging to groups it cannot join, carrying contents it
@@ -154,17 +164,14 @@ where the two could be confused, say <em>frame custody</em> and <em>key custody<
 <p><strong class="clause" id="c3.9">3.9
 duty class</strong></p>
 <p><em>(defined in <a href="L2-capability-and-discovery.html#c3.9">Layer 2, 3.9</a>)</em></p>
-<p>Note 1 to entry: The duty class states, hive to hive, the same fact a platform declares as
-its availability at Layer 0. <strong>It travels in the beacon</strong> (<a href="L2-capability-and-discovery.html#c5.4b">Layer 2, 5.4b</a>): declared by
-hives receptive only at intervals, absent from everyone else's beacons, unauthenticated
-because its forgery is conservative (7.3 Note 3), and unknown where unheard. <em>(This was
-the open gap 11.2 until 2026-07-31, when a ruling closed it.)</em></p>
+
 <span class="clause-anchor" id="c4"></span><h2 id="4-the-neighbour-table">4 The neighbour table</h2>
 <span class="clause-anchor" id="c4.1"></span><h3 id="41-one-peer-one-entry">4.1 One peer, one entry</h3>
 <p><strong class="clause" id="c4.1.1">4.1.1</strong> A hive shall keep one neighbour table entry per peer, keyed on the peer's canonical
 hive identifier.</p>
-<p><strong class="clause" id="c4.1.2">4.1.2</strong> An entry shall record which bearers the peer has been heard on, and shall hold
-per-bearer values for link strength and for the time of the most recent reception.</p>
+<p><strong class="clause" id="c4.1.2">4.1.2</strong> An entry shall record which binding instances the peer has been heard on, and
+shall hold per-binding-instance values for link strength and for the time of the most recent
+reception.</p>
 <p><strong class="clause" id="c4.1.3">4.1.3</strong> A hive shall form and refresh entries from any received frame and from any
 received beacon, treating the two as equivalent for this purpose.</p>
 <p>Note 1 to entry: 4.1.1 depends on Layer 1 reporting peers by their canonical hive
@@ -175,6 +182,13 @@ table is made on that fraction.</p>
 bearer can address, and what Layer 2 has heard announce itself. <strong>Both are evidence of the
 same fact and neither is sufficient alone</strong> — a peer that beacons but has never sent a frame
 is real, and so is a peer sending frames that has not beaconed recently.</p>
+<p>Note 3 to entry: A binding instance is one assembled transport endpoint, identified locally
+for as long as it is in service. It is not the Layer 1 registry ordinal: several instances may
+share one ordinal and therefore one declared profile. <strong>Their live state, reach, signal quality
+and most-recent reception remain separate facts.</strong> Collapsing them by ordinal lets a reception
+on one radio qualify a sibling that has never heard the peer; a later change of one radio's
+availability then silently moves traffic onto the wrong path. The local identity does not go on
+the wire and does not identify a peer.</p>
 <span class="clause-anchor" id="c4.2"></span><h3 id="42-two-axes-and-the-trust-boundary-runs-between-them">4.2 Two axes, and the trust boundary runs between them</h3>
 <p><strong class="clause" id="c4.2.1">4.2.1</strong> An entry shall carry a link axis (3.3) and a liveness axis (3.4), and a hive shall
 not derive one from the other.</p>
@@ -194,15 +208,7 @@ it and forms only from what it can verify.</p>
 expensive evidence is not. <strong>Anyone can transmit a frame claiming to come from anywhere</strong>,
 and a hive that treats that as proof a peer is alive has let a stranger with a radio decide
 what it does with other people's traffic. Clause 7 depends on this distinction absolutely.</p>
-<p>Note 2a to entry: 4.2.2a states what 4.2.2 leaves open: <strong>which</strong> entry a frame updates.
-<strong>A frame says who originated it; a neighbour table records who is directly reachable, and
-the two coincide only at one hop.</strong> Keying the update on the frame's origin manufactures a
-direct-neighbour entry for a hive that may be many hops away and was never heard by this
-bearer — a link axis populated with things the radio never observed, which is the one thing
-that axis is for. This is the general rule of <a href="01-terminology.html#c5.4"><code>01-terminology.md</code> 5.4</a> in its clearest form:
-<strong>the origin field is valid, and it does not describe this link.</strong> <em>(Added 2026-08-02,
-<code>PROVISIONAL(supervisor)</code>, from an implementation that made the observation an obligation
-of its own neighbour-table entry point.)</em></p>
+<p>Note 2a to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p>Note 3 to entry: The link axis is not a yes-or-no. It carries <strong>how strongly</strong> a peer is
 heard and <strong>how recently</strong>, and both change continuously. A link that has faded is a routing
 fact and never a statement about whether a hive is still a member of anything.</p>
@@ -217,16 +223,7 @@ floors and duty cycles at each end — so a peer heard strongly may be unable to
 all. 4.3.1 forms a link from hearing <strong>because that is the cheap evidence this layer is
 built on</strong>, and 4.2.4 already refuses to read the link axis as entitlement; 4.3.1a closes
 the remaining misreading, which is <strong>direction</strong> rather than trust.</p>
-<p>Note 0a to entry: <strong class="clause" id="c6.2">6.2.2's freshness is reverse-direction evidence used as a
-forward-direction estimate, and that is permitted.</strong> A next hop scored by how recently it
-was heard is a bet, and a good one — the alternative is probing every peer before every
-forwarding decision, which no bearer budget here can afford. What the score <strong>is not</strong> is
-confirmation that the peer received anything: <strong>that confirmation exists only above this
-layer</strong>, in a response, and this layer has no acknowledgements by design (<a href="L4-wire.html#c5.2">Layer 4, 5.2</a>).
-<a href="L1-transport.html#c5.1">Layer 1, 5.1</a> Note 1 states the neighbouring distinction — <em>addressable</em> and <em>heard from</em> are
-different records and neither substitutes for the other. <em>(Added 2026-08-02,
-<code>PROVISIONAL(supervisor)</code>, finding SS162, from a hardware bring-up where a listen-only probe
-was read as evidence about a link it could not test.)</em></p>
+<p>Note 0a to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(supervisor)</code>.</p>
 <p><strong class="clause" id="c4.3.2">4.3.2</strong> A hive implementing Layers 1 to 4 without Layer 5 shall form links and shall relay,
 and shall not be required to hold any key material in order to do so.</p>
 <p>Note 1 to entry: 4.3.1 is stated as a requirement because the opposite is a natural mistake
@@ -280,7 +277,7 @@ the attack costs a real neighbour nothing.</p>
 <p>Note 2 to entry: 4.4.2's second half is the part that is easy to omit. <strong>An attacker can
 generate traffic cheaply</strong>, so if being heard often raised confidence, the ceiling would buy
 nothing.</p>
-<p><em>Verification: fill the table with unverified entries while one verified entry is present.
+<p><em>Verification of 4.4.6: fill the table with unverified entries while one verified entry is present.
 The verified entry survives, and no unverified entry exceeds the ceiling however much
 traffic it generates.</em></p>
 <span class="clause-anchor" id="c4.5"></span><h3 id="45-fading-is-per-bearer">4.5 Fading is per bearer</h3>
@@ -301,6 +298,15 @@ constrained at Layer 2, which requires it to exceed the longest interval at whic
 bearer's announcements can be expected. <strong>Three layers touch one value, and each does a
 different thing with it</strong>: Layer 1 declares it, Layer 2 says what it has to exceed, and this
 clause applies it.</p>
+<p>Note 4 to entry: <strong>Planned silence is not evidence of a failed link.</strong> A duty-cycled
+destination's announced duty class bounds its longest receptive gap, and Clause 7 uses that
+bound to retain rather than waste a flood while the destination is expected asleep. The
+ordinary fade remains the conservative boundary where no new observation arrives. A duty
+class does not state a shared-clock wake phase: Layer 0 supplies monotonic local time, not a
+common wall clock. It therefore cannot establish a precise rendezvous. A future
+exact wake schedule must specify its time basis, validity period, uncertainty and fallback;
+until then the interoperable consequence is bounded patience and custody, not a guessed
+transmission time.</p>
 <span class="clause-anchor" id="c5"></span><h2 id="5-relaying">5 Relaying</h2>
 <span class="clause-anchor" id="c5.1"></span><h3 id="51-relaying-is-the-default">5.1 Relaying is the default</h3>
 <p><strong class="clause" id="c5.1.1">5.1.1</strong> A hive shall relay a received frame that is not addressed to it, unless a
@@ -341,18 +347,7 @@ go on suppressing: <strong>re-flooding a duplicate costs airtime, while suppress
 silences a peer.</strong> This is <a href="01-terminology.html#c5.1"><code>01-terminology.md</code> 5.1</a> with the tie-break of its Note 8: the
 reading that <strong>grants</strong> something is the permissive one, and here the thing granted is
 <em>drop this member's frames</em>.</p>
-<p>Note 0 to entry: <strong>Duplicate suppression is not a security mechanism inside a trust group,
-and 5.3.4 is what bounds the damage.</strong> The key <code>(origin, message identifier)</code> sits wholly
-inside Layer 4's authenticated span, so <strong>no outsider</strong> can forge either half — but that
-span is tagged under the <em>group</em> key, which every member holds. <a href="L5-trust-and-identity.html#c7.2.2">Layer 5, 7.2.2</a> says the
-consequence plainly: passage establishes <strong>which group</strong>, never <strong>which member</strong>. So a
-member can emit frames naming another member as origin, with valid tags, and <strong>pre-claim
-that member's <code>(origin, message identifier)</code> pairs — after which every relay suppresses that
-member's genuine frames as duplicates.</strong> Structurally valid, cryptographically verified, and
-false. <strong>A bounded record lifetime makes such suppression temporary rather than permanent</strong>,
-which is the difference between a nuisance and a member able to silence another indefinitely.
-Clause 10, 10.5 records what remains. <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>, from a
-sweep for artefacts trusted because they validate.)</em></p>
+
 <p>Note 1 to entry: 5.3.2 names the mistake that looks correct. The immediate sender is
 available, obvious, and <strong>different at every hive the frame passes through</strong> — so keying on
 it makes duplicate suppression work at one hop and fail at every hop after, and the failure
@@ -361,7 +356,7 @@ is an expanding flood rather than an error.</p>
 receiving the same origin-less frame each supplied their own identity as the origin, the
 frame would acquire two different origins</strong> and every hive downstream would see two distinct
 frames. Supplying it also makes replies go to the relay rather than to the sender.</p>
-<p><em>Verification: send one frame along two paths that rejoin. Exactly one copy continues past
+<p><em>Verification of 5.3.4: send one frame along two paths that rejoin. Exactly one copy continues past
 the rejoining hive.</em></p>
 <span class="clause-anchor" id="c5.4"></span><h3 id="54-three-separate-duplicate-concerns">5.4 Three separate duplicate concerns</h3>
 <p><strong class="clause" id="c5.4.1">5.4.1</strong> A hive shall not extend the suppression of 5.3 to frames it is the destination of.</p>
@@ -405,10 +400,8 @@ it, because the shortfall is in the neighbour set rather than in the transmissio
 satisfied by transmitting once. <strong>On a bearer where it is not, transmitting once reaches one
 peer and reports success</strong> — and the difference is invisible at this layer, because both
 look like a completed send.</p>
-<p>Note 2 to entry: Layer 1 requires every bearer to support broadcast, and permits a bearer
-whose medium lacks it to satisfy that by sending to each peer it knows of. <strong>5.6.2 is the
-obligation that makes a hive rely on that rather than assume the medium.</strong></p>
-<p><em>Verification: flood on a bearer with no native broadcast, with three neighbours present.
+
+<p><em>Verification of 5.6.3: flood on a bearer with no native broadcast, with three neighbours present.
 All three receive a copy.</em></p>
 <span class="clause-anchor" id="c5.7"></span><h3 id="57-bounds-on-replicated-frames">5.7 Bounds on replicated frames</h3>
 <p><strong class="clause" id="c5.7.1">5.7.1</strong> A hive shall not replicate a frame whose payload exceeds a stated size limit, and
@@ -437,6 +430,7 @@ continue to apply.</p>
 device, in which case every frame it originates carries the constrained-origin marking.</p>
 <p><strong class="clause" id="c5.8.2">5.8.2</strong> A hive shall not relay a frame back to the hive it received it from, except where
 that hive is the destination.</p>
+
 <p>Note 1 to entry: g) is the routing half of a rule stated at Layer 0. Without it, the two
 documents disagree: <strong>Layer 0 permits the smallest devices to stop relaying, and this
 clause — which says relay unless a listed condition holds — would have made every such
@@ -461,17 +455,36 @@ hop, and shall not use a bearer removed by 6.1.2.</p>
 <p>Note 1 to entry: 6.1.4's second half is what makes 6.1.2 a filter rather than a preference.
 <strong>A disabled bearer that would have scored best is still disabled</strong>, and an implementation
 that reaches for it when nothing else remains has made the local decision advisory.</p>
-<h3 id="62-what-the-score-accounts-for">6.2 What the score accounts for</h3>
+<h3 id="62-what-the-score-accounts-for"><span class="clause-anchor" id="c6.2"></span>6.2 What the score accounts for</h3>
 <p><strong class="clause" id="c6.2.1">6.2.1</strong> A score shall increase with the confidence that the bearer reaches the next hop,
 and shall decrease with the cost of sending on it.</p>
 <p><strong class="clause" id="c6.2.2">6.2.2</strong> A score shall account for how recently the next hop was heard on that bearer, per
 bearer.</p>
 <p><strong class="clause" id="c6.2.3">6.2.3</strong> A hive may bias the score by its own energy state and by any charge associated with
 a bearer.</p>
+<p><strong class="clause" id="c6.2.4">6.2.4</strong> A score should favour greater locally estimated transmission speed, where that
+estimate is available from the binding (<a href="L1-transport.html#c5.3.4">Layer 1, 5.3.4</a>), for small as well as large frames.
+That preference should be balanced with confidence, per-binding recency and sending cost
+under 6.2.1 and 6.2.2: a faster link with weak or stale evidence can be less suitable than
+a slower link with stronger, fresher evidence. The preference does not alter the filters
+of 6.1.2, the tier restrictions of Layer 4, or the confidence rules of Clause 4.</p>
+<p>Note 0 to entry: Speed and reliability are separate inputs. Link quality is relative to
+what a bearer can achieve (<a href="L1-transport.html#c5.3">Layer 1, 5.3</a>); it is not its transmission speed or a measured
+probability of delivery. Neither speed nor strong reception proves the reverse direction
+works (4.3.1a). The score formula, relative weights and treatment of an unavailable speed
+estimate remain local implementation choices. A size threshold is not needed to enable
+speed preference; frame size still determines whether a bearer can carry the frame.</p>
 <p>Note 1 to entry: 6.2.2 is stated separately because a single freshness value across bearers
 cannot express the thing being decided. <strong>A peer heard a minute ago on a short-range bearer
 and an hour ago on a long-range one is telling you it has moved</strong>, and one number averages
 that away.</p>
+<p>Note 2 to entry: <strong>The optimisation is local, opportunistic and reversible.</strong> A score is a
+decision about this frame from this hive's present evidence; it is neither an assertion that a
+path exists elsewhere nor a prediction that it will remain useful. Retention is therefore a
+normal result when no current choice is justified. Independent hives can observe different
+conditions and choose differently without either observation being an error. An endpoint
+receipt can strengthen that endpoint's end-to-end delivery hypothesis, but cannot be assigned
+to an intermediate hop or to the original binding: its return may have followed another path.</p>
 <span class="clause-anchor" id="c6.3"></span><h3 id="63-one-bearer-per-directed-frame">6.3 One bearer per directed frame</h3>
 <p><strong class="clause" id="c6.3.1">6.3.1</strong> Where a hive forwards a frame to one named next hop, it shall transmit on the one
 bearer it selected.</p>
@@ -524,7 +537,9 @@ destination simply never receives anything.</p>
 <p>Note 2 to entry: 7.2.2 is the weaker form of the same mistake made honestly. A faded entry
 still exists; treating existence as reachability makes a hive release its held frames toward
 a peer that has been gone for hours.</p>
-<p><em>Verification: transmit unverified frames claiming to originate from an absent destination.
+
+<p>Note 4 to entry: Source commentary omitted; provisional markers retained: <code>PROVISIONAL(standard)</code>.</p>
+<p><em>Verification of 7.2.3: transmit unverified frames claiming to originate from an absent destination.
 Frames for that destination continue to be retained, and nothing held is released.</em></p>
 <span class="clause-anchor" id="c7.3"></span><h3 id="73-whether-to-flood-or-to-hold">7.3 Whether to flood or to hold</h3>
 <p><strong class="clause" id="c7.3.1">7.3.1</strong> Where a hive has no confident path to a destination but does have other neighbours,
@@ -565,14 +580,21 @@ and duplicate records are short-lived while retention is not. <strong>Re-checkin
 in one of two ways depending only on how long the destination slept</strong>: soon, and the frame is
 discarded as a duplicate of itself; later, and the record has expired so the frame is treated
 as new and floods again. <strong>Suppression governs what is admitted, not what is released.</strong></p>
+<p>Note 2 to entry: 7.5.1's <em>directly</em> needs an addressee, and a frame whose target the holder
+cannot resolve has none. <strong>A compact target is one hash that may name a group or a hive
+(<a href="L4-wire.html#c6.1.2">Layer 4, 6.1.2</a>), and its resolution belongs to the receiver</strong> — a hive holding a frame for
+somebody else is not the receiver, so it cannot perform that resolution, and manufacturing
+one is not open to it. <em>The two available wrong answers are both worse than waiting</em>: reading
+the hash as a hive holds a group's frame for a peer that will never match it, and releasing by
+flood undoes the whole of 7.5.1, which exists precisely because the frame was already
+recorded as seen. <strong>So such a frame is retained, retried whenever a resolution might have
+become possible, and discarded at 7.4.2 expiry — releasing it by flooding is outside what
+7.5.1 permits.</strong> </p>
 <span class="clause-anchor" id="c7.6"></span><h3 id="76-holding-is-not-reading">7.6 Holding is not reading</h3>
 <p><strong class="clause" id="c7.6.1">7.6.1</strong> The inability to read a frame shall not be a bar to retaining or forwarding it,
 and no relationship with the origin or the destination shall be required in order to do
 either.</p>
-<p>Note 1 to entry: This clause is non-discrimination, not a mandate: <strong>whether to retain
-remains the permission of 7.1.1</strong> — this clause only forbids answering that question
-differently for frames the hive cannot read. <em>(Reworded 2026-08-01, ruling on a conflict
-with 7.1.1 — the earlier text read as mandating retention.)</em></p>
+
 <span class="clause-anchor" id="c8"></span><h2 id="8-what-this-layer-provides-and-requires">8 What this layer provides and requires</h2>
 <p><strong class="clause" id="c8.1">8.1</strong> This layer shall provide to the layers above:</p>
 <p>a) for each known peer, which bearers it is reachable on and with what confidence;</p>
@@ -581,10 +603,12 @@ reason; and</p>
 <p>c) delivery to the layers above of frames addressed to this hive.</p>
 <p><strong class="clause" id="c8.2">8.2</strong> This layer shall require of the layers below:</p>
 <p>a) peers reported by their canonical hive identifier (Layer 1);</p>
-<p>b) a per-bearer declaration of reach, cost, wire tier and fade behaviour (Layer 1);</p>
-<p>c) per-bearer state and link quality, kept current (Layer 1);</p>
-<p>d) per-bearer sightings of peers that have announced themselves (Layer 2); and</p>
-<p>e) a monotonic time source (Layer 0).</p>
+<p>b) a per-binding-instance declaration of reach, cost, wire tier and fade behaviour (Layer 1);</p>
+<p>c) per-binding-instance state and link quality, kept current (Layer 1);</p>
+<p>d) per-binding-instance sightings of peers that have announced themselves (Layer 2);</p>
+<p>e) a monotonic time source (Layer 0); and</p>
+<p>f) an assembly-local binding-instance identity carried with each of b), c) and d), stable
+while that binding is in service (Layer 1).</p>
 <p><strong class="clause" id="c8.3">8.3</strong> This layer shall not require the layers below to interpret any frame.</p>
 <p>Note 1 to entry: 8.1 b) is a requirement because the reasons are not equivalent and the
 difference is invisible from outside. <strong>A frame dropped as a duplicate, a frame dropped for
@@ -596,7 +620,7 @@ the three classes of <a href="01-terminology.html"><code>01-terminology.md</code
 declaration. <strong>A requirement whose evidence is by construction is not thereby
 optional</strong>: the demonstration is an inspection a third party can perform without the
 implementer's cooperation, and its absence is non-conformance exactly as a failed
-behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(Added 2026-08-02, <code>PROVISIONAL(supervisor)</code>; the control sentence added the same day, finding SS183.)</em></p>
+behavioural test is. <strong>Behavioural evidence for any requirement of this document carries the control <a href="01-terminology.html#c4.2"><code>01-terminology.md</code> 4.2</a> to 4.5 requires</strong> — the same procedure run against a case the requirement excludes, giving a distinguishable non-satisfying result attributable to the requirement under test; <strong>a demonstration that could not have come out any other way is not evidence.</strong> <em>(PROVISIONAL(supervisor))</em></p>
 <p><strong class="clause" id="c9.1">9.1</strong> An implementation conforms to this document where it:</p>
 <p>a) maintains a neighbour table meeting Clause 4, including the separation of the two axes and
 the eviction priority;</p>
@@ -624,12 +648,14 @@ read</strong>, and confidentiality and integrity are established between origin 
 without any relay's participation.</p>
 <p><strong class="clause" id="c10.4">10.4</strong> The rate limit of 5.7.2 depends on an origin that may not have been verified, and is
 therefore a bound on nuisance rather than on a determined attacker.</p>
-<p><strong class="clause" id="c10.5">10.5</strong> Duplicate suppression binds an outsider and not a member. <strong>Its key is unforgeable
-outside the group and freely forgeable within it</strong>, so a member can suppress another
-member's frames for as long as a duplicate record survives; 5.3.4 bounds that, and nothing
-at this layer removes it. <strong>What a compromised member gains is therefore silence-anyone, not
-merely send-rubbish</strong>, and an operation that must not be suppressible needs the
-member-attributable evidence of <a href="L5-trust-and-identity.html#c7.4">Layer 5, 7.4</a> and retransmission under a fresh identifier.</p>
+<p><strong class="clause" id="c10.5">10.5</strong> Duplicate suppression can bind both an outsider and a member. An outsider can
+pre-claim a key with a structurally valid untagged frame; a member can pre-claim one with a
+valid group tag while naming another member as origin. <strong>A tag protects the bytes of the frame
+that carries it; it does not authenticate a duplicate key before Layer 3 has to act on that
+key.</strong> In both cases a later genuine frame can be suppressed for the bounded record lifetime;
+5.3.4 bounds that and nothing at this layer removes it. An operation that must not be
+suppressible needs the member-attributable evidence of <a href="L5-trust-and-identity.html#c7.4">Layer 5, 7.4</a> and retransmission under a
+fresh identifier.</p>
 <p>Note 1 to entry: The bounds that do not depend on identity — hop limit, replication budget,
 payload size — are the ones that hold against an attacker who varies what they claim to be.
 <strong>They are deliberately crude, and they are the reason a hive that believes nothing it hears
@@ -641,25 +667,29 @@ values never were owed.</strong> What this gap recorded as undecided was the <em
 and 4.4.5 now pins it: the provisional ceiling is below the forwarding threshold, so
 unverified evidence can never cross into forwarding on any conformant implementation.
 The two values themselves are the deployment's, and divergence in them is quality, not
-conformance. <em>(Settled by ruling.)</em></p>
-<p><strong class="clause" id="c11.6">11.6 Build-mode carriage, and the only-connector exception, have no expression at this
-layer.</strong> Layer 2 states the development/production boundary and its one exception — a
-development hive may carry a production network's traffic where it is the only connector
-(<a href="L2-capability-and-discovery.html#c5.4a">L2 5.4a</a>, Notes 3 and 4) — but that is an exception to <em>carriage</em>, and this document,
-which performs carriage, currently says nothing about build mode at all: 5.1.2 relays
-without regard to origin or group, and no clause conditions next-hop or flood choice on
-a neighbour's declared mode. <strong>An implementer reading this document alone relays
-development traffic unconditionally and is conformant</strong> — which is exactly the state
-this paragraph exists to mark. The mechanical form — when a differing-mode neighbour may
-be selected, and how "no same-mode path exists" is established — is register item Q21,
-awaiting decision.</p>
+conformance. </p>
+<p><strong class="clause" id="c11.6">11.6 Build-mode carriage — no longer undecided, and this paragraph records why it is
+kept.</strong>  <strong>This clause described a boundary and an exception
+that <code>d231</code> dissolved on 2026-08-04</strong>, and cited Layer 2's Notes 3 and 4 — both of which are
+marked <strong>superseded</strong> at their own site, Note 4 saying in terms that it <em>framed as <strong>the one
+exception</strong> a case that is now the ordinary one.</em> <strong>What it recorded as this layer's gap is now
+this layer's specified behaviour:</strong> <a href="L2-capability-and-discovery.html#c5.4a.5a">Layer 2, 5.4a.5a</a> obliges a hive to participate
+<strong>irrespective of its own build mode or any peer's</strong>, and not to refuse discovery, neighbour
+formation, relaying or delivery on that ground. <strong>So <em>an implementer reading this document
+alone relays development traffic unconditionally and is conformant</em> is no longer the state a
+gap-clause marks — it is the required behaviour</strong>, and 5.1.2's relaying without regard to
+origin or group is its expression here. <em>The mechanical form this paragraph deferred — when a
+differing-mode neighbour may be selected, and how</em> no same-mode path exists <em>is established —
+has no subject left: under 5.4a.5a there is no mode-conditioned selection to specify.</em> <strong>The
+paragraph is kept rather than struck because a reader arriving from Q21 or from the old Notes
+needs to be told where the question went</strong>, which is the disposal form for a true record whose
+pointer moved.</p>
 <p><strong class="clause" id="c11.2">11.2 How a hive learns a peer's duty class — settled at Layer 2 (2026-07-31).</strong> The chain
 this clause recorded as broken is closed one layer below where it was found: <strong>the beacon
 carries the duty class</strong> (<a href="L2-capability-and-discovery.html#c5.4b">Layer 2, 5.4b</a>), declared by the hives that sleep and absent from
 everyone else's, so a hive relaying for a group it does not belong to learns hold-or-flood
 from the air, below the trust boundary. 7.3 now turns on a value that arrives; where none
-has, the duty class is unknown and 7.3.2 applies, which is what it did before. <em>(Settled by
-ruling, 2026-07-31.)</em></p>
+has, the duty class is unknown and 7.3.2 applies, which is what it did before. </p>
 <p><strong class="clause" id="c11.3">11.3 What a hive does with its own frames before they are first transmitted.</strong> Clause 7
 governs frames received from others. <strong>A frame a hive originates while it has no viable bearer
 is not covered by any clause here</strong> — whether it is queued, dropped, or subject to the same
@@ -671,6 +701,29 @@ the hive doing the retaining.</strong></p>
 <p><strong class="clause" id="c11.5">11.5 Aggregate rate limiting.</strong> 5.7.2 bounds one origin at one hive. <strong>Nothing bounds the
 total volume a determined origin can put through the mesh</strong> by spreading it across many
 frames that are each within every limit.</p>
+<p><strong class="clause" id="c11.8">11.8 Whether a frame carrying a compact target can be retained at all, and what retention
+means for a group-addressed frame.</strong> <strong>Clause 7 conditions on <em>the destination</em> throughout</strong> —
+7.1.2 on the destination being unreachable, 7.2.2 and 7.2.3 on evidence about it, and 7.2's
+Notes 3 and 4 on the destination being reachable without an intervening hive. <strong>A retaining hive
+cannot always name that destination.</strong> <em><a href="L4-wire.html#c6.1.2">Layer 4, 6.1.2</a> makes a compact target four bytes that
+are the identifier hash <strong>of a group or of a hive</strong>, and its Note 2 gives the resolution to <strong>the
+receiver</strong> — while a retaining relay is, by construction, not the receiver: it is holding the
+frame precisely because the receiver is not reachable.</em> <strong>⚠ AND LAYER 4 HAS ALREADY MET THIS
+IMPOSSIBILITY ONCE AND ANSWERED IT BY REFUSING THE ACT:</strong> 9.2.5 forbids a non-broadcast compact
+target from crossing to the extended tier, <strong>in terms, because <em>which half it names cannot be
+known</em>.</strong> <em>That is the same party in the same position, and the corpus's one prior answer was to
+forbid rather than to guess.</em> <strong>⚠ AND WIDENING THE FOUR BYTES IS NOT AN ESCAPE, WHICH IS THE
+FIRST THING AN IMPLEMENTER WILL REACH FOR:</strong> <em>9.2.4 defines a widening for a <strong>route record
+entry</strong>, and a route record entry is <strong>already known to be a hive</strong>. A target is not.</em> <strong>Same
+bytes, same width, different question</strong> — <em>so applying the route-entry widening to a target would
+manufacture a hive identity out of something that may name a group.</em> <strong>Two questions follow and neither is decided here.</strong> <em>First,
+whether retention is available at the compact tier at all, or whether a frame whose destination
+the holder cannot identify is <strong>structurally undeliverable</strong> in 7.1.3's sense — that clause
+enumerates payload size and tier bars and does not reach this, which is an enumeration written
+before the case arose.</em> <strong>Second, and it is the harder one: 5.5.3 obliges retention <em>for delivery
+if the destination becomes directly reachable</em>, and a group has no single destination</strong> — <em>so
+either that obligation does not apply to a group-addressed frame, or it means <strong>any member</strong>
+becoming reachable, and those are different behaviours wearing the same words.</em> </p>
 <p><strong class="clause" id="c11.7">11.7 The duplicate-record lifetime.</strong> 5.3.4 requires the lifetime to be bounded and
 <strong>gives no value.</strong> The trade is a deployment's: too long and a member can silence another
 for that long (10.5); too short and genuine duplicates re-flood the mesh. <strong>An
@@ -684,12 +737,12 @@ chosen once, by whoever wrote the library, for every deployment at once.</p>
 <li>[2] ISO/IEC Directives, Part 2, 2016</li>
 </ul>
 
-</article>
+</article></main></div>
 <footer>
     <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
     <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
     <a href="/">reality2.ai</a></p>
-    <p class="stamp">Reality2 Standard <strong>version 0.8.0</strong>, 2026-08-05. Built from <span class="mono">f5bf72b</span>, rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the version. </p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>
@@ -698,7 +751,7 @@ function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')
 var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
 if(n==='dark')document.documentElement.removeAttribute('data-theme');
 else document.documentElement.setAttribute('data-theme',n);
-localStorage.setItem('r2-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
 var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
 var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
 var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Payment at point of sale — Reality2 Standard</title>
 <meta name="description" content="High stakes, minutes-long entanglement, laddered person-authentication, receipt-with-release.">
@@ -23,10 +24,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/standard/standard.css">
-<script>(function(){var t=localStorage.getItem('r2-theme');
+<script>(function(){var t;try{t=localStorage.getItem('r2-theme');}catch(e){}
 if(t==='light'||t==='high-contrast'){document.documentElement.setAttribute('data-theme',t);
 var tc={light:'#f5f2ec','high-contrast':'#000000'}[t];var m=document.querySelector('meta[name="theme-color"]');
 if(m&&tc)m.setAttribute('content',tc);}})();</script>
+<link rel="stylesheet" href="/standard/reader.css">
+<script src="/standard/reader.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -54,10 +57,12 @@ if(m&&tc)m.setAttribute('content',tc);}})();</script>
         </button>
     </div>
 </nav>
-<article id="main" class="doc-page">
+<div class="reader-layout" data-reader-edition="1"><aside class="reader-sidebar" aria-label="Page navigation"><details class="reader-toc"><summary>On this page</summary><ul><li><a href="#cast">Cast</a></li><li><a href="#the-three-authentication-axes-kept-apart">The three authentication axes, kept apart</a></li><li><a href="#the-signal-trace">The signal trace</a></li><li><a href="#what-an-observer-saw">What an observer saw</a></li><li><a href="#where-the-tokens-come-from-and-where-they-go">Where the tokens come from, and where they go</a></li><li><a href="#the-open-edges-this-example-touches">The open edges this example touches</a></li></ul></details><a class="reader-top" href="#main">Back to top ↑</a></aside><main id="main"><article class="doc-page">
 <a class="back-link" href="/standard/">← Contents</a><h1 id="reality2-standard--worked-example-payment-at-a-point-of-sale">Reality2 Standard — worked example: payment at a point of sale</h1>
+<p class="reader-kind">Informative example</p>
+<details class="edition-note"><summary>About this reading edition</summary><p>The numbered requirements and their provisional markers are retained from the cited source revision. Selected non-normative source notes, editorial attributions and internal working details are omitted. Clause numbers are unchanged; references to omitted notes may remain. The overview and worked examples are informative. Navigation and reading aids are not requirements.</p></details>
 <p><strong>Status:</strong> Informative — worked example
-<strong>Date:</strong> 2026-08-05</p>
+<strong>Date:</strong> 2026-08-12</p>
 <blockquote>
 <p>⚠ <strong>INFORMATIVE, and honest about its edges.</strong> This example exercises the whole stack
 end-to-end against a scenario a user would recognise. Where it runs on decided text it
@@ -91,7 +96,7 @@ not the network.</p>
 <h2 id="the-three-authentication-axes-kept-apart">The three authentication axes, kept apart</h2>
 <p>The scenario runs on three different kinds of "who is this?", and confusing them is the
 main way to mis-build it:</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Axis, Question, Who answers, how"><table>
 <thead>
 <tr>
 <th>Axis</th>
@@ -133,23 +138,14 @@ is strong evidence with a fast decay — <strong>level 6 for a moment</strong>, 
 presence &lt; an acknowledgement tap &lt; a biometric. <em>(This gives operational shape to a term
 the terminology deliberately leaves undefined; the definition is register work.)</em></li>
 </ul>
-<p><em>(Corpus alignment, informative: this model is substantively <code>R2-AUTH</code> v0.5 — continuous
-Thurisaz identity confidence, discrete escalation evidence with per-level freshness windows
-(the momentary spike), a group-settable <code>AuthPolicy</code> (the amount ladder's mechanism), a
-signed <code>EscalationClaim</code> (the attestation), and a payment-terminal deployment example.
-Canon's §2.5.6 marks the continuous behavioural streams as future; the ruling here makes
-them primary. Q34's decisions are now ruled — the 0–7 probability-anchored scale, with
-operation classes as per-group policy bands and level-only disclosure:
-ruling C6; exact anchors and decay curves are the companion's.)</em></p>
+
 <p><strong>The human–PoS interaction is ZKP-inspired: prove the predicate, never the evidence</strong>
 (Roy, 2026-07-31). M's question is only ever <em>"is the person present at level ≥ N?"</em> — and
 what crosses the entanglement is a signed attestation of <strong>that predicate and nothing
 else</strong>. The gait signature, the heart-rate model, the fingerprint template, the unlock
 history — <strong>none of it leaves P, ever</strong>; it is not that M does not receive the biometrics,
 it is that the protocol has no place to put them. The user proves <em>enough</em>, and only
-enough: one graded fact per requirement. <em>(Ruled, 2026-08-01: the method never travels —
-level-only crosses the boundary; which affordance reaches which level is the
-person-group's local vocabulary. Ruling C6.)</em></p>
+enough: one graded fact per requirement. </p>
 <p><strong>The level is P's self-assessment, and M can never verify the gait data behind it.</strong> What
 M receives is a <strong>signed attestation</strong> of the level — member-attributable evidence from P —
 and M believes it <strong>per the entanglement's conditions</strong>, the way a payment terminal trusts
@@ -159,7 +155,7 @@ relationship, priced by the amount ladder below.</p>
 <h2 id="the-signal-trace">The signal trace</h2>
 <h3 id="phase-0--the-mesh-before-anyone-means-anything">Phase 0 — the mesh, before anyone means anything</h3>
 <p>Both devices are already meshing; no decision is involved.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: #, Signal, Layer facts"><table>
 <thead>
 <tr>
 <th>#</th>
@@ -187,7 +183,7 @@ relationship, priced by the amount ladder below.</p>
 </table></div>
 <h3 id="phase-1--first-contact-on-the-unauthenticated-rung">Phase 1 — first contact, on the unauthenticated rung</h3>
 <p>No shared group, no entanglement: strangers — and strangers are legal (<a href="L5-trust-and-identity.html#c10.1">L5 10.1</a>).</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: #, Signal, Layer facts"><table>
 <thead>
 <tr>
 <th>#</th>
@@ -214,7 +210,7 @@ encryption.</p>
 transaction's events, both directions · <strong>entanglement level</strong> = payment-grade ·
 <strong>lifetime</strong> = minutes, a condition · <strong>conditions</strong> including the timeout, both sides
 remaining in production mode, <strong>and the amount ladder</strong>:</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Purchase amount, Required person-authentication level, Typical way P reaches it"><table>
 <thead>
 <tr>
 <th>Purchase amount</th>
@@ -251,7 +247,7 @@ document owes the bytes.</p>
 <h3 id="phase-3--the-payment-inside-the-entanglement">Phase 3 — the payment, inside the entanglement</h3>
 <p>Every frame now: entanglement-tagged (gate path <a href="L5-trust-and-identity.html#c7.1.2">L5 7.1.2</a> c), payload encrypted under the
 entanglement's key (<a href="L5-trust-and-identity.html#c7.3">L5 7.3</a>) — no key negotiation; <strong>the classification names the key</strong>.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: #, Signal, What it carries, Layer facts"><table>
 <thead>
 <tr>
 <th>#</th>
@@ -312,7 +308,7 @@ the accepted metadata bound of <a href="L5-trust-and-identity.html#c7.3.4">L5 7.
 tokens beforehand — the wallet's equivalent of withdrawing cash — and the merchant will
 reconvert them into dollars afterwards, the equivalent of banking the till. Three phases,
 and only the outer two touch any rail beyond the mesh:</p>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Phase, Parties, Where it runs"><table>
 <thead>
 <tr>
 <th>Phase</th>
@@ -364,7 +360,7 @@ where this example already prices risk: <strong>the amount ladder.</strong> Smal
 standing level and the float; large amounts demand a fingerprint today and, at the token
 system's discretion, an online check — a choice the token design makes, not the mesh.</p>
 <h2 id="the-open-edges-this-example-touches">The open edges this example touches</h2>
-<div class="table-wrap"><table>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table: Edge, Register"><table>
 <thead>
 <tr>
 <th>Edge</th>
@@ -395,12 +391,12 @@ system's discretion, an online check — a choice the token design makes, not th
 </tbody>
 </table></div>
 
-</article>
+</article></main></div>
 <footer>
     <p><a href="/standard/">Contents</a> · <a href="/standard/glossary.html">Glossary</a> ·
     <a href="/standard/clauses.html">Clauses</a> · <a href="/standard/history.html">History</a> ·
     <a href="/">reality2.ai</a></p>
-    <p class="stamp">Reality2 Standard <strong>version 0.8.0</strong>, 2026-08-05. Built from <span class="mono">f5bf72b</span>, rendered 2026-08-05. <a href="/standard/history.html">Version history</a> · Cite the version. </p>
+    <p class="stamp">Curated working draft · declared source version 0.9.0 · revision <span class="mono">006d57a4</span>. This is not a tagged release. Cite the revision and clause. <a href="/standard/history.html">Edition notes</a>.</p>
     <p style="margin-top:10px">The normative parts of the Reality2 Standard. Provenance records, the open-questions
     register and the requirements registers are internal and are not published here.</p>
 </footer>
@@ -409,7 +405,7 @@ function toggleTheme(){var c=document.documentElement.getAttribute('data-theme')
 var n=c==='dark'?'light':c==='light'?'high-contrast':'dark';
 if(n==='dark')document.documentElement.removeAttribute('data-theme');
 else document.documentElement.setAttribute('data-theme',n);
-localStorage.setItem('r2-theme',n);
+try{localStorage.setItem('r2-theme',n);}catch(e){}
 var l=n==='high-contrast'?'High contrast':n.charAt(0).toUpperCase()+n.slice(1);
 var s=document.getElementById('theme-status');if(s)s.textContent=l+' theme';
 var tc={dark:'#0e0e12',light:'#f5f2ec','high-contrast':'#000000'}[n];
