@@ -2,7 +2,8 @@
 const canvas = document.getElementById('mesh-bg');
 if (!canvas) return;
 const ctx = canvas.getContext('2d');
-const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!ctx) return;
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 let W, H, bgGradient;
 function resize() {
@@ -1028,6 +1029,10 @@ function draw() {
 
 let lastTime = 0;
 const TARGET_DT = 1000 / 60;
+let animationFrame = null;
+let playing = false;
+let motionChosen = false;
+const motionToggle = document.getElementById('motion-toggle');
 
 function loop(now) {
   if (!lastTime) lastTime = now;
@@ -1037,18 +1042,36 @@ function loop(now) {
 
   tick();
   draw();
-  requestAnimationFrame(loop);
+  animationFrame = requestAnimationFrame(loop);
 }
 
-if (reduceMotion) {
+function setPlaying(value) {
+  if (animationFrame !== null) cancelAnimationFrame(animationFrame);
+  animationFrame = null;
+  playing = value;
+  lastTime = 0;
+  if (playing) animationFrame = requestAnimationFrame(loop);
+  if (motionToggle) {
+    motionToggle.textContent = playing ? 'Pause background' : 'Play background';
+    motionToggle.hidden = false;
+  }
+}
+
+if (motionPreference.matches) {
   // Respect prefers-reduced-motion: develop a representative still frame and stop —
   // no continuous animation for motion-sensitive users. Redraw on resize.
   for (let i = 0; i < 400; i++) tick();
   draw();
-  window.addEventListener('resize', draw);
-} else {
-  requestAnimationFrame(loop);
 }
+setPlaying(!motionPreference.matches);
+window.addEventListener('resize', draw);
+motionToggle?.addEventListener('click', () => {
+  motionChosen = true;
+  setPlaying(!playing);
+});
+motionPreference.addEventListener('change', event => {
+  if (!motionChosen) setPlaying(!event.matches);
+});
 
 })();
 

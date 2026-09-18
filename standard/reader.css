@@ -39,6 +39,10 @@ ul.ix .num { flex-shrink:0; }
 .reader-layout [hidden] { display:none !important; }
 .reader-permalink { display:inline-block; margin-left:8px; font:14px var(--mono); opacity:0.6; }
 .reader-permalink:hover, .reader-permalink:focus { opacity:1; }
+@media (hover:hover) and (pointer:fine) {
+    .reader-permalink { opacity:0; }
+    :is(h2, h3, h4):hover .reader-permalink, .reader-permalink:focus { opacity:1; }
+}
 .reader-actions { display:flex; justify-content:flex-end; margin-bottom:16px; }
 .reader-actions button { background:var(--surface); color:var(--text-dim); border:1px solid var(--text-faint); border-radius:6px; padding:7px 12px; cursor:pointer; font:13px var(--sans); }
 /* Keep the diagram readable instead of shrinking its text to phone width. */
